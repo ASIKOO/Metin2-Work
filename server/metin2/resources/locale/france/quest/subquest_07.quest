@@ -1,0 +1,172 @@
+quest subquest_7 begin
+	state start begin
+		when login or levelup with pc.level >= 12 and pc.level <= 17 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+		local v = find_npc_by_vnum(20008)
+
+		if v!= 0 then
+			target.vid("__TARGET2__", v, "Le meilleur livre de cuisine")
+		end
+	end
+
+		when __TARGET2__.target.click or 20008.chat."Le meilleure livre de cuisine" with pc.level >= 12 begin
+			target.delete("__TARGET2__")
+
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Hmm, vous connaissez peut-être Soon?  ")
+			say("C'est un rat de bibliothèque qui passe son")
+			say("temps à lire.")
+			say("J'ai entendu dire que Soon possède un bon livre")
+			say("de cuisine. S'il vous plaît vérifier si cela ")
+			say("est vrai.")
+			say("Ce livre de cuisine est pleine de recettes ")
+			say("rares et exotiques que je veux apprendre.")
+			say("")
+			set_state(ask_to_sunyugil)
+		end
+	end
+	state ask_to_sunyugil begin
+		when letter begin
+			send_letter("Le meilleur livre de cuisine.")
+		end
+		when letter begin
+			local v=find_npc_by_vnum(20023)
+			if 0== v then
+			else
+				target.vid("__TARGET__",v,"Soon")
+			end
+		end
+		when info or button begin
+			say_title(" Le meilleur livre de cuisine.")
+			say("")
+			--                                                  |
+			say("Questionnez Soon au sujet du livre de cuisine")
+			say("qui intéresse Octavio.")
+			say("")
+		end
+		when 20023.chat."A propos du livre de cuisine." begin
+			target.delete("__TARGET__")
+			say_title("Mr.Soon:")
+			say("")
+			--                                                  |
+			say("Blah, blah ... ")
+			say("Oh! Vous encore, de quoi avez-vous besoin?")
+			say("Oui, j'ai ce livre de cuisine.")
+			say("Je n'en ai pas besoin et je peux vous le donner.")
+			say("Mais je vous en prie, ne me dérangez plus!")
+			say("")
+			set_state(back_to)
+		end
+	end
+
+	state back_to begin
+		when letter begin
+			send_letter("Le meilleur livre de cuisine.")
+		end
+		when letter begin
+			local v=find_npc_by_vnum(20008)
+			if 0==v then
+			else
+				target.vid("__TARGET3__",v,"Octavio.")
+			end
+		end
+		when info or button begin
+			say_title("Le meilleur livre de cuisine.")
+			say("")
+			say("Livrer le livre de cuisine à Octavio.")
+			say("")
+		end
+		when __TARGET3__.target.click or 20008.chat."Voici le livre de cuisine" begin
+			target.delete("__TARGET3__")
+			--                                                  |
+			say_title("Octavio:")
+			say("")
+			say("Hmm je veux m'assurer que ce livre est le bon.")
+			say("Oh, c'est vraiment un livre de cuisine ")
+			say("fantastique, je vais cuisiner ce plat-çi, ")
+			say("c'est sûr!")
+			wait()
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Comme vous êtes déjà toujours là?")
+			say("Je pourrais vous demander une autre faveur?")
+			say("J'ai presque tous les ingrédients de ce plat,")
+			say("mais j'ai besoin d'un intestin de loup gris.")
+			say("Ce n'est pas facile à obtenir. ")
+			say("S'il vous plaît obtenez cela pour moi.")
+			say("")
+			set_state(hunt_for_oku)
+		end
+	end
+	state hunt_for_oku begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Le meilleur livre de cuisine")
+			q.set_title("Le meilleur livre de cuisine")
+			q.start()
+		end
+		when info or button begin
+			say_title("Le meilleur livre de cuisine")
+			say("Donnez un intestin de loup gris à Octavio")
+			say("")
+			say_item_vnum("30026")
+			say("")
+		end
+
+		when 106.kill begin
+			local s = number(1, 80)
+			if s <= 5 and pc.count_item("30026")==0  then
+				pc.give_item2("30026", 1)
+				local v=find_npc_by_vnum(20008)
+				if 0==v then
+				else
+					target.vid("__TARGET4__",v,"")
+				end
+			end
+		end
+		when __TARGET4__.target.click or 20008.chat."J'ai l'intestin de loup gris." begin
+			target.delete("__TARGET4__")
+			if pc.count_item("30026") >= 1 then
+				say_title("Octavio:")
+				say("")
+				--                                                  |
+				say("Merci, maintenant je peux cuisiner ce plat.")
+				say("Je suis vraiment content de votre aide.")
+				say("")
+				pc.remove_item("30026")
+				pc.give_exp2(12000)
+				set_quest_state("levelup","run")
+				pc.change_money(12000 )
+				pc.give_item2(22010, 1)
+				say_title("Reward:")
+				say("")
+				say_reward("Vous recevez 12.000 points d'expérience." )
+				say_reward("Vous recevez 12.000 Yang.")
+				say_reward("Vous recevez un parchemin de retour.")
+				say("")
+				clear_letter()
+				set_state(__COMPLETE__)
+			else
+				say_title("Octavio:")
+				say("")
+				--                                                  |
+				say("J'ai encore besoin d'un intestin de loup gris.")
+				say("S'il vous plaît rapportez moi en un.")
+				say("")
+			end
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

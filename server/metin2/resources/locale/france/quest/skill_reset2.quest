@@ -1,0 +1,64 @@
+quest skill_reset2 begin
+	state start begin
+		when oldwoman.chat."Compétences remises à zéros" begin
+
+			local cost = 10000 + pc.level * 4000
+
+			if pc.get_skill_group() == 0 then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Vous n'avez pas encore commencé à apprendre !")
+				say("Tant que vous n'aurez pas dépensé de point de")
+				say("compétence, vous ne pourrez pas les")
+				say("réinitialiser. Revenez me voir si vous faites une")
+				say("erreur lors de votre apprentissage et que vous")
+				say("voulez la corriger, alors je me ferais une joie")
+				say("de vous aider.")
+			else
+				if pc.level > 29 then
+					---                                                   l
+					say_title("La vieille dame:")
+					say("Votre niveau est "..pc.level..". Je ne peux pas vous aider. A")
+					say("ce niveau, vous ne pouvez plus changer vos")
+					say("compétences. C'est uniquement avant le niveau 30")
+					say("que vous pouvez choisir à nouveau.")
+				else
+					---                                                   l
+					say_title("La vieille dame:")
+					say("Bonjour, vous êtes venu au bon endroit. Votre")
+					say("regard montre votre douleur. Je permets aux gens")
+					say("d'oublier leurs compétences, ils peuvent alors")
+					say("en choisir de nouvelles. Voulez-vous oublier vos")
+					say("compétences et recommencer depuis le début?")
+					say("Cela vous couteras "..cost.." Yangs")
+
+					local s = select("Compétences remises à zéros", "Pas de remise à zéro")
+
+					if s == 1 then
+						if pc.money < cost then
+							---                                                   l
+							say_title("La vieille dame:")
+							say("Vous n'avez pas assez de Yangs. Je ne peux pas")
+							say("vous aider, j'ai besoin d'argent pour vivre.")
+						else
+							---                                                   l
+							say_title("La vieille dame:")
+							say("Félicitation !")
+							say("Vos compétences on été remises à zéros.")
+							pc.changegold(-cost)
+							pc.clear_skill()
+							pc.set_skill_group(0)
+						end
+					end
+
+					if s == 2 then
+						---                                                   l
+						say_title("La vieille dame:")
+						say("Si vous voulez oublier vos compétences, revenez")
+						say("me voir à nouveau.")
+					end
+				end
+			end
+		end
+	end
+end

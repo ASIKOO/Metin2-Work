@@ -1,0 +1,69 @@
+quest main_quest_lv9 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 9 begin
+			set_state( gototeacher )
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			send_letter("L'entrainement est terminé.")
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Gardien du village.")
+			end
+		end
+		when button or info begin
+			---                                                   l
+			say_title("L'entrainement est terminé.")
+			say("")
+			say("Le gardien du village veut vous voir.")
+			say("Allez à sa rencontre, il a une bonne nouvelle")
+			say("pour vous. A tout de suite.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Gardien du village:")
+			say("")
+			---                                                   l
+			say("Je pense que vous êtes prêt pour des missions")
+			say("plus difficiles, il ne sera pas aussi facile")
+			say("de les réussir comme jusqu'à maintenant.")
+			say("Vous devez travailler dur pour notre royaume,")
+			say("vous aurez beaucoup de batailles qui vous")
+			say("seront douloureuses, soyez toujours attentif.")
+			say("")
+			say("Je vous félicite.")
+			say("Vous avez mené à bien toutes les missions que")
+			say("je vous ai confié.")
+			say("Je suis fier de vous et je vous souhaite bonne")
+			say("chance pour la suite.")
+			say("")
+			wait()
+			say_title("Gardien du village:")
+			say("")
+			---                                                   l
+			say("En effet,")
+			say("Le capitaine va vous prendre en charge.")
+			say("Ce n'est pas quelqu'un de facile à cerner")
+			say("mais vous vous y habituerez.")
+			say("Bonne journée à vous et prenez ceci en guise")
+			say("de récompense finale.")
+			say("")
+			say_title("Reward:")
+			say("")
+			say_reward("Experience : 5.000")
+			say_reward("Yang: 5.000")
+			pc.give_exp2( 5000 )
+			pc.change_money( 5000 )
+			clear_letter()
+			set_state( __COMPLETE__ )
+			set_quest_state("main_quest_lv10", "run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

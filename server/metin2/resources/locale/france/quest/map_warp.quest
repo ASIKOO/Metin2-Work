@@ -1,0 +1,264 @@
+quest map_warp begin
+	state start begin
+		when 9012.chat."Voulez-vous voyager ?" begin
+			---                                                   l
+			say_title("Téléporteur:")
+			say("C'est un village agréable...Mais se passe t'il")
+			say("autre chose ailleurs ? Il y a un endroit")
+			say("particulier ou je peux te téléporter? Cependant,")
+			say("la mal y grandit de plus en plus, l'espace et le")
+			say("temps tombent dans le chaos. C'est pour cela que")
+			say("le retour n'est pas toujours possible... Hmm...")
+			say("Voulez-vous être téléporté là-bas ?")
+
+			local main_set = select("Oui", "Non")
+
+			if main_set == 2 then
+				return
+			end
+
+			if pc.get_level() < 10 then
+				---                                                   l
+				say_title("Téléporteur:")
+				say("Hmm ... Avec votre niveau, vous ne pouvez")
+				say("supporter le voyage espace temps... Quand vous")
+				say("aurez atteint un niveau supérieur à 10, vous")
+				say("serez capable d'endurer ce voyage.")
+				return
+			end
+
+			local map = pc.get_map_index()
+			local empire = pc.get_empire()
+			local level = pc.get_level()
+			local cost = math.floor(level / 5) * 1000
+
+			if cost < 1000 then
+				cost = 1000
+			end
+
+			---                                                   l
+			say_title("Téléporteur:")
+			say("Où veux tu être téléporté?")
+			say_reward(string.format("Cela coute %d Yangs.", cost))
+
+			if map == 1 or map == 3 or map == 21 or map == 23 or map == 41 or map == 43 then
+
+				local guild_map_names = {
+					"Comté Jungrang",
+					"Comté Waryong",
+					"Comté Imha",
+				}
+
+				guild_map_name = guild_map_names[empire]
+
+				local guild_village_map_names = {
+					"Comté Miryang",
+					"Comté Songpa",
+					"Comté Daeyami",
+				}
+
+				guild_village_map_name = guild_village_map_names[empire]
+
+				local sub_set = 0
+
+				if level < 60 then
+					sub_set = select (guild_map_name, "Vallée de Seungryoung", "Désert de Yongbi", "Mont Sohan", guild_village_map_name, "Fermer")
+
+					if sub_set == 6 then
+						return
+					end
+				else
+					sub_set = select (guild_map_name, "Vallée de Seungryoung", "Désert de Yongbi", "Mont Sohan", guild_village_map_name, "Continuer")
+
+					if sub_set == 6 then
+						---                                                   l
+						say_title("Téléporteur:")
+						say("Il y a des endroits où il sera possible de te")
+						say("téléporter une fois que tu seras niveau 60.")
+						say_reward(string.format("Mais cela te coutera %d Yangs.", cost))
+
+						sub_set = select ("Terre de feu", "Tour des démons", "Bois enchanté ", "Bois Rouge", "Retour", "Fermer") + 5
+
+						if sub_set == 11 then
+							return
+						end
+
+						if sub_set == 10 then 
+							---                                                   l
+							say_title("Téléporteur:") 
+							say("Dépêche-toi de me dire où tu veux être")
+							say("téléporté, je suis fatigué.")
+                            			say_reward(string.format("Cela coûte %d Yangs, mais je vais penser à ",cost))
+							say_reward("augmenter mes tarifs si vous continuez ainsi.")
+
+							sub_set = select (guild_map_name, "Vallée de Seungryoung", "Désert de Yongbi", "Mont Sohan", guild_village_map_name, "Continuer")
+
+							if sub_set == 6 then
+								---                                                   l
+								say_title("Téléporteur:")
+								say("Il y a des endroits où il sera possible de te")
+								say("téléporter une fois que tu seras niveau 60.")
+								say_reward(string.format("Mais cela te coutera %d Yangs.", cost))
+
+								sub_set = select ("Terre de feu", "Tour des démons", "Bois enchanté ", "Bois Rouge", "Fermer") + 5
+
+								if sub_set == 10 then
+									return
+								end
+ 							end
+						end
+					end
+				end
+
+				if pc.gold < cost then
+					---                                                   l
+					say_title("Téléporteur:")
+					say("Je pourrais te téléporter gratuitement, mais")
+					say("j'ai une famille à nourrir. Et pour se faire, il")
+					say("faut que je gagne de l'argent.")
+					say_reward(string.format("Cela coute %d Yangs.", cost))
+					return
+				end
+
+				pc.changegold(-cost)
+
+				local warp = {
+
+					--04 metin2_map_guild_01
+					--24 metin2_map_guild_02
+					--44 metin2_map_guild_03
+					{
+						{ 128500, 1000 },
+						{ 179500, 1000 },
+						{ 271800, 13000 },
+					},
+
+					--64 map_n_threeway
+					{
+						{ 402100, 673900 },
+						{ 270400, 739900 },
+						{ 321300, 808000 },
+					},
+
+					--63 metin2_map_n_desert_01
+					{
+						{ 217800, 627200 },
+						{ 221900, 502700 },
+						{ 344000, 502500 },
+					},
+
+					--61 map_n_snowm_01
+					{
+						{ 434200, 290600 },
+						{ 375200, 174900 },
+						{ 491800, 173600 },
+					},
+
+					--06 metin2_guild_village_01
+					--26 metin2_guild_village_02
+					--46 metin2_guild_village_03
+					{
+						{ 230500, 232000 },
+						{ 640100, 411200 },
+						{ 281700, 846400 },
+					},
+
+					--62 metin2_map_n_flame_01
+					{
+						{ 599400, 756300 },
+						{ 597800, 622200 },
+						{ 730700, 689800 },
+					},
+
+					--66 metin2_map_deviltower1
+					{
+						{ 590500, 110500 },
+						{ 590500, 110500 },
+						{ 590500, 110500 },
+					},
+
+					--67 metin2_map_trent
+					{ 
+						{ 288700, 5700 },
+						{ 288700, 5700 },
+						{ 288700, 5700 },
+					},
+
+					--68 metin2_map_trent02
+					{ 
+						{ 1119900, 70800 },
+						{ 1119900, 70800 },
+						{ 1119900, 70800 },
+					},
+				}
+
+				test_chat(warp[sub_set][empire][1]..warp[sub_set][empire][2])
+				---                                                   l
+				say_title("Téléporteur:")
+				say("Je vais vous téléporter.")
+				say("L'endroit est très dangereux...")
+				say("Prudence et bonne chance...")
+				wait()
+				pc.warp(warp[sub_set][empire][1], warp[sub_set][empire][2])
+
+			else
+				local sub_set2 = 3
+
+				if empire == 1 then 
+					sub_set2 = select ("Yongan", "Comté Jajang", "Fermer")
+
+				elseif empire == 2 then
+					sub_set2 = select ("Joan", "Comté Bokjung", "Fermer")
+
+				elseif empire == 3 then
+					sub_set2 = select ("Pyungmoo", "Comté Bakra", "Fermer")
+				end
+
+				if sub_set2 != 3 then
+					if pc.gold < cost then
+						---                                                   l
+						say_title("Téléporteur:")
+						say("Je pourrais te téléporter gratuitement, mais")
+						say("j'ai une famille à nourrir. Et pour se faire, il")
+						say("faut que je gagne de l'argent.")
+						say_reward(string.format("Cela coute %d Yangs.", cost))
+					else
+						if sub_set2 == 1 then
+							---                                                   l
+							say_title("Téléporteur:")
+							say("Je vais te téléporter là bas.")
+							wait()
+
+							if empire == 1 then
+								pc.warp(474300,954800)
+
+							elseif empire == 2 then
+								pc.warp(63800,166400)
+
+							elseif empire == 3 then
+								pc.warp(959900,269200)
+							end
+
+						elseif sub_set2 == 2 then
+							---                                                   l
+							say_title("Téléporteur:")
+							say("Je vais te téléporter là bas.")
+							wait()
+
+							if empire == 1 then
+								pc.warp(353100,882900)
+
+							elseif empire == 2 then
+								pc.warp(145500,240000)
+
+							elseif empire == 3 then
+								pc.warp(863900,246000)
+							end
+						end
+						pc.changegold(-cost)
+					end
+				end
+			end
+		end
+ 	end
+end

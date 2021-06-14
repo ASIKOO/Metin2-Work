@@ -1,0 +1,193 @@
+quest arena_manager begin
+	state start begin
+		when 20017.chat."Combats d'entrainement." begin
+			if game.get_event_flag("arena_close") > 0 then      
+				---                                                   l
+				say_title("Yu-Hwan:")
+				say("L'arêne de duel est occupée pour le moment.")              
+				return
+			end
+
+			if not npc.lock() then                
+				---                                                   l
+				say_title("Yu-Hwan:")
+				say("Je suis déjà occupé avec quelqu'un d'autre!")
+				return
+			end
+
+			local useMinLevel = game.get_event_flag("arena_use_min_level")
+
+			if useMinLevel == 0 then
+				useMinLevel = 25
+			end
+
+			if pc.get_level() < useMinLevel then
+				---                                                   l
+				say_title("Yu-Hwan:")
+				say("Il faut être niveau "..useMinLevel.." minimum.")          
+				npc.unlock()                
+				return
+			else
+				---                                                   l
+				say_title("Yu-Hwan:")
+				say("L'arene sert à affronter des joueurs connectés.")
+				say("Ils recevront une invitation à accepter un duel.")
+				say("Ils peuvent accepter ou refuser selon leur envie.")
+				say("Que voulez-vous faire ?")
+
+				local s=select("Inscrire mon adversaire","Fermer")
+
+				if 2==s then				
+					return					
+				end
+
+				---                                                   l
+				say_title("Yu-Hwan:")
+				say("Veuillez entrer le nom de la personne avec")
+				say("laquelle vous allez vous entrainer.")
+
+				local sname = input()
+
+				if sname == "" then
+					---                                                   l
+					say_title("Yu-Hwan:")
+					say("Vous ne savez pas avec qui vous voulez vous")
+					say("battre?")
+					npc.unlock()
+					return
+				else
+					---                                                   l
+					say_title("Yu-Hwan:")
+					say("Votre invitation à combattre a été envoyée au")
+					say("joueur "..sname..".")
+					wait()
+
+					local opp_vid = find_pc_by_name(sname)
+
+					if opp_vid == 0 then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say("Désolé mais "..sname.." n'est pas connecté.")					
+						npc.unlock()									
+						return
+					
+					elseif opp_vid == pc.get_vid() then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say("Vous ne pouvez pas vous défier vous même.")
+						npc.unlock()
+						return
+					end
+
+					local old = pc.select(opp_vid)
+					local opp_level = pc.get_level()
+					pc.select(old)
+
+					if opp_level < useMinLevel then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say("L'adversaire n'a pas atteint le niveau "..useMinLevel..".")
+						npc.unlock()										
+						return
+					end
+
+					if not npc.is_near_vid(opp_vid, 10) then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say("L'opposant doit être à vos cotés.")
+						say(sname.." est trop loin.")										
+						npc.unlock()
+						return
+					end
+
+					local a = arena.is_in_arena(opp_vid)
+
+					if a == 0 then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say(sname.." est déjà dans l'arène.")
+						npc.unlock()
+						return
+					
+					end
+
+					local agree = confirm(opp_vid, "Accepter le combat contre "..pc.name.."?", 30)
+
+					if agree != CONFIRM_OK then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say(sname.." a refusé le combat.")
+						npc.unlock()							
+						return
+					end
+
+					s = arena.start_duel(sname, 3)
+
+					if s == 0 then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say("Duel commencé.")
+						say("1 victoire.")
+
+					elseif s == 2 then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say("2ème victoire.")
+
+					elseif s == 3 then
+						---                                                   l
+						say_title("Yu-Hwan:")
+						say("3ème victoire.")
+						say("Vous avez gagné.")
+					end
+				end
+			end
+			npc.unlock()
+		end
+
+		when 20017.chat."Regardez un entrainement au combat." begin
+
+			local g = arena.get_duel_list()
+			local arena_name = {}
+			local arena_observer = {}
+
+			table.foreachi(g,
+				function(n, p)
+					arena_name[n] = p[1].." vs "..p[2]
+					arena_observer[n] = { p[3], p[4], p[5] }
+				end
+			)
+
+			table.insert(arena_name, "Combat")
+			table.insert(arena_observer, 0)
+
+			local count = table.getn(g)
+			
+			if count == 0 then
+				---                                                   l
+				say_title("Yu-Hwan:")			
+				say("Il n'y a actuellement aucun entrainement au")
+				say("combat.")				
+				return
+			else
+				---                                                   l
+				say_title("Yu-Hwan:")
+				say("En ce moment, il y a "..count.." observateurs:")				
+				wait()
+			end
+
+			if table.getn(g) != 0 then
+
+				local s = select_table(arena_name)
+
+				if table.getn(arena_observer) == s then
+					return
+				end
+
+				if table.getn(arena_observer) >= s then
+					arena.add_observer(arena_observer[s][1], arena_observer[s][2], arena_observer[s][3])
+				end
+			end
+		end
+	end
+end

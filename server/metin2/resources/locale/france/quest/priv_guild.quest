@@ -1,0 +1,103 @@
+quest priv_guild begin
+	state start begin
+		when guild_man1.chat."GM: Gestion des bonus de guilde." or
+			guild_man2.chat."GM: Gestion des bonus de guilde." or
+			guild_man3.chat."GM: Gestion des bonus de guilde." with pc.is_gm() begin
+
+			---                                                   l
+			say_title("Gestion des bonus de guilde:")
+			say("Veuillez saisir le nom de la guilde choisis:")
+
+			local g_name = input()
+			local g_id = __get_guildid_byname(g_name)
+
+			if 0 == g_id then
+				---                                                   l
+				say_title("Gestion des bonus de guilde:")
+				say("Cette guilde n'existe pas.")
+				say_reward("Réssayer en saisissant un nom de guilde qui existe.") 
+				return
+			end
+
+			---                                                   l
+			say_title("Gestion des bonus de guilde:")
+			say_reward("Liste des bonus mis en place actuellement:")
+			say_reward(__get_guild_priv_string(g_id))
+			say("Choisissez le type de bonus à mettre en place:")
+
+			local t = select ("Quota d'objets lâchés", "Quota de yangs", "Tempête de yangs", "Quota d'expérience", "Fermer")
+
+			if t == 5 then
+				return
+			end
+
+			local title_list = {locale.item_drop_pct, locale.gold_drop_pct, locale.tengold_drop_pct, locale.exp_pct}
+
+			---                                                   l
+			say_title("Gestion des bonus de guilde:")
+			say_reward(string.format("Guilde séléctionné: %s", g_name))
+			say_reward(string.format("Bonus séléctionné: %s", title_list[t]))
+			say("Choisissez le pourcentage du bonus:")
+
+			local g={0, 10, 20, 30, 40, 50, 100, 200}
+
+			local p = select(g[1]..'%', g[2]..'%', g[3]..'%', g[4]..'%', g[5]..'%', g[6]..'%', g[7]..'%', g[8]..'%', 'Fermer')
+
+			if p == 9 then
+				return
+			end
+
+			---                                                   l
+			say_title("Gestion des bonus de guilde:")
+			say_reward(string.format("Guilde séléctionné: %s", g_name))
+			say_reward(string.format("Bonus séléctionné: %s", title_list[t]))
+			say("Combien de temps le bonus de guilde doit rester ?")
+
+			local v = 0
+
+			local h = select('6 heures', '12 heures', '24 heures', 'Autre', 'Fermer')
+
+			if 5 == h then
+				return
+
+			elseif 4 == h then
+			---                                                   l
+			say_title("Gestion des bonus de guilde:")
+			say_reward(string.format("Guilde séléctionné: %s", g_name))
+			say_reward(string.format("Bonus séléctionné: %s", title_list[t]))
+			say("Veuillez saisir en heures le temps choisis:")
+
+			v=input()
+
+			if v == "" then
+				v = 0
+			else
+				v=tonumber(v)
+			end
+
+			elseif 3 == h then
+				v=24
+			elseif 2 == h then
+				v=12
+			elseif 1 == h then
+				v=6
+			end
+
+			---                                                   l
+			say_title("Gestion des bonus de guilde:")
+			say_reward(string.format("Guilde séléctionné: %s", g_name))
+			say_reward(string.format("Bonus séléctionné: %s", title_list[t]))
+			say_reward("Durée du bonus séléctionné: "..v.." heure(s)")
+			say("Voulez-vous vraiment activer le bonus de guilde ?")
+
+			local s = select("Oui", "Non")
+
+			if 1 == s then
+				---                                                   l
+				say_title("Gestion des bonus de guilde:")
+				say_reward("Le bonus de guilde à été activé.")
+				__give_guild_priv(g_id, t, g[p], v*60*60)
+			end
+		end
+	end
+end

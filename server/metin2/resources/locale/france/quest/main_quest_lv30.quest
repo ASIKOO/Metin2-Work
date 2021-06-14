@@ -1,0 +1,225 @@
+---------------------------------
+-- Main Quest LV30
+-- Find Uriel the Wise
+---------------------------------
+quest main_quest_lv30 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter begin
+			if pc.get_level() >= 30 then
+				setstate( gotoeUriel )
+			end
+		end
+	end
+	state gotoeUriel begin
+		when letter begin
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel")
+			end
+		end
+		when letter begin
+			send_letter( "L'aventure commence")
+		end
+		when info or  button begin
+			say_title("L'aventure commence")
+			say("")
+			----                                                  l
+			say("Uriel a enfin obtenu quelques informations ")
+			say("sur les pierres metins. Allez le voir de suite.")
+			say("")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Uriel:")
+			say("")
+			 ----                                                  l
+			say("Bonjour à vous aventurier,")
+   			say("J'ai fait une découverte qui pourrait vous ")
+   			say("intéresser. Hier, j'ai acheté un vieux journal")
+   			say("intime à Soon. Il semble avoir appartenu aux")
+   			say("magiciens de l'ancien temps. Cette découverte")
+			say("pourrait être capitale dans la compréhension des")
+			say("pierres metin. En effet, toute personne n'est pas")
+			say("censée ignorer que les pierres metins sont")
+			say("apparues à la suite d'un de leur rituel.")
+			say("Nous pourrions enfin découvrir le fin mot de")
+			say("cette histoire. Malheureusement, le journal est")
+			say("incomplet. Certaines pages ont été arrachées.")
+			wait()
+			say_title("Uriel:")
+			say("")
+			 ----                                                  l
+			say("Les premières pages du journal témoignent de")
+   			say("l'existence d'une nouvelle magie.")
+   			say("Le dialecte utilisé est obscure mais le journal")
+			say("fait référence à un monument dans le donjon ")
+			say("facile des singes.")
+			say("Rendez vous sur place et ramenez moi les ")
+			say("informations figurant sur ce monument.")
+			say("")
+			setstate( clickstone )
+			q.done()
+		end
+	end
+	state clickstone begin
+		when letter begin
+			local v=find_npc_by_vnum(20352)
+			if 0==v then
+			else
+				target.vid("__TARGET1__", v, "Le Monument de Hasun")
+			end
+		end
+		when letter begin
+			send_letter( "Le Monument de Hasun")
+		end
+		when info or  button begin
+			say_title("Le Monument de Hasun")
+			say("")
+			say("Uriel a déchiffré les premières pages du journal.")
+			say("Celles ci ont fait mention d'un monument nommé ")
+			say("Hasun situé dans la salle du donjon des singes")
+			say("facile.Rendez vous sur place et recueillez les ")
+			say("informations sur le monument pour Uriel.")
+			say("")
+		end
+		when __TARGET1__.target.click begin
+			target.delete("__TARGET1__")
+			say("")
+			say("Vous avez recueilli les informations.")
+			say("Retournez maintenant voir Uriel.")
+			say("")
+			setstate(gotoeUriel2)
+		end
+	end
+	state gotoeUriel2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel")
+			end
+		end
+		when letter begin
+			send_letter("Retournez voir Uriel")
+		end
+		when info or button begin
+			say("Uriel attend impatiemment de vos nouvelles")
+			say("Ne le faîtes plus attendre, foncez!")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			----                                                  l
+			say_title("Uriel:")
+			say("")
+			say("Intéressant...très intéressant...")
+   			say("Ces informations montrent clairement que cette")
+			say("histoire de magie est tout ce qu'il y a de plus")
+			say("réel.")
+   			say("Toutefois, le dialecte utilisé est très ancien.")
+   			say("J'aurais besoin de plus d'informations sur le")
+			say("langage en lui même. Ces glyphes m'ont l'air")
+			say("semblables à ceux présent sur le monument du ")
+			say("Seul Rong, dans la vallée des dragons.")
+			say("Rends toi sur place et rapporte moi les textes")
+			say("présent sur le monument.")
+			set_state(clickplace)
+		end
+	end
+	state clickplace begin
+		when letter begin
+			local v=find_npc_by_vnum(20353)
+			if 0==v then
+			else
+				target.vid("__TARGET2__", v, "Monument")
+			end
+		end
+		when letter begin
+			send_letter( "Le monument du Seul Rong")
+		end
+		when info or  button begin
+			say_title("Le monument du Seul Rong")
+			say("")
+			----                                                  l
+			say("Pendant qu'Uriel étudie les inscriptions du ")
+			say("premier monument, vous devriez aller voir le")
+			say("monument du Seul Rong dans la vallée des Dragons.")
+			say("")
+		end
+		when __TARGET2__.target.click begin
+			target.delete("__TARGET2__")
+			say_title("Les inscriptions...")
+			say("")
+			say("Vous avez recueilli les informations.")
+			say("Retournez maintenant voir Uriel.")
+			say("")
+			setstate(gotoeUriel3)
+			q.done()
+		end
+	end
+	state gotoeUriel3 begin
+		when letter begin
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel")
+			end
+		end
+		when letter begin
+			send_letter( "Retournez voir Uriel")
+		end
+		when info or  button begin
+			say_title("Retournez voir Uriel")
+			say("")
+			say("Uriel attend impatiemment de vos nouvelles.")
+			say("Ne le faîtes plus attendre, foncez!")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			----                                                  l
+			say_title("Uriel:")
+			say("")
+			say_reward("Sous le règne de l'empereur Xiang, nous avons")
+			say_reward("prospéré, nous étions craints et respectés mais")
+			say_reward("cela ne nous suffisait pas...")
+			say_reward("Nous avions beau être des êtres d'exceptions,")
+			say_reward("aussi puissant que nous étions, nous avions nous")
+			say_reward("aussi notre faiblesse:l'orgueil. Nous devions donc")
+			say_reward("accumuler plus de pouvoirs. Nous nous sommes")
+			say_reward("donc rendu à...")
+			say("")
+			wait()
+			say_title("Uriel :")
+			say("")
+			----                                                  l
+			say("A partir de là, le texte devient illisible.")
+			say("Je vais quand même tenter d'en récupérer une ")
+			say("partie. ")
+			say("Merci de m'avoir aidé.Nous serons surement amené")
+			say("à nous revoir...")
+			say_title("Reward:")
+			say("")
+			say_reward("Experience : 380.000" )
+			say_reward("Yang: 100.000")
+			say_reward("Item: changement de bonus")
+			say("")
+			pc.give_exp2( 380000 )
+			pc.change_money( 100000 )
+			pc.give_item2(71151)
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv32","run")
+			q.done()
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

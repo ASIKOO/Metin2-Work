@@ -1,0 +1,149 @@
+----------------------------------
+-- Main Quest LV27
+-- Destroy the Metin Stones----------------------------------
+quest main_quest_lv27 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter begin
+			if pc.get_level() >= 27 then
+				setstate( gotoboss )
+			end
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Le signal de détresse du capitaine!" )
+			q.set_title( "Le signal de détresse du capitaine!" )
+			q.start()
+		end
+		when button or info begin
+			say_title("Le signal de détresse du capitaine!")
+			say("")
+			----                                                  l
+			say("La destruction causée par les pierres metins  ")
+			say("ne cessent de s'agrandir.")
+			say("Nous devons trouver une solution à ça.")
+			say("Allez voir le Capitaine.")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			----                                                  l
+			say_title("Capitaine:")
+			say("")
+			say("J'ai entendu dire que vous travaillez dur. Les villageois")
+			say("parle beaucoup de vous en des termes élogieux.")
+			say("Je vous remercie, maintenant je sais où est votre place.")
+			say("Ne vous énervez pas! Je plaisantais! Hahaha.")
+			say("Je sais que vous êtes talentueux.")
+			say("")
+			say("Les pierres metins se répandent. Cela n'apporte que ")
+			say("des soucis en plus.")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			----                                                  l
+			say("Pendant que les pierres metins se répandent,")
+			say("la population souffre de plus en plus.")
+			say("Cela signifie que nous devons détruire les ")
+			say("pierres metins.")
+			say("Je me demande si les prédictions des chamanes sur")
+			say("le retour du Seigneur Dragon est vrai.")
+			say("Prévenez moi quand vous aurez détruit une pierre ")
+			say("de metin.")
+			wait()
+			say_title("Mission:")
+			say("")
+			say("La pierre de metin que vous devez détruire")
+			say("s'appelle Metin noire. Trouvez-la!")
+			say("")
+			setstate( killmetinstone )
+			q.done()
+		end
+	end
+
+	state killmetinstone begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Détruire la pierre metin!" )
+			q.set_title( "Détruire la pierre metin!" )
+			q.start()
+		end
+		when button or info begin
+			say_title("Détruire la pierre metin!")
+			say("")
+			say("Détruisez la pierre Metin noire.")
+			say("")
+		end
+		when 8005.kill begin
+			say_title("Détruire la pierre metin!")
+			say("")
+			say("Vous avez détruit la metin noire.")
+			say("Retournez voir le Capitaine.")
+			say("")
+			setstate(gotoboss2)
+			q.done()
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Metin noire détruite!" )
+			q.set_title( "Allez voir le Capitaine." )
+			q.start()
+		end
+		when button or info begin
+			say_title("Metin noire détruite!")
+			say("")
+			say("Allez voir le Capitaine.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			----                                                  l
+			say_title("Capitaine:")
+			say("")
+			say("Avez-vous détruit la pierre metin?")
+			say("Merci le village est plus en sécurité.")
+			say("")
+			say("D'où peuvent provenir ces pierres de metin ?")
+			say("Il y a vraiment aucune information à ce sujet,")
+			say("même avec tous les problèmes qu'ils sement.")
+			say("J'ai entendu dire qu'Uriel étudie les pierres")
+			say("metins, mais je ne sais pas où il en est.")
+			say("Vous avez fait du bon travail.")
+			say("")
+			wait()
+			say_title("Récompense:")
+			say("")
+			say_reward("Experience : 300.000" )
+			say_reward("Yang:  30.000")
+			say_reward("Item: Ajout bonus")
+			say("")
+			pc.give_exp2( 300000 )
+			pc.change_money( 30000 )
+			pc.give_item2(71152)
+			q.done()
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv30","run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

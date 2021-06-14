@@ -1,0 +1,108 @@
+quest goto_empire_castle begin
+	state start begin
+		when 20097.chat."Allons à la bataille pour le château." begin
+
+			local empire = pc.get_empire()
+
+			if empire==1 then
+
+				a=select("Vers le château Milaard", "Vers le château Listhmos", "Vers le château Dendera", "Annuler")
+
+				if 1==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Milaard.")
+					wait()
+					pc.warp(975200, 133000)
+
+				elseif 2==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Listhmos.")
+					wait()
+					pc.warp(978000, 199500)
+
+				elseif 3==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Dendera.")
+					wait()
+					pc.warp(967900, 199400)
+				else
+					return
+				end
+			else  
+				---                                                   l
+				say("Cette porte ne peut être utilisée que par les")
+				say("valeureux guerriers de l'empire Shinsoo.")
+			end
+		end
+
+		when 20098.chat."Allons à la bataille pour le château." begin
+
+			local empire = pc.get_empire()
+
+			if empire==2 then
+
+				a=select("Vers le château Milaard", "Vers le château Listhmos", "Vers le château Dendera", "Annuler")
+
+				if 1==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Milaard.")
+					wait()
+					pc.warp(977400, 150100)
+
+				elseif 2==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Listhmos.")
+					wait()
+					pc.warp(977200, 185000)
+
+				elseif 3==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Dendera.")
+					wait()
+					pc.warp(925600, 201200)
+				else
+					return
+				end	
+			else  
+				---                                                   l
+				say("Cette porte ne peut être utilisée que par les")
+				say("valeureux guerriers de l'empire Chunjo.")
+			end
+		end
+
+		when 20099.chat."Allons à la bataille pour le château." begin
+
+			local empire = pc.get_empire()
+
+			if empire==3 then
+
+				a=select("Vers le château Milaard", "Vers le château Listhmos", "Vers le château Dendera", "Annuler")
+
+				if 1==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Milaard.")
+					wait()
+					pc.warp(1018900, 148400)
+
+				elseif 2==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Listhmos.")
+					wait()
+					pc.warp(1019000, 200200)
+
+				elseif 3==a then
+					---                                                   l
+					say("Vous allez être envoyé vers le château Dendera.")
+					wait()
+					pc.warp(923900, 183600)
+				else
+					return
+				end	
+			else  
+				---                                                   l
+				say("Cette porte ne peut être utilisée que par les")
+				say("valeureux guerriers de l'empire Jinno.")
+			end
+		end
+	end
+end

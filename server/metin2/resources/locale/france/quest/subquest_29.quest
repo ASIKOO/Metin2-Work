@@ -1,0 +1,190 @@
+quest subquest_29 begin
+	state start begin
+		when login or levelup or enter with pc.get_level() >=32  and pc.get_level() <= 34 begin
+			 set_state( information )
+		end
+	end
+
+	state information begin
+		when letter begin
+					
+			local v = find_npc_by_vnum(20355)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Allez voir le Capitaine")
+			end
+		end
+
+				
+		when __TARGET__.target.click or
+			20355.chat."Hé, venez me voir" with pc.level >= 32 begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title(" le Capitaine :")
+			say("")
+			say("J'ai reçus des nouvelles disant qu'il y avait")
+			say("beaucoup d'activités du vent noir aux ")
+			say("alentours de la ville 2. ")
+			say("Maintenant, c'est les soldats du vent noir ")
+			say("après les soldats du serment blancs.")
+			say("Ces gars-là sont pires que le serment Blanc.")
+			say("Nous ne pouvons pas les attaquer facilement")
+			say("Il est maintenant temps de montrer votre ")
+			say("capacité de soldat d'élite de ce royaume.")
+			say("Vous ne pensez pas?")
+			wait()
+			say_title(" le Capitaine :")
+			say("")
+			say("Pour la sécurité de la ville")
+			say("Tuer 100 archers du vent noir.")
+			say("Je vais donc attendre de vos nouvelles.")	
+			say("")
+			local s=select("Accepter.","Refuser.")
+			if 2==s then
+				say("Voulez-vous abandonner la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say(" Le Capitaine:")
+					--                                                  |
+					say("Hmm... Si vous ne pouvez pas faire cela ")
+					say("maintenant, vous pourriez arrêter après?")
+					say("Je ne peux pas trouver quelqu'un comme vous ..")
+					return
+				end
+				say(" Le Capitaine:")
+				say("Vous ne pouvez pas? Ouais ..")
+				say("Alors, comment puis-je attraper ces gars-là ...")
+				set_state(__GIVEUP__)
+				return
+			end
+			say(" Le Capitaine:")
+			say("Je savais que vous alliez accepter")
+			say("Ils vont s'effondrer si vous tuez leurs 100 archers.")
+			say("Bonne chance")	
+			say("")
+			pc.setqf("kill_count", 0)
+			q.set_counter("Archers du vent noir restant",0)
+			set_state(goto_blackwind)
+		end	
+	end
+	state goto_blackwind begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Tuez les archers du vent noir")
+			q.set_title("Tuez les archers du vent noir")
+			q.start()
+		end
+
+		when info or button begin
+			say(locale.NOTICE_COLOR.."Tuez les archers du vent noir"..locale.NORMAL_COLOR)
+			--                                                  |
+			say("Il y a beaucoup d'activités du vent noir")
+			say("aux alentours de la ville 2 .")
+			say("Pour la sécurité des gens de la ville")
+			say("Nous devons nous débarrasser du Vent Noir.")
+			say("La mission est d'arrêter ")
+			say("100 archers du vent noir.")
+			say("")
+			say_reward("Actuel archers du vent noir".. " "..pc.getqf("kill_count").." qui ont été capturé")
+			
+		end
+		when 11004.chat."Tuez les archers du vent noir" with pc.level >=32 begin
+			say("Avez-vous tuer 100 archers du vent noir?")
+			local s=select("Essayer encore","Abandonner")
+			if 2==s then
+				say("Voulez-vous abandonner la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title(" le Capitaine :")
+					--                                                  |
+					say("Ce n'est pas facile à gérer 100 archers du ")
+					say("vent noir ...")
+					say("Mais nous avons besoin d'en tuer au moins 100 ..")
+					say("Voulez-vous essayer à nouveau ?")
+					return
+				end
+				say(" Le Capitaine")
+				say("Ils doivent être vraiment fort")
+				say("Au revoir.")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title(" le Capitaine :")
+			--                                                  |
+			say("Vous êtes si courageux.")
+			say("Je crois que vous pouvez prendre soin de ces")
+			say("archers du vent noir.")
+		end
+		
+		when 453.kill  begin
+			local count=pc.getqf("kill_count")+1
+			if count<=100  then	
+				pc.setqf("kill_count",count)
+				q.set_counter("Archers du vent noir restant",100-count)
+				if count== 100 then
+					set_state(go_back_to_boss)
+				end
+			end	
+		end
+	end
+
+	state go_back_to_boss begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Tuez 100 archers du vent noir")
+			q.set_title("Tuez 100 archers du vent noir")
+			q.start()
+			local v = find_npc_by_vnum(20355)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Allez voir le Capitaine")
+			end
+
+		end
+
+		when info or button begin
+			say(locale.NOTICE_COLOR.."Tuez les archers du vent noir"..locale.NORMAL_COLOR)
+			say("Allez voir le Capitaine et faites lui")
+			say("un rapport à propos des archers du vent noir.")
+			say("")
+		end
+		
+		when __TARGET__.target.click or
+			20355.chat."Rapport sur la défaite des archers du vent noir" begin
+			target.delete("__TARGET__")
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Haha. Vous avez grandi. Un soldat d'élite de ")
+			say("notre royaume. J'avais raison.")
+			say("Je savais que tu allez être grand.")
+			say("Continuez votre bon travail.")
+			say("Et .. C'est la récompense du plus haut.")
+			say("")
+			
+			say_reward("Gagné 25.000. Yang.")
+			pc.change_money(25000)
+			
+			say_reward("Gagné 400.000 points d'expérience.")
+			pc.give_exp2(400000)
+			
+			set_quest_state("levelup","run")
+
+			pc.setqf("kill_count", 0)
+			
+			say_reward("Reçu herbes médicinale.")
+			pc.give_item2(50724,5)
+			pc.give_item2(50723,5)
+			
+			say_reward("Reçu Potion.")
+			pc.give_item2(71035)
+			set_state(COMPLETE)
+			clear_letter()
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state COMPLETE begin
+	end
+end
+

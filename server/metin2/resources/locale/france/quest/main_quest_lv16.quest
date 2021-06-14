@@ -1,0 +1,122 @@
+quest main_quest_lv16 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 16 begin
+			set_state( gotoboss )
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			send_letter( "Capturer l'espion" )
+
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine")
+			end
+		end
+		when button or info begin
+			say_title("Un mission du Capitaine")
+			----                                                  l
+			say("")
+			say("Il y a un espion dans notre village!")
+			say("Le Capitaine a besoin de plus d'informations")
+			say("au sujet de l'espion.")
+			say("")
+		end
+		when __TARGET__.target.click or 20355.chat."Capturer l'espion" begin
+			say_title("Capitaine:")
+			say("")
+			----                                                  l
+			say("J'ai le sentiment que nous avons un espion dans ")
+			say("le village. L'un des villageois travaillent ")
+			say("pour les serments blancs. Peut-être que vous")
+			say("pourriez trouver des preuves. ")
+			say("Grâce à votre aide nous pourrons vite ")
+			say("démasquer l'espion")
+			target.delete("__TARGET__")
+			set_state( killrobber )
+		end
+	end
+
+	state killrobber begin
+		when letter begin
+			send_letter("Trouve l'espion")
+		end
+		when button or info begin
+			say_title("Trouve l'espion")
+			say("")
+			----                                                  l
+			say("Trouver des preuves concernant l'espion auprès ")
+			say("des serments blancs et retourner voir ")
+			say("le Capitaine.")
+		end
+		when 394.kill or 393.kill or 392.kill or 391.kill or 301.kill or 302.kill or 303.kill or 304.kill begin
+			if number( 1, 10 ) == 1 then
+				pc.give_item2( 30001, 1 )
+				say_title("Vous avez démasqué l'espion!")
+				say("Parlez au Capitaine")
+				say("")
+				set_state(gotoboss2)
+			end
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when button or info begin
+			say_title("Parler au Capitaine.")
+			say("")
+			----                                                  l
+			say("Vous avez trouver une lettre. C'est une preuve ")
+			say("suffisante pour le Capitaine.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			if pc.count_item(30001) >= 1 then
+				say_title("Capitaine :")
+				say("")
+				----                                                  l
+				say("Avez vous une preuve? Laissez-moi voir cela...")
+				say("Ceci est une lettre intéressante, en effet!")
+				say("C'est largement suffisant pour connaitre ")
+				say("l'identité de l'espion.")
+				say("Merci à vous, nous sommes en mesure maintenant ")
+				say("de gérer cette crise. Nous sommes très heureux")
+				say("de vous compter parmi nous!")
+				say("")
+				wait()
+				say_title("Capitaine:")
+				say("")
+				say("Prenez le temps de vous reposer et acceptez")
+				say("ceci comme récompense.")
+				say_title("Reward:")
+				say("")
+				say_reward("Experience : 25.000" )
+				say_reward("Yang: 10.000")
+				say("")
+				pc.remove_item(30001)
+				pc.give_exp2( 25000 )
+				pc.change_money( 10000 )
+				target.delete("__TARGET__")
+				clear_letter()
+				set_state(__COMPLETE__)
+				set_quest_state("main_quest_lv27", "run")
+			else
+				say_title(pc.name..":")
+				say("")
+				say("Ooops... Je dois apporter la preuve.")
+				say("")
+				say_item("Letter",30001,"")
+			end
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

@@ -1,0 +1,2 @@
+D:\Metin2 Server Files\mainline\SRC_2014\Metin2Client\eterGrnLib\Debug\eterGrnLib.lib
+D:\Metin2 Server Files\mainline\SRC_2014\Metin2Client\eterGrnLib\Debug\eterGrnLib.pdb

@@ -1,0 +1,206 @@
+quest subquest_45 begin
+	state start begin
+		when login or levelup with pc.level >= 60  and pc.level <= 62  begin
+			set_state(enter)
+		end
+	end
+
+	state enter  begin
+		when letter begin
+			local v=find_npc_by_vnum(20023)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Mr Soon")
+			end
+		end
+		when __TARGET__.target.click or 20023.chat."Temple obscur" begin
+			target.delete("__TARGET__")
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("Hmm, il ya quelque chose à l'intérieur du ")
+			say("temple secret.")
+			say("Je pense que des gens dangereux y ont étudié ")
+			say("l'ancienne magie.")
+			say("Il est difficile de regarder à travers le ")
+			say("temple secret...même pour moi.")
+			say("Quelque chose ...")
+			say("Les motivations de ces personnes sont douteuses")
+			say("Je dois les étudiés!")
+			say("")
+			wait()
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("J'ai besoin de plus d'infos pour ces études.")
+			say("Je pense que je pourrais utiliser l'écharpe ")
+			say("du Temple, la doctrine du temple et la ")
+			say("traduction du livre maudit.")
+			say("Pour les personnes secrètes ce sont trois")
+			say("objets très importants, apportez-les moi donc")
+			say("Je pourrais commencer à les étudier.")
+			say("Je devrais faire plus de ma vie que de toujours")
+			say("rester assis devant des livres.")
+			say("Ne me regardez pas comme ça, aller au")
+			say("temple noir.")
+			say("")
+
+			local s=select("Je vais y aller immédiatement.","Non, pas le temps")
+			if 2==s then
+				say("Vous voulez abandonner la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Soon:")
+					say("")
+					--                                                  |
+					say("Hé j'ai demandé votre aide!")
+					say("Si vous êtes occupé, revenez plus tard.")
+					say("J'espère que vous aurez plus de temps ensuite.")
+					say("Je vais attendre.")
+					say("")
+					return
+				end
+				say_title("Soon:")
+				say("")
+				say("Hé j'ai demandé votre aide!")
+				say("Ne vivez pas comme moi..")
+				say("Qui vous invite alors.")
+				say("Ha..")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Soon:")
+			say("")
+			say("Merci!")
+			say("")
+			set_state(what_is_milgyo)
+		end
+	end
+	state what_is_milgyo begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Temple Sombre.")
+			q.set_title("Temple sombre.")
+			q.start()
+			if pc.count_item("30147")>=1 and pc.count_item("30148")>=1  and  pc.count_item("30164")>=1 then
+				local v=find_npc_by_vnum(20023)
+				if 0!= v then
+					target.vid("__TARGET__",v,"Allez voir Soon")
+				end
+			end
+		end
+		when info or  button begin
+
+			if pc.count_item("30147")>=1 and pc.count_item("30148")>=1  and  pc.count_item("30164")>=1 then
+				say_title("Obtenez les sorts secrets")
+				say("")
+				--                                                  |
+				say("Vous avez la doctrine du temple, l'écharpe ")
+				say("du temple et la traduction du livre maudit.")
+				say("Obtenez ça pour Soon.")
+				say("")
+				return
+			end
+			say_title("Obtenez les sorts secrets!")
+			say("")
+			--                                                  |
+			say("En raison de ses études sur le Temple Noir,")
+			say("vous aidez Soon.")
+			say("Soon dit qu'il ne peut seulement étudier que ")
+			say("s'il obtient trois objet:")
+			say("La doctrine du temple, l'écharpe du temple")
+			say("et la traduction du livre maudit.")
+			say("Obtenez les et apportez les à Soon.")
+			say("Vous pouvez les obtenir dans le Temple Noir, ")
+			say("dans la vallée du Dragon.")
+			say("")
+		end
+
+		when 737.kill  begin
+
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30147")==0  then
+				pc.give_item2(30147, 1)
+				return
+			end
+
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30148")==0  then
+				pc.give_item2(30148, 1)
+				return
+			end
+
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30164")==0  then
+				pc.give_item2(30164, 1)
+				return
+			end
+		end
+		when __TARGET__.target.click or 20023.chat."Le temple secret!" begin
+			if pc.count_item("30147")>0 and pc.count_item("30148")>0  and  pc.count_item("30164")>0 then
+				target.delete("__TARGET__")
+				say_title("Soon:")
+				say("")
+				--                                                  |
+				say("Hmm, ok..")
+				say("Eh bien ce que ces gens font en secret, c'est ")
+				say("assez facile, ils sont dangereux.")
+				say("Il semble qu'ils obéissent au diable.")
+				say("Je ne sais pas les détails, mais ils")
+				say("jouent avec des choses maléfiques.")
+				wait()
+				say_title("Soon:")
+				say("")
+				say("Et ils ont sûrement déjà apporter beaucoup  ")
+				say("de chaos dans le monde.")
+				say("Je pense que je dois lire beaucoup plus  ")
+				say("de livres pour trouver la solution.")
+				say("Ce sont des gens forts.")
+				say("Hmm, je vais continuer de lire...")
+				say("")
+				pc.remove_item("30148",1)
+				pc.remove_item("30147",1)
+				pc.remove_item("30164",1)
+				say_reward("Vous avez reçu 7.000.000 points d'expérience.")
+				pc.give_exp2(7000000)
+				say_reward("Vous avez reçu livre du chef.")
+				pc.give_item2(70003)
+				say_reward("Vous avez reçu 70.000 Yang.")
+				pc.change_money(70000)
+				clear_letter()
+				set_state(COMPLETE)
+				return
+			else
+				say_title("Soon:")
+				say("")
+				say("Quoi?.")
+				say("Vous ne les avez pas?")
+				say("Dépêchez vous quand on vous donne un ordre!")
+				say("Allez, dépêchez-vous!")
+
+				local s=select("Essayer encore","Abandonner" )
+				if 2==s then
+					say_title("Soon:")
+					say("")
+					--                                                  |
+					say("Quelqu'un d'autre m'a déjà donné des ")
+					say("informations. Vous n'avez plus besoin de le ")
+					say("faire maintenant, trop tard.")
+					set_state(__GIVEUP__)
+					return
+				end
+				say_title("Soon:")
+				say("")
+				say("Merci!")
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+end

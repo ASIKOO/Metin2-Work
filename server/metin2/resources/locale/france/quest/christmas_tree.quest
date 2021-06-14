@@ -1,0 +1,57 @@
+quest christmas_tree begin
+	state start begin
+		when xmas_tree.click begin
+		---                                                   l
+		say_title("Sapin de noël")
+		say("Bonjour! Je suis l'arbre de Noël.")
+		say("Que voulez-vous faire ?")
+
+		local s = select("Je voudrais accrocher une chaussette.", "Non, je ne veux pas accrocher de chaussette.", "Informations.")
+
+		if s==1 then
+			if pc.level >= 10 then
+				if pc.count_item(50010)>0 then
+					pc.removeitem(50010, 1)
+
+					---                                                   l
+					say_title("Sapin de noël")
+					say("Voilà la chaussette a été accrochée")
+					say("sur le sapin de noel! Dans 3 secondes")
+					say("tu recevras un cadeau.")
+					say("[DELAY value;500]. . .[/DELAY]")
+					say("Tu as reçu ton cadeau de Noël! ")
+					pc.give_item_from_special_item_group(50010)
+
+				else
+					---                                                   l
+					say_title("Sapin de noël")
+					say("Vous n'avez pas de chaussettes!")
+					return
+				end
+
+			else
+				---                                                   l
+				say_title("Sapin de noël")
+				say("Tu doit être niveau 10 minimum pour accrocher")
+				say("une chaussette après le sapin.")
+				say("Reviens plus tard !")
+			end
+
+		elseif s==2 then
+			---                                                   l
+			say_title("Sapin de noël")
+			say("Joyeux Noël!")
+
+		elseif s==3 then
+			---                                                   l
+			say_title("Sapin de noël")
+			say("J'échangerait les chaussettes que vous accrochez")
+			say("à moi contre des objets! Vous pouvez trouver les")
+			say("chaussettes partout dans le continent. Vous devez")
+			say("cependant avoir atteint le niveau 10 ou plus pour")
+			say("pouvoir les accrocher à moi")
+
+			end
+		end
+	end
+end

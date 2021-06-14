@@ -1,0 +1,345 @@
+quest subquest_37 begin
+	state start begin
+		when login or levelup with pc.level >= 51 and pc.level <= 53 begin
+			set_state(information)
+		end
+
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20005)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Le Secret de la porcelaine céladon")
+			end
+		end
+
+
+		when __TARGET__.target.click or 20005.chat."Le Secret de la porcelaine céladon" with pc.level >= 51 begin
+			target.delete("__TARGET__")
+
+			say_title("Yonah :")
+			say("")
+			say("Hmm. Pas comme ça - non plus. Argh.")
+			say("J'essaye de produire de la porcelaine sans")
+			say("interruption mais je n'y arrive vraiment pas.")
+			say("Je pense que j'ai besoin d'une grande aide.")
+			say("")
+			say("")
+			wait()
+			say_title("Yonah:")
+			say("")
+			say("Je vais essayer une nouvelle méthode...")
+			--                                                  |
+			say("Il n'est pas facile de produire une porcelaine")
+			say("céladon.")
+			say("C'est pourquoi peu de gens savent comment")
+			say("la faire. Mais j'en ai besoin pour mes")
+			say("créations. Dans ce cas...")
+			say("Oui, Uriel pourrait savoir lui.")
+			say("S'il vous plaît allez voir à Uriel et")
+			say("demandez-lui il sera sûrement en mesure de")
+			say("nous aider.")
+			say("")
+			local s=select("Accepter","Refuser")
+			if 2==s then
+				say("Vous souhaitez annuler cette quête ?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say("Yonah :")
+					say("Hmm, vous êtes occupé? ")
+					say("Eh bien, revenez quand vous avez le temps.")
+					say("")
+					return
+				end
+				say_title("Yonah :")
+				say("")
+				--                                                  |
+				say("Je tiens à produire la meilleure porcelaine...")
+				say("Je comprend... A la prochaine.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+
+			say_title("Yonah :")
+			say("")
+			say("Merci." )
+			say("Revenez vite me voir.")
+			say("")
+			set_state(ask_to_uriel)
+
+
+		end
+	end
+
+	state ask_to_uriel begin
+		when letter begin
+			send_letter("Le Secret de la porcelaine céladon")
+		end
+
+		when letter begin
+			local v=find_npc_by_vnum(20011)
+			if 0== v then
+			else
+				target.vid("__TARGET__",v,"Demandez à Uriel")
+			end
+
+		end
+
+		when info or button begin
+			say_title("Go to Uriel")
+			--                                                  |
+			say("")
+			say("Yonah essaye deseperament la fabrication de")
+			say("porcelaine. Il pense que Uriel sais comment")
+			say("faire une bonne porcelaine céladon.")
+			say("")
+			say("Allez voir Uriel et demandez-lui comment")
+			say("la faire.")
+			say("")
+		end
+
+		when __TARGET__.target.click or 20011.chat."Seladon Porcelain" begin
+			target.delete("__TARGET__")
+			say_title("Uriel :")
+			say("")
+			say("Porcelaine céladon ?")
+			--                                                  |
+			say("Eh bien, j'ai de grandes connaissance en")
+			say("histoire et sciences, mais je ne suis pas")
+			say("vraiment intéressé par l'art.")
+			say("Je ne peux pas vous dire quoi que ce soit,")
+			say("sur la porcelaine céladon.")
+			say("Mais peut-être M. Soon sait quelque chose.")
+			say("Les gens ne l'aime pas beaucoup, mais il lit")
+			say("de nombreux livres différents, il est tout à ")
+			say("fait possibles qu'il sache quelque chose.")
+			say("")
+
+			set_state(ask_to_mrsoon)
+		end
+	end
+
+	state ask_to_mrsoon begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Aller voir Mr Soon")
+			q.set_title("Aller voir Mr Soon")
+			q.start()
+
+			local v=find_npc_by_vnum(20023)
+			if 0== v then
+			else
+				target.vid("__TARGET__",v,"Aller voir Mr Soon")
+			end
+
+		end
+
+		when info or button begin
+			say_title("Le Secret de la porcelaine céladon")
+			say("")
+			--                                                  |
+			say("Le mangeur de livre Soon sait sûrement quelque")
+			say("chose sur la porcelaine céladon. Aller et lui")
+			say("demander comment en faire.")
+			say("")
+		end
+
+		when __TARGET__.target.click or 20023.chat."Porcelaine céladon" begin
+			target.delete("__TARGET__")
+			say_title("Soon :")
+			say("")
+			say("Bla bla...")
+			say("Hé ! Que veux-tu?")
+			say("Ne me dérangez pas quand je lit !")
+			say("Pourquoi vous me déranger ?")
+			say("Hmm ? Porcelaine céladon ?")
+			--                                                  |
+			say("Il s'agit de fabrication de céramique.")
+			say("J'ai lu une 10ene de livres traitant ")
+			say("uniquement de ça.")
+			say("Pourquoi ? Eh bien, je ne suis pas appelé le")
+			say("mangeur de livre pour rien!")
+			say("Je peu comprendre tout tant que ça a été ")
+			say("écrit !")
+			say("")
+			wait()
+			say_title("Mr.Soon:")
+			say("")
+			--                                                  |
+			say("Vous voulez savoir quelque chose sur la")
+			say("porcelaine céladon ?? Hmm, je ne vous le dirai")
+			say("pas gratuitement.")
+			say("J'ai demandé au colporteur de l'autre village")
+			say("un livre, que je j'attends toujours.")
+			say("S'il vous plaît obtenez cela pour moi.")
+			say("Attendre le colporteur est ennuyeux....")
+			say("Je veux avoir ce livre maintenant !")
+			say("")
+			set_state(to_seller)
+		end
+	end
+
+	state to_seller begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Route vers le colporteur")
+			q.set_title("Route vers le colporteur")
+			q.start()
+
+			local v=find_npc_by_vnum(20010)
+			if 0== v then
+			else
+				target.vid("__TARGET__",v,"Route vers le colporteur")
+			end
+
+		end
+
+		when info or button begin
+			say_title("Le Secret de la porcelaine céladon")
+			say("")
+			say("Mr.Soon le mangeur de livre connaît la ")
+			say("porcelaine céladon mais il vous dira seulement")
+			say("ça quand vous aurez récupéré le livre,")
+			say("commandé au colporteur.")
+			say("Allez voir le colporteur pour obtenir le")
+			say("livre que M. Soon veut.")
+			say("")
+		end
+
+		when __TARGET__.target.click or 20010.chat."Donnez-moi le livre de Soon" begin
+			target.delete("__TARGET__")
+			say_title("Peddler:")
+			say("")
+			--                                                  |
+			say("Hé, qu'est ce que vous faites ici ?")
+			say("Vous venez à nouveau pour m'aider ?")
+			say("Aaah, vous voulez le livre pour M. Soon.")
+			say("J'allais allez lui apporter très prochainement")
+			say("mais il est trop impatient. Envoyer quelqu'un.")
+			say("d'autres pour l'obtenir..")
+			say("Hmm... C'est ici. Je ne sais pas ce qui est ")
+			say("si important avec ces trucs en papier.")
+			say("Il est beaucoup plus important de gagner Yang.")
+			say("Donnez ceci à Monsieur Soon.")
+			say("")
+			set_state(back_to_bookbug)
+		end
+	end
+
+	state back_to_bookbug begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Retour à Mr Soon")
+			q.set_title("Retour à Mr Soon")
+			q.start()
+
+			local v=find_npc_by_vnum(20023)
+			if 0!= v then
+				target.vid("__TARGET__",v,"Retour à Mr Soon")
+			end
+		end
+
+		when info or button begin
+			say_title("Retour à Mr Soon")
+			say("")
+			--                                                  |
+			say("J'ai le livre que Mr Soon a demandé au")
+			say("colporteur dans le village voisin.")
+			say("Rentrez vite, Donnez le livre a Mr Soon et")
+			say("récupérez les informations sur le céladon")
+			say("")
+		end
+
+		when __TARGET__.target.click or 20023.chat."J'ai le livre" begin
+			target.delete("__TARGET__")
+			say_title("Soon :")
+			say("")
+			say("Yeah !")
+			say("Enfin, j'ai ce nouveau livre,")
+			say("Je suis très heureux d'avoir eu ce livre.")
+			say("Comme promis, je vais vous parler de la")
+			--                                                  |
+			say("Porcelaine céladon.")
+			say("Humm..")
+			say("Sur cette note, je vais écrire ce que je sais")
+			say("à ce sujet, suivez les instructions, et vous")
+			say("produirez une porcelaine fantastique.")
+			say("Mais seulement en suivant scrupuleusement mes")
+			say("indications. Maintenant il est temps de lire")
+			say(" mon nouveau livre. Au revoir!")
+			say("")
+
+			pc.give_item2(30160)
+			set_state(back_to)
+		end
+	end
+
+	state back_to begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Informations obtenu")
+			q.set_title("Informations obtenu")
+			q.start()
+
+			local v=find_npc_by_vnum(20005)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Informations obtenu")
+			end
+		end
+
+		when info or button begin
+			--                                                  |
+			say_title("Le Secret de la porcelaine céladon")
+			say("")
+			say("Je doit donner ces instructions à Yonah.")
+			say("")
+		end
+
+		when __TARGET__.target.click or 20005.chat."Le Secret de la porcelaine céladon" begin
+			target.delete("__TARGET__")
+			say_title("Yonah :")
+			say("")
+			say("Ooh !!!")
+			say("Voici tout ce qui concerne la fabrication de")
+			say("la Porcelaine céladon. ")
+			say("Enfin ! Je resterai dans l'histoire comme un.")
+			--                                                  |
+			say("un grand artiste ! Je serai en mesure de faire")
+			say("le travail de ma vie avec ces remarques.")
+			say("Merci pour votre aide !")
+			say("Bientôt je serai en mesure de présenter la")
+			say("meilleure céramique, comptez sur moi ! Je")
+			say("produirais la meilleure porcelaine céladon,")
+			say("de ces derniers siècles.")
+			say("")
+			pc.remove_item(30160,1)
+
+			say_reward("Vous avez reçu 65.000 Yang.")
+			pc.change_money(65000)
+
+			say_reward("Vous avez reçu 3.000.000 Points d'expérience.")
+			pc.give_exp2(3000000)
+
+			say_reward("Vous avez reçu Chaussures Jade+3")
+			pc.give_item2(15143)
+			clear_letter()
+			set_state(__COMPLETE__)
+			return
+
+		end
+
+	end
+	state __GIVEUP__ begin
+	end
+
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

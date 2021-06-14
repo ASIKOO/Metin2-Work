@@ -1,0 +1,218 @@
+quest subquest_15 begin
+	state start begin
+		when login or levelup or enter with pc.get_level() >= 23  and pc.get_level() <= 28 begin
+			set_state( information )
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local vnum=0
+
+			if pc.get_empire() == 1 then
+				vnum=11000
+			elseif pc.get_empire() == 2 then
+				vnum=11002
+			elseif pc.get_empire() == 3 then
+				vnum=11004
+			end
+
+			local v = find_npc_by_vnum(vnum)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Tuez Eun-Jung du clan du serment blanc.")
+			end
+		end
+		when __TARGET__.target.click or
+			11000.chat."Tuez Eun-Jung du clan du serment blanc." or
+			11002.chat."Tuez Eun-Jung du clan du serment blanc." or
+			11004.chat."Tuez Eun-Jung du clan du serment blanc." with pc.level >= 23 begin
+			target.delete("__TARGET__")
+
+			say_title("Gardien du village :")
+			say("")
+			--                                                  |
+			say("Venez par ici un instant. ")
+			say("Vous semblez ne pas avoir peur.")
+			say("J'ai beaucoup entendu parler de vous par")
+			say("le capitaine.")
+			say("Le clan du serment blanc est pire qu'avant.")
+			say("")
+			wait()
+
+			say_title("Gardien du village :")
+			say("")
+			--                                                  |
+			say("Vous avez déjà vaincu un chef du clan du ")
+			say("serment blanc, mais nous sommes toujours ")
+			say("en danger !")
+			say("Les dégâts causés par le clan du serment")
+			say("blanc n'a pas diminué. Leur colère de la")
+			say("perte d'un chef ne fit qu'aggraver les choses.")
+			say("")
+			wait()
+
+			say_title("Gardien du village :")
+			say("")
+			--                                                  |
+			say("Pour mettre fin à cela, nous devons tuer ")
+			say("le capitaine Eun-Jung. le reste d'entre eux ")
+			say("devrait être facile.")
+			say("Allez tuer Eun-Jung!")
+			say("")
+			say("Notre destin est entre vos mains !")
+			say("")
+			local s=select("Je vais le faire.","Non merci.")
+			if 2==s then
+				say("Annuler la quête ?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Gardien du village :")
+					say("")
+					say("Vous reviendrez plus tard, non ?")
+					say("Vous êtes la bonne personne pour faire ça.")
+					say("")
+					return
+				end
+				say_title("Gardien du village:")
+				say("")
+				say("Vous ne pouvez pas le faire ?")
+				say("Je suis triste d'entendre ça")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Gardien du village:")
+			say("")
+			say("Je savais que vous alliez nous aider !")
+			say("")
+			say("Tuez Eun-Jung, nous pouvons gérer le reste.")
+			say("")
+			say("Bonne chance !")
+			say("")
+			set_state(hunt_eunjung)
+		end
+	end
+
+	state hunt_eunjung begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Tuez Eun-Jung.")
+			q.set_title("Tuez Eun-Jung.")
+			q.start()
+		end
+
+		when button or info begin
+			say_title("Tuez Eun-Jung")
+			say("")
+			say("Tuez Eun-Jung du clan du serment blanc!")
+			say("")
+			say("Elle nous cause beaucoup d'ennuis.")
+			say("")
+		end
+
+		when 392.kill begin
+			set_state(hunt_reward)
+		end
+	end
+
+	state hunt_reward begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Rapport au village du Gardien.")
+			q.set_title("Rapport au village du Gardien.")
+			q.start()
+		end
+
+		when letter begin
+			local vnum=0
+
+			if pc.get_empire() == 1 then
+				vnum=11000
+			elseif pc.get_empire() == 2 then
+				vnum=11002
+			elseif pc.get_empire() == 3 then
+				vnum=11004
+			end
+
+			local v = find_npc_by_vnum(vnum)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Gardien du village.")
+			end
+		end
+
+		when info or button begin
+			say_title("Vous avez tuez Eun-Jung")
+			say("")
+			say("Allez voir le Gardien du village et informé ")
+			say("le de la mort de Eun-Jung.")
+			say("")
+		end
+
+		when __TARGET__.target.click or
+			11000.chat."J'ai tué Eun-Jung !" or
+			11002.chat."J'ai tué Eun-Jung !" or
+			11004.chat."J'ai tué Eun-Jung !" begin
+			target.delete("__TARGET__")
+			say_title("Gardien du village:")
+			say("")
+			--                                                  |
+			say("Vous êtes fantastique!")
+			say("Vous êtes encore mieux que prévu.")
+			say("Nous ne pouvions rien faire contre les")
+			say("dirigeants du clan du serment blanc et")
+			say("vous l'avez tuez facilement.")
+			wait()
+			say_title("Gardien du village:")
+			say("")
+			--                                                  |
+			say("Il est impressionnant. ")
+			say("Vous recevrez une récompense adéquate")
+			say("Veuillez prendre ceci et nous espérons que  ")
+			say("vous allez continuer de travailler avec nous")
+			say("dans le future pour la paix du pays")
+			say("Maintenant que vous êtes un aventurier accompli,")
+			say("vous devriez commencer à chercher une guilde")
+			say("à y adhérer.")
+			say("Bonne chance !")
+			local s = select("Dites m'en plus sur les guildes.","Donc quel est la récompense ?")
+			if s == 1 then
+				say_title("Gardien du village:")
+				say("")
+				--                                                  |
+				say("Si vous voulez réaliser quelque chose,")
+				say("tout faire par soit même n'est pas facile.")
+				say("C'est pourquoi les aventuriers se rassemblent")
+				say("dans des guilde afin de pouvoir s'entraider.")
+				say("Les guildes sont affichés à côté du nom du ")
+				say("joueur. Trouvez une guilde que vous aimez et")
+				say("demandez à la rejoindre! ")
+				say("Vous ne perdez rien en demandant et elles")
+				say("peuvent rendre vos aventures plus excitant.")
+				wait()
+			end
+			pc.give_exp2(150000)
+			pc.change_money(25000)
+			
+			helmet = {12224,12364,12504,12644}
+			pc.give_item2(helmet[pc.get_job()+1], 1)
+			say_title("Reward:")
+			say("")
+			say_reward("Vous recevez 150.000 Points d'Experience")
+			say_reward("Vous recevez 25.000 Yang.")
+			say_reward("Vous recevez "..item_name(helmet[pc.get_job()+1])..".")
+			say("")
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

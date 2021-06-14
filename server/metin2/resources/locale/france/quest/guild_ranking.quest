@@ -1,0 +1,78 @@
+quest guild_ranking begin
+	state start begin
+		when guild_man1.chat."Classement de votre guilde" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Rang de votre guilde comparé aux équivalentes")
+			say("en points:")
+			say("Rang | Guilde | Points | Victoires | Nuls | Défaites")
+			say(guild.around_ranking_string().."[/DELAY]")
+		end
+
+		when guild_man1.chat."Classement des meilleures guildes (1 à 8)" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Les huit meilleures guildes classées et leurs")
+			say("résultats de guerres de guilde sont :")
+			say("Rang | Guilde | Points | Victoires | Nuls | Défaites")
+			say(guild.high_ranking_string().."[/DELAY]")
+		end
+
+		when guild_man1.chat."Score de votre guilde" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Votre guilde est classée".." "..guild.get_rank().."ème.")
+			say("Nombre de points:".." "..guild.get_ladder_point()..".")
+		end
+
+		when guild_man2.chat."Classement de votre guilde" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Rang de votre guilde comparé aux équivalentes")
+			say("en points:")
+			say("Rang | Guilde | Points | Victoires | Nuls | Défaites")
+			say(guild.around_ranking_string().."[/DELAY]")
+		end
+
+		when guild_man2.chat."Classement des meilleures guildes (1 à 8)" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Les huit meilleures guildes classées et leurs")
+			say("résultats de guerres de guilde sont :")
+			say("Rang | Guilde | Points | Victoires | Nuls | Défaites")
+			say(guild.high_ranking_string().."[/DELAY]")
+		end
+
+		when guild_man2.chat."Score de votre guilde" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Votre guilde est classée".." "..guild.get_rank().."ème.")
+			say("Nombre de points:".." "..guild.get_ladder_point()..".")
+		end
+
+		when guild_man3.chat."Classement de votre guilde" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Rang de votre guilde comparé aux équivalentes")
+			say("en points:")
+			say("Rang | Guilde | Points | Victoires | Nuls | Défaites")
+			say(guild.around_ranking_string().."[/DELAY]")
+		end
+
+		when guild_man3.chat."Classement des meilleures guildes (1 à 8)" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Les huit meilleures guildes classées et leurs")
+			say("résultats de guerres de guilde sont :")
+			say("Rang | Guilde | Points | Victoires | Nuls | Défaites")
+			say(guild.high_ranking_string().."[/DELAY]")
+		end
+
+		when guild_man3.chat."Score de votre guilde" with pc.hasguild() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Votre guilde est classée".." "..guild.get_rank()..".")
+			say("Nombre de points:".." "..guild.get_ladder_point().."ème.")
+		end
+	end
+end

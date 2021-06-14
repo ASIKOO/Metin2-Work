@@ -1,0 +1,245 @@
+quest subquest_24 begin
+	state start begin
+		when login or levelup with pc.level >=39 and pc.level <=41 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20012)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Yu-Rang¡¯s Rice Cake")
+			end
+		end
+
+		when __TARGET__.target.click or
+			20012.chat."Trouvez les gâteaux de riz de Yu-Rang."  begin
+			target.delete("__TARGET__")
+			say_pc_name()
+			say("")
+			say("Hey, comment va ta mère ?")
+			say("")
+			wait()
+			say_title("Yu-Rang :")
+			say("")
+			say("Oh, elle va bien mieux.")
+			say("Merci de demander.")
+			say("")
+			wait()
+			say_pc_name()
+			say("")
+			say("On dirait que vous avez des difficultés,")
+			say("Qu'est-ce qu'il y a ?")
+			say("")
+			wait()
+			say_title("Yu-Rang :")
+			say("")
+			--                                                  |
+			say("Je vends des gâteau de riz, mais quelque chose ")
+			say("de terrible est arrivé aujourd'hui. ")
+			say("Des araignées plus grande que l'homme, les ont")
+			say("volé. J'ai eu la peur de ma vie...")
+			say("Maintenant, je n'ai plus de gâteaux de riz à ")
+			say("vendre et ma famille n'a pas d'autre moyen")
+			say("pour gagner des yang.")
+			say("Pourriez vous les récupérer pour moi ?")
+			say("")
+			say_item_vnum(30158)
+			local s=select("Je vais les trouver !","Je n'ai pas le temps.")
+
+			if 2==s then
+				say_title("Question :")
+				say("")
+				say("Voulez vous vraiment abandonner cette quête?")
+				say("")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Yu-Rang :")
+					say("")
+					say("Si vous avez du temps plus tard, revenez.")
+					say("Je ne sais pas comment survivre sans mes")
+					say("gâteau de riz.")
+					say("")
+					return
+				end
+				say_title("Yu-Rang:")
+				say("")
+				--                                                  |
+				say("Des riches ici, des riches là-bas.")
+				say("La richesse est partout.")
+				say("Je déteste les gens riches qui gaspillent leurs")
+				say("yang comme de l'eau, alors que nous n'avons")
+				--                                                  |
+				say("aucune idée de ce que nous allons manger demain.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Yu-Rang :")
+			say("")
+			say("Merci .")
+			say("Vous êtes un vrai seigneur.")
+			say("Je vais attendre votre retour.")
+			say("")
+			set_state(accept)
+		end
+	  end
+	state accept begin
+		when letter begin
+			send_letter("Trouvez gâteau de riz de Yu-Rang !")
+		end
+
+		when button or info begin
+			say_title("Trouvez les gâteaux de riz de Yu-Rang !")
+			say("")
+			--                                                  |
+			say("Trouvez les gâteau de riz que Yu-Rang s'est fait")
+			say("voler par des bébés araignées dans le désert.")
+			say("Si vous n'êtes pas assez rapide, les araignées")
+			say("les mangeront ou ils se dessècheront au soleil.")
+			say("Dépêchez-vous !")
+			say("")
+			say_reward("Tuez les bébés araignées")
+			say("")
+		end
+
+		when 20012.chat."État du gâteau de riz perdu" begin
+			if get_time() < pc.getqf("limit_time") then
+				say_title("Yu-Rang :")
+				say("")
+				say("Quoi ? Les araignées ont tout ")
+				say("mangé, et tout le reste à séché ?")
+				say("")
+				say("*cries*")
+				say("")
+				local s=select("Non, tout est ok.", "J'abandonne.")
+				if 2==s then
+					say_title("Yu-Rang :")
+					say("")
+					--                                                  |
+					say("S'il vous plaît réfléchissez.")
+					say("Les gâteaux de riz sont très important pour moi.")
+					say("Je vous en prie !")
+					say("")
+					say("Voulez-vous abandonner la quête ?")
+					local s=select( "Je vais encore essayer", "Désolé, c'est trop dur.")
+					if 2==s then
+						say_title("Yu-Rang :")
+						say("")
+						say("Vous abandonnez ?")
+						say("Une honte que vous ne puissiez pas nous aider.")
+						set_state(__GIVEUP__)
+						return
+					end
+					say_title("Yu-Rang :")
+					say("")
+					say("Super !")
+					say("S'il vous plaît aidez moi !")
+					return
+				end
+				say_title("Yu-Rang :")
+				say("")
+				say("Vraiment ? Donc je vous en prie")
+				say("trouvez les gâteaux aussi vite que possible.")
+				say("")
+				return
+			end
+			say_title("Yu-Rang :")
+			say("")
+			say("Non c'est trop tard.")
+			say("Même si vous les obtenez maintenant,")
+			say("il seront séché et je ne pourrais pas ")
+			say("les vendre")
+			set_state(__FAIL__)
+		end
+
+		when enter begin
+			pc.setqf("limit_time", get_time()+30*60)
+			pc.setqf("kill_count", 0)
+		end
+
+		when leave begin
+			pc.setqf("limit_time", 0)
+			pc.setqf("kill_count", 0)
+			q.done()
+		end
+		when letter begin
+			local rest_time=pc.getqf("limit_time")-get_time()
+			 timer("time_over", rest_time)
+			 q.set_clock("Time left", rest_time)
+		end
+		when time_over.timer begin
+			say_title("Information :")
+			say("")
+			--                                                  |
+			say("Tu es sur place et tu vois les gâteaux que")
+			say("les araignées ont laissé. Trop tard,")
+			say("tout est desséché.")
+			say_reward("Vous avez perdu trop de temps, ")
+			say_reward("les gâteaux sont sec. ")
+			say_reward("Vous avez échoué la mission.")
+			set_state(__FAIL__)
+			q.done()
+		end
+		when 2001.kill begin
+			local cur_kill_count=pc.getqf("kill_count")+1
+			pc.setqf("kill_count", cur_kill_count)
+
+			if cur_kill_count>=number(30, 40) then
+				pc.give_item2(30158)
+				set_state(report)
+			end
+		end
+	end
+	state report begin
+		when letter begin
+			send_letter("Vous avez trouvé le gâteau de riz !")
+
+			local v=find_npc_by_vnum(20012)
+			if v!=0 then
+				target.vid("__TARGET__", v, "Retournez voir Yu-Rang")
+			end
+		end
+		when button or info begin
+			say_title("Vous avez trouvé le gâteau de riz de Yu-Rang!")
+			say("")
+			say("Porter les gâteaux de riz que vous avez")
+			say("retrouvé sur les araignées.")
+			say("")
+		end
+
+		when __TARGET__.target.click or
+			20012.chat."Donner les gâteaux à Yu-Rang." with pc.count_item(30158) >0  begin
+			target.delete("__TARGET__")
+			say_title("Yu-Rang :")
+			say("")
+			say("Vous êtes vraiment génial.")
+			--                                                  |
+			say("Je ne sais pas quoi dire, vraiment...")
+			say("Maintenant, je peux le vendre sur le")
+			say("marché demain. Merci beaucoup !")
+			say("")
+			say_title("Récompense :")
+			say("")
+			say_reward("Voous recevez 25.000 Yang")
+			pc.remove_item(30158)
+			pc.change_money(25000)
+			say_reward("Voous recevez 900.000 Points d'Experience.")
+			pc.give_exp2(900000)
+
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __FAIL__ begin
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

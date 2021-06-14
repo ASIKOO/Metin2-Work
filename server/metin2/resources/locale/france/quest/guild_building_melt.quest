@@ -1,0 +1,274 @@
+quest guild_building_melt begin
+	state start begin
+		function GetOreRefineCost(cost)
+			if pc.empire != npc.empire then
+				return 3 * cost	
+			end
+
+			if pc.get_guild() == npc.get_guild() then
+				return cost * 0.9
+			end
+			return cost
+		end
+
+		function GetOreRefineGoodPct()
+			return 60
+		end
+
+		function GetOreRefineBadPct()
+			return 30
+		end
+
+		function GetMyRefineNum(race)
+			return race - 20060 + 50601
+		end
+
+		function IsRefinableRawOre(vnum)
+			return vnum >= 50601 and vnum <= 50613
+		end
+
+		function DoRefineDiamond(pct)
+
+			local from_postfix
+			local from_name = item_name(item.vnum)
+ 			local to_vnum = item.vnum + 20
+			local to_name = item_name(to_vnum)
+			local to_postfix 
+
+			if under_han(from_name) then
+				from_postfix = " "
+			else
+				from_postfix = " "	
+			end
+
+			if under_han(to_name) then
+				to_postfix = ""
+			else
+				to_postfix = ""
+			end
+			---                                                   l
+			say_title(""..mob_name(npc.race)..":")
+			say("J'ai besoin de 100 minerais de " .. from_name .. from_postfix)
+			say("pour transformer obtenir " .. to_name )
+			wait()
+
+			if item.count >= 100 then
+				---                                                   l
+				say_title(""..mob_name(npc.race)..":")
+				say("Il y a "..pct.."%de réussite pour cette transformation.")
+				say("Mon prix sera de "..guild_building_melt.GetOreRefineCost(10000).." yangs")
+				say("Veux-tu effectuer cette transformation ?")
+
+				local s = select("Oui", "Non")
+
+				if s == 1 then
+					if pc.get_gold() < guild_building_melt.GetOreRefineCost(10000) then
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("Il te manque des yangs pour cette transformation.")
+						return	
+					end
+
+					if pc.diamond_refine(10000, pct) then
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("La transformation a réussi !")
+						say("Regardez moi cette merveille.Aucun défaut !")
+						say_item(to_name, to_vnum, "")
+					else
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("La transformation a malheuresement échoué.")	
+					end
+				end
+			else
+				---                                                   l
+				say_title(""..mob_name(npc.race)..":")
+				say("Pour effectuer cette transformation, j'ai besoin de 100 minerais.")
+			end
+		end
+
+		function DoRefine(pct)
+
+			local from_postfix
+			local from_name = item_name(item.vnum)
+			local to_vnum = item.vnum + 20
+			local to_name = item_name(to_vnum)
+			local to_postfix 
+
+			if under_han(from_name) then
+				from_postfix = ""
+			else
+				from_postfix = ""	
+			end
+
+			if under_han(to_name) then
+				to_postfix = ""
+			else
+				to_postfix = ""
+			end
+			---                                                   l
+			say_title(""..mob_name(npc.race)..":")
+			say("J'ai besoin de 100 minerais de " .. from_name .. from_postfix)
+			say("pour transformer obtenir " .. to_name )
+			wait()
+			
+			if item.count >= 100 then
+				---                                                   l
+				say_title(""..mob_name(npc.race)..":")
+				say("Il y a "..pct.."% de réussite pour cette transformation.")
+				say("Mon prix sera de "..guild_building_melt.GetOreRefineCost(3000).." yangs")
+				say("Veux-tu effectuer cette transformation ?")
+
+				local s = select("Oui", "Non")
+
+				if s == 1 then
+					if pc.get_gold() < guild_building_melt.GetOreRefineCost(3000) then
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("Il te manque des yangs pour cette transformation.")
+						return
+					end
+
+					local selected_item_cell = select_item()
+                    
+					if selected_item_cell == 0 then
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("Je ne peux pas effectuer la transformation si")
+						say("je n'ai pas les matières premières .")
+						return
+					end
+
+					local old_item = item.get_id()
+
+					if not item.select_cell(selected_item_cell) then
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("La pierre que tu as selectionné semble introuvable.")
+						say("dans ton inventaire...")
+						return
+					end
+
+					if item.vnum < 28000 or item.vnum >= 28300 then
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("Désolés, les objets ne correspondent pas à mes")
+						say("attentes.")
+						return
+					end
+
+					item.select(old_item)
+
+					if pc.ore_refine(3000, pct, selected_item_cell) then
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("La transformation a réussi !")
+						say("Regardez moi cette merveille. Aucun défaut!")
+						say_item(to_name, to_vnum, "")
+					else
+						---                                                   l
+						say_title(""..mob_name(npc.race)..":")
+						say("La transformation a malheuresement échoué .")
+					end
+				end
+			else
+				---                                                   l
+				say_title(""..mob_name(npc.race)..":")
+				say("Pour effectuer cette transformation, j'ai besoin")
+				say("de 100 minerais.")
+			end
+		end
+
+		when 20060.take or 20061.take or 20062.take or 20063.take or 20064.take or 20065.take or 20066.take or 20067.take or 20068.take or
+			20069.take or 20070.take or 20071.take or
+			20072.take with guild_building_melt.GetMyRefineNum(npc.race) == item.vnum begin
+
+			if pc.get_guild() == npc.get_guild() then
+				if item.vnum == 50601 then
+					guild_building_melt.DoRefineDiamond(guild_building_melt.GetOreRefineGoodPct())
+				else
+					guild_building_melt.DoRefine(guild_building_melt.GetOreRefineGoodPct())
+				end
+			else
+				if item.vnum == 50601 then
+					guild_building_melt.DoRefineDiamond(guild_building_melt.GetOreRefineBadPct())
+				else
+					guild_building_melt.DoRefine(guild_building_melt.GetOreRefineBadPct())
+				end
+			end
+		end
+
+		when 20060.click or 20061.click or 20062.click or 20063.click or 20064.click or 20065.click or 20066.click or 20067.click or
+			20068.click or 20069.click or 20070.click or 20071.click or
+			20072.click with npc.get_guild() == pc.get_guild() and pc.isguildmaster() begin
+
+			---                                                   l
+			say_title(""..mob_name(npc.race)..":")
+			say("Si vous souhaitez changer ma spécialité vous")
+			say("avez besoin de 50 Millions de yangs.")
+			wait()
+            
+			if pc.get_gold() < 50000000 then
+				---                                                   l
+				say_title(""..mob_name(npc.race)..":")
+				say("Désolé, vous n'avez pas assez de yang pour cela.")
+			else
+				---                                                   l
+				say_title(""..mob_name(npc.race)..":")
+				say("En quelle spécialité dois-je me reconvertir ?")
+
+				local sel = 0
+				local timetable1 = {'Diamant', 'Fossile', 'Cuivre', 'Argent', 'Or', 'Jade', 'Suivant', 'Fermer'}
+				local valuetable1 = {14043, 14045, 14046, 14047, 14048, 14049, 0, -1}
+				local timetable2 = {'Ébène', 'Perles', 'Or blanc', 'Cristal', 'Améthyste', 'Larmes', 'Détruire', 'Fermer'}
+				local valuetable2 = { 14050, 14051, 14052, 14053, 14054, 14055, 2, -1}
+				repeat 
+
+				local s = select_table(timetable1)
+
+				sel = valuetable1[s]
+
+				if sel == 0 then
+
+					local s = select_table(timetable2)
+
+					sel = valuetable2[s] 
+				end
+
+				until sel != 0
+
+				if sel != -1 then
+
+				npc_num = sel + 20060 - 14043 
+
+				if npc_num == npc.get_race() then
+					---                                                   l
+					say_title(""..mob_name(npc.race)..":")
+					say("Je suis déjà spécialisé dans ce domaine.")
+
+				elseif sel==2 then
+					---                                                   l
+					say_title(""..mob_name(npc.race)..":")
+					say("Etes-vous sur de vouloir supprimer ce batiment ?")
+					say("Vous aurez la possiblité de reconstruire par dessus.")
+
+					local s=select("Oui", "Non")
+
+						if s == 1 then
+							pc.changegold(-50000000)
+							building.reconstruct(sel)
+						end
+					else
+						pc.changegold(-50000000)
+						building.reconstruct(sel)
+					end
+				else
+					---                                                   l
+					say_title(""..mob_name(npc.race)..":")
+					say("D'accord. Je conserve ma spécialité.")
+				end 
+			end
+		end
+	end
+end

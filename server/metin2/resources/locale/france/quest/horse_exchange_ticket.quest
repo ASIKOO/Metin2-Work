@@ -1,0 +1,36 @@
+quest horse_exchange_ticket begin
+	state start begin
+		when 20349.chat."Monter à cheval (utiliser la carte de cavalier)" begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Voulez-vous monter à cheval ? Nous louons nos")
+			say("chevaux à ceux qui possèdent une carte de")
+			say("cavalier. Vos capacités équestres actuelles vous")
+			say("permettent de monter à cheval pendant 10 minutes.")
+			say("Vous n'êtes pas encore habitué à monter à ")
+			say("cheval, vous pouvez donc monter à cheval mais")
+			say("vous ne pouvez pas attaquer.")
+
+			local s=select("Monter à cheval", "Ne pas monter à cheval")
+
+			if 1==s then
+				if pc.countitem("50005")>=1 then
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Voici le cheval !")
+					say("A bientôt")
+					wait()
+					pc.mount(20101, 600)
+					pc.removeitem("50005", 1)
+				else
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Il vous faut une carte de cavalier.")
+				end
+
+			elseif 2==s then
+
+			end
+		end
+	end
+end

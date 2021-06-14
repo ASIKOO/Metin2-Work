@@ -1,0 +1,81 @@
+quest levelup_boxes begin
+	state start begin
+		when 50187.use begin
+			pc.give_item2(27001, 20)
+			pc.give_item2(27004, 10)
+			pc.give_item2(27100, 5)
+			pc.give_item2(27103, 5)
+			pc.give_item2(50188, 1)
+			pc.remove_item(50187, 1)
+		end
+		when 50188.use with pc.get_level() >= 10 begin
+			pc.give_item2(72723, 1)
+			pc.give_item2(27101, 3)
+			pc.give_item2(71050, 3)
+			pc.give_item2(71004, 3)
+			pc.give_item2(50189, 1)
+			pc.remove_item(50188, 1)
+		end
+		when 50189.use with pc.get_level() >= 20 begin
+			pc.give_item2(72727, 1)
+			pc.give_item2(27101, 3)
+			pc.give_item2(71050, 3)
+			pc.give_item2(76006, 1)
+			pc.give_item2(71085, 3)
+			pc.give_item2(71084, 3)
+			pc.give_item2(50190, 1)
+			pc.remove_item(50189, 1)
+		end
+		when 50190.use with pc.get_level() >= 30 begin
+			pc.give_item2(71050, 3)
+			pc.give_item2(76018, 3)
+			pc.give_item2(25040, 5)
+			pc.give_item2(70003, 1)
+			pc.give_item2(50191, 1)
+			pc.remove_item(50190, 1)
+		end
+		when 50191.use with pc.get_level() >= 40 begin
+			pc.give_item2(39031, 3)
+			pc.give_item2(76018, 3)
+			pc.give_item2(71153, 1)
+			pc.give_item2(70003, 1)
+			pc.give_item2(50192, 1)
+			pc.remove_item(50191, 1)
+		end
+		when 50192.use with pc.get_level() >= 50 begin
+			pc.give_item2(70038, 20)
+			pc.give_item2(39031, 3)
+			pc.give_item2(76018, 3)
+			pc.give_item2(71095, 5)
+			pc.give_item2(70058, 1)
+			pc.give_item2(50193, 1)
+			pc.remove_item(50192, 1)
+		end
+		when 50193.use with pc.get_level() >= 60 begin
+			pc.give_item2(71032, 3)
+			pc.give_item2(76018, 3)
+			pc.give_item2(76000, 5)
+			pc.give_item2(39031, 3)
+			pc.give_item2(50194, 1)
+			pc.remove_item(50193, 1)
+		end
+		when 50194.use with pc.get_level() >= 70 begin
+			pc.give_item2(50195, 1)
+			pc.give_item2(70020, 5)
+			pc.give_item2(71034, 3)
+			pc.give_item2(71032, 1)
+			pc.give_item2(71032, 1)
+			pc.give_item2(71032, 1)
+			pc.give_item2(71101, 1)
+			pc.remove_item(50194, 1)
+		end
+		when 50195.use with pc.get_level() >= 80 begin
+			pc.give_item2(50196, 1)
+			pc.give_item2(50195, 1)
+			pc.remove_item(50195, 1)
+		end
+		when 50196.use with pc.get_level() >= 90 begin
+			pc.remove_item(50196, 1)
+		end
+	end
+end

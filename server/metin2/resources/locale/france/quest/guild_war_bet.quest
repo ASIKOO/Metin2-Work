@@ -1,0 +1,312 @@
+quest guild_war_bet begin
+	state start begin
+		when guild_war_observer1.chat."Pari sur guerre de guilde" begin
+
+			local info_counter = pc.getqf("info")
+
+			if info_counter < 3 then
+				---                                                   l
+				say_title("Le pari de guilde:")
+				say("Acheter un ticket de pari pour votre empire.")
+				say("1. A chaque guerre de guilde, il y aura une")
+				say("annonce concernant la possible récompense de la")
+				say("guerre victorieuse.")
+				say("2. En achetant un ticket de pari, vous avez la")
+				say("posibilité de parier sur la guilde que vous")
+				say("pensez voir gagner ainsi que si elle atteindra les")
+				say("objectifs prévus ou non.")
+				say("3. Les possibilités pour choisir un pari dépendent")
+				say("de la billeterie. Une fois les guerres terminées,")
+				say("vous allez être informés de si vous avez gagné ou")
+				say("avez perdu.")
+				say("* 10% des gains sont versés à l'empire")
+				wait()
+			end
+
+			local g = guild.get_reserve_war_table() 
+			local gname_table = {}
+
+			table.foreachi(g,
+
+			function(n, p) 
+				gname_table[n] = guild.get_name(p[2]).." contre "..guild.get_name(p[3])
+			end)
+
+			if table.getn(g) == 0 then
+				---                                                   l 
+				say_title("Administrateur de bataille:")
+				say("Il n'y a pas en ce moment de guerre de guilde")
+				say("sur laquelle vous pouvez parier.")
+			else
+				gname_table[table.getn(g)+1] = locale.cancel
+				say("Sur quel guerre voulez-vous miser?")
+
+				local s = select_table(gname_table)
+
+				if s != table.getn(gname_table) then
+					if guild.is_bet(g[s][1]) then
+						---                                                   l 
+						say_title("Administrateur de bataille:")
+						say("Vous avez déjà misé sur cette guerre. Vous")
+						say("pouvez miser seulement une fois sur chaque")
+						say("guerre de guilde.")
+					else
+
+					local name1 = guild.get_name(g[s][2])
+					local name2 = guild.get_name(g[s][3])
+
+					---                                                   l 
+					say_title("Administrateur de bataille:")
+					say("La guilde "..name1.." semble favorite contre la guilde "..name2.." avec "..g[s][4].." points d'écart.")
+					say("Sur quelle guilde voulez-vous parier ?")
+
+					local guild_s = select(name1, name2, locale.cancel)
+
+					if guild_s != 3 then
+
+						local bet_guild = g[s][guild_s+1]
+
+						---                                                   l 
+						say_title("Administrateur de bataille:")
+						say("Combien voulez-vous miser ?")
+
+						local price_button_table = {}
+
+						table.foreachi(guild_war_bet_price_table,
+							function(n, p) 
+							price_button_table[n] = p..locale.gold
+						end)
+
+						price_button_table[table.getn(price_button_table)+1] = locale.cancel
+
+						local price_idx = select_table(price_button_table)
+
+						if price_idx != table.getn(price_button_table) then
+							if pc.gold < guild_war_bet_price_table[price_idx] then
+								---                                                   l 
+								say_title("Administrateur de bataille:")
+								say("Vous n'avez pas assez de yangs.")
+							else
+								pc.changegold(-guild_war_bet_price_table[price_idx])
+								guild.war_bet(g[s][1], bet_guild, guild_war_bet_price_table[price_idx])
+								---                                                   l 
+								say_title("Administrateur de bataille:")
+								say("Tout est prêt. Quand la guerre de guilde sera")
+								say("terminée et si vous avez fait le bon choix les")
+								say("yangs vont seront donnés !")
+
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		when guild_war_observer2.chat."Pari sur guerre de guilde" begin
+
+			local info_counter = pc.getqf("info")
+
+			if info_counter < 3 then
+				---                                                   l
+				say_title("Le pari de guilde:")
+				say("Acheter un ticket de pari pour votre empire.")
+				say("1. A chaque guerre de guilde, il y aura une")
+				say("annonce concernant la possible récompense de la")
+				say("guerre victorieuse.")
+				say("2. En achetant un ticket de pari, vous avez la")
+				say("posibilité de parier sur la guilde que vous")
+				say("pensez voir gagner ainsi que si elle atteindra les")
+				say("objectifs prévus ou non.")
+				say("3. Les possibilités pour choisir un pari dépendent")
+				say("de la billeterie. Une fois les guerres terminées,")
+				say("vous allez être informés de si vous avez gagné ou")
+				say("avez perdu.")
+				say("* 10% des gains sont versés à l'empire")
+				wait()
+			end
+
+			local g = guild.get_reserve_war_table() 
+			local gname_table = {}
+
+			table.foreachi(g,
+
+			function(n, p) 
+				gname_table[n] = guild.get_name(p[2]).." contre "..guild.get_name(p[3])
+			end)
+
+			if table.getn(g) == 0 then
+				---                                                   l 
+				say_title("Administrateur de bataille:")
+				say("Il n'y a pas en ce moment de guerre de guilde")
+				say("sur laquelle vous pouvez parier.")
+			else
+				gname_table[table.getn(g)+1] = locale.cancel
+				say("Sur quel guerre voulez-vous miser?")
+
+				local s = select_table(gname_table)
+
+				if s != table.getn(gname_table) then
+					if guild.is_bet(g[s][1]) then
+						---                                                   l 
+						say_title("Administrateur de bataille:")
+						say("Vous avez déjà misé sur cette guerre. Vous")
+						say("pouvez miser seulement une fois sur chaque")
+						say("guerre de guilde.")
+					else
+
+					local name1 = guild.get_name(g[s][2])
+					local name2 = guild.get_name(g[s][3])
+
+					---                                                   l 
+					say_title("Administrateur de bataille:")
+					say("La guilde "..name1.." semble favorite contre la guilde "..name2.." avec "..g[s][4].." points d'écart.")
+					say("Sur quelle guilde voulez-vous parier ?")
+
+					local guild_s = select(name1, name2, locale.cancel)
+
+					if guild_s != 3 then
+
+						local bet_guild = g[s][guild_s+1]
+
+						---                                                   l 
+						say_title("Administrateur de bataille:")
+						say("Combien voulez-vous miser ?")
+
+						local price_button_table = {}
+
+						table.foreachi(guild_war_bet_price_table,
+							function(n, p) 
+							price_button_table[n] = p..locale.gold
+						end)
+
+						price_button_table[table.getn(price_button_table)+1] = locale.cancel
+
+						local price_idx = select_table(price_button_table)
+
+						if price_idx != table.getn(price_button_table) then
+							if pc.gold < guild_war_bet_price_table[price_idx] then
+								---                                                   l 
+								say_title("Administrateur de bataille:")
+								say("Vous n'avez pas assez de yangs.")
+							else
+								pc.changegold(-guild_war_bet_price_table[price_idx])
+								guild.war_bet(g[s][1], bet_guild, guild_war_bet_price_table[price_idx])
+								---                                                   l 
+								say_title("Administrateur de bataille:")
+								say("Tout est prêt. Quand la guerre de guilde sera")
+								say("terminée et si vous avez fait le bon choix les")
+								say("yangs vont seront donnés !")
+
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		when guild_war_observer3.chat."Pari sur guerre de guilde" begin
+
+			local info_counter = pc.getqf("info")
+
+			if info_counter < 3 then
+				---                                                   l
+				say_title("Le pari de guilde:")
+				say("Acheter un ticket de pari pour votre empire.")
+				say("1. A chaque guerre de guilde, il y aura une")
+				say("annonce concernant la possible récompense de la")
+				say("guerre victorieuse.")
+				say("2. En achetant un ticket de pari, vous avez la")
+				say("posibilité de parier sur la guilde que vous")
+				say("pensez voir gagner ainsi que si elle atteindra les")
+				say("objectifs prévus ou non.")
+				say("3. Les possibilités pour choisir un pari dépendent")
+				say("de la billeterie. Une fois les guerres terminées,")
+				say("vous allez être informés de si vous avez gagné ou")
+				say("avez perdu.")
+				say("* 10% des gains sont versés à l'empire")
+				wait()
+			end
+
+			local g = guild.get_reserve_war_table() 
+			local gname_table = {}
+
+			table.foreachi(g,
+
+			function(n, p) 
+				gname_table[n] = guild.get_name(p[2]).." contre "..guild.get_name(p[3])
+			end)
+
+			if table.getn(g) == 0 then
+				---                                                   l 
+				say_title("Administrateur de bataille:")
+				say("Il n'y a pas en ce moment de guerre de guilde")
+				say("sur laquelle vous pouvez parier.")
+			else
+				gname_table[table.getn(g)+1] = locale.cancel
+				say("Sur quel guerre voulez-vous miser?")
+
+				local s = select_table(gname_table)
+
+				if s != table.getn(gname_table) then
+					if guild.is_bet(g[s][1]) then
+						---                                                   l 
+						say_title("Administrateur de bataille:")
+						say("Vous avez déjà misé sur cette guerre. Vous")
+						say("pouvez miser seulement une fois sur chaque")
+						say("guerre de guilde.")
+					else
+
+					local name1 = guild.get_name(g[s][2])
+					local name2 = guild.get_name(g[s][3])
+
+					---                                                   l 
+					say_title("Administrateur de bataille:")
+					say("La guilde "..name1.." semble favorite contre la guilde "..name2.." avec "..g[s][4].." points d'écart.")
+					say("Sur quelle guilde voulez-vous parier ?")
+
+					local guild_s = select(name1, name2, locale.cancel)
+
+					if guild_s != 3 then
+
+						local bet_guild = g[s][guild_s+1]
+
+						---                                                   l 
+						say_title("Administrateur de bataille:")
+						say("Combien voulez-vous miser ?")
+
+						local price_button_table = {}
+
+						table.foreachi(guild_war_bet_price_table,
+							function(n, p) 
+							price_button_table[n] = p..locale.gold
+						end)
+
+						price_button_table[table.getn(price_button_table)+1] = locale.cancel
+
+						local price_idx = select_table(price_button_table)
+
+						if price_idx != table.getn(price_button_table) then
+							if pc.gold < guild_war_bet_price_table[price_idx] then
+								---                                                   l 
+								say_title("Administrateur de bataille:")
+								say("Vous n'avez pas assez de yangs.")
+							else
+								pc.changegold(-guild_war_bet_price_table[price_idx])
+								guild.war_bet(g[s][1], bet_guild, guild_war_bet_price_table[price_idx])
+								---                                                   l 
+								say_title("Administrateur de bataille:")
+								say("Tout est prêt. Quand la guerre de guilde sera")
+								say("terminée et si vous avez fait le bon choix les")
+								say("yangs vont seront donnés !")
+
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end

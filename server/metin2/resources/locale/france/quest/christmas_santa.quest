@@ -1,0 +1,67 @@
+quest christmas_santa begin
+	state start begin
+		when 20126.click begin
+			---                                                   l
+			say_title(""..mob_name(20126).."")
+			say("Oh! Oh! Oh! J'ai beaucoup de cadeaux dans ma")
+			say("hotte ! Je te laisse donc choisir ce que tu")
+			say("veux. Mais dépêche toi, le pêre noël n'attend pas!")
+
+			local a=select("Je voudrais un manuel de compétence", "Je voudrais un item aléatoire", "Fermer")
+
+			if 1==a then
+				---                                                   l
+				say_title(""..mob_name(20126).."")
+				say("Tu a choisi le livre de compétence.")
+				say("Je te fais un prix puisque c'est Noël.")
+				say("Ce livre te coutera 50 000 yangs seulement.")
+				say("Cependant ce livre est aléatoire, il peut te plaire")
+				say("ou, au contraire, te décevoir.")
+				say("Que souhaites-tu faire ?")
+
+				local b = select("Acheter un manuel au hasard", "Fermer")
+
+				if 1==b then
+					if pc.gold < 50000 then
+						---                                                   l
+						say_title(""..mob_name(20126).."")
+						say("Vous n'avez pas assez d'argent pour acheter le")
+						say("livre de compétence.")
+					else
+						pc.give_item2(50300)
+						pc.changegold(-50000)
+					end
+				end
+
+			elseif 2==a then
+				---                                                   l
+				say_title(""..mob_name(20126).."")
+				say("Tu a choisi un item aléatoire.")
+				say("Je te fais un prix puisque c'est Noël.")
+				say("Cet item te coutera 100 000 yangs seulement.")
+				say("Cependant c'est un item aléatoire, il peut te")
+				say("plaire ou, au contraire, te décevoir.")
+				say("Que souhaites-tu faire ?")
+
+				local c = select("Acheter un item aléatoire", "Fermer")
+
+				if 1==c then
+					if pc.gold < 100000 then
+						---                                                   l
+						say_title(""..mob_name(20126).."")
+						say("Vous n'avez pas assez d'argent pour acheter un")
+						say("item aléatoire.")
+					else
+						pc.give_item_from_special_item_group(70201)
+						pc.changegold(-100000)
+					end
+				end
+
+			elseif 3==a then
+				---                                                   l
+				say_title(""..mob_name(20126).."")
+				say("Joyeux Noel! Et bonne journée à vous!")
+			end
+		end
+	end
+end

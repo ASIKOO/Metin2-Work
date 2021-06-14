@@ -1,0 +1,312 @@
+quest subquest_13 begin
+	state start begin
+		when login  or levelup with pc.level >= 21 and pc.level <= 26 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(9001)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Marchand d'armes")
+			end
+		end
+		when __TARGET__.target.click or 9001.chat."Matériaux pour les armes." with pc.level >= 21 begin
+			target.delete("__TARGET__")
+			say_title("Marchand d'armes:")
+			say("")
+			--                                                  |
+			say("Hé, vous! Pourriez-vous me faire une faveur?")
+			say("")
+			say("J'essaie de faire une nouvelle arme. ")
+			say("Il n'est pas facile de trouver les matériaux")
+			say("nécessaires, j'ai moi-même beaucoup de travail")
+			say("et je ne peux pas aller chercher après les")
+			say("matériaux.")
+			say("Pourriez-vous le faire pour moi?")
+			say("")
+			wait()
+
+			say_title("Marchand d'armes:")
+			say("")
+			--                                                  |
+			say("Bien sûr, je vous récompenserais, dès que les ")
+			say("armes seront finies, je vous donnerais l'une")
+			say("d'elles.")
+			say("J'ai besoin des ces matériaux:")
+			say("minerai de cuivre et du lin. ")
+			say("Vous obtiendrez le minerai de cuivre auprès ")
+			say("Uriel et le lin auprès d'Ariyoung.")
+			say("Prévenez-moi dès que vous avez tout.")
+			say("")
+
+			local s=select("Je vais le faire.","Je ne vais pas le faire.")
+			if 2==s then
+				say_title("Marchand d'armes:")
+				say("")
+				say("Vous ne voulez vraiment pas le faire?")
+				say("")
+				local a=select("Oui je veux!","Jamais!")
+				if  1==a then
+					say_title("Marchand d'armes:")
+					say("")
+					say("J'espère que ce n'est pas trop pour vous.")
+					say("A plus tard.")
+					say("")
+				else
+					say_title("Marchand d'armes:")
+					say("")
+					--                                                  |
+					say("Si vous ne voulez pas le faire, rien ne")
+					say("pourra être fait.")
+					say("A plus tard.")
+					say("")
+					set_state(__GIVEUP__)
+				end
+			else
+				say_title("Marchand d'armes:")
+				say("")
+				--                                                  |
+				say("Bien que vous pouvez le faire.")
+				say("Dès que les armes seront terminé, ")
+				say("je vous en donnerais une.")
+				say("Bonne chance!")
+				say("")
+				set_state(get_weapon)
+			end
+		end --when
+	end  --state
+-----------------------------------------------------------------------------------------------------------------------
+	state get_weapon begin
+		when letter begin
+			send_letter("Recherche du matériel.")
+			if pc.getqf("iron_done") == 0  then
+				local v=find_npc_by_vnum(20011)
+				if 0==v then
+				else
+					target.vid("__TARGET1__",v,"Uriel.")
+				end
+			end
+			if pc.getqf("cloth_done") == 0  then
+				local v=find_npc_by_vnum(20021)
+				if 0==v then
+				else
+					target.vid("__TARGET2__",v,"Ariyoung.")
+				end
+			end
+			if pc.getqf("cloth_done") == 1  then
+				local v=find_npc_by_vnum(20003)
+				if 0==v then
+				else
+					target.vid("__TARGET3__",v,"Ah-Yu.")
+				end
+			end
+		end
+		when info or button begin
+			say_title("Information:")
+			say("")
+			--                                                  |
+			say("Le marchand d'armes a besoin de quelques ")
+			say("matériaux.")
+			if pc.getqf("iron_done") < 2 then
+				--                                                  |
+				say("- obtenez du minerai de cuivre auprès d'Uriel.")
+			else
+				--                                                  |
+				say("- Vous avez déjà eu le minerai de cuivre.")
+			end
+			say("")
+			if pc.getqf("cloth_done") < 2 then
+				--                                                  |
+				say("- obtenez le lin auprès d'Ariyoung.")
+			else
+				say("- Vous avez déjà eu le lin d'Ariyoung.")
+			end                        
+			say("")
+		end
+		when 20011.chat."J'ai besoin de minerai de cuivre" with pc.getf("subquest_13","iron_done")==0 begin
+			target.delete("__TARGET1__")
+			say_title("Uriel:")
+			say("")
+			--                                                  |
+			say("Vous avez besoin de minerai de cuivre?")
+			say("Je pourrais vous en donner quelques-uns ")
+			say("si vous me faites une faveur.")
+			say("")
+			wait()
+			say_title("Uriel:")
+			say("")
+			--                                                  |
+			say("Les tigres ont volé mon sac de Sage.")
+			say("")
+			say("J'ai dû courir pour sauver ma vie, mais à ")
+			say("l'intérieur du sac il y a d'importants livres.")
+			say("Si je n'ai pas cela, je ne peux pas examiner")
+			say("les pierres Metin supplémentaires")
+			say("")
+			say("Apportez-moi le sac et je vais vous donner ")
+			say("quelques minerais de cuivre")
+			say("")
+			say_item_vnum("30134")
+			say("")
+			pc.setqf("iron_done",1)
+		end
+		when 20011.chat."S'il vous plaît donner moi le minerai de cuivre" with pc.getf("subquest_13","iron_done") == 1 begin
+			target.delete("__TARGET1__")
+			if pc.count_item("30134") >= 1 then
+				say_title("Uriel:")
+				say("")
+				--                                                  |
+				say("Merci! Je vous demande vraiment trop souvent ")
+				say("une faveur.")
+				say("Voilà, voici un peu de minerai de cuivre.")
+				say("J'espère que cela va vous aider.")
+				say("")
+				pc.setqf("iron_done",2)
+				pc.remove_item("30134",1)
+				if  pc.getqf("cloth_done") == 2 then
+					set_state(back_to)
+				end
+			else
+				say_title("Uriel:")
+				say("")
+				--                                                  |
+				say("Vous avez donc besoin de minerai de cuivre?")
+				say("Il ne pousse pas sur les arbres vous savez! ")
+				say("Je vais vous en donner, mais vous devez me")
+				say("faire une faveur.")
+				say("Des tigres ont volé mon sac de Sage.")
+				say("Je me suis enfui pour sauver ma vie.")
+				say("Dans ce sac il y a des documents importants")
+				say("et sans eux je ne peux pas continuer mes ")
+				say("recherches sur les pierres Metin.")
+			end   --if
+		end           --when
+		when 114.kill  begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30134")==0 and pc.getqf("iron_done") == 1 then
+				say_title("J'ai trouvé le sac du Sage")
+				say("")
+				say("Vous avez trouvé le sac du Sage Uriel.")
+				say("")
+				say("Retourner le voir.")
+				say("")
+				pc.give_item2("30134", 1)
+			end
+		end
+		when 20021.chat."J'ai besoin de lin" begin
+			target.delete("__TARGET2__")
+			if pc.getqf("cloth_done") == 0  then
+				say_title("Ariyoung:")
+				say("")
+				--                                                  |
+				say("Si vous êtes à la recherche de lin, ")
+				say("je peux vous aider, mais seulement si vous ")
+				say("faites quelque chose pour moi.")
+				say("S'il vous plaît donner cette lettre à Ah-Yu.")
+				say("Nous ne nous sommes pas vu depuis un certain")
+				say("temps car elle est occupée avec son enfant.")
+				say("Elle doit traverser un moment difficile.")
+				say("Si vous lui remettait cette lettre, ")
+				say("vous pouvez lui demander du lin pour moi.")
+				say("Je n'en ai pas besoin, gardez-le.")
+				pc.setqf("cloth_done", 1)
+			end
+			if pc.getqf("cloth_done") == 2  then
+				say("Ariyoung:")
+				say("")
+				say("Vous avez sûrement eu du lin par Ah-Yu?")
+				say("")
+			end
+		end
+		when  20003.chat."Ariyoung's letter" with pc.getf("subquest_13","cloth_done") == 1 begin
+			target.delete("__TARGET3__")
+			say_title("Ah-Yu:")
+			say("")
+			--                                                  |
+			say("Vous m'avez apporté une lettre de Ariyoung? ")
+			say("C'est agréable d'avoir des nouvelles d'elle ")
+			say("après tout ce temps.")
+			say("Nous nous sommes souvent rencontré pour ")
+			say("discuter dans le passé mais récemment, ")
+			say("c'est un peu difficile.")
+			say("Ah, elle vous dit de me demander de lin?")
+			say("Un instant, je vais vous le donner, ")
+			say("puis je devrais lui répondre.")
+			say("Merci de m'avoir apporté la lettre.")
+			say("Voici le lin.")
+			say("")
+			pc.setqf("cloth_done", 2)
+			if pc.getqf("iron_done") == 2 then
+				set_state(back_to)
+			end
+		end
+	end
+	state back_to begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("J'ai tout les matériaux")
+			q.set_title("Aller voir le marchand d'armes.")
+			q.start()
+
+			local v=find_npc_by_vnum(9001)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Aller voir le marchand d'armes.")
+			end
+		end
+		when info or button begin
+			say_title("Donner les matériaux")
+			say("")
+			--                                                  |
+			say("J'ai tout les matériaux. ")
+			say("Aller voir le marchand d'armes.")
+		end
+		when __TARGET__.target.click or 9001.chat."Donnez les matériaux" with pc.getf("subquest_13","cloth_done") == 2 and pc.getf("subquest_13","iron_done") == 2  begin
+			target.delete("__TARGET__")
+			say_title("Marchand d'armes:")
+			say("")
+			--                                                  |
+			say("Bien. Vous êtes vraiment bon et rapide.")
+			say("Laissez-moi travailler sur ces armes ")
+			say("")
+			say("*martelant*")
+			say("Voici les nouvelles armes! ")
+			say("J'ai fait de mon mieux.")
+			say("J'espère que vous aimez la nouvelle arme.")
+			say("Utilisez-la à bon escient!")
+			say("")
+			wait()
+			say_title("Reward:")
+			say("")
+			say_reward("Vous avez reçu 100.000 points d'expérience.")
+			say_reward("Vous avez reçu 20.000 Yang.")
+			pc.give_exp2(100000)
+			if pc.job == 0 then
+				pc.give_item2("55", 1)
+				say_reward("Vous avez reçu épée large +5.")
+			elseif pc.job == 1 then
+				pc.give_item2("1025", 1)
+				say_reward("Vous avez reçu une dague ciseaux +5.")
+			elseif pc.job == 2 then
+				pc.give_item2("55", 1)
+				say_reward("Vous avez reçu épée large +5.")
+			elseif pc.job == 3 then
+				pc.give_item2("7045", 1)
+				say_reward("Vous avez reçu un éventail de paon +5 .")
+			end   --if
+			say("")
+			pc.setqf("cloth_done",0)
+			pc.setqf("iron_done",0)
+			set_quest_state("levelup","run")
+			pc.change_money(20000)
+			clear_letter()
+			set_state(__COMPLETE__)
+		end  --when
+	end   --state
+	state __COMPLETE__ begin
+	end
+	state __GIVEUP__ begin
+	end
+end

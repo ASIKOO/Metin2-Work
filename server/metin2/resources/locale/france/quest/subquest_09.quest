@@ -1,0 +1,138 @@
+quest subquest_9 begin
+	state start begin
+		when login or levelup with pc.level >= 16 and pc.level <= 21 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20016)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Forgeron.")
+			end
+		end
+		when __TARGET__.target.click or 20016.chat."Trouvez la hache d'or" with pc.level >= 16 begin
+			target.delete("__TARGET__")
+			say_title("Forgeron:")
+			say("")
+			----                                                  l
+			say("Vous vous souvenez de mon ami Deokbae? ")
+			say("J'avais promis de faire une magnifique hache ")
+			say("pour lui; malheureusement, il a été volé par ")
+			say("un soldat du Serment Blanc.")
+			say("Pouvez-vous me ramener cette hache?")
+			say("Un soldat du Serment Blanc devrait l'avoir.")
+			say("Vous devriez être en mesure de reconnaître ")
+			say("cette hache, il en existe peu.")
+			
+			local s=select("Accepter","Refuser")
+			if 2==s then
+				say_title("Forgeron:")
+				say("")
+				say("Vous ne voulez pas m'aider? Vraiment?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Forgeron :")
+					say("")
+					say("Je veux cette hache désespérément!")
+					say("Nous nous rencontrons à nouveau? Oui?")
+					say("")
+					return
+				else
+					say_title("Forgeron:")
+					say("")
+					say("Ah!! vraiment honteux.")
+					say("Maintenant part d'ici.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Forgeron:")
+				say("")
+				say("Nous vous remercions de votre aide.")
+				say("Attention, ce clan est dangereux.")
+				say("")
+				set_state(hunt_for_goldenaxe)
+			end
+		end
+	end
+
+	state hunt_for_goldenaxe begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouve la hache en or.")
+			q.set_title("Trouve la hache en or.")
+			q.start()
+		end
+		when info or button begin
+			if pc.count_item("30102") == 0 then
+				say_title("Trouve la hache en or.")
+				say("")
+				----                                                  l
+				say("Recherchez le soldat du Serment Blanc qui ")
+				say("a volé la hache en or et ramenez la au Forgeron.")
+				say("")
+				say_item_vnum(30102)
+				say("")
+			else
+				say_title("Vous avez trouvé la hache.")
+				say("")
+				say("Rapporter la hache en or au Forgeron.")
+				say("")
+			end
+		end
+		when 301.kill begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30102")==0  then
+				pc.give_item2("30102", 1)
+				send_letter("Vous avez la hache d'or." )
+				local v=find_npc_by_vnum(20016)
+				if 0==v then
+				else
+					target.vid("__TARGET__",v,"Retourner voir le Forgeron.")
+				end
+			end
+		end
+		when 20016.chat."Voici la hache en or" begin
+			target.delete("__TARGET__")
+			if pc.count_item("30102") >= 1 then
+				say_title("Forgeron:")
+				----                                                  l
+				say("")
+				say("Merci beaucoup.")
+				say("Maintenant je n'ai plus à me soucier de ce que")
+				say("Deokbae va dire à propos de sa hache en or!")
+				say("")
+				pc.remove_item("30102", 1)
+				pc.give_exp2(50000)
+				set_quest_state("levelup","run")
+				pc.change_money(10000)
+				pc.give_item2(50037,1)
+				say_title("Reward:")
+				say("")
+				say_reward("Vous recevez 50.000 points d'expérience.")
+				say_reward("Vous recevez 10.000 Yang.")
+				say_reward("Vous recevez boîte hexagonale.")
+				say("")
+				q.done()
+				set_state(__COMPLETE__)
+				return
+			else
+				say_title("Forgeron:")
+				----                                                  l
+				say("")
+				say("Vous l'avez pas trouvé sur les serments blancs?")
+				say("Peut-être vous aurez plus de chance")
+				say("cette fois-ci.")
+			end --if
+		end  --when
+	end  --state
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+	end
+end

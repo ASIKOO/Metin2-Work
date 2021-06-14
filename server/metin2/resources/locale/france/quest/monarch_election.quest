@@ -1,0 +1,409 @@
+-- Quest monarch_election
+-- Translation by Romainsch + some little changes
+-- For Team-EB               www.emulation-bay.fr
+quest monarch_election begin
+	state start begin
+	
+		when login or enter begin
+		
+			if oh.ismonarch() > 0 and pc.count_item(70021) == 0 then
+				set_state(newking)
+				
+			elseif oh.ismonarch() == 0 then
+				if pc.count_item(70021) > 0 then
+					pc.remove_item(70021)
+					syschat("Votre bénédiction des anges a été supprimée.")
+				end
+				if pc.count_item(11971) > 0 or pc.count_item(11972) > 0 or pc.count_item(11973) > 0 or pc.count_item(11974) > 0 then
+					if pc.get_part(PART_MAIN) > 11970 and pc.get_part(PART_MAIN) < 11975 then
+						----"123456789012345678901234567890123456789012345678901234567890"|
+						syschat("S'il vous plait, déséquipez votre armure empereur et")
+						syschat("reloguez vous. Vous n'êtes plus autorisé(e) à la porter.")
+					else
+						local armor = 11971 + pc.get_job()
+						pc.removeitem(armor)
+						syschat("Votre armure Hwang a été supprimée.")
+					end
+				end
+			end
+			if game.get_event_flag("monarch_event_state") > 0 and pc.get_level() >= 50 then
+				q.set_icon("scroll_open_blue.tga")
+				send_letter("*Election des empereurs")
+			end
+
+		end
+		when button or info begin
+		        ----"123456789012345678901234567890123456789012345678901234567890"|
+			addimage(20, 12, "monarch.tga")
+			say("")
+			say("")
+			say("")
+			say("")
+
+			if game.get_event_flag("monarch_event_state") == 1 then
+				say_title("Election des Empereurs : Phase des candidatures")
+				say("")
+				----"123456789012345678901234567890123456789012345678901234567890"|
+				say("Si vous souhaitez vous présenter au poste de futur dirigeant de l'empire "..locale.empire_names[pc.get_empire()]..",")
+				say("allez parler au gardien archer dans n'importe quel village. Souvenez-vous que vous devez posséder au moins 100.000 Yangs et être au moins niveau 60 pour vous présenter.")
+				say("")
+				say("")
+				say("Quand la phase des candidatures au poste d'empereur sera terminée, vous pourrez voter.")
+			elseif game.get_event_flag("monarch_electionid") == pc.getqf("electionid") then
+				say_title("Election des Empereurs : Phase des votes")
+				say("")
+				say("Vous avez déjà voté. Le résultat des votes sera annoncé après la fin de la phase des votes.")
+				say("")
+			else
+				say_title("Election des Empereurs : Phase des votes")
+				say("")
+				say("Va parler au gardien archer de n'importe quel village pour ")
+				say("voter pour ton candidat préféré au poste d'empereur. Pour ")
+				say("prouver que ton vote doit être pris en considération, ")
+				say("tu dois apporter :")
+				say("")
+				say_item_vnum(60004)
+				say("Cet objet peut être obtenu en tuant un ennemi.")
+			end
+			say("")
+		end
+		
+		when kill with game.get_event_flag("monarch_event_state") > 0 and pc.level >= 50 begin
+			if game.get_event_flag("monarch_electionid") != pc.getqf("electionid") then
+				if not npc.is_pc() then
+					local limit = get_mob_level[npc.get_race()]
+					if limit == nil then
+						return
+					else
+						if pc.get_level() > limit+10 then
+							return
+						end
+					end
+				end
+				if number(1, 500) == 1 then
+					if pc.count_item(60004) == 0 and pc.enough_inventory(60004) then
+						pc.give_item2(60004, 1)
+						syschat("Vous pouvez maintenant voter pour votre candidat favori.") 
+					end
+				end
+			end
+		end
+		
+		when electionman1.chat."GM: Gestion de l'event empereur" or electionman2.chat."GM: Gestion de l'event empereur" or electionman3.chat."GM: Gestion de l'event empereur" with pc.is_gm() begin
+			if game.get_event_flag("monarch_event_state") == 1 then
+				say_title("Election des Empereurs :")
+				say("")
+				----"123456789012345678901234567890123456789012345678901234567890"|
+				say("L'event Election des Empereurs est actuellement dans la ")
+				say("phase des candidatures au poste d'empereur.")
+				say("Tous les habitants de chaque empire remplissant les")
+				say("conditions nécessaires au poste d'empereur peuvent se")
+				say("porter candidat.")
+				say("")
+				say("")
+				say("Voulez-vous mettre fin à cette phase pour passer")
+				say("a la phase des votes ?")
+				say("")
+				local s = select("Oui", "Non" )
+
+				if s == 1 then
+					notice_all("La phase des candidatures au poste d'empereur est maintenant terminée, plus aucune candidature ne sera acceptée!")
+					notice_all("L'heure des votes a sonné! Allez parler au gardien archer pour voter pour votre candidat favori.")
+					game.set_event_flag("monarch_event_state", 2)
+					game.set_event_flag("monarch_electionid", get_global_time())
+					say_title("Election des Empereurs :")
+					say("")
+					----"123456789012345678901234567890123456789012345678901234567890"|
+					say("La phase des candidatures au poste d'empereur est terminée.")
+					say("Actuellement les votes sont ouverts.")
+					say("")
+				else
+					return
+				end
+			
+			elseif game.get_event_flag("monarch_event_state") == 2 then
+				say_title("Election des Empereurs :")
+				say("")
+				----"123456789012345678901234567890123456789012345678901234567890"|
+				say("Actuellement les joueurs de chaque empire votent pour leur")
+				say("candidat(e) favori(e) au poste d'empereur.")
+				say("")
+				say("Voulez-vous mettre fin à cette phase de votes pour passer")
+				say("au dépouillement des votes afin d'élire les nouveaux")
+				say("empereurs?")
+				say_reward("Résultat actuel :")
+				say_reward(locale.empire_names[1].." : "..monarch_election.getcurrentwinner(1)[1])
+				say_reward(locale.empire_names[2].." : "..monarch_election.getcurrentwinner(2)[1])
+				say_reward(locale.empire_names[3].." : "..monarch_election.getcurrentwinner(3)[1])
+				say("")
+				local s = select("Mettre fin aux votes", "Annuler")
+				
+				if s == 1 then
+					notice_all("La phase des votes pour les candidats au poste d'empereur est maintenant finie.")
+					game.set_event_flag("monarch_event_state", 0)
+					if monarch_election.getcurrentwinner(1)[2] != 0 then mgmt.monarch_change_lord(1, monarch_election.getcurrentwinner(1)[2]) end
+					if monarch_election.getcurrentwinner(2)[2] != 0 then mgmt.monarch_change_lord(2, monarch_election.getcurrentwinner(2)[2]) end
+					if monarch_election.getcurrentwinner(3)[2] != 0 then mgmt.monarch_change_lord(3, monarch_election.getcurrentwinner(3)[2]) end
+				end
+			
+			elseif game.get_event_flag("monarch_event_state") == 0 then
+				say_title("Election des Empereurs :")
+				say("")
+				say("Voulez-vous lancer l'event Election des Empereurs ?")
+				say("")
+				say("")
+				say("")
+				local s = select("Le lancer", "Ne pas le lancer")
+
+				if s == 1 then
+					notice_all("L'event Election des Empereurs vient de débuter!")
+					notice_all("Va parler au garde archer pour te présenter au poste d'empereur !")
+					game.set_event_flag("monarch_event_state", 1)
+					game.set_event_flag("monarch_electionid", get_global_time())
+					monarch_election.clearcandidacy()
+				end
+
+			end
+
+		end
+
+
+		when electionman1.chat."Election des Empereurs : vote" or electionman2.chat."Election des Empereurs : vote" or electionman3.chat."Election des Empereurs : vote" with game.get_event_flag("monarch_event_state") == 2 begin
+			say_title("Election des Empereurs : vote :")
+			say("")
+			
+			if pc.get_level() < 50 then
+				say("Voue devez être au moins niveau 50.")
+				say("Revenez quand vous serez suffisamment expérimenté.")
+				say("")
+				return
+			end
+			
+			if game.get_event_flag("monarch_electionid") == pc.getqf("electionid") then
+				say("Vous avez déjà voté, vous ne pouvez pas voter 2 fois !")
+				say("")
+				return
+			end
+			if pc.count_item(60004) < 1 then
+			----"123456789012345678901234567890123456789012345678901234567890"|
+				say("Vous devez me présenter ce document pour me montrer que")
+				say("vous êtes suffisamment aguerri pour élire un empereur")
+				say("de "..locale.empire_names[pc.get_empire()]".")
+				say("")
+				say_item_vnum(60004)
+				say("Vous pouvez le récupérer sur n'importe quel monstre.")
+				say("Revenez quand vous posséderez cet objet.")
+				say("")
+				return
+			end
+
+			local gname_table = monarch_election.candidacy_list(pc.get_empire())
+			if table.getn(gname_table) == 0 then
+				-- no currently war
+				say("Il n'y a actuellement pas de candidats!")
+				say("")
+			else
+				table.insert(gname_table, "Annuler")
+				----"123456789012345678901234567890123456789012345678901234567890"|
+				say("Votez avec sagesse, vous ne pouvez voter qu'une seule fois.")
+				say("")
+				say("")
+				wait()
+				local s = select_table(gname_table)
+
+				if s == table.getn(gname_table) then
+					return
+				else
+					monarch_election.election(s)
+					pc.setqf("electionid", game.get_event_flag("monarch_electionid"))
+					pc.remove_item(60004, 1)
+					say_title("Election des Empereurs :")
+					say("")
+					say("Merci pour votre participation !")
+					say("")
+					say_reward("Vous avez bien voté pour : "..gname_table[s])
+					say("")
+				end
+			end
+		end
+
+
+		when electionman1.chat."Se présenter au poste d'empereur" or electionman2.chat."Se présenter au poste d'empereur" or electionman3.chat."Se présenter au poste d'empereur" with game.get_event_flag("monarch_event_state") == 1 begin
+			
+			local NEED_MONEY = 250000
+			
+			say_title("Candidature au poste d'empereur:")
+			say("")
+			----"123456789012345678901234567890123456789012345678901234567890"|
+			say("Pour postuler au poste d'empereur, vous devez réunir les")
+			say("conditions ci-dessous :")
+			say("")
+			say_reward("1. Une taxe de "..NEED_MONEY.." Yangs.")
+			say_reward("2. Etre au moins niveau 60.")
+			say("")
+			
+			if game.get_event_flag("monarch_event_state") == 0 then
+				say("Cependant l'event Election des Empereurs n'est pas ouvert")
+				say("actuellement. Reviens quand ça sera le cas.")
+				say("")
+				return
+			end	
+			if game.get_event_flag("monarch_electionid") == pc.getqf("electionid") then
+				----"123456789012345678901234567890123456789012345678901234567890"|
+				say("Vous êtes déjà candidat au poste d'empereur.")
+				say("")
+				return
+			end
+
+			say("Voulez-vous vous présenter au poste d'empereur ??")
+			say("")
+
+			local s = select("Oui", "Non merci")
+
+			
+
+			if s == 1 then
+				say_title("Candidature au poste d'empereur:")
+				say("")
+				if monarch_election.candidacycount(pc.get_empire()) >= 8 then
+					say("Désolé, mais le nombre maximum de candidats pour votre")
+					say("empire a déjà été atteint.")
+					say("")
+					say("Patientez jusqu'à la prochaine élection.")
+				elseif pc.get_gold() >= NEED_MONEY and pc.get_level() >= 65 then
+					say("Vous êtes maintenant enregistré en tant que candidat.")
+					say("")
+					say("Bonne chance!")
+					pc.change_gold(-NEED_MONEY);
+					monarch_election.candidacy();
+					pc.setqf("electionid", game.get_event_flag("monarch_electionid"))
+				else
+					say("Désolé, mais vous ne remplissez pas toutes les")
+					say("conditions nécessaires au poste d'empereur.")
+				end
+				say("")
+			end
+		end
+		
+		function candidacy()
+
+			local f = io.open("data/monarch_election", "a+")
+			f:write(pc.get_player_id().."\\t"..pc.get_empire().."\\t0\\t"..pc.get_name().."\\t\\n")
+			f:close()
+		end
+		
+		function clearcandidacy()
+
+			local f = io.open("data/monarch_election", "w+")
+			f:close()
+		end
+		
+		function candidacycount(empire)
+			local count = 0
+			local f = io.open("data/monarch_election", "r")
+			for line in f:lines() do
+				local e = string.split(line, "\\t")
+				if e != nil and tonumber(e[2]) == empire then
+					count = count + 1
+				end
+			end
+			f:close()
+			return count
+		end
+		
+		function candidacy_list(empire)
+			local res = {}
+			local f = io.open("data/monarch_election", "r")
+			for line in f:lines() do
+				cinfo = string.split(line, "\\t")
+				if tonumber(cinfo[2]) == empire then
+					table.insert(res, cinfo[4])
+				end
+			end
+			f:close()
+			return res
+		end
+		
+		function election(id)
+			local c_list = {}
+			local c_count = 0
+			local f = io.open("data/monarch_election", "r")
+			for line in f:lines() do
+				table.insert(c_list, string.split(line, "\\t"))
+				c_count = c_count + 1
+			end
+			f:close()
+			f = io.open("data/monarch_election", "w+")
+			local e_i = 1
+			for i = 1, c_count, 1 do
+				if e_i == id then
+					c_list[i][3] = tonumber(c_list[i][3]) + 1
+				end
+				if tonumber(c_list[i][2]) == pc.get_empire() then
+					e_i = e_i + 1
+				end
+				f:write(c_list[i][1].."\\t"..c_list[i][2].."\\t"..c_list[i][3].."\\t"..c_list[i][4].."\\t\\n")
+			end
+			f:close()
+		end
+		
+		function getcurrentwinner(empire)
+			local res = {"Personne", 0}
+
+			local f = io.open("data/monarch_election", "r")
+			local maxvotes = -1
+
+			for line in f:lines() do
+				local exploded = string.split(line, "\\t")
+				if tonumber(exploded[2]) == empire and tonumber(exploded[3]) > maxvotes then
+					maxvotes = tonumber(exploded[3])
+					res = {exploded[4], tonumber(exploded[1])}
+				end
+			end
+			f:close()
+			return res
+		end
+	end
+	
+	state newking begin
+		when login or enter begin
+				q.set_icon("scroll_open_blue.tga")
+				send_letter("*Félicitations !")
+		end
+		when button or info begin
+				local treatment = {
+					[0] = "Empereur",
+					[1] = "Impératrice",
+				}
+				
+				local armor = 11971 + pc.get_job()
+
+				----"123456789012345678901234567890123456789012345678901234567890"|
+				say_title("Félicitations !")
+				say("")
+				say("Vous avez été élu(e) "..treatment[pc.get_sex()].." de "..locale.empire_names[pc.get_empire()].."!")
+				say("")
+				say("En qualité d'"..treatment[pc.get_sex()]..", vous recevez")
+				say("l'armure Hwang et des objets Bénédiction des Anges pour")
+				say("pendant la durée de votre règne.")
+				say("")
+				say("Ces joyaux vous permettent d'accéder à des pouvoirs")
+				say("spécifiques aux empereurs. Notez cependant que vous serez")
+				say("limité dans leur utilisation, donc servez-vous en")
+				say("sagement !")
+				say("")
+				say("Que votre règne soit prospère et faste !")
+				say("")
+				clear_letter()
+				set_state(start)
+				if pc.count_item(armor) == 0 then
+					pc.give_item2(armor)
+				end
+				if pc.count_item(70021) == 0 then
+					pc.give_item2(70021)
+				end
+
+				notice_all("L'"..treatment[pc.get_sex()].." "..pc.getname().." de "..locale.empire_names[pc.get_empire()].." vient d'être courronné! Saluez l'"..treatment[pc.get_sex()].."!")
+		end
+	end
+end

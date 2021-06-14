@@ -1,0 +1,265 @@
+quest energy_system begin
+	state start begin
+		when alchemist.chat."Une nouvelle technique !" begin
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("J'ai réussi !")
+			say("J'ai enfin pu développer une technique")
+			say("révolutionnaire.")
+			say("Je suis maintenant capable de bricoler des objets")
+			say("pour en tirer de l'énergie pure. Je suis un")
+			say("génie !")
+			wait()
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("En détruisant un objet avec cette technique, on")
+			say("obtient des fragments d'énergie. Avec 30")
+			say("d'entre eux, on peut reconstituer un cristal")
+			say("d'énérgie.")
+			say("De l'énergie pure capturée dans une pierre")
+			say("précieuse. Cette force se répandra dans tout")
+			say("votre équipement. Cela vous intéresse ?")
+			wait()
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("Apportez-moi des objets que vous trouverez")
+			say("cours de vos aventures, comme des armes, des")
+			say("bijoux et des vêtements. Je les transformerai en")
+			say("fragments d'énérgie. Cette technique va")
+			say("influencer l'avenir de notre nation. Nous serons")
+			say("invincibles !")
+			setstate (can_make)
+		end
+	end
+
+	state can_make begin
+		function setting () 
+			return
+			{
+				["prob_acc_table"] = 
+				{
+					["35to50"] = {30,55,70,80,90,95,97,98,99,100},
+					["51to70"] = {20,40,60,75,85,91,96,98,99,100},
+					["upto70"] = {10,25,45,65,80,88,94,97,99,100}
+				},
+				["item_num_table"] ={0,1,2,3,4,6,8,10,12,15},
+				["energy_stone"] = 51001,
+				["charging_stone"] = 51002,
+			}
+		end	
+		function getItemNum ( str, r )
+			local setting = energy_system.setting()
+			for i = 1, 10 do
+				if r < setting.prob_acc_table[str][i] then
+					return setting.item_num_table[i]
+				end
+			end
+			return 0
+		end
+
+		when alchemist.chat."Extraire des fragments d'énergie" begin
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("Ça a fonctionné ? Avez-vous obtenu des fragments")
+			say("d'énergie ? Apportez-moi plus d'objets et je")
+			say("les démonterai à l'aide de l'alchimie. Ma")
+			say("technique n'est pas encore tout à fait au point, ")
+			say("c'est pourquoi je ne peux pas vous dire")
+			say("exactement combien de fragments vous obtiendrez.")
+			wait()
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("Il y a toutefois une condition : votre niveau")
+			say("ainsi que celui de l'objet doivent être")
+			say("supérieurs ou égaux à 35.")
+			say("Bon, voyons voir...")
+			wait()
+
+			if pc.get_level() < 35 then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Vous n'êtes pas encore assez puissant ! Revenez")
+				say("me voir quand vous aurez atteint le niveau 35.")
+			else
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Ah, parfait ! Vous êtes fort et expérimenté.")
+				say("Donnez-moi l'objet que je dois transformer.")
+			end
+		end
+
+		when alchemist.take begin
+			if pc.get_level() < 35 then 
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Vous devez être niveau 35 pour fabriquer des")
+				say("fragments d'énergie.")
+				return
+			end
+
+			local item_vnum = item.vnum
+			local levelLimit = item.get_level_limit(item_vnum)
+			local setting = energy_system.setting()
+
+			if levelLimit == nil then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Je ne peux pas fabriquer de fragments d'énergie")
+				say("avec cet objet.")
+				wait()
+			elseif item.get_type() == ITEM_WEAPON and item.get_sub_type() == WEAPON_ARROW then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Je ne peux pas fabriquer de fragments d'énergie")
+				say("avec cet objet.")
+				wait()
+			elseif levelLimit < 35 then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Je ne peux pas fabriquer de fragments d'énergie")
+				say("avec cet objet. J'ai besoin d'équipement de")
+				say("niveau 35 ou supérieur.")
+			else
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say(item_name(item_vnum))
+				say("Voulez-vous utiliser cet objet pour fabriquer des")
+				say("fragments d'énergie ?")
+
+				local s = select("Oui, allons-y!", "Non j'ai changé d'avis.")
+
+				if s == 1 then
+					item.remove()
+					local r = number (1, 100)
+					local n
+
+					if levelLimit >= 40 and levelLimit <= 50 then
+						n = energy_system.getItemNum ("35to50",r)
+					elseif levelLimit > 50 and levelLimit <= 70 then
+						n = energy_system.getItemNum ("51to70",r)
+					else
+						n = energy_system.getItemNum ("upto70",r)
+					end
+					if (n == 0) then
+						---                                                   l
+						say_title(""..mob_name(20001).." :")
+						say("La fabrication à échoué. Aucun fragments d'énergie")
+						say("ont été produit.")
+					else
+						pc.give_item2(setting.energy_stone, n)
+						---                                                   l
+						say_title(""..mob_name(20001).." :")
+						say("La fabrication à réussi.")
+						say(""..n.." fragments d'énergie ont été produits.")
+					end
+				end
+			end
+		end
+
+		when alchemist.chat."Fabriquer un cristal d'énergie" begin
+			local setting = energy_system.setting()
+			local need = 30
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("Vous avez déjà épuisé vos réserves d'énérgie ?")
+			say("Vous ne devriez pas travailler si dur et risquer")
+			say("votre vie inutilement. Pour fabriquer un cristal")
+			say("d'énergie, il me faut 30 cristaux d'énergie.")
+			wait()
+			
+			if pc.get_level() < 35 then 
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Vous n'êtes pas encore assez puissant ! Revenez")
+				say("me voir quand vous aurez atteint le niveau 35.")
+				return
+			end
+			
+			if pc.count_item (setting.energy_stone) < need then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Vous n'avez pas encore suffisamment de fragments")
+				say("d'énérgie pour fabriquer un cristal. Revenez")
+				say("quand vous aurez au moins 30 fragments.")
+				return
+			else
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Vous avez apporté 30 fragments d'énergie.")
+				say("Juste un instant s'il vous plaît...")
+				wait()
+			end
+
+			local charge = 100000
+
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("Tout est prêt pour la fusion.")
+			say("Malheureusement, la fusion peut échouer ainsi")
+			say("détruire vos matériaux et mes outils.")
+			say("Je vous demande donc la somme de 100.000 Yangs.")
+			say("Êtes-vous sur de vouloir tenter la fusion ?")
+
+			local s = select ("Oui je veux essayer.", "Non j'ai changé d'avis.")
+
+			if s == 2 then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Vous avez changé d'avis?")
+				say("D'accord, si vous voulez essayer une prochaine fois")
+				say("venez me voir.")
+				return
+			end
+
+			if pc.get_gold() < charge then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Vous n'avez pas assez de Yangs. Je ne peux pas")
+				say("vous aider, j'ai besoin d'argent pour vivre.")
+				return
+			end
+
+			pc.change_gold (-charge)
+			pc.remove_item (setting.energy_stone, need)
+
+			if pc.getqf ("hasExperience") == 0 then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Voyons voir...")
+				wait()
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Oui, cela a fonctionné !")
+				say("Voici un crystal d'énergie !")
+				pc.give_item2 (setting.charging_stone, 1)
+				pc.setqf ("hasExperience", 1);
+				return
+			end
+
+			local r = number (1, 100)
+			if r > 30 then
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Voyons voir...")
+				wait()
+				---                                                   l
+				say_title(""..mob_name(20001).." :")
+				say("Malheureusement cela n'a pas fonctionné je suis")
+				say("désolé.")
+				return
+			end
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("Voyons voir...")
+			wait()
+			---                                                   l
+			say_title(""..mob_name(20001).." :")
+			say("Oui, cela a fonctionné !")
+			say("Voici votre crystal d'énergie !")
+			pc.give_item2 (setting.charging_stone, 1)
+
+--			setskin(NOWINDOW)
+--			command("cube open")
+		end
+	end
+end

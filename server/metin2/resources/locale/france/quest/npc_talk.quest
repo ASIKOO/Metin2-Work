@@ -1,0 +1,322 @@
+quest npc_talk begin
+	state start begin
+		when 20002.chat."Comment se porte votre mari ?" begin
+			---                                                   l
+			say_title("Aranyo:")
+			say("Mon prétendu mari est marié à ses livres. Il")
+			say("me regarde à peine désormais. Et pourtant je ne")
+			say("suis pas laide...")
+		end
+
+		when 20003.chat."Quel adorable enfant !" begin
+			---                                                   l
+			say_title("Ah-Yu:")
+			say("Il pleure encore... Je ne sais pas s'il veut un")
+			say("calin, un bonbon ou ... ohhh non !")
+		end
+
+		when 20003.chat."Et vous, comment allez-vous ?" begin
+			---                                                   l
+			say_title("Ah-Yu:")
+			say("Mon fils ! Erf... Depuis que mon mari est mort")
+			say("pendant la guerre, je dois m'en occuper seule.")
+			say("J'essaie de subvenir à nos besoins. Avec l'eau")
+			say("de Bo, j'ai trouvé un moyen d'améliorer mon")
+			say("train de vie. Je dois rapporter à Yu-Hwan 100")
+			say("sirops de fleurs de kaki et un champignon-tue. A")
+			say("partir de ça, il fabrique de l'eau de Bo que je")
+			say("peux facilement vendre. J'en ai besoin d'une")
+			say("façon ou d'une autre pour m'en sortir de toutes")
+			say("façons...")
+		end
+
+		when 20005.chat."Parlez-moi de poterie." begin
+			---                                                   l
+			say_title("Yonah le potier:")
+			say("J'aime ête un potier. C'est une grande")
+			say("satisfaction de malaxer l'argile avec vos mains")
+			say("et de fabriquer un objet vous-même ...")
+			say("D'habitude je crée des objets assez simpler. A")
+			say("l'est, aux frontières du continent, les méthodes")
+			say("de production sont beaucoup plus développées.")
+			say("J'ai vu quelques poteries là une fois et j'ai")
+			say("été vraiment inspiré. Parfois, quand j'ai le")
+			say("temps, j'essaye d'expérimenter. Mais j'ai du")
+			say("mal à trouver toutes leurs techniques.")
+		end
+
+		when 20005.chat."Vos êtes très alerte pour votre âge ..." begin
+			---                                                   l
+			say_title("Yonah le potier:")
+			say("Je suis un très vieil homme, mais je suis")
+			say("toujours en vie et en bonne santé parce que je")
+			say("détiens un secret particulier. J'ai découvert")
+			say("que mélanger des racines de Gango et des")
+			say("Champignons-Tue prolongeait la vie. Si")
+			say("vous voulez essayer cette potion, apportez les")
+			say("ingrédiants nécessaires à Yu-Hawn. Il vous")
+			say("fabriquera à coup sûr une de ces potions.")
+		end
+
+		when 20006.chat."Une si jolie couronne de fleurs ..." begin
+			---                                                   l
+			say_title("Mirine:")
+			say("J'avais l'habitude de ramasser des Fleurs de")
+			say("Pêcher avec mon frère.")
+			say("Mais je dois le faire seule aujourd'hui. Ces")
+			say("fleurs ne sont pas très belles, mais elles sont")
+			say("spéciales.")
+			say("Si vous apportez une Fleur de Pêcher à Beak-Go")
+			say("il préparera un breuvage magique qui vous fera")
+			say("courir plus vite !")
+		end
+
+		when 20006.chat."Ou est votre frère ?" begin
+			---                                                   l
+			say_title("Mirine:")
+			say("Ces derniers temps, mon frère voyage beaucoup, ")
+			say("et je m'inquiète pour lui.")
+		end
+
+		when 20008.chat."Hmmm, quelle bonne odeur par ici ..." begin
+			---                                                   l
+			say_title("Octavio, le propriétaire du restaurant:")
+			say("Bienvenue! Notre restaurant fait parti d'une")
+			say("chaine internationale prestigieuse. Entrez et")
+			say("testez !")
+		end
+
+		when 20010.chat."Comment vont les affaires ?" begin
+			---                                                   l
+			say_title("Le Marchand Ambulant:")
+			say("Depuis le début de la guerre, le commerce a été ")
+			say("mauvais. L'union des commerçants était très")
+			say("puissante à une époque, mais c'est terminé ")
+			say("maintenant. Nous ne pouvons plus ignorer les")
+			say("animaux sauvages, les soldars du Serment blanc et")
+			say("le gang du Vent Noir comme nous avons eu")
+			say("l'habitude de faire.")
+		end
+
+		when 20011.chat."Ils vous surnomment le savant ?" begin
+			---                                                   l
+			say_title("Uriel le sage:")
+			say("Il y a tant de chose à apprendre dans ce vaste")
+			say("monde. L'ignorance liée avec la puissance")
+			say("militaire est une mauvaise combinaison. Vous ne")
+			say("voulez pas vivre comme des soldats ignorants, ")
+			say("n'est-ce pas ? La connaissance est la puissance!")
+		end
+
+		when 20012.chat."Vendez-vous des gâteaux de riz ?" begin
+			---                                                   l
+			say_title("Yu-Rang, le vendeur de gâteau de riz:")
+			say("A cause de la guerre, il est difficile de vendre")
+			say("des gâteaux de riz. A cause des bandits, j'ai")
+			say("perdu tout un tas de clients. J'ignore quel")
+			say("métier je devrais faire aujourd'hui.")
+		end
+
+		when 20012.chat."Qui a pour habitude de vous acheter des choses ?" begin
+			---                                                   l
+			say_title("Yu-Rang, le vendeur de gâteau de riz:")
+			say("Un jour, un cavalier mystérieux est venu et a")
+			say("voulu acheter un gâteaux de riz. Il n'avait pas")
+			say("d'argent, alors j'ai accepté une recette en")
+			say("paiement. Cette recette explique comment")
+			say("fabriquer l'eau de Zin. Cette eau fait augmenter")
+			say("la puissance d'attaque de celui qui la boit.")
+			say("Huahn-Son est capable de créer de l'eau de Zin")
+			say("si vous lui apportez de l'eau de Sim et des")
+			say("roses des montagnes.")
+		end
+
+		when 20014.chat."Pourquoi êtes-vous de si mauvaise humeur ?" begin
+			---                                                   l
+			say_title("Taurean:")
+			say("Harang est une mauvaise fille ! Je la hais! Je")
+			say("suis faible et elle me harcèle souvent!")
+			wait()
+			---                                                   l
+			say_title(""..pc.get_name()..":")
+			say("Tu es un homme et tu as des muscles. Entraine-toi")
+			say("à l'occasion !")
+		end
+
+		when 20015.chat."Vous paraissez assez fort ..." begin
+			---                                                   l
+			say_title("Deokbae:")
+			say("Pendant beaucoup d'année, le secret de notre")
+			say("force à été transmis dans notre famille. Mon père")
+			say("m'a dit que si vous vous préparez une campanule")
+			say("comme il faut, le breuvage magique vous donnerait")
+			say("la force supplémentaire pendant une courte")
+			say("période. Autant que je sache, Baek-Go est capable")
+			say("de préparer ce breuvage magique. Vous devez juste")
+			say("lui apporter une campanule.")
+		end
+
+		when 20017.chat."Va, répète le dans les montagnes..." begin
+			---                                                   l
+			say_title("Yu-Hwan:")
+			say("...par delà les collines et partout ailleurs...")
+			say("Vous aimez aussi la musique ?")
+			say("Je chante toutes sortes de chansons ici dans ma")
+			say("solitude, je ne suis donc pas impliquée dans")
+			say("cette guerre. Mais sans le peuple pour me")
+			say("protéger, je ne pourrais plus continuer à le")
+			say("faire.")
+		end
+
+		when 20018.chat."On m'a dit que vous pratiquiez la médecine ?" begin
+			---                                                   l
+			say_title("Baek-Go:")
+			say("Je fais du mieux que je peux. Mais il y a de plus")
+			say("en plus de victimes chaque jour dans ce monde")
+			say("dangereux. Nous n'avons pas assez d'aide ni de")
+			say("médicaments. Les temps sont durs !Peut-être")
+			say("pourrez-vous m'aider plus tard ?")
+		end
+
+		when 20019.chat."Comment se porte l'industrie de la chasse ?" begin
+			---                                                   l
+			say_title("Yang-Shin:")
+			say("Hmm, depuis que les pierres Metin sont tombées du")
+			say("ciel, les animaux sont devenus sauvages. De nos")
+			say("jours, vous risquez même votre vie lorsque vous")
+			say("sortez de chez vous pour tuer quelques poulets.")
+			say("Les temps sont durs pour les chasseurs.")
+			say("Heuresement je suis l'un des meilleurs !")
+		end
+
+		when 20019.chat."D'où provient votre si grande précision ?" begin
+			---                                                   l
+			say_title("Yang-Shin:")
+			say("Je suis doué avec un arc, parce que j'ai une")
+			say("recette spéciale ! Quand vous mélangez le sirop")
+			say("de Fleur de Pêcher avec du Lilas, vous obtenez un")
+			say("breuvage magique qui augmente votre précision.")
+			say("Apportez les ingrédients à Yu-Hwan, je suis sûr")
+			say("qu'il préparera le breuvage magique pour vous.")
+		end
+
+		when 20020.chat."Pourquoi avez-vous tant de cicatrices ?" begin
+			---                                                   l
+			say_title("Balso le traître :")
+			say("Je suis un piètre combattant et je me blessais")
+			say("constamment pendant la guerre. À tel point que")
+			say("j'ai demandé à Yu-Hwan s'il pourrait préparer")
+			say("un breuvage magique pour moi qui pourrait")
+			say("protéger mon corps des blessures. Il me prépara")
+			say("un mélange de sirop de campanule et de Lilas, ")
+			say("mais malheuresement la protection n'était pas")
+			say("suffisante. Ou peut-être était-ce juste ma propre")
+			say("incompétence. Mais je suis sûr que cette potion")
+			say("magique vous aidera.")
+		end
+
+		when 20020.chat."Pourquoi tant de gens-vous traitent-ils de traître ?" begin
+			---                                                   l
+			say_title("Balso le traître :")
+			say("J'ai fui la guerre et j'ai rejoint le Gang du Vent")
+			say("Noir. Mes camarades ne m'ont jamais pardonné ")
+			say("pour cela.")
+			say("Ensuite j'ai découvert que les Soldats du Vent")
+			say("Noir tuent d'innocentes personnes, donc je les")
+			say("ai immédiatement quittés. C'était terrible!")
+			wait()
+			---                                                   l
+			say_title(""..pc.get_name()..":")
+			say("Vous avez la mort d'innocents sur la conscience")
+			say("? Alors vous méritez vraiment votre nom. Vous")
+			say("leur avez enlevé la vie.")
+			wait()
+			---                                                   l
+			say_title("Balso le traître :")
+			say("Je ne ferai rien de mal désormais, pas même")
+			say("dans ce monde plein d'injustices. Je ne veux pas")
+			say("que le peuple me traite de traître.")
+			say("Avez-vous quelque Yangs pour moi ?")
+		end
+
+		when 20021.chat."Pourquoi semblez-vous si triste ?" begin
+			---                                                   l
+			say_title("Ariyoung:")
+			say("Je ne pouvais pas savoir que nos doux rêves de")
+			say("jeune couple marié seraient brisés si")
+			say("impitoyablement ... Mon pauvre mari, il a")
+			say("succombé pendant la bataille.")
+			say("Je vous en supplie vengez sa mort.")
+		end
+
+		when 20021.chat."Tellement de personnes sont tombées pendant la guerre ..." begin
+			---                                                   l
+			say_title("Ariyoung:")
+			say("Puisque nous perdons de plus en plus d'hommes")
+			say("pendant la guerre, nous les femmes du village, ")
+			say("unies toutes ensemble, avons demandé à Huahn-so")
+			say("d'améliorer l'eau de Dok qui augmente la")
+			say("défense. Après de longues recherches, il a")
+			say("découvert que s'il ajoute une rose des montagnes")
+			say("à l'eau de Dok, le breuvage magique est plus")
+			say("fort. Allez chez lui, il peut sûrement faire le")
+			say("breuvage magique appelé l'eau de Sambo si")
+			say("vous lui apportez les matériaux.")
+		end
+
+		when 20023.chat."Pourquoi lisez-vous autant ?" begin
+			---                                                   l
+			say_title("Soon, le rat de bibliothèque:")
+			say("Oh, aventurier. Le monde est plein de soucis, et")
+			say("seule la connaissance peut vous aider à.")
+			say("survivre. Honorez toujours vos livres. Ils vous")
+			say("aideront dans les moments difficiles. Croyez-moi!")
+		end
+
+		when 20023.chat."Avez-vous des enfants ?" begin
+			---                                                   l
+			say_title("Soon, le rat de bibliothèque:")
+			say("En réalité je n'ai pas voulu d'enfants, mais...")
+			say("Bref je continue de collecter des Fleurs de Kaki")
+			say("parce que si vous les préparez correctement, vous")
+			say("pouvez renforcer votre intelligence magique avec.")
+			say("Baek-Go l'a découvert. Il a seulement besoin")
+			say("d'une fleur pour faire 100 breuvages magiques.")
+			say("Malheuresement la Fleur de Kaki a aussi un effet")
+			say("secondaire. Si une femme porte un collier fait de")
+			say("cette fleur, elle aura un fils. Entre vous et")
+			say("moi, ma femme l'a utilisé sans aucune honte.")
+		end
+
+		when 20024.chat."Que faites-vous ?" begin
+			---                                                   l
+			say_title("Harang:")
+			say("J'attends Taurean. On jouait souvent ensemble, ")
+			say("et on se battait aussi. Quel lâche ! S'il ne")
+			say("vient pas de lui-même, je lui ferai passer un")
+			say("sale quart d'heure !")
+		end
+
+		when 20024.chat."Taurean a peur de vous." begin
+			---                                                   l
+			say_title("Harang:")
+			say("Taurean est plus fort que moi. J'ai réfléchie à ")
+			say("une technique pour être sûr de gagner. Un Ninja")
+			say("blanc m'a dit que vous pouvez mélanger de l'Eau")
+			say("de Yuong avec une baie et faire un breuvage")
+			say("magique qui permet d'augmenter la vitesse")
+			say("d'attaque. Alors je pourrai battre Taurean! Si")
+			say("vous souhaitez faire de même, apportez les")
+			say("ingrédients à Huahn-So. Je suis sûr qu'il vous")
+			say("préparera la potion.")
+		end
+
+		when 20354.click begin
+			---                                                   l
+			say_title("Le garde du village:")
+			say("Soyez calme et entrainez-vous. Comportez-vous")
+			say("bien et ne chercher pas les ennuis. Vous devriez")
+			say("respecter les gens de votre empire. Compris ?")
+		end
+	end
+end

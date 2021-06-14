@@ -1,0 +1,43 @@
+quest cube begin
+	state start begin
+		when 20018.chat."Herbologie" with pc.level >= 15 begin
+			---                                                   l
+			say_title("Baek-Go:")
+			say("Je fais du mieux que je peux. Mais il y a de plus")
+			say("en plus de victime chaque jour dans ce monde")
+			say("dangereux. Nous n'avons pas assez d'aide ni de")
+			say("médicaments. Les temps sont durs ! Peut-être")
+			say("pourrez vous me donner un coup de main plus tard ?")
+			wait()
+			setskin(NOWINDOW)
+			command("cube open")
+		end
+
+		when 20017.chat."Herbologie" with pc.level >= 30 begin
+			---                                                   l
+			say_title("Yu-Hwan:")
+			say("L'herbologie est aujourd'hui une science bien")
+			say("connue. Avez-vous déjà essayé? Je peux vous")
+			say("montrer quelques-unes de mes nouvelles recettes,")
+			say("elles sont plus efficaces que la plupart des")
+			say("breuvages magiques connus.")
+			wait()
+			setskin(NOWINDOW)
+			command("cube open")
+		end
+
+		when 20022.chat."La recette secrète" with pc.level >=45 begin
+			---                                                   l
+			say_title("Huahn-So:")
+			say("J'ai trouvé une recette de famille secrète.")
+			say("Elle vous rendra presque invulnérable ! HaHaHa.")
+			say("Je suis probablement le seul de l'empire qui la")
+			say("connaisse. Avec ces potions rien ou presque ne")
+			say("pourra vous arriver.")
+			say("Voulez vous les essayer ?")
+			wait()
+			setskin(NOWINDOW)
+			command("cube open")
+		end
+	end
+end

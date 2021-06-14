@@ -1,0 +1,126 @@
+quest guild_building_npc begin
+	state start begin
+		when 20044.click begin
+			if npc.get_guild() == pc.get_guild() then
+				---                                                   l
+				say_title("Le Fabricant d'Armes:")
+				say("Je m'apelle Stanley, je suis chargé ")
+				say("d'améliorer les armes. Je suis bien meilleur")
+				say("que le forgeron du village. Si vous venez me")
+				say("voir, vous pourrez augmenter votre taux de")
+				say("succès de 10 %. Donnez-moi les armes que vous")
+				say("voulez voir améliorées.")
+				wait()
+
+				if pc.isguildmaster() then
+					---                                                   l
+					say_title("Le Fabricant d'Armes:")
+					say("En tant que chef de guilde,")
+					say("vous avez la possibilité de me supprimer.")
+					say("Vous pourrez par la suite reconstruire un autre")
+					say("batiment sur ce terrain.")
+					say("Cette suppression à un coût: 5 millions de yangs.")
+					say("Désirez-vous me supprimer ?")
+
+					local destruction1=select("Oui", "Non")
+
+					if destruction1 == 1 and pc.get_gold() >= 5000000 then
+						pc.changegold(-5000000)
+						building.reconstruct(2)
+					end        
+				end
+			else
+				---                                                   l
+				say_title("Le Fabricant d'Armes:")
+				say("Je m'apelle Stanley, je suis chargé ")
+				say("d'améliorer les armes. Je suis bien meilleur")
+				say("que le forgeron du village. Si vous venez me")
+				say("voir, vous pourrez augmenter votre taux de")
+				say("succès de 10 %. Donnez-moi les armes que vous")
+				say("voulez voir améliorées.")
+			end
+		end
+
+		when 20045.click begin
+			if npc.get_guild() == pc.get_guild() then
+				---                                                   l
+				say_title("Le Fabricant d'Armures:")
+				say("Je m'apelle Stanton, je suis chargé ")
+				say("d'améliorer les armures. Je suis bien meilleur")
+				say("que le forgeron du village. Si vous venez me")
+				say("voir, vous pourrez augmenter votre taux de")
+				say("succès de 10 %. Donnez-moi les armures que vous")
+				say("voulez voir améliorées.")
+				wait()
+
+				if pc.isguildmaster() then
+					---                                                   l
+					say_title("Le Fabricant d'Armures:")
+					say("En tant que chef de guilde,")
+					say("vous avez la possibilité de me supprimer.")
+					say("Vous pourrez par la suite reconstruire un autre")
+					say("batiment sur ce terrain.")
+					say("Cette suppression à un coût: 5 millions de yangs.")
+					say("Désirez-vous me supprimer ?")
+
+					local destruction1=select("Oui", "Non")
+
+					if destruction1 == 1 and pc.get_gold() >= 5000000 then
+						pc.changegold(-5000000)
+						building.reconstruct(2)
+					end        
+				end
+			else
+				---                                                   l
+				say_title("Le Fabricant d'Armures:")
+				say("Je m'apelle Stanton, je suis chargé ")
+				say("d'améliorer les armures. Je suis bien meilleur")
+				say("que le forgeron du village. Si vous venez me")
+				say("voir, vous pourrez augmenter votre taux de")
+				say("succès de 10 %. Donnez-moi les armures que vous")
+				say("voulez voir améliorées.")
+			end
+		end
+
+		when 20046.click begin
+			if npc.get_guild() == pc.get_guild() then
+				---                                                   l
+				say_title("Le Fabricant d'Objets:")
+				say("Je m'apelle Starbuck, je suis chargé ")
+				say("d'améliorer les objets. Je suis bien meilleur")
+				say("que le forgeron du village. Si vous venez me")
+				say("voir, vous pourrez augmenter votre taux de")
+				say("succès de 10 %. Donnez-moi les objets que vous")
+				say("voulez voir améliorées.")
+				wait()
+
+				if pc.isguildmaster() then
+					---                                                   l
+					say_title("Le Fabricant d'Objets:")
+					say("En tant que chef de guilde,")
+					say("vous avez la possibilité de me supprimer.")
+					say("Vous pourrez par la suite reconstruire un autre")
+					say("batiment sur ce terrain.")
+					say("Cette suppression à un coût: 5 millions de yangs.")
+					say("Désirez-vous me supprimer ?")
+
+					local destruction1=select("Oui", "Non")
+
+					if destruction1 == 1 and pc.get_gold() >= 5000000 then
+						pc.changegold(-5000000)
+						building.reconstruct(2)
+					end        
+				end
+			else
+				---                                                   l
+				say_title("Le Fabricant d'Objets:")
+				say("Je m'apelle Starbuck, je suis chargé ")
+				say("d'améliorer les objets. Je suis bien meilleur")
+				say("que le forgeron du village. Si vous venez me")
+				say("voir, vous pourrez augmenter votre taux de")
+				say("succès de 10 %. Donnez-moi les objets que vous")
+				say("voulez voir améliorées.")
+			end
+		end
+	end
+end

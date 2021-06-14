@@ -1,0 +1,203 @@
+quest subquest_41 begin
+	state start begin
+		when login or levelup with pc.level >= 49 and pc.level <= 51 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20008)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "La recette d'Octavio")
+			end
+		end
+		when __TARGET__.target.click or 20008.chat."Oeil d'araignée spéciaux" with pc.level >= 49 begin
+			target.delete("__TARGET__")
+
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Comment vas-tu?")
+			say("Hmm, Je lis qu'un livre Yu-Gil m'a donné ")
+			say("dernièrement. ")
+			say("Il y a une recette qui me paraît intéressant")
+			say("'Oeil d'araignée spéciale',très rare et très")
+			say("précieux. ")
+			say("J'ai jamais rien vu de telles avant, ")
+			say("C'est pourquoi je suis un peu anxieux. ")
+			say("Avez-vous déjà entendu parler du plat fait des")
+			say("yeux de moustique? ")
+			say("C'est un fameux plat, mais d'un autre pays. ")
+			say("Je pense que le plat ici pourrait rivaliser ")
+			say("avec elle...")
+			wait()
+			say_title("Octavio:")
+			say("")
+			say("Mais, Comment puis-je obtenir les yeux d'une")
+			say(" araignée ? ")
+			say("J'ai de nouveau besoin de votre aide. ")
+			say("Vous pouvez trouver des araignées dans le désert")
+			say("du Sahara. ")
+			say("100 yeux seraient parfait, pour faire un bon")
+			say("repas.")
+			wait()
+			say_title("Octavio:")
+			say("")
+			say("Nous en avons besoin de beaucoup, si nous ")
+			say("voulons vraiment en profiter, non?")
+			say("Hmm, hmm. Bon, je reste ici, et vous, vous")
+			say("obtenez ces yeux!")
+			say("Je suis impatient de votre retour,")
+			say("je veux vraiment préparer ce repas...")
+			say("")
+			say_item_vnum("30162")
+			say("")
+			local s=select("Accepter.","Refuser.")
+			if 2==s then
+				say("Voulez-vous abandonner cette quête?")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Octavio:")
+					say("")
+					--                                                  |
+					say("J'ai vraiment envie de préparer cette recette.")
+					say("Si vous voulez me faire cette faveur, revenez ")
+					say("me voir s'il vous plait.")
+					say("")
+					return
+				end
+				say_title("Octavio:")
+				say("")
+				say("Hmm, Où vais-je me procurer ces yeux...")
+				say("Ok..A bientôt.")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Merci, je savais que vous me feriez cette ")
+			say("faveur. ")
+			say("Pour cela je vous cuirais un excellent repas.")
+			say("")
+			set_state(hunt_for_oku)
+		end
+	end
+
+	state hunt_for_oku begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("La recette d'Octavio")
+			q.set_title("La recette d'Octavio")
+			q.start()
+
+			if pc.count_item("30162") >= 100 then
+				local v = find_npc_by_vnum(20008)
+				if v != 0 then
+					target.vid("__TARGET__", v, "Octavio")
+				end
+				return
+			end
+		end
+		when info or button begin
+			if pc.count_item("30162") >= 100 then
+				say_title("J'ai les yeux d'araignées.")
+				say("")
+				--                                                  |
+				say("J'ai les 100 yeux pour la nouvelle recette")
+				say("d'Otacvio.")
+				say("Retournez le voir.")
+				say("")
+				return
+			end
+			say_title("Obtenir des yeux d'araignées.")
+			--                                                  |
+			say("Octavio veut essayer une nouvelle recette à ")
+			say("base d'oeil d'araignée.")
+			say("Il a besoin de 100 yeux d'araignées.")
+			say("Vous pouvez les obtenir sur: ")
+			say("Les jeunes araignées, les araignées venimeuses,")
+			say("les araignées rouges venimeuses, les araignées ")
+			say("à griffe, les soldats des araignées dans le ")
+			say("désert.")
+			say_item_vnum("30162")
+			say("")
+		end
+		when 2001.kill or 2002.kill or 2003.kill or 2004.kill or 2005.kill begin
+			local s = number(1, 100)
+			if s <= 7 and pc.count_item("30162")<100  then
+				pc.give_item2("30162", 3)
+				if pc.count_item("30162")>=100 then
+					local v=find_npc_by_vnum(20008)
+					if 0==v then
+					else
+						target.vid("__TARGET__",v, "Octavio")
+					end
+				end
+			end
+		end
+		when __TARGET__.target.click or 20008.chat."J'ai vos yeux d'araignées." begin
+			target.delete("__TARGET__")
+			if pc.count_item("30162") >= 100 then
+				say_title("Octavio:")
+				say("")
+				--                                                  |
+				say("Hmm, hmm. Laisse moi voir. ")
+				say("Exactement 100 yeux. ")
+				say("Alors, voulez-vous commencer ?")
+				say("Attendez, Cela ne sera pas long.")
+				say("Hmm, Fini! Gouttez!")
+				say("")
+				wait()
+				say_title("Octavio:")
+				say("")
+				say("Hmm, hmm, délicieux.")
+				say("Pas trop sucré, mais parfumée. ")
+				say("Quel goût à couper le souffle!")
+				say("Je savais que ce serait merveilleux!")
+				say("Hmmm...Sans toi j'aurai jamais pu le faire.")
+				say("Merci beaucoup.")
+				pc.remove_item("30162",100)
+				say_reward("Vous recevez 3.000.000 Points d'expérience.")
+				pc.give_exp2(3000000)
+				set_quest_state("levelup","run")
+				say_reward("Vous recevez 40.000 Yang.")
+				pc.change_money(40000)
+				clear_letter()
+				set_state(COMPLETE)
+				return
+			else
+				say_title("Octavio:")
+				say("")
+				say("Pas assez de yeux..")
+				say("S'il vous plaît dépêchez-vous!")
+				say("")
+				local s=select("Essayer encore","Abandonner")
+				if 2==s then
+					say_title("Octavio:")
+					say("")
+					say("J'avais envie de préparer ce plat...")
+					say("bien, cela ne fait rien. A bientôt.")
+					set_state(__GIVEUP__)
+					return
+				end
+				say_title("Octavio:")
+				say("")
+				say("Merci.")
+				say("Vous êtes très courageux.")
+				say("")
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+end

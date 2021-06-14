@@ -1,0 +1,142 @@
+quest main_quest_lv12 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 12 begin
+			set_state(gotoboss)
+		end
+	end
+
+	state gotoboss begin
+		when letter begin
+			send_letter("Mission d'entrainement.")
+
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when button or info begin
+			say_title("Mission d'entrainement.")
+			--                                                  |
+			say("")
+			say("Le capitaine vous cherche pour vous donner une")
+			say("nouvelle mission d'entrainement.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("A la nuit tombée, Mu-Rang cherche ses proies ")
+			say("parmi les habitants du village qui osent ")
+			say("s'aventurer hors du village tard le soir.")
+			say("Si vous éliminez Mu-Rang et que vous en ")
+			say("apportez la preuve, les citoyens seront")
+			say(" soulagés.")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			say("Vous ne savez pas qui est Mu-Rang? ")
+			say("Mu-Rang est un loup qui erre autour de "..areaname[pc.get_empire()][1]..";")
+			say("Ce n'est pas facile de la trouver, mais je ")
+			say("suis sur que vous y arriverez.")
+			say("")
+			set_state( killgraydog )
+		end
+	end
+
+	state killgraydog begin
+		when letter begin
+			send_letter("Tuer Mu-Rang")
+		end
+		when button or info begin
+			say_title("Tuer Mu-Rang")
+			say("")
+			--                                                  |
+			say("Mu-Rang effraie les habitants. Tuez ce loup ")
+			say("et apportez sa peau au Capitaine comme preuve")
+			say("de votre acte.")
+		end
+		when 152.kill begin
+			say_title("Information:")
+			say("")
+			say("Vous avez tuez Mu-Rang!")
+			say("Vous déchirez la peau du loup comme preuve ")
+			say("de votre acte.")
+			pc.give_item2(30173, 1)
+			set_state(gotoboss2)
+		end
+		when 20355.chat."Tuer Mu-Rang" begin
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Vous n'avez pas encore fini votre mission?")
+			say("Vous avez des soucis pour trouver Mu-Rang?")
+			say("Vous devriez continuer à la chercher.")
+			say("")
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine:")
+			end
+		end
+		when letter begin
+			send_letter("Mission accomplie.")
+		end
+		when button or info begin
+			say_title("Mission accomplie")
+			say("")
+			say("Apportez la peau de Mu-Rang au Capitaine.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			if pc.count_item(30173) > 1 then
+				target.delete("__TARGET__")
+
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Alors c'est vrai que vous avez réussi à tuer ")
+				say("Mu-Rang ?")
+				say("Merci beaucoup! Le village est plus sûr ")
+				say("maintenant. C'est une bonne nouvelle en ces ")
+				say("temps de guerre.")
+				say("Les pierres metins rendent les animaux fous!")
+				say("Bon travail. Vous devriez vous reposer avant ")
+				say("la prochaine mission.")
+				say("")
+				wait()
+				say_title("Reward:")
+				say("")
+				say_reward("Experience : 20.000")
+				say_reward("Yang: 30.000")
+				pc.removeitem(30173, 1)
+				pc.give_exp2( 20000 )
+				pc.change_money( 30000 )
+				clear_letter()
+				set_state(__COMPLETE__)
+				set_quest_state("main_quest_lv14","run")
+			else
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Vous êtes sur que Mu-Rang est morte? ")
+				say("Personne ne va le croire! ")
+				say("Qui êtes vous après tout?")
+				say_reward("Vous avez besoin de la peau de Mu-Rang pour")
+				say_reward("terminer cette mission! ")
+				set_state( killgraydog )
+			end
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

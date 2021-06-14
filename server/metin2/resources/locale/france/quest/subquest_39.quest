@@ -1,0 +1,335 @@
+quest subquest_39 begin
+	state start begin
+		when login or levelup or enter with pc.level >= 55 and pc.level <= 57 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20020)
+
+			if v != 0 then
+				target.vid("__TARGET2__", v, "Delivery of Balso the Traitor")
+			end
+		end
+		when __TARGET2__.target.click or 20020.chat."La situation de Balso" with pc.level >= 55 begin
+			target.delete("__TARGET2__")
+			say_title("Balso:")
+			say("")
+			--                                                  |
+			say("Merci de m'avoir apporté le médicament la ")
+			say("dernière fois. Mais il y a un problème...")
+			say("Ce médicament ne m'a pas beauoup aidé. ")
+			say("Je pense qu'il a mal tourné. * tousse * ")
+			say("J'ai besoin d'un remède.")
+			say("")
+			wait()
+			say_title("Balso:")
+			say("")
+			say("Je sais qu'il a un docteur dans le village")
+			say("voisin. Pouvez-vous aller à lui parler et ")
+			say("lui expliquer ce que je ressens,")
+			say("il aura peut-être une solution à mon soucis?")
+			say("Comme vous le voyez, je ne peux pas quitter le ")
+			say("village dans cet état. ")
+			say("Je suis très reconnaissant que vous m'ayez aidé ")
+			say("la dernière fois que je vous récompenserais")
+			say("cette fois.")
+			say("")
+			local s=select("Accepter","Annuler")
+			if 2==s then
+				say("Voulez vous abandonner la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Balso")
+					say("")
+					say("Quand vous savez comment m'aider,")
+					say("revenez me voir.")
+					return
+				else
+					say_title("Balso:")
+					say("")
+					say("Il semblerait que ce soit la fin..")
+					say("A bientôt.")
+					set_state(__GIVEUP__)
+					return
+				end
+			end
+			say_title("Balso")
+			say("")
+			say("Merci. Soyez prudent.")
+			say("")
+			set_state(ask_to_backgo)
+		end
+	end
+
+	state ask_to_backgo begin
+		when info or button begin
+			say_title("L'état de Balso")
+			say("")
+			--                                                  |
+			say("L'état de Balso a empiré.")
+			say("Je vais chercher Baek-Go.")
+			say("Je vais lui décrire l'état de Balso,")
+			say("il pourra peut-être l'aider.")
+			say("")
+		end
+
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Go to Baek-Go")
+			q.set_title("Go to Baek-Go.")
+			q.start()
+
+			local v=find_npc_by_vnum("20018")
+			if 0== v then
+			else
+				target.vid("__TARGET2__",v,"Go to Baek-Go")
+			end
+		end
+
+		when __TARGET2__.target.click or 20018.chat."Balso est mauvais état" begin
+			target.delete("__TARGET2__")
+			say_title("Baek-Go: ")
+			say("")
+			say("Oh, C'est vous, comment allez-vous?")
+			say("Hmm, il y a une personne malade?")
+			--                                                  |
+			say("Et tu veux savoir comment le soigner.")
+			say("Comment il a été traité? ")
+			say("QUOI??? Il a pris un médicament?")
+			say("Aha...")
+			say("C'est dangereux quand vous ne savez pas ce que ")
+			say("vous prenez comme médicament.")
+			say("")
+			wait()
+			say_title("Baek-Go:")
+			say("")
+			say("Je connais une plante qui régénère le corps.")
+			say("Il a aidé beaucoup de gens, cette herbe est le")
+			say("meilleur remède pour ça,")
+			say("Il nettoie le corps du poison et redonne la  ")
+			say("santé mais c'est très dangereux de se la ")
+			say("procurer.")
+			wait()
+			say_title("Baek-Go:")
+			say("")
+			say("L'herbe pousse dans le donjon des singes")
+			say("difficile.")
+			say("Je pourrais réaliser un remède si vous")
+			say("m'apportez cette herbe.")
+			say("")
+			local b=select("Ok Je vais la chercher.", "Je ne peux pas y aller.")
+			if 2==b then
+				say("Voulez-vous abandonner cette tâche?")
+				local a=select("Oui, certain.","Non.")
+				if  2==a then
+					say_title("Baek-Go:")
+					say("")
+					--                                                  |
+					say("Bien, revenez plus tard quand vous plus de")
+					say("temps. Beaucoup de gens sont malades,")
+					say("mais seulement très peu d'entre eux se soigne.")
+					say("")
+					return
+				end
+				say_title("Baek-Go:")
+				say("")
+				say("Hmm, Quelle honte.")
+				say("Personne n'est assez brave.")
+				say("Je suis inquiet pour l'avenir, je ne sais pas ")
+				say("comment tout cela va se finir.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Baek-Go:")
+			say("")
+			--                                                  |
+			say("Oh, merci, cherchez l'herbe dans le donjon des")
+			say("singes difficiles. ")
+			say("Ce sera un travail acharné pour obtenir cette ")
+			say("herbe, mais vous aidera beaucoup de gens...")
+			say("")
+			set_state(hunt_monkey_boss)
+		end
+	end
+
+	state hunt_monkey_boss begin
+		when letter begin
+			if pc.count_item(50059)>0 then
+				setskin(NOWINDOW)
+				makequestbutton("Trouver l'herbe dans le donjon difficile")
+				q.set_title("Trouver l'herbe dans le donjon difficile")
+				q.start()
+
+				local v=find_npc_by_vnum("20018")
+				if 0== v then
+				else
+					target.vid("__TARGET2__",v,"Return to Baek-Go")
+				end
+				return
+			end
+			setskin(NOWINDOW)
+			makequestbutton("Vous avez l'herbe.")
+			q.set_title("Vous avez l'herbe..")
+			q.start()
+		end
+		when button or info begin
+			if pc.count_item(50059)>0 then
+				say_title("rouver l'herbe dans le donjon difficile")
+				say("")
+				say("Le remède pour la maladie de Balso.")
+				say("Dépêchez-vous de l'amener à Balso.")
+				return
+			end
+			say_title("Comment puis-je obtenir cette herbe...")
+			say("")
+			say("Pour la maladie de Balso?")
+			say("J'ai besoin de cette herbe rapidement!")
+			say("Je peux la trouver dans le donjon des singes.")
+			say("Elle pousse dans la partie la plus profonde ")
+			say("du donjon difficile.")
+			say_item_vnum(50059)
+			say("")
+		end
+		when __TARGET2__.target.click or 20018.chat."L'herbe difficile" with pc.count_item(50059) ==0 begin
+			say_title("Baek-Go:")
+			say("")
+			--                                                  |
+			say("Il semble que nous ayons une épidémie, mais")
+			say("nous en ignorons la cause.")
+			say("Mais l'organisation académique nous a dit")
+			say("qu'il était possible de la soigner grâce")
+			say("à cette herbe.")
+			say("Qu'attendez-vous?")
+			say("")
+			local s=select("Rien, je m'interroge.", "Je ne peux pas obtenir des herbes.")
+			if 2==s then
+				say_title("Baek-Go:")
+				say("")
+				say("Oh, vous voulez vraiment abandonner..")
+				say("Eh bien, vous ne pouvez pas en faire plus.")
+				say("C'est ce que je ferai sans l'herbe..")
+				say("Cette plante aurait pu être une vrai aide.")
+				local s=select("Refuser d'aider", "Je vais vous aider.")
+				if 1==s then
+					say_pc_name()
+					say("")
+					say("Pour moi il n'est pas possible d'obtenir de ")
+					say("l'herbe dans le donjon des singes difficile.")
+					wait()
+					say_title("Baek-Go: ")
+					say("")
+					say("Vous refusez d'aider les personnes malades,")
+					say("c'est horrible!")
+					say("Va t'en!")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+				say_pc_name()
+				say("")
+				--                                                  |
+				say("Hmm, je ne veux pas être récompensé pour ce ")
+				say("que je fais... ")
+				say("je le fais pour l'amour de mon pays.")
+				say("Mon opinion est faite, je vais vous aider!")
+				return
+			end
+			say_title("Baek-Go:")
+			say("")
+			say("Bien, alors qu'attendez-vous?")
+			say("")
+			return
+		end
+		when 5161.kill begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("50059")==0 then
+				pc.give_item2(50059, 1)
+			end
+		end
+		when __TARGET2__.target.click or 20018.chat."Herbe difficile" with pc.count_item(50059)>=1 begin
+			target.delete("__TARGET__")
+			say_title("Baek-Go:")
+			say("")
+			--                                                  |
+			say("Vous avez vraiment obtenu de l'herbe!")
+			say("Cela suffit à soigner la mystérieuse maladie.")
+			say("Attendez, je vais préparer le remède.")
+			say("Ah, bien, très bien, très bien.")
+			say("")
+			wait()
+			say_title("Baek-Go :")
+			say("")
+			say("Voici le remède.")
+			say("Dépêchez-vous de retourner voir le malade et")
+			say("de le lui donner, et dites-lui que je prie ")
+			say("pour qu'il soit rapidement sur pied.")
+			say("S'il vous plaît dites lui également qu'il est ")
+			say("toujours préférable de prendre seulement des ")
+			say("médicaments prescrit par médecin.")
+			say("")
+			pc.remove_item(50059,1)
+			pc.give_item2(30152,1)
+			set_state(go_to_patient)
+		end
+	end
+
+	state go_to_patient begin
+		when letter begin
+			send_letter("Donnez le remède à Balso.")
+
+			local v=find_npc_by_vnum(20020)
+			if v != 0 then
+				target.vid("__TARGET2__",v,"Balso")
+			end
+		end
+
+		when info or button begin
+			say_title("Remède pour Balso")
+			say("")
+			say("Apportez le remède à Balso.")
+			say("")
+		end
+
+		when __TARGET2__.target.click or 20020.chat."Voici le remède" with pc.count_item(30152) > 0  begin
+			target.delete("__TARGET2__")
+			say_title("Balso:")
+			say("")
+			--                                                  |
+			say("Vous avez le remède?")
+			say("Donc, il y a des progrès dans les recherches ")
+			say("médicales.")
+			say("Désolé de vous avoir dérangé. ")
+			say("Je ne devrais pas faire confiance à la médecine")
+			say("traditionnelle.")
+			say("Cependant, je dois m'arranger avec tout cela.")
+			say("")
+			wait()
+			say_title("Balso:")
+			say("")
+			say("Merci de m'avoir aidé à m'en sortir.")
+			say("Il est normal que je lutte pour ma vie.")
+			say("Je sais, ce n'est pas grand chose,mais ")
+			say("cela vient du coeur.")
+			pc.remove_item(30152,1)
+			say_reward("Vous recevez 85.000 Yang")
+			pc.change_money(85000)
+			say_reward("Vous recevez 3.500.000 points d'expérience.")
+			pc.give_exp2(3500000)
+			say_reward("Vous recevez une potion.")
+			pc.give_item2(71035)
+			set_state(COMPLETE)
+			clear_letter()
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+end

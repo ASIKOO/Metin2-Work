@@ -1,0 +1,261 @@
+quest horse_summon begin
+	state start begin
+		function get_horse_summon_prob_pct()
+
+			local skill_level=pc.get_skill_level(131)
+
+			if skill_level==1
+				then return 15
+
+			elseif skill_level==2
+				then return 20
+
+			elseif skill_level==3
+				then return 30
+
+			elseif skill_level==4
+				then return 40
+
+			elseif skill_level==5
+				then return 50
+
+			elseif skill_level==6
+				then return 60
+
+			elseif skill_level==7
+				then return 70
+
+			elseif skill_level==8
+				then return 80
+
+			elseif skill_level==9
+				then return 90
+
+			elseif skill_level>=10
+				then return 100
+			end
+			return 10
+		end
+
+		when 20349.chat."Nouveau dessin de cheval" with horse.get_grade()==1 and pc.countitem("50051")<1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Vous avez perdu le dessin de cheval! Je peux vous")
+			say("en donner un nouveau pour 100.000 yangs.")
+
+			local b=select("D'accord", "Refuser")
+
+			if 1==b then
+				if pc.money>=100000 then
+					pc.changemoney(-100000)
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Voici votre nouveau dessin de cheval!")
+					pc.give_item2("50051", 1)
+				else
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Vous n'avez pas assez de yangs.")
+				end
+
+			elseif 2==b then
+			else
+				say("UNKNOWN BUTTON ["..b.."]")
+			end
+		end
+
+		when 20349.chat."Nouveau livre cheval de combat" with horse.get_grade()==2 and pc.countitem("50052")<1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Vous avez perdu le livre cheval de combat! Je peux")
+			say("vous en donner un nouveau pour 500.000 yangs.")
+
+			local b=select("D'accord", "Refuser")
+
+			if 1==b then
+				if pc.money>=500000 then
+					pc.changemoney(-500000)
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Voici votre nouveau livre cheval de combat.")
+					pc.give_item2("50052", 1)
+				else
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Vous n'avez pas assez de yangs.")
+				end
+
+			elseif 2==b then
+			else
+				say("UNKNOWN BUTTON ["..b.."]")
+			end
+		end
+
+		when 20349.chat."Nouveau livre équit. militaire" with horse.get_grade()==3 and pc.countitem("50053")<1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Vous avez perdu le livre équit. militaire! Je peux")
+			say("vous en donner un nouveau pour 1.000.000 yangs.")
+
+			local b=select("D'accord", "Refuser")
+
+			if 1==b then
+				if pc.money>=1000000 then
+					pc.changemoney(-1000000)
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Voici votre nouveau livre équit. militaire.")
+					pc.give_item2("50053", 1)
+				else
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Vous n'avez pas assez de yangs.")
+				end
+
+			elseif 2==b then
+			else
+				say("UNKNOWN BUTTON ["..b.."]")
+			end
+		end
+
+		when 50051.use with horse.get_grade()==0 begin
+			say_title("Information:")
+			say_reward("Vous devez posseder un cheval pour utiliser ceci.")
+		end
+
+		when 50051.use with horse.get_grade()==1 begin
+			if pc.getsp()>=100 then
+				if number(1, 100)<=horse_summon.get_horse_summon_prob_pct() then
+					say_title("Information:")
+					say_reward("Le cheval pour débutant a été appelé.")
+					horse.summon()
+				else
+					say_title("Information:")
+					say_reward("Malheuresement vous n'avez pas réussi à ")
+					say_reward("appeler le cheval pour débutants. Vous pouvez")
+					say_reward("améliorer votre compétence d'appel d'une")
+					say_reward("monture en vous entrainant.")
+				end
+				pc.change_sp(-100)
+			else
+				say_title("Information:")
+				say_reward("Votre Force mentale ne suffit pas. Pour pouvoir")
+				say_reward("appeler le cheval pour débutants, il vous faut")
+				say_reward("une Force mentale d'au moins 100.")
+			end
+		end
+
+		when 50051.use with horse.get_grade()==2 begin
+			say_title("Information:")
+			say("Vous ne pouvez pas appeler un cheval de combat")
+			say("avec un certificat d'équitation de débutant.")
+			say_reward("Pour pouvoir appeler votre cheval, vous devez")
+			say_reward("utiliser un :")
+			say_item("Livre cheval de combat", 50052, "")
+		end
+
+		when 50051.use with horse.get_grade()==3 begin
+			say_title("Information:")
+			say("Vous ne pouvez pas appeler un cheval militaire")
+			say("avec un certificat d'équitation de débutant.")
+			say_reward("Pour pouvoir appeler votre cheval, vous devez")
+			say_reward("utiliser un :")
+			say_item("Livre équit. militaire", 50053, "")
+		end
+
+		when 50052.use with horse.get_grade()==0 begin
+			say_title("Information:")
+			say_reward("Vous devez posseder un cheval pour utiliser ceci.")
+		end
+
+		when 50052.use with horse.get_grade()==1 begin
+			say_title("Information:")
+			say("Vous ne pouvez pas appeler un cheval de débutant.")
+			say("avec un certificat d'équitation de combat.")
+			say_reward("Pour pouvoir appeler votre cheval, vous devez")
+			say_reward("utiliser un :")
+			say_item("Dessin de cheval", 50051, "")
+		end
+
+		when 50052.use with horse.get_grade()==2 begin
+			if pc.getsp()>=200 then
+				if number(1, 100)<=horse_summon.get_horse_summon_prob_pct() then
+					say_title("Information:")
+					say_reward("Un cheval de niveau avancé a été appelé.")
+					horse.summon()
+				else
+					say_title("Information:")
+					say_reward("Vous n'avez pas réussi à appeler un cheval de")
+					say_reward("niveau avancé. Vous pouvez accroitre vos chances")
+					say_reward("de succès en améliorant votre compétence d'appel")
+					say_reward("de chevaux.")
+				end
+				pc.change_sp(-200)
+			else
+				say_title("Information:")
+				say_reward("Votre force mentale n'est pas assez élevée. Vous")
+				say_reward("devez avoir une force mentale de 200 pour appeler")
+				say_reward("un cheval de niveau avancé.")
+			end
+		end
+
+		when 50052.use with horse.get_grade()==3 begin
+			say_title("Information:")
+			say("Vous ne pouvez pas appeler un cheval militaire")
+			say("avec un certificat d'équitation de combat.")
+			say_reward("Pour pouvoir appeler votre cheval, vous devez")
+			say_reward("utiliser un :")
+			say_item("Livre équit. militaire", 50053, "")
+		end
+
+		when 50053.use with horse.get_grade()==0 begin
+			say_title("Information:")
+			say_reward("Vous devez posseder un cheval pour utiliser ceci.")
+		end
+
+		when 50053.use with horse.get_grade()==1 begin
+			say_title("Information:")
+			say("Vous ne pouvez pas appeler un cheval de débutant.")
+			say("avec un certificat d'équitation militaire.")
+			say_reward("Pour pouvoir appeler votre cheval, vous devez")
+			say_reward("utiliser un :")
+			say_item("Dessin de cheval", 50051, "")
+		end
+
+		when 50053.use with horse.get_grade()==2 begin
+			say_title("Information:")
+			say("Vous ne pouvez pas appeler un cheval de combat")
+			say("avec un certificat d'équitation militaire.")
+			say_reward("Pour pouvoir appeler votre cheval, vous")
+			say_reward("devez utiliser un :")
+			say_item("Livre cheval de combat", 50052, "")
+		end
+
+		when 50053.use with horse.get_grade()==3 begin
+			if pc.getsp()>=300 then
+				if number(1, 100)<=horse_summon.get_horse_summon_prob_pct() then
+					say_title("Information:")
+					say_reward("Un cheval de niveau expert a été appelé.")
+					horse.summon()
+				else
+					say_title("Information:")
+					say_reward("Malheuresement vous n'avez pas réussi à ")
+					say_reward("appeler le cheval militaire. Vous pouvez")
+					say_reward("améliorer votre compétence d'appel d'une")
+					say_reward("monture en vous entrainant.")
+				end
+				pc.change_sp(-300)
+			else
+				say_title("Information:")
+				say_reward("Votre Force mentale ne suffit pas. Pour pouvoir")
+				say_reward("appeler le cheval militaire, il vous faut")
+				say_reward("une Force mentale d'au moins 300.")
+			end
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

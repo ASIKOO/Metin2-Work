@@ -1,0 +1,384 @@
+quest subquest_49 begin
+	state start begin
+		when login or levelup or enter with pc.level >= 59 and pc.level <= 61 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+		local v = find_npc_by_vnum(20014)
+		if 0==v then
+		else
+			target.vid("__TARGET__", v, "Bingsu?")
+		end
+	end
+
+
+		when __TARGET__.target.click or 20014.chat."Bingsu?!" with pc.level >= 59 begin
+			target.delete("__TARGET__")
+			say_title("Taurean :")
+			say("")
+			--                                                  |
+			say("Aujourd'hui, j'ai eu une dispute avec Harang.")
+			say("Je pourrais .. Passons.")
+			say("Elle prétend qu'il y a quelque chose de très ")
+			say("savoureux, de la glace concassés.")
+			say("du Bingsu , il semblerait.")
+			say("")
+			wait()
+			say_title("Taurean :")
+			say("")
+			--                                                  |
+			say("Il serait possible de fabriquer de la glace,")
+			say("seulement pendant l'hiver.")
+			say("Mais elle affirme et prétend que c'est pas ")
+			say("possible d'en faire, alors j'ai accepté son ")
+			say("défi. ")
+			say("S'il vous plaît aidez-moi à savoir comment ")
+			say("préparer ce bingsu.")
+			say("Mais je me demande ...")
+			say("Existe-t-il vraiment?")
+			say("")
+			local s=select("Accepter","Refuser")
+			if 2==s then
+				say_title("Taurean :")
+				say("")
+				say("Vous voulez abandonnez?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Taurean:")
+					say("")
+					say("Si vous voulez la faire le plus tard,")
+					say("s'il vous plait revenez.")
+					say("")
+					return
+				end
+				say_title("Taurean :")
+				say("")
+				--                                                  |
+				say("Je voudrais vraiment goûter le bingsu.")
+				say("Bien, okay.")
+				say("Au revoir.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Taurean :")
+			say("")
+			--                                                  |
+			say("Merci...")
+			say("Je suis vraiment curieuse.")
+			say("S'il vous plaît dépêchez-vous donc que je")
+			say("puisse essayer cette glace.")
+			say("")
+			set_state(ask_to_harang)
+		end
+	end
+
+	state ask_to_harang begin
+		when info or button begin
+			say_title("A propos du Bingsu")
+			say("")
+			--                                                  |
+			say("Comme Harang affirme que le bingsu existe,")
+			say("je ferais mieux d'aller la voir")
+			say("et de lui demander.")
+			say("")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("A propos du Bingsu")
+			q.set_title("Demandons à Harang")
+			q.start()
+
+			local v=find_npc_by_vnum("20024")
+			if 0== v then
+			else
+				target.vid("__TARGET__",v,"Demandons à Harang")
+			end
+		end
+
+		when __TARGET__.target.click or 20024.chat."Qu'est-ce que le Bingsu?!" begin
+			target.delete("__TARGET__")
+			say_title("Harang:")
+			say("")
+			--                                                  |
+			say("C'est Taurean!!")
+			say("Elle ne sait pas ce qu'est le Bungsu mais")
+			say("affirme qu'elle connait tout.")
+			say("Comment peut-on connaître ce genre de choses")
+			say("aussi savoureuse? ")
+			say("Vous avez également aucune idée de ce qu'est ")
+			say("le bingsu?")
+			say("Le mieux est d'aller voir Octavio dans le ")
+			say("village voisin. ")
+			say("C'est un cuisinier réputé et il connait toute ")
+			say("les bonnes recettes.")
+			say("Une fois, il a fait du bingsu pour moi, hmmm ...")
+			say("Demandez-lui et montrer à Taurean que")
+			say("j'avais raison!")
+			say("")
+			set_state(ask_to_chef)
+		end
+	end
+
+	state ask_to_chef begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir Octavio")
+			q.set_title("Allez voir Octavio")
+			q.start()
+
+			local v=find_npc_by_vnum("20008")
+			if 0== v then
+			else
+				target.vid("__TARGET1__",v,"Allez voir Octavio")
+			end
+		end
+
+		when info or button begin
+			say_title("A propos du Bingsu")
+			say("")
+			--                                                  |
+			say("Taureau veut savoir ce qu'est le bingsu.")
+			say("Je vais essayer de la débarrasser")
+			say("de son acte curieux.")
+			say("Allez voir Octavio et voyez ce qu'est le bingsu" )
+			
+		end
+		when __TARGET1__.target.click or 20008.chat."Information à propos du Bingsu" begin
+			target.delete("__TARGET1__")
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Ha Ha! Qu'est-ce qui t'arrive?")
+			say("Bingsu? Evidemment que je connais cela.")
+			say("Tout bon cuisinier sait e que c'est")
+			say("quand il traite avec la cuisine.")
+			say("")
+			say("Bingsu est le meilleur en été.")
+			say("")
+			wait()
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Pour le Bingsu, vous avez d'abord besoin de")
+			say("glaçon.")
+			say("Ensuite de sucre, sur le dessus un peu")
+			say("de gâteau de riz et quelques fruit pour ")
+			say("la décoration.")
+			say("Il est vraiment aimé, en particulier en été.")
+			say("Taurean est un gentille fille, mais elle a")
+			say("coeur sensible...")
+			say("Oh mais, je l'aime bien! ")
+			say("Pouvez-vous m'aider à obtenir les ingrédients ")
+			say("pour le bingsu, de sorte que je puisse rendre ")
+			say("Taureau heureuse et finalement faire à ")
+			say("nouveau du Bingsu?")
+			wait()
+			say_title("Octavio:")
+			say("")
+			say("Apportez moi juste quelques glaçons des")
+			say("glace enchantée de la montagne glacé.")
+			say("Vous l'obtiendrez pour moi?")
+			say("")
+			local s=select("Oui","Non")
+			if 2==s then
+				say("Abandonner la quête")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Octavio:")
+					say("")
+					say("Vous n'aimez pas la glace?")
+					say("Ou êtes vous occupé?")
+					say("Lorsque vous voulez avoir du bingsu un jour,")
+					say("revenez simplement.")
+					say("")
+					return
+				end
+				say_title("Octavio:")
+				say("")
+				say("Taureau sera triste.")
+				say("Bien, au revoir.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Octavio:")
+			say("")
+			say("Oui,")
+			--                                                  |
+			say("comme je l'ai déjà dit, vous ne pouvez ")
+			say("obtenir les glaçons que sur les glaces  ")
+			say("enchantées de la montagne de glace à l'ouest.")
+			say("Rapportez moi 50 glaçons, puis je pourrais")
+			say("faire quelques gouteux Bingsu.")
+			say("")
+			set_state(gain_ice)
+		end
+	end
+
+	state gain_ice begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Bingsu?")
+			q.set_title("Bingsu?")
+			q.start()
+
+			if pc.count_item("30146")>=50 then
+				local v=find_npc_by_vnum(20008)
+				if 0==v then
+				else
+					target.vid("__TARGET__",v,"Allez voir Octavio maintenant")
+				end
+			end
+		end
+
+		when info or button begin
+
+			if pc.count_item("30146")>=50 then
+				say(locale.NOTICE_COLOR.."La collecte de la glace"..locale.NORMAL_COLOR)
+				say("")
+				say("J'ai la glace pour le Bingsu.")
+				say("Rapportez la à Octavio.")
+				return
+			end
+			say(locale.NOTICE_COLOR.."La recherche de la glace"..locale.NORMAL_COLOR)
+			say("")
+			--                                                  |
+			say("Pour le Bingsu, vous avez besoin de glaçons.")
+			say("Vous pouvez en obtenir sur les glaces ")
+			say("enchantées à la montagne de glace à l'ouest.")
+			say("Obtenez 50 glaçons et apporter les à Octavio.")
+			say("")
+		end
+
+		when 1101.kill begin
+			local s = number(1, 100)
+			if s <= 7 and pc.count_item("30146")< 50  then
+				pc.give_item2("30146", 2)
+			end
+		end
+
+		when __TARGET__.target.click or 20008.chat."Voici la glace" begin
+			target.delete("__TARGET__")
+			if pc.count_item("30146") >= 50 then
+				say_title("Octavio:")
+				say("")
+				--                                                  |
+				say("Merci de votre aide je peux faire le Bingsu ")
+				say("maintenant.")
+				say("De cette façon, Taureau oublie sa colère.")
+				say("Voilà, prenez le Bingsu avec vous.")
+				say("")
+				say_item_vnum(30149)
+				pc.give_item2(30149)
+				set_state(back_to_boy)
+				pc.remove_item(30146, 50)
+				return
+			else
+				say("Ce n'est pas assez.")
+				say("J'ai besoin de plus.")
+				local s=select("Essayer encore","Abandonner")
+				if 2==s then
+					say_title("Octavio:")
+					say("")
+					--                                                  |
+					say("Trop dur?")
+					say("Je ne peut rien faire alors.")
+					set_state(__GIVEUP__)
+					return
+				end
+				say_title("Octavio:")
+				say("")
+				--                                                  |
+				say("Vous voulez réessayer?")
+				say("Avec votre courage vous")
+				say("pouvez le faire.")
+				say("")
+			end
+		end
+	end
+
+	state back_to_boy begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Retournez voir Taurean")
+			q.set_title("Retournez voir Taurean")
+			q.start()
+
+			local v = find_npc_by_vnum(20014)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Bingsu!")
+			end
+		end
+
+		when info or button begin
+			say_title("Retournez voir Taurean")
+			say("")
+			say("Retournez voir Taurean et donner lui ")
+			say("le Bingsu qu'Octavio a fait")
+			say("pour lui.")
+			say_item_vnum(30149)
+		end
+		when __TARGET__.target.click or 20014.chat."Voilà! Bingsu!" begin
+			target.delete("__TARGET__")
+			if pc.count_item("30149")>0 then
+				say_title("Taurean:")
+				say("")
+				--                                                  |
+				say("Wow c'est le Bingsu?")
+				say("Hmm, très délicieux,")
+				say("ce goût si cool ...")
+				say("Je n'ai jamais rien mangé de tel avant.")
+				say("Merci.")
+				say("")
+				pc.remove_item(30149,1)
+				say_reward("Vous avez reçu 6.000.000 points d'expérience.")
+				pc.give_exp2(6000000)
+				say_reward("Vous avez reçu un parchemin de guerre.")
+				pc.give_item2(71021)
+				say_reward("Vous avez reçu 70.000 Yang.")
+				pc.change_money(70000)
+				clear_letter()
+				set_state(__COMPLETE__)
+			else
+				say_title("Taurean:")
+				say("")
+				say("Du Bingsu pour moi,")
+				say("vous vous rappelez?")
+				say_item_vnum(30149)
+				say("")
+				wait()
+				say_pc_name()
+				say("Oh mon dieu, j'ai oublié.")
+				say("")
+				--                                                  |
+				say("Vous voulez essayé à nouveau ")
+				say("de chasser les glaces enchantées ou voulez-vous")
+				say("abandonner?")
+				say("")
+				local s = select("Je veux continuer", "Non j'abandonne.")
+				if s == 2 then
+					say_pc_name()
+					say("Je ne peux pas faire cela,")
+					say("désolé.")
+					say("")
+					clear_letter()
+					set_state(__GIVEUP__)
+				end
+				set_state(gain_ice)
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

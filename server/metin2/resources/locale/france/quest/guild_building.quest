@@ -1,0 +1,94 @@
+quest guild_building begin
+	state start begin
+		when 20040.click begin
+			---                                                   l
+			say_title("Le Préfet:")
+			say("Je gère différents terrains et je m'occupe de")
+			say("la vente de terres ici. Avant que les monstres")
+			say("n'occupent les pays au millieu du continent, nous")
+			say("ne manquions pas de terres et tout allait bien.")
+			say("Maintenant, je ne peux vendre qu'aux chefs de")
+			say("guildes qui utilisent ces terrains comme terrains")
+			say("de guilde. Voulez-vous acheter un terrain?")
+
+			local s = select("Oui", "Non")
+
+			if s == 1 then
+				if not pc.is_guild_master() then
+					---                                                   l
+					say_title("Le Préfet:")
+					say("Je vous ai déjà dit, je ne peux pas vendre de")
+					say("terrains à tout le monde. J'éspére que vous")
+					say("comprendrez.")
+
+				elseif building.has_land(pc.get_guild()) then
+					---                                                   l
+					say_title("Le Préfet:")
+					say("Désolé, je ne peux vendre qu'un terrain par chef")
+					say("de guilde.")
+				else
+					local land_id = building.get_land_id(pc.get_map_index(), pc.get_x()*100, pc.get_y()*100)
+
+					if land_id == 0 then
+						---                                                   l
+						say_title("Le Préfet:")
+						say("Je n'est aucun terrain à vendre ici.")
+					else
+						local price, owner, guild_level_limit = building.get_land_info(land_id)
+
+						---                                                   l
+						say_title("Le Préfet:")
+						say("Pour acheter un terrain, votre guilde doit être")
+						say("niveau "..guild_level_limit..", et vous devez payer")
+						say(""..price.." Yangs.")
+						wait()
+
+						if guild.level(pc.get_guild()) < guild_level_limit then
+							---                                                   l
+							say_title("Le Préfet:")
+							say("Désolé, mais votre guilde n'a pas le niveau")
+							say("nécéssaire. Revenez plus tard !")						
+						else
+							---                                                   l
+							say_title("Le Préfet:")
+							say("Voulez-vous acheter ce terrain de guilde ?")
+
+							s = select("Oui", "Non")
+
+							if s == 1 then
+
+								local price, owner, guild_level_limit = building.get_land_info(land_id)
+
+								if owner != 0 then
+									---                                                   l
+									say_title("Le Préfet:")
+									say("Vous ne pouvez pas acheter ce terrain, car il a")
+									say("déjà été vendu à une autre guilde.")
+
+								elseif pc.gold < price then
+									---                                                   l
+									say_title("Le Préfet:")
+									say("Désolé, mais vous n'avez pas la somme nécéssaire.")
+								else
+									pc.changegold(-price)
+									building.set_land_owner(land_id, pc.get_guild())
+									notice_all("La guilde "..guild.name(pc.get_guild()).." a acheté un terrain de guilde !")
+								end
+							else
+								---                                                   l
+								say_title("Le Préfet:")
+								say("Revenez quand vous serez décidé. Premier")
+								say("arrivé, premier servi.")
+							end						
+						end					
+					end				
+				end
+			else
+				---                                                   l
+				say_title("Le Préfet:")
+				say("Revenez quand vous serez décidé. Premier")
+				say("arrivé, premier servi.")
+			end
+		end
+	end
+end

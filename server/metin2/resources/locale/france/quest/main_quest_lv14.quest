@@ -1,0 +1,145 @@
+quest main_quest_lv14 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 14 begin
+			set_state( gotoboss )
+		end
+	end
+
+	state gotoboss begin
+		when letter begin
+			send_letter("Mission de courage.")
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when button or info begin
+			say_title("Mission de courage.")
+			say("")
+			--                                                  |
+			say("Le capitaine a une nouvelle mission pour vous.")
+			say("Allez le voir.")
+			say("")
+			end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Capitaine:")
+			say("")
+			say("Je suis inquiet au sujet des pierres metins. ")
+			say("Yu-Hwan m'a informé que ces pierres rendaient")
+			say("les animaux totalement fous.")
+			say("Pire encore, une épidémie de peste se répand.")
+			say("")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Si nous ne faisons rien contre les pierres ")
+			say("Metin, les animaux continuerons à attaquer ")
+			say("les habitants ou pire encore cette peste ")
+			say("pourrait se propager!")
+			say("Occupez vous des pierres metins qui sont ")
+			say("autour du village.")
+			say("Je suis sûr que vous pouvez le faire après")
+			say("avoir tué Mu-Rang.")
+			set_state( killmetinstone )
+		end
+	end
+
+	state killmetinstone begin
+		when letter begin
+			send_letter("Metin battle.")
+		end
+		when button or info begin
+			say_title("Détruire la metin battle.")
+			say("")
+			say("Trouvez et anéantissez une metin battle.")
+			say("")
+		end
+		when 8003.kill begin
+			say_title("Mission accomplie")
+			say("")
+			say("Vous avez détruit la metin Battle.")
+			say("Retournez voir le Capitaine.")
+			set_state(gotoboss2)
+			say("")
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			send_letter("La pierre metin est détruite.")
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when button or info begin
+			say("Vous avez détruit la metin battle")
+			say("Retournez voir le capitaine")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+
+			local stones = { 28030,28130,28230 }
+			local i = stones[number( 1, 3 )];
+			local stone =  (i+number(1,14)-1)
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Beau travail! Vous êtes devenu un bon disciple!")
+			say("Je sais que je peux vous faire confiance pour ")
+			say("les prochaines missions.")
+			say("Voici votre récompense et continuez votre")
+			say("bon travail!")
+			say_title("Reward:")
+			say("")
+			say_reward("Experience : 20.000" )
+			say_reward("Yang: 8.000")
+			say_reward(item_name(stone))
+			say("")
+			s = select("Merci.","C'est quoi une pierre d'esprit?")
+			if s == 2 then
+				say_title("Capitaine:")
+				say("")				
+				--                                                  |
+				say("Oh,J'ai oublié que vous étiez un nouvel ")
+				say("aventurier, ha ha.")
+				say("Les pierres d'esprits sont des pierres avec des")
+				say("pouvoirs spéciaux que vous pouvez incruster dans")
+				say("votre armure ou votre arme pour augmenter leur ")
+				say("caractéristique.")
+				say("Leur rang est de +0 à +5, le dernier ne peut")
+				say("s'obtenir qu'en améliorant une pierre +4.")
+				say("")
+				wait()
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Déposez la pierre d'esprit sur votre équipement")
+				say("pour tenter de l'incruster. L'incrustation ")
+				say("échoue parfois et vous aurez alors un slot de")
+				say("pierre brisé. ")
+				say("Si vous souhaitez nettoyer cette emplacement")
+				say("brisé, vous pouvez soit améliorer votre ")
+				say("équipement ou utiliser un livre de pierre.")
+				say("Vous pouvez également retirer une pierre liée ")
+				say("avec succès grâce au parchemin de pierre ")
+				say("d'esprit.")
+			end
+			pc.give_exp2( 20000 )
+			pc.change_money( 8000 )
+			pc.give_item2( stone,1 )
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv15", "run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

@@ -1,0 +1,302 @@
+quest horse_upgrade2 begin
+	state start begin
+		when 20349.chat."Acheter un cheval militaire." with horse.get_grade()==2 and horse.get_level()==20 begin
+			if horse.is_dead() then
+				say_title("Le palefrenier:")
+				say("Votre cheval est mort. Veuillez le ressusciter")
+				say("avant tout entrainement.")
+
+			elseif pc.level<=49 then
+				say_title("Le palefrenier:")
+				say("Désolé, tu n'as pas encore assez de force pour ")
+				say("maitriser cet animal.")
+				say("Reviens me voir lorsque tu seras de niveau 50.")
+
+			elseif horse.get_level()<=19 then
+
+				say_title("Le palefrenier:")
+				say("Ton cheval n'a pas le niveau adéquate.")
+				say("Il faut que le cheval soit level 20.")
+				say("Finis tes entrainements et reviens me voir.")
+
+			elseif pc.countitem(50050) < 1 then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Il vous faut une médaille équestre pour y noter")
+				say("vos résultats de l'entrainement de votre cheval.")
+				say("Revenez me voir avec une médaille.")
+				setstate(need_item50050)
+
+			elseif pc.countitem(50052)<1 then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Il semble que tu es perdu ton livre cheval de")
+				say("combat. Tu en a besoin pour effectuer la quête.")
+				say("Tu dois impérativement le retrouver!")
+
+			elseif horse.get_level()==20 and not horse.is_dead() and pc.countitem(50050)>=1 and pc.level>=50 then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Voulez-vous améliorer votre cheval de combat")
+				say("en cheval militaire ? Pour cela vous devrez")
+				say("réussir à tuer 300 archers démoniaques en moins")
+				say("de 30 minutes.")
+				say("Voulez-vous essayer ?")
+
+				local b=select("Oui", "Non")
+
+				if 1==b then
+					if pc.countitem(50050)>=1 then
+						pc.removeitem(50050, 1)
+						setstate(test)
+					end
+
+				elseif 2==b then
+					say_title("Le palefrenier:")
+					say("Revenez me voir quand vous vous sentirez prêts.")
+				end
+			else
+				say_title("Le palefrenier:")
+				say("Désolé,")
+				say("tu ne m'inspires guère confiance !")
+				say("Fournis toi un cheval ailleurs !")
+			end
+		end
+	end
+
+	state need_item50050 begin
+		when letter begin
+			send_letter("Vous avez besoin d'une médaille équestre!")
+		end
+
+		when button or info begin
+			say_title("Vous avez besoin d'une médaille équestre!")
+			say("J'ai besoin d'une médaille équestre pour y noter")
+			say("vos résultats. Vous pourrez en trouver sur les")
+			say("singes qui ce trouvent dans les donjons.")
+			clear_letter()
+			setstate(start)
+		end
+	end
+
+	state test begin
+		when letter begin
+			send_letter("Mission cheval militaire.")
+			q.set_counter("Nombre d'archers restant à tuer : ", 300-pc.getqf("kill_count"))
+			q.set_clock("Temps restant : ", pc.getqf("limit_time")-get_time())
+		
+		end
+		
+		when 1002.party_kill begin
+
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre d'archer restant à tuer : ", 300-pc.getqf("kill_count"))
+			
+			if get_time()>=pc.getqf("limit_time") then
+				clear_letter()
+				setstate(failure)
+			end		
+		end
+		
+		when enter begin
+			pc.setqf("limit_time", get_time()+30*60)
+			pc.setqf("kill_count", 0)
+		end
+
+		when leave begin
+			q.done()
+		end
+
+		when button or info begin
+			say_title("Mission cheval militaire:")
+			say("Vous avez 30 minutes pour tuer 300 archers")
+			say("démoniaques. Ne perdez pas de temps ! Si")
+			say("vous êtes le chef de groupe, cette épreuve")
+			say("peut-être réalisée à plusieurs !")
+		end
+
+		when 1002.party_kill with pc.getqf("kill_count") >= 300 and pc.getqf("limit_time")>=get_time() begin
+			clear_letter()
+			setstate(report)
+		end
+
+		when 20349.chat."Etat de la quête en cours" begin
+			say_title("Le palefrenier:")
+			say("Vous avez 30 minutes pour tuer 300 archers")
+			say("démoniaques.")
+			say("Et puis d'ailleurs que fais-tu là !")
+			say("Désires-tu renoncer ?")
+			local b=select("Certainement pas!", "Oui...")
+
+			if b == 2 then
+			
+				say_title("Le palefrenier:")
+				say("Ta décision est irrévocable ?")
+				local b=select("Oui", "Non")
+		
+				if b == 1 then
+					say_title("Le palefrenier:")
+					say("Revenez me voir quand vous vous sentirez prêts.")
+					clear_letter()
+					setstate(start)
+
+				elseif b == 2 then
+					say_title("Le palefrenier:")
+					say("Ah, tu reprends du poil de la bete.")
+					say("Hâtes-toi, il n'est peut-être pas trop tard !")
+				end
+			end		
+		end	
+	end
+
+	state report begin
+		when letter begin
+			send_letter("Mission cheval militaire réussi !")
+		end
+
+		when button or info begin
+			say_title("Mission cheval militaire réussi !")
+			say("Vous avez terminé votre entrainement.")
+			say("Retournez voir le palfrenier.")
+		end
+
+		when 20349.chat."Vous avez déjà un cheval militaire." with horse.get_grade()!=2 begin
+			clear_letter()
+			setstate(start)
+		end
+
+		when 20349.chat."Résultat de la mission" with horse.get_grade()==2 begin
+			say_title("Le palefrenier:")
+			say("Félicitations !")
+			say("Tu sembles être fait pour être cavalier.")
+			say("Pour appeler ton cheval, tu auras besoin d'un")
+			say("Livre équit. militaire.")
+			say("Je vais te le préparer, reviens me voir plus tard !")
+			
+			if is_test_server() then
+				pc.setqf("make_time", get_time()+60*60*2)--2h
+			else
+				pc.setqf("make_time", get_time()+60*60)
+			end
+
+			setstate(wait)
+		end	
+	end
+
+	state wait begin
+		when letter begin
+			send_letter("Création du livre équit. militaire.")
+		end
+		
+		when button or info begin
+			
+			say_title("Création du livre équit. militaire:")
+			say("Le Palefrenier est en train de créer votre")
+			say("Livre équit. militaire.")
+			say("Veuillez patienter !")
+		end
+
+		when login with get_time()>=pc.getqf("make_time") begin
+			setstate(buy)
+		end
+		
+		when 20349.chat."Vous avez déjà un cheval militaire." with horse.get_grade()!=2 begin
+			clear_letter()
+			setstate(start)
+		end
+
+		when 20349.chat."Votre livre équit. militaire." with horse.get_grade()==2 begin
+			say_title("Le palefrenier:")
+			say("Je n'ai pas encore fini votre livre .")
+			say("Plus je serai interrompu, plus je prendrai du temps")
+			say("Laissez-moi travailler en paix !")
+		end
+	end
+
+	state buy begin
+		when letter begin
+			send_letter("Votre livre équit. militaire est prêt!")
+		end
+
+		when button or info begin
+			say_title("Votre livre équit. militaire est prêt !")
+			say("Le Palefrenier a terminé votre livre.")
+			say("Allez le voir.")
+		end		
+
+		when 20349.chat."Vous avez déjà un cheval militaire." with horse.get_grade()!=2 or (horse.get_grade()==2 and horse.get_level()!=20) begin
+			clear_letter()
+			setstate(start)
+		end		
+		
+		when 20349.chat."Récupérer mon cheval militaire!" with horse.get_grade()==2 and horse.get_level()==20 begin
+			say_title("Le palefrenier:")
+			say("Votre cheval militaire vous attende.")
+			say("Il vous offre de nouvelles possibilités en plus de")
+			say("pouvoir taper à cheval, vous pouvez à partir de")
+			say("maintenant utiliser des pouvoirs à cheval.")
+			say("Que désirez-vous ?")
+			local b=select("Améliorer mon cheval", "Ne pas l'améliorer")
+			
+			if 1==b then
+				
+				if pc.money>=1000000 then
+					
+					if pc.countitem(50052) >= 1 then
+						
+						pc.changemoney(-1000000)
+						pc.removeitem(50052, 1)
+						horse.unride()
+						horse.advance()
+						horse.ride()
+						pc.give_item2(50053, 1)
+						char_log(0, "HORSE_UPGRADE", "Amelioration en dada militaire")
+					
+						say_title("Le palefrenier:")
+						say("Vous voila maintenant cavalier !")
+						say("Prenez soin de votre monture, et elle")
+						say("prendra soin de vous. Je vous rappelle qu'une")
+						say("aussi belle bete ne mange uniquement des ginseng")
+						say("rouge!")
+						clear_letter()
+						setstate(start)
+				
+					else
+						say_title("Le palefrenier:")
+						say("J'ai besoin que tu me rendes ton livre cheval de combat!")
+					end
+			
+				else
+					say_title("Le palefrenier:")
+					say("Vous n'avez pas assez d'argent !")
+					say("1 000 000 yangs sont nécessaires !")
+				end
+			
+			elseif 2==b then
+			
+				say_title("Le palefrenier:")
+				say("Comme tu veux...")
+			end		
+		end	
+	end
+
+	state failure begin
+		when letter begin
+			send_letter("Temps écoulé !")
+		end
+		
+		when button or info begin
+			
+			say_title("Temps écoulé !")
+			say("Vous n'avez pas réussi à tuer les 300 archers")
+			say("démoniaques en 30 minutes.")
+			say("Allez demander au palefrenier ce qu'il en pense.")
+			say("Pour retenter, vous aurez besoin d'une nouvelle")
+			say("médaille. Prévoyez en conséquense.")
+			clear_letter()
+			setstate(start)
+		end			
+	end
+	state __COMPLETE__ begin
+	end
+end

@@ -1,0 +1,103 @@
+quest priv_empire begin
+	state start begin
+		when guild_man1.chat."GM: Gestion des bonus d'empire." or 
+			guild_man2.chat."GM: Gestion des bonus d'empire." or 
+			guild_man3.chat."GM: Gestion des bonus d'empire." with pc.is_gm() begin
+
+			---                                                   l
+			say_title("Gestion des bonus d'empire:")
+			say("Choisissez l'empire ou les empires, ou vous")
+			say("souhaitez activer un bonus.")
+
+			local e = select ("Empire Shinsoo", "Empire Chunjo", "Empire Jinno", "Tout les Empires", "Fermer")
+
+			if 5 == e then
+				return
+			end
+
+			if 4 == e then
+				e = 0
+			end
+
+			---                                                   l
+			say_title("Gestion des bonus d'empire:")
+			say_reward("Liste des bonus mis en place actuellement:")
+			say_reward(__get_empire_priv_string(e))
+			say("Choisissez le type de bonus à mettre en place:")
+
+			local t = select ("Quota d'objets lâchés", "Quota de yangs", "Tempête de yangs", "Quota d'expérience", "Fermer")
+
+			if 5 == t then
+				return
+			end
+
+			local title_list = {locale.item_drop_pct, locale.gold_drop_pct, locale.tengold_drop_pct, locale.exp_pct}
+
+			---                                                   l
+			say_title("Gestion des bonus d'empire:")
+			say_reward(string.format("Empire(s) séléctionné: %s", locale.empire_names[e]))
+			say_reward(string.format("Bonus séléctionné: %s", title_list[t]))
+			say("Choisissez le pourcentage du bonus:")
+
+			local g={0, 10, 20, 30, 40, 50, 100, 200}
+
+			local p = select(g[1]..'%', g[2]..'%', g[3]..'%', g[4]..'%', g[5]..'%', g[6]..'%', g[7]..'%', g[8]..'%', 'Fermer')
+
+			if p == 9 then
+				return
+			end
+
+			---                                                   l
+			say_title("Gestion des bonus d'empire:")
+			say_reward(string.format("Empire(s) séléctionné: %s", locale.empire_names[e]))
+			say_reward(string.format("Bonus séléctionné: %s", title_list[t]))
+			say("Combien de temps le bonus d'empire doit rester ?")
+
+			local v = 0
+
+			local h = select('6 heures', '12 heures', '24 heures', 'Autre', 'Fermer')
+
+			if 5 == h then
+				return
+
+			elseif 4 == h then
+			---                                                   l
+			say_title("Gestion des bonus d'empire:")
+			say_reward(string.format("Empire(s) séléctionné: %s", locale.empire_names[e]))
+			say_reward(string.format("Bonus séléctionné: %s", title_list[t]))
+			say("Veuillez saisir en heures le temps choisis:")
+
+			v=input()
+
+			if v == "" then
+				v = 0
+			else
+				v=tonumber(v)
+			end
+
+			elseif 3 == h then
+				v=24
+			elseif 2 == h then
+				v=12
+			elseif 1 == h then
+				v=6
+			end
+
+			---                                                   l
+			say_title("Gestion des bonus d'empire:")
+			say_reward(string.format("Empire(s) séléctionné: %s", locale.empire_names[e]))
+			say_reward(string.format("Bonus séléctionné: %s", title_list[t]))
+			say_reward("Durée du bonus séléctionné: "..v.." heure(s)")
+			say("Voulez-vous vraiment activer le bonus d'empire ?")
+
+			local s = select("Oui", "Non")
+
+			if 1 == s then
+				---                                                   l
+				say_title("Gestion des bonus d'empire:")
+				say_reward("Le bonus d'empire à été activé.")
+				__give_empire_priv(e, t, g[p], v*60*60)
+			end
+		end
+	end
+end

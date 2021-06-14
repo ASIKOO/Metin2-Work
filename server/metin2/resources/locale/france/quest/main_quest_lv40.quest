@@ -1,0 +1,413 @@
+----------------------------------
+--        Main Quest LV40
+--        The Pages of the Secret Books
+----------------------------------
+
+quest main_quest_lv40 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 40 begin
+			set_state( information )
+		end
+	end
+	state information begin
+		when letter begin
+			send_letter("La troisième page")
+		end
+		when button or info begin
+			----                                                  l
+			say_title("La troisième page")
+			say("")
+			say("D'après Uriel, les anciens auraient fait une")
+			say("près de la grotte des âmes perdues dans la ")
+			say("vallée des dragons. Les fanatiques, ")
+			say("y rodant autour, les auraient attaqués.")
+			say("Submergés par le nombre, les anciens ont dû ")
+			say("battre en retraite en y laissant pour mort bon")
+			say("nombre de leurs camarades.")
+			say("Rendez vous auprès de ces fanatiques et voyez")
+			say("s'ils possèdent une quelconque information sur")
+			say("nos regrettés sorciers.")
+			say("")
+		end
+		when 731.kill begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item(30150)==0 then
+				pc.give_item2(30150, 1)
+				set_state(gototeacher)
+			end
+		end
+	end
+
+	state gototeacher begin
+		when letter begin
+			send_letter("Vous avez la troisième page")
+
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel")
+			end
+		end
+		when button or info begin
+			say_title("Vous avez la troisième page")
+			say("")
+			say("Uriel attend impatiemment de vos nouvelles.")
+			say("Ne le faîtes plus attendre, foncez!")
+			say("")
+		end
+		when __TARGET__.target.click or 20011.chat."The third page" begin
+			target.delete("__TARGET__")
+			say_title("Uriel:")
+			say("")
+			----                                                  l
+			say_reward("Nous avons eu beaucoup de mal à nous ")
+			say_reward("intégrer dans cette communauté religieuse.")
+			say_reward("Ces fanatiques semblent posséder une foi")
+			say_reward("aveugle en leur dieu. ")
+			say_reward("Toutefois, les pouvoirs qu'ils possèdent")
+			say_reward("sont bien réels. Une fois que notre ")
+			say_reward("intégration parmi eux fut achevée, ")
+			say_reward("nous avons continué à gagner leur  ")
+			say_reward("confiance afin de leur arracher petit à ")
+			say_reward("petit tous leurs secrets. ")
+			say_reward("Ce ne fut qu'après un mois d'intenses ")
+			say_reward("efforts qu'un élément nouveau est apparu...")
+			wait()
+			
+			say_title("Uriel :")
+			say("")
+			----                                                  l
+			say("Enfer et damnations! Ils semblent si proche de")
+			say("découvrir leur nouvelle source d'énergie...")
+			say("Quel peut bien être cet élément nouveau dont le ")
+			say("journal fait mention...")
+			say("Malheureusement, le restant de la page est abimé")
+			say("et le texte devient quasiment illisible...")
+			say("De plus amples recherches sont nécessaires.")
+			say("")
+			wait()
+			
+			say_title("Uriel :")
+			say("")
+			----                                                  l
+			say("Le donjon des singes moyens abritent en son lieu")
+			say("deux monuments datant de la dynastie Xiang.")
+			say("Les pictogrammes présents pourront peut-être ")
+			say("m'aider à déchiffrer la fin du message.")
+			say("Rapporte moi les textes figurant sur ces")
+			say("bâtiments je te prie...")
+			say("Oh fait, j'allais oublier, voilà pour toi.")
+			say("")
+			say_reward("Vous recevez:")
+			say("")
+			say_reward("2.800.000 Experience ")
+			say_reward("350.000 Yang")
+			say_reward("Parchemin de bénédiction")
+			say("")
+			pc.give_exp2(2800000)
+			pc.give_item2(25040)
+			pc.change_money(350000)
+			pc.remove_item(30150)
+			set_state( godoc4 )
+		end
+	end
+
+	state godoc4 begin
+		when letter begin
+			send_letter("Les monuments du donjon")
+
+			local v=find_npc_by_vnum(20360)
+			if 0==v then
+			else
+				target.vid("__TARGET1__", v, "Monument")
+			end
+
+			local v=find_npc_by_vnum(20361)
+			if 0==v then
+			else
+				target.vid("__TARGET2__", v, "Monument")
+			end
+		end
+
+		when button or info begin
+			----                                                  l
+			say_title("Les monuments du donjon")
+			say("")
+			----                                                  l
+			say("Uriel a du mal à déchiffrer le reste du journal.")
+			say("Il a besoin des écrits figurant sur les monuments")
+			say("situés dans le donjon des singes moyens.")
+			say("Retrouve ces monuments et rapporte lui ces ")
+			say("informations au plus vite!")
+			say("")
+		end
+		when __TARGET1__.target.click or 20360.chat."Le monument" begin
+			target.delete("__TARGET1__")
+			say_pc_name()
+			say("")
+			say("J'ai trouvé le monument!")
+			say("")
+			pc.setqf("click1",1)
+
+			if pc.getqf("click2") == 1 then
+				pc.setqf("click1",0)
+				pc.setqf("click2",0)
+				pc.give_item2(30150)
+				set_state( gototeacher2)
+				return
+			end
+			----                                                  l
+			say("Allons, le deuxième monument ne devrait pas être")
+			say("bien loin...")
+			say("")
+		end
+		when __TARGET2__.target.click or 20361.chat."Le monument" begin
+			target.delete("__TARGET2__")
+			say_pc_name()
+			say("")
+			say("J'ai trouvé le monument!")
+			say("")
+			pc.setqf("click2",1);
+
+			if pc.getqf("click1") == 1 then
+				pc.setqf("click1",0)
+				pc.setqf("click2",0)
+				pc.give_item2(30150)
+				set_state( gototeacher2)
+				return
+			end
+			----                                                  l
+			say("Allons, le deuxième monument ne devrait pas être")
+			say("bien loin...")
+			say("")
+		end
+	end
+
+	state gototeacher2 begin
+		when letter begin
+			send_letter("Vous avez la quatrième page")
+
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel")
+			end
+		end
+		when button or info begin
+			say_title("Vous avez la quatrième page")
+			say("")
+			say("Uriel attend impatiemment de vos nouvelles.")
+			say("Ne le faîtes plus attendre, foncez!")
+			say("")
+		end
+		when __TARGET__.target.click or 20011.chat."Donner la quatrième page." begin
+			target.delete("__TARGET__")
+			----                                                  l
+			say_title("Uriel:")
+			say("")
+			say_reward("Ce ne fut qu'après un mois d'intenses efforts ")
+			say_reward("qu'un élément nouveau est apparu...")
+			say_reward("Aujourd'hui, quand le soleil était au plus haut")
+			say_reward("dans le ciel, nous avons été emmenés devant Eowa,")
+			say_reward("leur chef spirituel.Quelle n'a pas été ma surprise")
+			say_reward("de faire face à cet être mi-homme, mi-dieu,")
+			say_reward("gorgé d'un pouvoir dépassant l'entendement! ")
+			say_reward("Il sacrifia neuf de mes compagnons devant mes yeux,")
+			say_reward("se gorgeant ainsi de leur énergie vitale avant de ")
+			say_reward("se lancer dans une longue incantation...")
+			wait()
+			say_title("Uriel :")
+			say("")
+			----                                                  l
+			say("Nous progressons!")
+			say("J'ai entendu parler de cet Eowa...")
+			say("Il règnerait sans partage sur le temple, faisant")
+			say("déferler le vent et la foudre sur tout intrus")
+			say("assez fou pour fouler ses terres sacrées.")
+			say("J'ai hâte de connaitre le fin mot de cette ")
+			say("histoire, et cette incantation, quelle peut-être")
+			say("son utilité!")
+			wait()
+			say_title("Uriel :")
+			say("")
+			----                                                  l
+			say("Il faut absolument trouver les pages manquantes")
+			say("de ce journal. Durant ta précédente mission, je")
+			say("suis allé voir le capitaine afin de lui demander")
+			say("d'ouvrir l'œil au sujet de documents anciens.")
+			say("Il semblerait que ses recherches aient porté ")
+			say("leur fruit. Va voir le capitaine et vois ce qu'il")
+			say("en est. Voilà ta récompense, à bientôt!")
+			say_reward("Experience : 1.900.000")
+			pc.give_exp2(1900000)
+			say_reward("Yang: 300.000")
+			pc.change_money(300000)
+			say_reward("Item: Élixir du chercheur.")
+			pc.give_item2(71035)
+			pc.remove_item(30150)
+			say("")
+			set_state( goboss )
+		end
+	end
+
+	state goboss begin
+		when letter begin
+			send_letter("Allez voir le capitaine")
+
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine")
+			end
+		end
+		when button or info begin
+			say_title("Allez voir le capitaine")
+			say("")
+			----                                                  l
+			say("D'après Uriel, le capitaine aurait une piste qui")
+			say("pourrait te permettre de mettre la main sur la")
+			say("cinquième page du journal intime.")
+			say("Ne fais pas attendre le capitaine!")
+			say("")
+		end
+		when __TARGET__.target.click or 20355.chat."Des étrangers suspects" begin
+			target.delete("__TARGET__")
+			say_title("Capitaine:")
+			say("")
+			----                                                  l
+			say("Il y a une augmentation du nombres d'étrangers ")
+			say("qui visite notre village. Ils apportent beaucoup")
+			say("de problèmes et questionnent les habitants sur ")
+			say("les monuments et les vieux livres. ")
+			say("Certains sont bien informés, mais ils ne diront")
+			say("pas un mot. Nous sommes tous en danger en ces")
+			say("temps de guerre.")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			----                                                  l
+			say("Nos contacts nous ont révélés qu'un homme appelé ")
+			say("Nakajima dans le village voisin serait impliqué")
+			say("dans tout ceci.")
+			say("Allez voir ce que veulent les étrangers à notre village.")
+			say("")
+			set_state(survey)
+		end
+	end
+
+	state survey begin
+		when letter begin
+			send_letter("A la recherche de Nakajima")
+			local v=find_npc_by_vnum(20364)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Nakajima")
+			end
+		end
+		when button or info begin
+			say_title("A la recherche de Nakajima")
+			say("")
+			----                                                  l
+			say("Vous devez chercher à savoir ce que veulent  ")
+			say("les étrangers. Il semble exister un lien entre")
+			say("eux et Nakajima.")
+			say("Trouvez-le et découvrir quel est son lien avec eux.")
+			say("")
+		end
+		when __TARGET__.target.click or 20364.chat."A la recherche de Nakajima" begin
+			target.delete("__TARGET__")
+			say_title("Nakajima:")
+			say("")
+			----                                                  l
+			say("Excusez-moi? C'est quoi ce genre de questions? ")
+			say("Si j'ai vu des étrangers suspects rôder par ")
+			say("ici....? Eh bien. Je suis désolé mais je ne peux ")
+			say("pas vous aider! Il difficile de subvenir à ses ")
+			say("besoins et trouver un emploi en ce temps de ")
+			say("guerre.")
+			wait()
+			say_title("Nakajima:")
+			say("")
+			----                                                  l
+			say("Beaucoup de gens ont besoin d'aide...")
+			say("Je les aide qu'à cause de l'argent, ")
+			say("vous comprenez? ")
+			say("Je ne sais pas ce que désirent les étrangers. ")
+			say("Ils m'ont confiées la tâche de tuer le Capitaine")
+			say("Bestial. J'hésite toujours...")
+			say("")
+			wait()
+			say_title("Nakajima:")
+			say("")
+			----                                                  l
+			say("Vous devez en apprendre plus sur le Capitaine ")
+			say("Bestial, les étrangers étaient excités de pouvoir")
+			say("le capturer.")
+			say("Oh, s'il vous plait, ne leur dites pas que je ")
+			say("l'ai pas encore tué.")
+			say("S'il vous plaît, s'il vous plaît")
+			say("")
+			set_state(survey2)
+		end
+	end
+
+	state survey2 begin
+		when letter begin
+			send_letter("Tuer le Capitaine Bestiale")
+		end
+		when button or info begin
+			say_title("Tuer le Capitaine Bestiale")
+			say("")
+			----                                                  l
+			say("Après avoir questionné Nakajima, j'en ai conclu")
+			say("que le Capitaine Bestiale peut détenir des")
+			say("informations. Capturer quelques-uns d'entre eux.")
+			say("")
+			say_reward("Le capitaine Bestial se trouve près de la "..areaname[pc.get_empire()][2].." village.")
+			say("")
+		end
+		when 591.kill begin
+			local s = number(1, 10)
+			if s < 3 and pc.count_item(30150)==0 then
+				pc.give_item2(30150, 1)
+				set_state(_end_)
+			else
+				syschat("Ce n'est pas le bon Capitaine Bestiale....")
+			end
+		end
+	end
+
+	state _end_ begin
+		when letter begin
+			send_letter("La cinquième page")
+		end
+		when button or info begin
+			say_title("La cinquième page")
+			say("")
+			----                                                  l
+			say("Après une enquête approfondie, j'ai découvert que")
+			say("Capitaine Bestial était la cause de l'arrivée ")
+			say("des étrangers. Après avoir tué le Capitaine,")
+			say("j'ai reçu un autre page, c'est sûrement la ")
+			say("cinquième page du journal. Cette page contient  ")
+			say("des signes que je n'arrive pas à déchiffrer,")
+			say(" je ferrai mieux de l'apporter à Uriel.")
+			wait()
+			say_title("La cinquième page")
+			say("")
+			----                                                  l
+			say_reward("Vous ne pouvez pas apporter la cinquième")
+			say_reward("page à Uriel avant d'avoir atteint le ")
+			say_reward(" level 47.")
+			say("Prennez soin de la page, jusque là.")
+			say("")
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv47", "run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

@@ -1,0 +1,118 @@
+quest horse_menu begin
+	state start begin
+		function horse_menu()
+			if horse.is_mine() then
+				---                                                   l
+				say("Que voulez-vous faire avec votre cheval ?")
+				say("")
+
+				local s = 6
+
+				if horse.is_dead() then
+
+					s = select("Ressusciter le cheval", "Le renvoyer", "Rien (Fermer fenêtre)")
+
+					if s == 1 then s = 0
+
+					elseif s == 2 then s = 3
+
+					elseif s == 3 then return
+
+					end
+				else
+					s = select("Nourrir votre cheval", "Monter en selle", "Le renvoyer", "Apprécier la santé de votre cheval", "Donner un nom", "Rien (Fermer fenêtre)")
+				end
+
+				if s == 0 then
+					horse.revive()
+
+				elseif s == 1 then
+
+					local food = horse.get_grade() + 50054 - 1
+
+					if pc.countitem(food) > 0 then
+						pc.removeitem(food, 1)
+						horse.feed()
+					else
+						---                                                   l
+						say("Pour effectuer ceci, vous avez besoin des objets")
+						say("suivants : "..item_name(food)..".")
+					end
+
+				elseif s == 2 then
+					horse.ride()
+
+				elseif s == 3 then
+					horse.unsummon()
+
+				elseif s == 4 then
+					---                                                   l
+					say("Force actuelle du cheval : "..horse.get_health_pct().."%")
+		    			say("Endurance actuelle du cheval : "..horse.get_stamina_pct().."%")
+
+				elseif s == 5 then
+					if pc.countitem("71110") <= 0 then
+						---                                                   l
+						say("Pour effectuer ceci, vous avez besoin des objets")
+						say("suivants : "..item_name(71110).."")
+						return
+					end
+
+					local old_horse_name = horse.get_name() ;
+
+					if string.len(old_horse_name) == 0 then
+						---                                                   l
+						say("Le cheval n'a à l'heure actuelle pas de nom.")
+					else
+						---                                                   l
+						say("Le cheval porte déjà un nom.")
+						say("Nom du cheval "..old_horse_name..".")
+					end
+
+					---                                                   l
+					say("Choisissez un nouveau nom pour votre cheval.")
+
+					local horse_name = input()
+
+					if string.len(horse_name) < 2 then
+						---                                                   l
+						say("Le nom du cheval n'est pas assez long.")
+						return
+
+					elseif string.len(horse_name) > 12 then
+						---                                                   l
+						say("Le nom du cheval est trop long.")
+						return
+					end
+
+					local ret = horse.set_name(horse_name)
+
+					if ret == 0 then
+						---                                                   l
+						say("Bug à rapporter au staff.")
+
+					elseif ret == 1 then
+						---                                                   l
+						say("Impossible d'utiliser ce nom.")
+
+					elseif ret == 2 then
+						---                                                   l
+						say("Le nom de votre cheval a été changé.")
+						pc.remove_item(71110,1)
+					end
+				end
+			end
+		end
+
+		when 20030.click begin horse_menu.horse_menu() end
+		when 20101.click begin horse_menu.horse_menu() end
+		when 20102.click begin horse_menu.horse_menu() end
+		when 20103.click begin horse_menu.horse_menu() end
+		when 20104.click begin horse_menu.horse_menu() end
+		when 20105.click begin horse_menu.horse_menu() end
+		when 20106.click begin horse_menu.horse_menu() end
+		when 20107.click begin horse_menu.horse_menu() end
+		when 20108.click begin horse_menu.horse_menu() end
+		when 20109.click begin horse_menu.horse_menu() end
+	end
+end

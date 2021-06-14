@@ -1,0 +1,707 @@
+quest marriage_manage begin
+	state start begin
+		when oldwoman.chat."Je veux me marier" with not pc.is_engaged_or_married() begin
+			if not npc.lock() then 
+				---                                                   l
+				say_title("La vieille dame:") 
+				say("Je suis occupé sur un mariage la...") 
+				say("Tu peux venir me voir plus tard ?") 
+				return 
+			end
+
+			if pc.level < 25 then 
+				---                                                   l
+				say_title("La vieille dame:") 
+				say("Vous êtes trop jeune pour vous marier.... Le")
+				say("mariage veut dire plein de responsabilités, et")
+				say("vous n'êtes pas encore prêt. Les personnes")
+				say("jeunes divorcent rapidement. Je ne peux autoriser")
+				say("cela.")
+				say("Revenez quand vous aurez acquis de")
+				say("l'expérience.")
+				say_title("Pour votre information:")
+				say_reward("Le mariage est possible une fois le niveau 25")
+				say_reward("atteint.")
+				npc.unlock() 
+				return 
+			end
+
+			local m_ring_num = pc . countitem (70301) 
+			local m_has_ring = m_ring_num > 0 
+
+			if not m_has_ring then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Vous-voulez vous marier sans Anneau de couple ?")
+				say_item("Anneau de couple", 70301, "")
+				say_reward("Vous devez avoir une Anneau de couple en premier.")
+				say_reward("Seulement après ça, vous pourrez vous marier.")
+				npc.unlock() 
+				return 
+			end
+
+			local m_sex = pc.get_sex()
+
+			if not marriage_manage.is_equip_wedding_dress() then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Vous les avez récupérés ou vos vêtements ?")
+				say("Pour un mariage il faut être mieux habillé que cela")
+				say("C'est une étape assez importante dans votre vie.")
+
+				if m_sex == 0 then
+					---                                                   l
+					say_item ("Smoking" , marriage_manage . get_wedding_dress (pc . get_sex()) , "") 
+					say_reward("Vous devez porter un smoking.") 
+					say_reward("Le marchand ambulant en vend dans l'autre village.") 
+				
+				else
+					---                                                   l
+					say_item ("Robe de mariée" , marriage_manage . get_wedding_dress (pc . get_sex()) , "") 
+					say_reward("Vous devez porter une robe de mariée.") 
+					say_reward("Le marchand ambulant en vend dans l'autre village.") 
+				end
+
+				npc.unlock()
+				return
+			end
+
+			local NEED_MONEY = 1000000
+
+			if pc . get_money () < NEED_MONEY then 
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Quelle belle étape de la vie le mariage !") 
+				say("C'est aussi un sacré cout j'avoue ...") 
+				say("Mais avec les frais divers, je suis obligée !") 
+				say("Le mariage coute 1 000 000 yangs !") 
+				say("Vous n'avez pas assez ! Désolé !") 
+				say_reward("Les frais de mariage sont de 1 000 000 yangs !")
+				npc.unlock()
+				return
+			end
+
+			---                                                   l
+			say_title("La vieille dame:")
+			say("Vous voulez vous marier ?")
+			say("Pouvez-vous me dire le nom de l'heureux(se) élu(e)?")
+			say_reward("Entrez le pseudo de votre fiancé(e)")
+
+			local sname = input () 
+
+			if sname == "" then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Euh ... il faudrait me dire le nom de la personne !")
+				say("Recommencez si vous voulez.")
+				npc.unlock()
+				return
+			end
+
+			local u_vid = find_pc_by_name (sname) 
+			local m_vid = pc . get_vid () 
+
+			if u_vid == 0 then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Cette personne n'existe pas") 
+				say_reward(string . format ("Nom : %s inconnu" , sname)) 
+				npc.unlock() 
+				return
+			end
+			
+			if not npc . is_near_vid (u_vid , 10) then 
+				---                                                   l
+				say_title("La vieille dame:")
+				say("D'accord... mais ou est-elle ?") 
+				say("Il faut qu'elle soit a vos cotés..") 
+				say("Revenez quand elle sera la.") 
+				say("") 
+				say_reward(string . format ("%s doit être à vos cotés." , sname)) 
+				npc.unlock() 
+				return
+			end
+
+			local old = pc . select (u_vid) 
+			local u_level = pc . get_level () 
+			local u_job = pc . get_job () 
+			local u_sex = pc . get_sex () 
+			local u_name = pc . name
+			local u_gold = pc . get_money () 
+			local u_married = pc . is_married () 
+			local u_has_ring = pc . countitem (70301) > 0 
+			local u_wear = marriage_manage . is_equip_wedding_dress ()
+ 
+			pc.select (old) 
+
+			local m_level = pc . get_level () 
+			
+			if u_vid == m_vid then 
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Non, vous ne pouvez pas vous marier avec vous") 
+				say("même.") 
+				say_reward("Choisissez une autre personne.") 
+				npc.unlock() 
+				return
+			end
+
+			if u_sex == m_sex then 
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Vous ne pouvez pas vous marier avec quelqu'un du") 
+				say("même sexe.") 
+				say_reward("Choisissez une personne du sexe opposé.") 
+				npc.unlock()
+				return
+			end
+
+			if u_married then 
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Savez-vous que cette personne est mariée ?") 
+				say("Si vous ne le saviez pas, vous devriez.") 
+				say("Désolé, le mariage n'est pas possible.")  
+				say_reward(string . format ("%s est déjà marié." , sname)) 
+				npc.unlock() 
+				return
+			end
+
+			if u_level < 25 then 
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Votre partenaire est trop jeune pour se marier.") 
+				say("Il doit être niveau 25 minimum.") 
+				say_reward("Il vous faut être niveau 25 pour se marier.") 
+				npc.unlock() 
+				return
+			end
+
+			if m_level - u_level > 15 or u_level - m_level > 15 then 
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Je suis désolée mais le niveau d'écart")
+				say("entre vous deux est trop important.")
+				say("Je n'est pas envie de vous voir divorcer.")
+				say_reward("Les deux fiancés doivent avoir moins de ")
+				say_reward("15 niveau d'écart pour pouvoir se marier.")
+				npc.unlock() 
+				return
+			end
+
+			if not u_has_ring then 
+				---                                                   l
+				say_title("La vieille dame:")
+				if m_ring_num >= 2 then 
+					---                                                   l
+					say("Votre partenaire doit avoir un anneau de couple,") 
+					say("veuillez lui en donner un.") 
+				else
+					---                                                   l
+					say("Votre partenaire doit avoir un anneau de couple,") 
+					say("revenez quand il l'aura.") 
+				end
+
+				---                                                   l
+				say_item ("Anneau de couple" , 70301 , "") 
+				say_reward("L'anneau permet de se marier,")
+				say_reward("Il doit être porté par les deux mariés.")
+				npc.unlock()
+				return
+			end
+
+			if not u_wear then
+				---                                                   l
+				say_title("La vieille dame:") 
+				say("Votre partenaire n'est pas prêt(e).Pour un mariage") 
+				say("il faut être mieux habillé que cela.") 
+				say("C'est une étape assez importante dans votre vie.") 
+
+				if u_sex == 0 then 
+					---                                                   l
+					say_item("Smoking", 11901, "")
+					say_reward("Votre partenaire doit porter un smoking.") 
+					say_reward("Le marchand ambulant en vend dans l'autre village") 
+				
+				else
+					---                                                   l
+					say_item("Robe de mariée", 11903, "")
+					say_reward("Votre partenaire doit porter une robe de mariée.") 
+					say_reward("Le marchand ambulant en vend dans l'autre village") 
+				end
+
+				npc.unlock()
+				return
+			end
+
+			local ok_sign = confirm (u_vid , "Voulez-vous vous marier avec " .. pc . name .. "?" , 30)
+
+			if ok_sign == CONFIRM_OK then
+
+				local m_name = pc . name
+
+				if pc.get_gold()>=NEED_MONEY then
+					pc.change_gold(- NEED_MONEY)
+					pc.removeitem(70301, 1)
+					pc.give_item2(70302, 1) 
+					local old = pc.select (u_vid)
+					pc.removeitem(70301, 1)
+					pc.give_item2(70302, 1)
+					pc.select(old)
+					---                                                   l
+					say_title("La vieille dame:")
+					say("Tout est prêt pour le mariage !") 
+					say("Je vous envoie sur l'ile des amoureux.") 
+					say("Bon mariage !") 
+					say_reward("Vous allez être téléporté pour le mariage.") 
+					wait()
+					setskin (NOWINDOW) 
+					marriage.engage_to(u_vid)
+				end
+			else
+				---                                                   l
+				say_title("La vieille dame:")
+				say("L'autre personne a refusé le mariage...")
+				say("Je vous laisse le temps d'en discuter !")
+				say_reward("Les deux mariés doivent être d'accord")
+				say_reward("avant de procéder à la cérémonie.")
+			end
+			npc.unlock()
+		end
+
+		when oldwoman.chat."Retourner à la cérémonie." with pc.is_engaged() begin
+			---                                                   l
+			say_title("La vieille dame:")
+			say("Mais qu'est-ce que vous faite là ?") 
+			say("Retournez vite à votre mariage ! Il ne faut pas") 
+			say("rater cela ! Je vous téléporte tout de suite !") 
+			wait()
+			setskin (NOWINDOW) 
+			marriage.warp_to_my_marriage_map()
+		end
+
+		when 9011.chat."Commencer le mariage." with pc.is_engaged() and marriage.in_my_wedding() begin
+			if not npc.lock() then
+				---                                                   l
+				say_title("Organisatrice de mariage:")
+				say("Désolé, le mariage semble ne pas être commencé.")
+				say("Revenez plus tard.")
+				return
+			end
+
+			---                                                   l
+			say_title("Organisatrice de mariage:")
+			say("Bonjour !")
+			say("Il faut organiser le mariage et vite !")
+			say("Les invités attendent.")
+			say("Entrez le nom de votre partenaire.")
+
+			local sname = input()
+			local u_vid = find_pc_by_name(sname)
+			local m_vid = pc.get_vid()
+
+			if u_vid == 0 then
+				---                                                   l
+				say_title("Organisatrice de mariage:")
+				say("Bonjour !")
+				say("Le nom que vous avez entrée n'est pas sur notre")
+				say("liste! Réessayez!")
+				say_reward(string.format("%s n'est pas en ligne", sname))
+				npc.unlock()
+				return
+			end
+
+			if not npc.is_near_vid(u_vid, 10) then
+				---                                                   l
+				say_title("Organisatrice de mariage:")
+				say("Bonjour !")
+				say("Oh, mais ou est-il(elle) ?")
+				say("S'il vous plait, allez le(la) chercher !")
+				say("Le mariage ne peut pas commencer sans !")
+				say_reward(string.format("%s doit être à vos cotés.", sname))
+				npc.unlock()
+				return
+			end
+
+			if u_vid == m_vid then
+				---                                                   l
+				say_title("Organisatrice de mariage:")
+				say("Non, je n'ai pas demandé votre propre nom...")
+				say_reward("Entrez le nom de votre partenaire.")
+				npc.unlock()
+				return
+			end
+
+			if u_vid != marriage.find_married_vid() then
+				---                                                   l
+				say_title("Organisatrice de mariage:")
+				say("Vous n'avez pas entrée le même nom que tout à ")
+				say("l'heure. Êtes vous sûr de ne pas vous êtes trompé?")
+				npc.unlock()
+				return
+			end
+
+			local ok_sign = confirm(u_vid, "Voulez-vous vous marier avec "..pc.name.. "?", 30)
+			
+			if ok_sign != CONFIRM_OK then
+				---                                                   l
+				say_title("Organisatrice de mariage:")
+				say("L'autre personne a refusé le mariage...")
+				say("Je vous laisse le temps d'en discuter !")
+				say_reward("Les deux mariés doivent être d'accord")
+				say_reward("avant de procéder à la cérémonie.")
+				npc.unlock()
+				return
+			end
+
+			---                                                   l
+			say_title("Organisatrice de mariage:")
+			say("Félicitation, le mariage commence.")
+			marriage.set_to_marriage()
+			
+		end
+
+
+		when 9011.chat."Commencer la marche nuptiale." with (pc.is_engaged() or pc.is_married()) and marriage.in_my_wedding() and not marriage.wedding_is_playing_music() begin
+			marriage.wedding_music(true, "wedding.mp3")
+			setskin(NOWINDOW)
+		end
+		
+		when 9011.chat."Arrêter la marche nuptiale." with (pc.is_engaged() or pc.is_married()) and marriage.in_my_wedding() and marriage.wedding_is_playing_music() begin
+			marriage.wedding_music(false, "default")
+			setskin(NOWINDOW)
+		end
+		
+		when 9011.chat."Mettre la nuit." with pc.is_married() and marriage.in_my_wedding() begin
+			marriage.wedding_dark(true)
+			setskin(NOWINDOW)
+		end
+
+		when 9011.chat."Mettre la neige." with pc.is_married() and marriage.in_my_wedding() begin
+			marriage.wedding_snow(true)
+			setskin(NOWINDOW)
+		end
+
+		when 9011.chat."Terminer le mariage." with pc.is_married() and marriage.in_my_wedding() begin
+			if not npc.lock() then
+				---                                                   l
+				say_title("Organisatrice de mariage:")
+				say("Désolé, le mariage semble ne pas être commencé,")
+				say("revenez plus tard.")
+				return
+			end
+
+			---                                                   l
+			say_title("Organisatrice de mariage:")
+			say("Voulez-vous vraiment terminer le mariage ?")
+
+			local s = select("Oui","Non")
+			
+			if s == 1 then
+
+				local u_vid = marriage.find_married_vid()
+				
+				if u_vid == 0 then
+				
+					--                                                   l
+					say_title("Organisatrice de mariage:")
+					say("Pour terminer le mariage, nous avons besoin de")
+					say("votre partenaire. Mais ou est-il (elle) ?")
+					say_reward("Présence du partenaire requis.")
+					npc.unlock()
+					return	
+				end
+				---                                                   l
+				say_title("Organisatrice de mariage:")
+				say("Très bien, je demande l'accord de votre partenaire")
+				say("de terminer le mariage.")
+
+				local ok_sign = confirm(u_vid, "Voulez-vous terminer le mariage?", 30)
+				
+				if ok_sign == CONFIRM_OK then
+					marriage.end_wedding()
+				else
+					---                                                   l
+					say_title("Organisatrice de mariage:")
+					say("Votre partenaire a refusé. Le mariage continue.")
+				end
+			end
+			npc.unlock()
+		end
+
+		when 11000.chat."Divorcer." or
+			11002.chat."Divorcer." or
+			11004.chat."Divorcer." with pc.is_married() begin
+			if not marriage_manage.check_divorce_time() then
+				---                                                   l
+				say_title("Le Gardien du Village:")
+				say("Vous venez juste de vous marier. Maintenant,assumez")
+				say("un peu votre erreur et revenez me voir plus tard.")
+				return
+			end
+
+			local u_vid = marriage.find_married_vid()
+			
+			if u_vid == 0 or not npc.is_near_vid(u_vid, 10) then
+				---                                                   l
+				say_title("Le Gardien du Village:")
+				say("La présence de votre partenaire est requise pour")
+				say("le divorce.")
+				say("Allez le ou la chercher.")
+				return
+			end
+
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Le divorce est une chose grave.")
+			say("Le prix du divorce est de 5 millions de yangs.")
+			say("Voulez-vous vraiment divorcer?")
+
+			local MONEY_NEED_FOR_ONE = 5000000
+			local s = select("Oui", "Non")
+
+			if s == 1 then
+			
+				local m_enough_money = pc.gold > MONEY_NEED_FOR_ONE
+				local m_have_ring = pc.countitem(70302) > 0
+
+				local old = pc.select(u_vid)
+				local u_enough_money = pc.gold > MONEY_NEED_FOR_ONE
+				local u_have_ring = pc.countitem(70302) > 0
+				pc.select(old)
+
+				if not m_have_ring then
+					---                                                   l
+					say_title("Le Gardien du Village:")
+					say("Vous ne porter pas l'alliance.")
+					say("Il vous la faut pour divorcer.")
+					return
+				end
+				
+				if not u_have_ring then
+					---                                                   l
+					say_title("Le Gardien du Village:")
+					say("Votre partenaire ne porte pas l'alliance.")
+					say("Il lui faut pour divorcer.")
+					return
+				end
+
+				if not m_enough_money then
+					---                                                   l
+					say_title("Le Gardien du Village:")
+					say("Désolé, vous n'avez pas la somme requise.")
+					say_reward(string.format("Il vous faut %d millions de yangs pour divorcer.", MONEY_NEED_FOR_ONE/1000000))
+					return
+				end
+				
+				if not u_enough_money then
+					---                                                   l
+					say_title("Le Gardien du Village:")
+					say("Désolé, votre partenaire n'a pas la somme requise.")				
+					say_reward(string.format("Votre partenaire doit avoir %d millions de yangs", MONEY_NEED_FOR_ONE/1000000))
+					say_reward("pour divorcer.")
+					return
+				end
+
+				---                                                   l
+				say_title("Le Gardien du Village:")
+				say("Le divorce est une chose douloureuse.")
+				say("Voulez-vous vraiment continuer?")
+
+				local c=select("Oui", "Non")
+				
+				if 2 == c then
+					---                                                   l
+					say_title("Le Gardien du Village:")
+					say("Sage décision. Retournez avec lui(elle) et")
+					say("profiter de la vie! Il en vaut mieux.")
+					return
+				end
+
+				local ok_sign = confirm(u_vid, "Accepter le divorce avec "..pc.name.."?", 30)
+
+				if ok_sign == CONFIRM_OK then
+
+					local m_enough_money = pc.gold > MONEY_NEED_FOR_ONE
+					local m_have_ring = pc.countitem(70302) > 0
+
+					local old = pc.select(u_vid)
+					local u_enough_money = pc.gold > MONEY_NEED_FOR_ONE
+					local u_have_ring = pc.countitem(70302) > 0
+					pc.select(old)
+
+					if m_have_ring and m_enough_money and u_have_ring and u_enough_money then
+					
+						pc.removeitem(70302, 1)
+						pc.change_money(-MONEY_NEED_FOR_ONE)
+
+						local old = pc.select(u_vid)
+						pc.removeitem(70302, 1)
+						pc.change_money(-MONEY_NEED_FOR_ONE)
+						pc.select(old)
+
+						---                                                   l
+						say_title("Le Gardien du Village:")
+						say("Divorce réussi.")
+						say("Vous êtes de nouveau célibataire.")
+						marriage.remove()
+					else
+						---                                                   l
+						say_title("Le Gardien du Village:")
+						say("Une erreur s'est produite lors du divorce,")
+						say("veuillez recommencer.")
+					end
+				else
+					---                                                   l
+					say_title("Le Gardien du Village:")
+					say("Votre partenaire a refusé le divorce.")
+					say("Vous feriez mieux de lui en parler.")
+					return
+				end
+			end
+		end
+
+		when 11000.chat."Enlever l'alliance." or
+			11002.chat."Enlever l'alliance." or
+			11004.chat."Enlever l'alliance." with not pc.is_married() and	pc.count_item(70302)>0 begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Etes-vous sur de vouloir retirer votre anneau de")
+			say("mariage?")
+
+			local s=select("Oui", "Non")
+
+			if s==1 then
+				---                                                   l
+				say_title("Le Gardien du Village:")
+				say("Vous devriez oublier les mauvais souvenirs aussi")
+				say("vite que possible.")
+				say_reward("L'alliance a été enlevé.")
+				pc.remove_item(70302)
+			end
+		end
+
+		when 11000.chat."Divorce unilatéral." or
+			11002.chat."Divorce unilatéral." or
+			11004.chat."Divorce unilatéral." with pc.is_married() begin
+
+			if not marriage_manage.check_divorce_time() then
+				---                                                   l
+				say_title("Le Gardien du Village:")
+				say("Vous venez juste de vous marier. Maintenant,assumez")
+				say("un peu votre erreur et revenez me voir plus tard.")
+				return
+			end
+
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Le divorce unilatéral est plus couteux mais ne")
+			say("nécéssite pas l'accord de votre partenaire.")
+			say("Voulez-vous vraiment divorcer?")
+
+			local s = select("Oui", "Non")
+
+			local NEED_MONEY = 5000000
+			if s == 2 then
+			
+				return
+			
+			end
+
+			if pc.money < NEED_MONEY then
+				---                                                   l
+				say_title("Le Gardien du Village:")
+				say("Désolé, vous n'avez pas assez.")
+				say("Le prix du divorce est de 5 millions de yangs.")
+				return
+			end
+
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Etes-vous sur de vouloir divorcer?")
+
+			local c = select("Oui", "Non")
+
+			if c == 2 then
+			
+				---                                                   l
+				say_title("Le Gardien du Village:")
+				say("Sage décision. Retournez avec lui(elle) et")
+				say("profiter de la vie! Il en vaut mieux.")
+				say_reward("Divorce annulé.")
+				return
+			end
+
+			pc.removeitem(70302, 1)
+			pc.change_gold(-NEED_MONEY)
+
+			marriage.remove()
+
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Divorce réussi.")
+			say("Vous êtes de nouveau célibataire.")
+		end
+
+		when oldwoman.chat."Liste de mariage" with not pc.is_engaged() begin
+
+			local t = marriage.get_wedding_list ()
+
+			---                                                   l
+			say_title("La vieille dame:")
+				
+			if table . getn (t) == 0 then 
+				---                                                   l
+				say("En ce moment, il n'y a aucun mariage de") 
+				say("célébré.") 
+			else
+				local wedding_names = { } 
+				table . foreachi (t , function (n , p) wedding_names [ n ] = p [ 3 ] .. " avec " .. p [ 4 ] .. " " end) 
+				wedding_names [ table . getn (t) + 1 ] = locale . confirm local s = select_table (wedding_names) 
+				if s != table . getn (wedding_names) then 
+					marriage . join_wedding (t [ s ] [ 1 ] , t [ s ] [ 2 ]) 
+				end 
+			end
+		end
+
+		when 9011.click with not pc.is_engaged() and not pc.is_married() begin
+			---                                                   l
+			say_title("Le Gardien du Village:")
+			say("Je suis l'organisatrice du mariage !")
+			say("Félicitation au nouveau mariés !")
+			say("Je vous attend votre mariage.")
+		end
+
+		function check_divorce_time()
+
+			local DIVORCE_LIMIT_TIME = 86400 
+
+			if marriage.get_married_time() < DIVORCE_LIMIT_TIME then 
+			
+				---                                                   l
+				say_title("Le Gardien du Village:")
+				say("Désolé, il n'y a pas assez de temps que vous êtes")
+				say("marié. Revenez plus tard !")
+				return false
+			end
+			return true
+		end
+
+		function is_equip_wedding_dress()
+		
+			local a = pc.get_armor()
+			return a >= 11901 and a <= 11904
+		
+		end
+
+		function get_wedding_dress(pc_sexe)
+			if pc_sexe == 0 then
+				return 11901
+			elseif pc_sexe ==1 then
+				return 11903
+			else
+				return 0
+			end
+		end
+	end
+end

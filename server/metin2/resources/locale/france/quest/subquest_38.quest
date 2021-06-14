@@ -1,0 +1,169 @@
+quest subquest_38 begin
+	state start begin
+		when login or levelup with pc.level >= 45 and pc.level <= 47 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20019)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Le trésor du chasseur")
+			end
+		end
+
+		when __TARGET__.target.click or 20019.chat."Le trésor du chasseur" with pc.level >= 16 begin
+			target.delete("__TARGET__")
+
+			say_title("Yang-Shin:")
+			say("")
+			--                                                  |
+			say("Hé, vous ! Attendez une seconde?")
+			say("Comme vous pouvez le voir, je suis un chasseur,")
+			say("nous chassons dans ma famille depuis des ")
+			say("générations. Nous sommes tous des chasseurs, ")
+			say("une famille avec beaucoup d'honneur.")
+			say("Mais j'ai fait une grosse erreur qui va me ")
+			say("déshonorer devant ma famille...")
+			wait()
+			say_title("Yang-Shin:")
+			say("")
+			say("Il s'agit d'un arc d'or qui a été volé il y ")
+			say("a longtemps par les singes.")
+			say("À l'époque j'étais dans le donjon difficile")
+			say("quand je chassais, ils ont montré leur")
+			say("méchanceté et me la volé.")
+			say("")
+			wait()
+			say_title("Yang-Shin:")
+			say("")
+			say("Je n'ai jamais été très loin dans le donjon ")
+			say("difficile, donc je ne le connais pas bien.")
+			say("J'ai besoin de votre aide...")
+			say("J'ai entendu de nombreux habitants vanter vos")
+			say("talents.")
+			say("C'est pour cela que je vous demande")
+			say("cette faveur.")
+			local s=select("Accepter","Annuler")
+			if 2==s then
+				say("Souhaitez-vous annuler la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Yang-Shin :")
+					say("")
+					--                                                  |
+					say("Oh, je vais le récupérer bientôt...")
+					say("S'il vous plaît revenez quand vous avez ")
+					say("le temps...")
+					say("")
+					return
+				end
+				say_title("Yang-Shin:")
+				say("")
+				say("Bien..")
+				say("Faites attention ce donjon est dangereux.")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Yang-Shin:")
+			say("")
+			say("Il peut être trouvé facilement.")
+			say("Je te récompenserai bien.")
+			say("")
+			set_state(hunt_monkey)
+		end
+	end
+
+		state hunt_monkey begin
+			when letter begin
+				send_letter("Le trésor du chasseur")
+			end
+			when info or button begin
+				say_title("L'arc ouvragé ")
+				say("")
+				--                                                  |
+				say("L'arc ouvragé, un héritage de la famille ")
+				say("du chasseur, a été volé. ")
+				say("Peut-être que les singes dans le donjon ")
+				say("difficile sont les voleurs. ")
+				say("Fouillez le donjon difficile pour trouver")
+				say("l'arc ouvragé. ")
+			end
+
+			when 5121.kill or 5122.kill or 5123.kill or 5124.kill or 5125.kill begin
+				local s = number(1, 100)
+				if s <= 5 and pc.count_item("30136")== 0  then
+					pc.give_item2("30136", 1)
+					send_letter("Vous avez trouvé l'arc ouvragé! ")
+					local v=find_npc_by_vnum(20019)
+					if 0== v then
+					else
+						target.vid("__TARGET__",v,"Yang-Shin.")
+					end
+				end
+			end
+
+			when 20019.chat."Voici l'arc ouvragé." begin
+				target.delete("__TARGET__")
+
+				if pc.count_item("30136") >= 1 then
+					say_title("Yang-Shin:")
+					say("")
+					--                                                  |
+					say("L'arc ouvragé! Ha!")
+					say("L'honneur de mes ancêtres est restaurés.")
+					say("Wow. J'ai souffert pendant si longtemps de ")
+					say("l'avoir perdu...")
+					say("Je suis très reconnaissant de votre aide.")
+					say("C'est un honneur de vous donner ceci.")
+					say("Cela peut sembler petit, mais il vient du coeur.")
+					say("Grâce à vous je peux vivre en paix.")
+					say("")
+					pc.remove_item("30136", 1)
+					say_reward("Vous recevez 1.900.000 point d'expérience .")
+					pc.give_exp2(1900000)
+					say_reward("Vous recevez 10 capes de bravoure.")
+					pc.give_item2(70038,10)
+					say_reward("Vous recevez 35.000 Yang.")
+					pc.change_money(35000)
+					set_state(COMPLETE)
+					clear_letter()
+					return
+				else
+					say_title("Yang-Shin:")
+					say("")
+					say("Continuer à chercher l'arc ouvragé! ")
+					local s=select("Oui, essayer encore","J'abandonne.")
+					if 2==s then
+						say("Vous abandonner la mission?")
+						local a=select("Oui","Non")
+						if  2==a then
+						say_title("Yang-Shin:")
+						say("")
+						say("Ainsi soit-il.")
+						say("Attention, Les singes sont dangereux.")
+						say("")
+						set_state(__GIVEUP__)
+						return
+					end
+					say_title("Yang-Shin:")
+					say("")
+					say("Vous essayez encore?")
+					say("Vous êtes aptes à le faire.")
+					say("")
+				end
+			end
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+end

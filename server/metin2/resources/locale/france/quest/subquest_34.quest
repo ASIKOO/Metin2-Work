@@ -1,0 +1,208 @@
+quest subquest_34 begin
+	state start begin
+		when login or levelup or enter with pc.get_level() >=40  and pc.get_level() <= 42 begin
+			set_state( information )
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20355)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Capitaine")
+			end
+		end
+
+
+		when __TARGET__.target.click or 20355.chat."Tuez les Généraux du Vent Noir " with pc.level >= 40  begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Capitaine :")
+			say("")
+			say("Bien que vous avez vaincu le Clan du Vent Noir,")
+			say("ils ne renoncent pas.")
+			say("Au lieu de rester calme, ils sont comme une")
+			say("horde sauvage.")
+			say("Si nous voulons les vaincre, nous devons tuer.")
+			say("les généraux du Clan du Vent Noir")
+			say("")
+			wait()
+			say_title("Capitaine :")
+			say("")
+			say("Dès que les généraux sont vaincus, les autres")
+			say("le seront aussi. Il va être difficile mais nous")
+			say("avons besoin d'une victoire sur les généraux")
+			say("du vent noir: Jak-To, To-Su, Gu-Ryung.")
+			say("Lorsque nous les aurons vaincu, nous n'auront")
+			say("plus à nous soucier du Clan du Vent Noire.")
+			say("Bonne chance, je prie pour votre victoire.")
+			say("")
+			local s=select("Ok.","Annuler.")
+			if 2==s then
+				say("Voulez-vous annuler la quete ?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Capitaine :")
+					say("")
+					say("Eh bien, quand vous serez prêt,")
+					say("rendrez moi visite à nouveau.")
+					say("Il y a peu de gens comme vous.")
+					return
+				end
+				say_title("Capitaine :")
+				say("")
+				say("Vous ne pouvez pas le faire...")
+				say("Comment allons-nous vaincre le clan du vent noir...")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Capitaine :")
+			say("")
+			say("Je savais que vous alliez essayer.")
+			say("Dès que les généraux seront tués,")
+			say("les autres ne posent aucun problème.")
+			say("Bonne chance.")
+			say("")
+			set_state(bye_blackwind)
+		end
+	end
+	state bye_blackwind begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Tuez les Généraux du Vent Noir")
+			q.set_title("Tuez les Généraux du Vent Noir")
+			q.start()
+		end
+
+		when info or button begin
+			say_title("Tuez les Généraux du Vent Noir")
+			say("")
+			say("Tuez les Généraux du Vent Noir.")
+			say("")
+			say("Leur nom : Jak-To, To-Su, Gu-Ryung.")
+			say("")
+
+		end
+		when 11004.chat."Tuez les Généraux du Vent Noir" with pc.level >=32 begin
+			say("Les généraux ne sont pas mort !")
+			say("")
+			local s=select("Continuer","Annuler")
+			if 2==s then
+				say("Vous voulez vraiment annuler la quête ?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Capitaine :")
+					say("")
+					say("Il n'est pas facile de gagner,")
+					say("surtout contre les généraux.")
+					say("Essayez encore")
+					say("")
+					return
+				end
+				say_title("Capitaine :")
+				say("")
+				say("Comme je le disais, le Vent Noir ")
+				say("est vraiment fort.")
+				say("Au revoir.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Capitaine :")
+			say("")
+			say("Vous êtes vraiment courageux.")
+			--                                                  |
+			say("Je pense que vous pouvez vaincre")
+			say("le clan du vent noire.")
+			say("")
+		end
+
+
+		when 404.kill begin
+			pc.setqf("kill_m1",1)
+
+			if	pc.getqf("kill_m1")==1	and	pc.getqf("kill_m2")==1 and	pc.getqf("kill_m3")==1	then
+				set_state(hunt_reward)
+			end
+			return
+		end
+		when 405.kill begin
+				pc.setqf("kill_m2",1)
+
+				if	pc.getqf("kill_m1")==1	and	pc.getqf("kill_m2")==1 and	pc.getqf("kill_m3")==1	then
+					set_state(hunt_reward)
+				end
+				return
+
+		end
+
+		when 406.kill begin
+			pc.setqf("kill_m3",1)
+
+			if	pc.getqf("kill_m1")==1	and	pc.getqf("kill_m2")==1 and	pc.getqf("kill_m3")==1	then
+				set_state(hunt_reward)
+			end
+			return
+
+		end
+
+
+	end
+
+	state hunt_reward begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Tuez les Généraux du Vent Noir")
+			q.set_title("Tuez les Généraux du Vent Noir")
+			q.start()
+
+			local v = find_npc_by_vnum(20355)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Informez le Capitaine")
+			end
+		end
+
+		when info or button begin
+			say_title("Tuez les Généraux du Vent Noir")
+			say("")
+			say("Retour à le Capitaine et l'informer que")
+			say("vous avez tué les généraux du vent noir.")
+			say("")
+		end
+
+		when __TARGET__.target.click or 20355.chat."Tuez les Généraux du Vent Noir" begin
+			target.delete("__TARGET__")
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("Vous avez vaincu les généraux.")
+			say("Et les autres sont faciles à vaincre sans eux,")
+			say("nous ferons le reste.")
+			say("Nous avons eu beaucoup de soucis à cause du Clan")
+			say("du Vent Noir, mais grâce à vous, nous le ferons.")
+			say("")
+			say("Voici une petite récompense.")
+			say("J'espère vous revoir !")
+			say("")
+			say_reward("Vous recevez un anneau de langage")
+			pc.give_item2(71007)
+
+			say_reward("Vous recevez 1.500.000 points d'experience.")
+			pc.give_exp2(1500000)
+
+			set_state(__COMPLETE__)
+			clear_letter()
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

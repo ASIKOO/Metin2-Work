@@ -1,0 +1,450 @@
+quest skill_group begin
+	state start begin
+		when login with pc.level>=5 and pc.skillgroup ==0 begin
+			set_state(run)
+		end
+
+		when levelup with pc.level>=5 and pc.skillgroup == 0 begin
+			set_state(run)
+		end
+	end
+
+	state run begin
+		when login with pc.get_skill_group()!=0 begin
+			restart_quest()
+		end
+
+		when letter with pc.get_skill_group()==0 begin
+			send_letter("L'apprentissage")
+
+			local job=pc.get_job()
+
+			if job==0 then
+				local v=pc_find_skill_teacher_vid(1)
+				if 0!=v then target.vid("teacher1", v, "Corps à corps") end
+
+				local v=pc_find_skill_teacher_vid(2)
+				if 0!=v then target.vid("teacher2", v, "Force Mental") end
+
+			elseif job==1 then
+				local v=pc_find_skill_teacher_vid(1)
+				if 0!=v then target.vid("teacher3", v, "Assassin") end
+
+				local v=pc_find_skill_teacher_vid(2)
+				if 0!=v then target.vid("teacher4", v, "Archer") end
+
+			elseif job==2 then
+				local v=pc_find_skill_teacher_vid(1)
+				if 0!=v then target.vid("teacher5", v, "Arme magique") end
+
+				local v=pc_find_skill_teacher_vid(2)
+				if 0!=v then target.vid("teacher6", v, "Magie noire") end
+
+			elseif job==3 then
+				local v=pc_find_skill_teacher_vid(1)
+				if 0!=v then target.vid("teacher7", v, "Dragon") end
+
+				local v=pc_find_skill_teacher_vid(2)
+				if 0!=v then target.vid("teacher8", v, "Soin") end
+			end
+		end
+
+		when leave begin
+			target.delete("teacher1")
+			target.delete("teacher2")
+			target.delete("teacher3")
+			target.delete("teacher4")
+			target.delete("teacher5")
+			target.delete("teacher6")
+			target.delete("teacher7")
+			target.delete("teacher8")
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("L'apprentissage:")
+			say("Les Maître de compétences te cherche pour t'aider")
+			say("à choisir les compétences que tu souhaite apprendre.")
+
+			if pc.job==0 then
+				----------                                                   l
+				say_reward("Je voit que tu est un(e) Guerrier(re).")
+				say_reward("Tu peut choisir les compétences Corps à corps ou")
+				say_reward("Mental.")
+
+			elseif pc.job==1 then
+				----------                                                   l
+				say_reward("Je voit que tu est un(e) Ninja.")
+				say_reward("Tu peut choisir les compétences Archer ou")
+				say_reward("Assassin.")
+
+			elseif pc.job==2 then
+				----------                                                   l
+				say_reward("Je voit que tu est un(e) Sura.")
+				say_reward("Tu peut choisir les compétences Armes Magiques")
+				say_reward("ou Magie Noire.")
+
+			elseif pc.job==3 then
+				----------                                                   l
+				say_reward("Je voit que tu est un(e) Chamane.")
+				say_reward("Tu peut choisir les compétences Dragon ou Soin.")
+			end
+
+			select(locale.confirm)
+		end
+
+		function join(job, group, title, text, error_msg)
+
+		local pc_job=pc.get_job()
+
+			if pc_job!=job then
+
+				if pc_job==0 then
+					----------                                                   l
+					say_title("L'apprentissage:")
+					say_reward("Vous ne pouvez pas choisir ces compétences.")
+					say_reward("Tu peut choisir les compétences Corps à corps ou")
+					say_reward("Mental.")
+
+				elseif pc_job==1 then
+					----------                                                   l
+					say_title("L'apprentissage:")
+					say_reward("Vous ne pouvez pas choisir ces compétences.")
+					say_reward("Tu peut choisir les compétences Archer ou")
+					say_reward("Assassin.")
+
+				elseif pc_job==2 then
+					----------                                                   l
+					say_title("L'apprentissage:")
+					say_reward("Vous ne pouvez pas choisir ces compétences.")
+					say_reward("Tu peut choisir les compétences Armes Magiques")
+					say_reward("ou Magie Noire.")
+
+				elseif pc_job==3 then
+					----------                                                   l
+					say_title("L'apprentissage:")
+					say_reward("Vous ne pouvez pas choisir ces compétences.")
+					say_reward("Tu peut choisir les compétences Dragon ou Soin.")
+				end
+			else
+				say_title(title)
+				say(text)
+
+				if pc.job==0 then
+					----------                                                   l
+					say_reward("Nécessite: Guerrier au niveau 5 ou supérieur.")
+
+				elseif pc.job==1 then
+					----------                                                   l
+					say_reward("Nécessite: Ninja au niveau 5 ou supérieur.")
+
+				elseif pc.job==2 then
+					----------                                                   l
+					say_reward("Nécessite: Sura au niveau 5 ou supérieur.")
+
+				elseif pc.job==3 then
+					----------                                                   l
+					say_reward("Nécessite: Chamane au niveau 5 ou supérieur.")
+				end
+
+				local s=select("Début", "Plus tard")
+
+				if 1==s then
+					if pc.get_job()==job and pc.get_skill_group()==0 then
+						set_state("start")
+						pc.set_skill_group(group)
+
+						pc.clear_skill()
+						char_log(0, "CLEAR_SKILL", "Clear Skill By Skill Teacher")
+
+						makequestbutton("L'apprentissage - Fin")
+					return true
+				else
+					test_chat("npc_is_same_job:"..bool_to_str(npc_is_same_job()))
+					test_chat("pc.get_skill_group:"..pc.get_skill_group())
+					test_chat("pc_job:"..pc.get_job())
+				end
+			end
+		end
+			return false
+		end
+
+	--Guerrier(e)s - Corps à corps
+
+		when teacher1.target.click or 
+			skill_group1_1.chat."Commencer l'entrainement Corps à corps" or
+			skill_group2_1.chat."Commencer l'entrainement Corps à corps" or
+			skill_group3_1.chat."Commencer l'entrainement Corps à corps" begin
+
+			target.delete("teacher1")
+
+			if skill_group.join(0, 1, "L'entrainement guerrier corps à corps",
+
+				"Le combat au corps à corps est utilisé pour les[ENTER]"..
+				"combat rapides et permet d'apprendre des[ENTER]"..
+				"méthodes de corps à corps avec des attaques[ENTER]"..
+				"améliorées basiques.[ENTER]") then
+
+				say_title("Vous avez choisi le combat guerrier corps à corps.")
+
+				if not pc.is_clear_skill_group() then
+					local point = pc.level -1	
+					---                                                   l
+					say("Bienvenue!")
+					say("Puisque vous avez décidé de prendre des")
+					say("leçons, vous obtenez "..point.." points de compétence.")
+					say("Vous pouvez les utiliser pour la compétence que")
+					say("vous voulez.")
+					say_title("Information:")
+					say_reward("Vous avez reçu "..point.." points de compétence.")
+				else
+					say("Je n'ai rien à vous dire.")
+				end
+				clear_letter()
+			end
+		end
+
+	--Guerrier(e)s - Mental
+
+		when teacher2.target.click or 
+			skill_group1_2.chat."Commencer l'entrainement Force Mental" or
+			skill_group2_2.chat."Commencer l'entrainement Force Mental" or
+			skill_group3_2.chat."Commencer l'entrainement Force Mental" begin
+
+			target.delete("teacher2")
+
+			if skill_group.join(0, 2, "L'entrainement guerrier force mental",
+
+				"L'entrainement au combat mental apprend à[ENTER]"..
+				"attaquer l'ennemi avec de fortes attaques et[ENTER]"..
+				"comment vous défendre des siennes.") then
+
+				say_title("Vous avez choisi le combat guerrier force mental.")
+
+				if not pc.is_clear_skill_group() then
+					local point = pc.level -1				
+					---                                                   l
+					say("Bienvenue!")
+					say("Puisque vous avez décidé de prendre des")
+					say("leçons, vous obtenez "..point.." points de compétence.")
+					say("Vous pouvez les utiliser pour la compétence que")
+					say("vous voulez.")
+					say_title("Information:")
+					say_reward("Vous avez reçu "..point.." points de compétence.")
+				else
+					say("Je n'ai rien à vous dire.")
+				end
+				clear_letter()
+			end
+		end
+
+	--Ninjas - Assassin
+
+		when teacher3.target.click or 
+			skill_group1_3.chat."Commencer l'entrainement Assassin" or
+			skill_group2_3.chat."Commencer l'entrainement Assassin" or
+			skill_group3_3.chat."Commencer l'entrainement Assassin" begin
+
+			target.delete("teacher3")
+
+			if skill_group.join(1, 1, "L'entrainement ninja assassin",
+
+				"Dans la formation de corps à corps, un ninja[ENTER]"..
+				"apprend comment frapper le point faible de son[ENTER]"..
+				"adversaire avec des coups rapides et mortels.") then
+
+				say_title("Vous avez choisi le combat ninja assassin.")
+
+				if not pc.is_clear_skill_group() then
+					local point = pc.level -1	
+					---                                                   l
+					say("Bienvenue!")
+					say("Puisque vous avez décidé de prendre des")
+					say("leçons, vous obtenez "..point.." points de compétence.")
+					say("Vous pouvez les utiliser pour la compétence que")
+					say("vous voulez.")
+					say_title("Information:")
+					say_reward("Vous avez reçu "..point.." points de compétence.")
+				else
+					say("Je n'ai rien à vous dire.")
+				end
+				clear_letter()
+			end
+		end
+
+	--Ninjas - Archer
+
+		when teacher4.target.click or 
+			skill_group1_4.chat."Commencer l'entrainement Archer" or
+			skill_group2_4.chat."Commencer l'entrainement Archer" or
+			skill_group3_4.chat."Commencer l'entrainement Archer" begin
+
+			target.delete("teacher4")
+
+			if skill_group.join(1, 2, "L'entrainement ninja archer",
+
+				"Dans la formation d'archer, un ninja[ENTER]"..
+				"apprend à manipuler son arc et se battre avec[ENTER]"..
+				"l'ennemi avec précision à distance.") then
+
+				say_title("Vous avez choisi le combat ninja archer.")
+
+				if not pc.is_clear_skill_group() then
+					local point = pc.level -1	
+					---                                                   l			
+					say("Bienvenue!")
+					say("Puisque vous avez décidé de prendre des")
+					say("leçons, vous obtenez "..point.." points de compétence.")
+					say("Vous pouvez les utiliser pour la compétence que")
+					say("vous voulez.")
+					say_title("Information:")
+					say_reward("Vous avez reçu "..point.." points de compétence.")
+				else
+					say("Je n'ai rien à vous dire.")
+				end
+				clear_letter()
+			end
+		end
+
+	--Suras - Arme magique
+
+		when teacher5.target.click or 
+			skill_group1_5.chat."Commencer l'entrainement Arme magique" or
+			skill_group2_5.chat."Commencer l'entrainement Arme magique" or
+			skill_group3_5.chat."Commencer l'entrainement Arme magique" begin
+
+			target.delete("teacher5")
+
+			if skill_group.join(2, 1, "L'entrainement sura arme magique",
+
+				"L'entrainement à l'arme magique, procure[ENTER]"..
+				"force et vitalité, et permet [ENTER]"..
+				"d'apprendre des sorts aux [ENTER]"..
+				"corps a corps et à distance.") then
+ 
+				say_title("Vous avez choisi le combat sura arme magique.")
+
+				if not pc.is_clear_skill_group() then
+					local point = pc.level -1	
+					---                                                   l				
+					say("Bienvenue!")
+					say("Puisque vous avez décidé de prendre des")
+					say("leçons, vous obtenez "..point.." points de compétence.")
+					say("Vous pouvez les utiliser pour la compétence que")
+					say("vous voulez.")
+					say_title("Information:")
+					say_reward("Vous avez reçu "..point.." points de compétence.")
+				else
+				say("Je n'ai rien à vous dire.")
+				end
+				clear_letter()
+			end
+		end
+
+	--Suras - Magie noir
+
+		when teacher6.target.click or 
+			skill_group1_6.chat."Commencer l'entrainement Magie noire" or
+			skill_group2_6.chat."Commencer l'entrainement Magie noire" or
+			skill_group3_6.chat."Commencer l'entrainement Magie noire" begin
+
+			target.delete("teacher6")
+
+			if skill_group.join(2, 2, "L'entrainement sura magie noire",
+
+				"L'entrainement à la magie noir procure[ENTER]"..
+				"l'intelligence, et l'éfficacité, et permet[ENTER]"..
+				"d'apprendre des sorts magiques trés puissants.") then
+			
+
+				say_title("Vous avez choisi le combat sura magie noire.")
+
+				if not pc.is_clear_skill_group() then
+					local point = pc.level -1	
+					---                                                   l				
+					say("Bienvenue!")
+					say("Puisque vous avez décidé de prendre des")
+					say("leçons, vous obtenez "..point.." points de compétence.")
+					say("Vous pouvez les utiliser pour la compétence que")
+					say("vous voulez.")
+					say_title("Information:")
+					say_reward("Vous avez reçu "..point.." points de compétence.")
+				else
+					say("Je n'ai rien à vous dire.")
+				end
+				clear_letter()
+			end
+		end
+
+	--Chamanes - Dragon
+
+		when teacher7.target.click or 
+			skill_group1_7.chat."Commencer l'entrainement Dragon" or
+			skill_group2_7.chat."Commencer l'entrainement Dragon" or
+			skill_group3_7.chat."Commencer l'entrainement Dragon" begin
+
+			target.delete("teacher7")
+
+			if skill_group.join(3, 1, "L'entrainement chamane dragon",
+
+				"Les enseignements de pouvoir du Dragon utilisent[ENTER]"..
+				"les attaques de feu du Dieu Dragon ainsi que la[ENTER]"..
+				"magie qui peut donner à un groupe la protection[ENTER]"..
+				"du Dieu Dragon.") then
+ 
+				say_title("Vous avez choisi le combat chamane dragon.")
+
+				if not pc.is_clear_skill_group() then
+					local point = pc.level -1	
+					---                                                   l				
+					say("Bienvenue!")
+					say("Puisque vous avez décidé de prendre des")
+					say("leçons, vous obtenez "..point.." points de compétence.")
+					say("Vous pouvez les utiliser pour la compétence que")
+					say("vous voulez.")
+					say_title("Information:")
+					say_reward("Vous avez reçu "..point.." points de compétence.")
+				else
+					say("Je n'ai rien à vous dire.")
+				end
+				clear_letter()
+			end
+		end
+
+	--Chamanes - Soin
+
+		when teacher8.target.click or 
+			skill_group1_8.chat."Commencer l'entrainement Soin" or
+			skill_group2_8.chat."Commencer l'entrainement Soin" or
+			skill_group3_8.chat."Commencer l'entrainement Soin" begin
+
+			target.delete("teacher8")
+
+			if skill_group.join(3, 2, "L'entrainement chamane soin",
+
+				"Avec les enseignements de soins, vous apprenez à [ENTER]"..
+				"abasourdir vos ennemis avec des décharges[ENTER]"..
+				"électriques. Vous apprenez aussi à guérir les[ENTER]"..
+				"membres d'un groupe et leur donner de la force[ENTER]"..
+				"supplémentaire.") then
+
+				say_title("Vous avez choisi le combat chamane soin.")
+
+				if not pc.is_clear_skill_group() then
+					local point = pc.level -1		
+					---                                                   l			
+					say("Bienvenue!")
+					say("Puisque vous avez décidé de prendre des")
+					say("leçons, vous obtenez "..point.." points de compétence.")
+					say("Vous pouvez les utiliser pour la compétence que")
+					say("vous voulez.")
+					say_title("Information:")
+					say_reward("Vous avez reçu "..point.." points de compétence.")
+				else
+					say("Je n'ai rien à vous dire.")
+				end
+				clear_letter()
+			end
+		end
+	end
+end

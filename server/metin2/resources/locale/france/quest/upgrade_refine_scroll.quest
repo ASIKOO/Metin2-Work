@@ -1,0 +1,172 @@
+quest upgrade_refine_scroll begin
+	state start begin
+		when 20016.chat."Fabrication du Parchemin de Guerre" begin
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Les parchemins mystérieux bénis par le dieu de la")
+			say("guerre sont des objets qui augmentent les objets")
+			say("de +0 à +3 avec un taux de succès de 100%. Par")
+			say("contre, ils ne marchent pas sur les objets +4 ou")
+			say("supérieurs.")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Pour fabriquer cela, vous avez besoin de cuivre")
+			say("magique.")
+			say_item("Cuivre magique", 70035, "")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("En plus, vous avez besoin d'un parchemin de")
+			say("bénédiction.")
+			say_item("Parchemin de Bénédiction", 25040, "")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Avez-vous les matériaux nécessaires?")
+			say("Voulez-vous en fabriquer un?")
+			say("Vous avez aussi besoin de 200.000 Yangs.")
+			say("Si vous avez le parchemin de bénédiction et du")
+			say("cuivre magique vous pouvez fabriquer un parchemin")
+			say("de guerre. Voulez-vous en fabriquer un?")
+
+			local s=select("Oui", "Non")
+
+			if 1==s then
+				if pc.get_gold() < 200000 then
+					---                                                   l
+					say_title(""..mob_name(20016)..":")
+					say_reward("Vous n'avez pas assez de yangs.")
+
+				elseif pc.count_item(70035)>0 and pc.count_item(25040)>0 then
+					pc.remove_item(70035)
+					pc.remove_item(25040)
+					pc.changegold(-200000)
+					pc.give_item2(71021)
+					---                                                   l
+					say_title(""..mob_name(20016)..":")
+					say("Félicitations! Vous avez créé le parchemin de")
+					say("guerre.")
+					say_item("Parchemin de Guerre", 71021, "")
+				else
+					---                                                   l
+					say_title(""..mob_name(20016)..":")
+					say("Votre tentative de fabrication d'un Parchemin de")
+					say("guerre a échoué parce que vous n'avez pas")
+					say("les matériaux requis.")
+				end
+			end
+		end
+
+		when 20016.chat."Parchemin du Dieu Dragon" begin
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Un parchemin du Dieu Dragon augmente la chance de")
+			say("réussite d'une amélioration. En cas d'échec,")
+			say("seul le niveau baisse. C'est un item mystérieux")
+			say("qui peut être assimilé à un parchemin de")
+			say("bénédiction.")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Pour le faire, vous avez besoin d'un Minerai de fer")
+			say("magique.")
+			say_item("Minerai de fer magique", 71026, "")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Pour le fabriquer, vous avez besoin d'un")
+			say("Parchemin de Bénédiction.")
+			say_item("Parchemin de Bénédiction", 25040, "")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Avez-vous les matériaux nécessaires? Voulez-vous")
+			say("en fabriquer un? Si vous utilisez un Parchemin de")
+			say("Bénédiction et du Minerai de fer magique, vous")
+			say("pouvez fabriquer un Parchemin du Dieu Dragon.")
+
+			local s=select("Oui", "Non")
+
+			if 1==s then
+				if pc.count_item(71026)>0 and pc.count_item(25040)>0 then
+					pc.remove_item(71026)
+					pc.remove_item(25040)
+					pc.give_item2(71032)
+					---                                                   l
+					say_title(""..mob_name(20016)..":")
+					say("Félicitations! Vous avez créé le parchemin du")
+					say("Dieu Dragon.")
+					say_item("Parchemin du Dieu Dragon", 71032, "")
+				else
+					---                                                   l
+					say_title(""..mob_name(20016)..":")
+					say("Votre tentative de fabrication d'un Parchemin du")
+					say("Dieu Dragon a échoué parce que vous n'avez pas")
+					say("les matériaux requis.")
+				end
+			end
+		end
+
+		when 20016.chat."Fabriquer un Manuel du forgeron" begin
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Avez-vous entendu parler d'une pierre nommée")
+			say("pierre du forgeron? C'est une pierre faite à ")
+			say("partir du sang et de la sueur du forgeron. Si")
+			say("vous m'apportez une pierre du forgeron et un")
+			say("Manuel du forgeron qui passe de générations en")
+			say("générations dans ma famille. Il a la même")
+			say("fonction que le parchemin du Dieu dragon, mais la")
+			say("chance de succès est supérieure.")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Pour le fabriquer, vous avez besoin d'une pierre")
+			say("du forgeron.")
+			say_item("Pierre du forgeron", 71025, "")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Pour fabriquer cela, vous avez besoin d'un")
+			say("Parchemin de Bénédiction.")
+			say_item("Parchemin de Bénédiction", 25040, "")
+			wait()
+
+			---                                                   l
+			say_title(""..mob_name(20016)..":")
+			say("Avez-vous les matériaux nécessaires? Donc,")
+			say("vous voulez fabriquer un Manuel du forgeron qui")
+			say("se transmet dans ma famille de génération en")
+			say("génération?")
+
+			local s=select("Oui", "Non")
+
+			if 1 == s then
+				if pc.count_item(71025) > 0 and pc.count_item(25040) > 0 then
+					pc.remove_item(71025)
+					pc.remove_item(25040)
+					pc.give_item2(70039)
+					---                                                   l
+					say_title(""..mob_name(20016)..":")
+					say("Félicitations! Vous avez créé le manuel du")
+					say("forgeron.")
+					say_item("Manuel du forgeron", 70039, "")
+				else
+					---                                                   l
+					say_title(""..mob_name(20016)..":")
+					say("Cela ne fonctionne pas car vous n'avez pas les")
+					say("les matériaux nécessaires.")
+				end
+			end
+		end
+	end
+end

@@ -1,0 +1,260 @@
+quest subquest_10 begin
+	state start begin
+		when login or levelup with pc.level >= 18 and pc.level <= 23 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(9003)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Marchande")
+			end
+		end
+		when __TARGET__.target.click or 9003.chat."Trouvez l'épingle" with pc.level >= 18 begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Marchande:")
+			say("")
+			say("S'il vous plaît écoutez-moi! ")
+			say("J'ai un gros problème.")
+			say("J'ai quitté le magasin pendant une courte ")
+			say("période, pendant que je n'étais pas là,")
+			say("quelqu'un a volé mon épingle préféré.")
+			say("")
+			say_item_vnum("30017")
+			say("")
+			wait()
+			say_title("Marchande:")
+			say("")
+			--                                                  |
+			say("Mon père m'a donné cette merveilleuse épingle")
+			say("pour mon anniversaire. C'est pourquoi elle est")
+			say("très importante pour moi!")
+			say("Je ne peux pas quitter mon magasin encore une") 
+			say("fois! Sinon autre chose pourrait être volé.")
+			say("Pourriez-vous me le trouver?")
+			say("Je soupçonne le Forgeron, parce qu'il a dit ")
+			say("une fois qu'il l'aimait.")
+			local s=select("Je vais chercher pour vous.","Je ne peux rien pour vous.")
+			if 2==s then
+				say("Fin de quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Marchande:")
+					say("")
+					say("A une prochaine fois.")
+					say("Au revoir.")
+					return
+				else
+					say_title("Marchande:")
+					say("")
+					say("Où est mon épingle?")
+					say("Au revoir...")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Marchande:")
+				say("")
+				say("Vous le ferez pour moi?")
+				say("")
+				say("Oh merci beaucoup!")
+				say("")
+				set_state(go_to_blacksmith)
+			end
+		end
+	end
+
+	state go_to_blacksmith begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouve l'épingle.")
+			q.set_title("Trouve l'épingle.")
+			q.start()
+
+			local v = find_npc_by_vnum(20016)
+
+			if v == 0 then
+			else
+				target.vid("__TARGET__", v, "Allez voir le Forgeron.")
+			end
+		end
+		when info or button begin
+			say_title("Allez voir le Forgeron.")
+			say("")
+			say("Demandez au Forgeron où est l'épingle.")
+			say("")
+			say_item_vnum("30017")
+			say("")
+		end
+		when __TARGET__.target.click or 20016.chat."L'épingle volée" begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Forgeron:")
+			say("")
+			say("Quoi? Elle croit que je lui a volé l'épingle?")
+			say("C'est ... C'est ridicule! Qu'est-ce qu'elle")
+			say("pense de moi? Je travaillais dans mon magasin!")
+			say("Hmm, peut-être que je ne devrais pas vous le ")
+			say("dire, mais le vendeur d'armes rôdait autour ")
+			say("de son magasin il y a un certain temps!")
+			set_state(ask_to_weaponshop)
+		end
+	end
+
+	state ask_to_weaponshop begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("L'épingle volée.")
+			q.set_title("L'épingle volée.")
+			q.start()
+
+			local v= find_npc_by_vnum(9001)
+			if v == 0 then
+			else
+				target.vid("__TARGET__", v, "Marchand d'armes.")
+			end
+		end
+		when info or button begin
+			say_title("Allez voir le marchand d'armes.")
+			say("")
+			--                                                  |
+			say("Questionner le marchand d'armes sur l'épingle.")
+			say("")
+			say_item_vnum("30017")
+			say("")
+		end
+		when __TARGET__.target.click or 9001.chat."L'épingle volée." begin
+			target.delete("__TARGET__")
+			say_title("Marchand d'armes:")
+			say("")
+			--                                                  |
+			say("Quoi? Vous pensez que j'ai volé l'épingle?")
+			say("Non, jamais, je ne l'ai pas fait! Vraiment, ")
+			say("je ne suis pas coupable!")
+			say("Eh bien ... J'étais là pour visiter le magasin,")
+			say("mais elle n'était pas là! A sa place, ")
+			say("il y avait un archer du serment Blanc.")
+			say("Au moment où elle m'a vu, elle s'est enfuie. ")
+			say("Peut-être qu'elle a volé cette épingle.")
+			say("")
+			set_state(hunt_for_shoes)
+		end
+	end
+
+	state hunt_for_shoes begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("L'épingle volée")
+			q.set_title("L'épingle volée")
+			q.start()
+		end
+		when info or button begin
+			if pc.count_item("30017")==0 then
+				say_title("L'épingle volée")
+				say("")
+				--                                                  |
+				say("Trouver l'épingle volée sur l'archer ")
+				say("du Serment Blanc!")
+				say_item_vnum("30017")
+				say("")
+			else
+				say_title("L'épingle volée")
+				say("")
+				say("Rapporter l'épingle à la marchande.")
+				say("")
+			end
+		end
+		when 302.kill begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30017")==0  then
+				pc.give_item2("30017", 1)
+				send_letter("Vous avez trouvez l'épingle!")
+				local v=find_npc_by_vnum(9003)
+				if 0== v then
+				else
+					target.vid("__TARGET__",v,"Retourner voir la marchande.")
+				end
+			end
+		end
+		when __TARGET__target.click or 9003.chat."L'épingle." begin
+			target.delete("__TARGET__")
+			if pc.count_item("30017") >= 1 then
+				say_title("Marchande:")
+				say("")
+				--                                                  |
+				say("Oh, merci beaucoup. Je suis tellement heureuse,")
+				say("j'ai enfin mon épingle!")
+				say("Vous m'avez aidé si souvent! ")
+				say("Comment pourrais-je jamais vous remerciez?")
+				say("J'ai un billet d'équitation.")
+				say("C'est juste un petit quelque chose, mais ")
+				say("je m'en servirais pas, comme je ne vais plus ")
+				say("quitter le magasin.")
+				say("Prenez-le comme un signe de ma gratitude.")
+				say("Merci encore.")
+				say("")
+				wait()
+				say_title("Reward:")
+				say("")
+				say_reward("Vous recevez 70.000 points d'expérience.")
+				say_reward("Vous recevez 15.000 Yang.")
+				say_reward("Vous recevez un ticket d'équitation.")
+				say("")
+				pc.remove_item("30017", 1)
+				pc.give_exp2(70000)
+				pc.change_money(15000)
+				pc.give_item2("50083", 1)
+				clear_letter()
+				set_state(__COMPLETE__)
+			else
+				say_title("Marchande:")
+				say("")
+				say("Vous n'avez pas encore trouvé mon épingle?")
+				say("J'espère que vous le trouverez bientôt!")
+				say("")
+				say_item_vnum("30017")
+				say("")
+				local s=select("Continuer","Abandonner")
+				if 2==s then
+					say("Voulez-vous vraiment abandonner?")
+					say("")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Marchande:")
+						say("")
+						--                                                  |
+						say("Oui, ce n'est pas facile... ")
+						say("Peut être que vous pouvez essayer à nouveau ")
+						say("plus tard?")
+						set_state(information)
+						return
+					else
+						say_title("Marchande:")
+						say("")
+						say("Où est mon épingle?")
+						say("Cela n'a pas fonctionné? Ok ...")
+						say("")
+						set_state(__GIVEUP__)
+						return
+					end
+				else
+					say_title("Marchande:")
+					say("")
+					say("Merci de votre aide.")
+					say("")
+				end
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

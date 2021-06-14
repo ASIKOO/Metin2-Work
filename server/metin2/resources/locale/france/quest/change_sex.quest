@@ -1,0 +1,97 @@
+quest change_sex begin
+	state start begin
+		when 71048.use begin 
+			if pc.get_level() < 50 then 
+				---                                                   l
+				say_title("Changement de sexe")
+				say_reward("Pour changer de sexe vous devez être niveau")
+				say_reward("50 au minimum.")
+				return;
+			end
+			
+			if pc.is_engaged() then
+				---                                                   l
+				say_title("Changement de sexe")
+				say_reward("Vous ne pouvez pas changer de sexe quand vous")
+				say_reward("êtes engagé.")
+				return;
+			end
+
+			if pc.is_married() then
+				---                                                   l
+				say_title("Changement de sexe")
+				say_reward("Vous ne pouvez pas changer de sexe quand vous")
+				say_reward("êtes marié.")
+				return;
+			end
+
+			if pc.is_polymorphed() then
+				---                                                   l
+				say_title("Changement de sexe")
+				say_reward("Vous ne pouvez pas changer de sexe quand vous")
+				say_reward("utilisez une orbe de polymorphie.")
+				return
+			end
+
+			if get_time() < pc.getqf("next_time") then
+				---                                                   l
+				say_title("Changement de sexe")
+				say_reward("Vous avez déjà changer de sexe récemment.")
+				say_reward("Vous devez attendre quelques temps avant de")
+				say_reward("pouvoir changer de sexe à nouveau.")
+
+				if pc.is_gm() then
+					---                                                   l
+					say("Les membres du staff peuvent remettre leurs temps")
+					say("d'attente de chaque changement de sexe à zéro.")
+					say("Votre dernier changement de sexe à eu lieu:")
+					say(string.format("%s", time_to_str(pc.getqf("next_time"))))
+					say("Voulez-vous remettre votre temps d'attente à zéro?")
+
+					local s = select("Oui", "Non")
+
+					if s == 1 then
+						---                                                   l
+						say_title("Changement de sexe")
+						say("Votre temps d'attente a été remis à zéro")
+						pc.setqf("next_time", 0)
+					end
+				end
+				return;
+
+			end
+
+			---                                                   l
+			say_title("Changement de sexe")
+			say("Grâce à cet objet vous pourrez changer de sexe.")
+			say("Voulez-vous changer de sexe ?")
+
+			local s = select("Oui", "Annuler")
+
+			if 1==s then
+				---                                                   l
+				say_title("Changement de sexe")
+				say_reward("Veuillez vous déconnecter complètement et vous")
+				say_reward("reconnecter pour finir l'événement.")
+
+				pc.remove_item("71048",1)
+				pc.setqf("next_time", get_time() + 86400 * 3)
+
+				pc.change_sex()
+
+				local m_sex = pc.get_sex()
+
+				if m_sex == 0 then
+				    char_log(0, "CHANGE_SEX", "F -> M")
+				else
+				    char_log(0, "CHANGE_SEX", "M -> F")
+				end
+
+			elseif 2==s then
+				---                                                   l
+				say_title("Changement de sexe")
+				say("Vous n'avez pas changé de sexe.")
+			end
+		end
+	end
+end

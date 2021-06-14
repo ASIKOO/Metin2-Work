@@ -1,0 +1,187 @@
+quest main_quest_lv10 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 10 begin
+			set_state( gotoboss )
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			send_letter("Le Capitaine.")
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when button or info begin
+			--                                                  |
+			say_title("Le Capitaine vous cherche")
+			say("Le capitaine vous appelle.")
+			say("Il vous attend à l'entrée est du village pour")
+			say("vous confier une mission.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("Vous me semblez familier...")
+			say("")
+			say("Ah oui, j'ai entendu parler de vous.")
+			say("")
+			--                                                  |
+			say("Vous êtes le nouveau aventurier et vous avez ")
+			say("déjà prouvé vos compétences. Je ne connais ")
+			say("pas encore vos aptitudes mais je vais les ")
+			say("tester lors des prochaines missions.")
+			wait()
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("Vous aurez plusieurs défis afin de bien ")
+			say("vous préparer. Connaissez-vous l'histoire des")
+			say("trois royaumes? Vous ne la connaissez pas!?")
+			say("Qu'est-ce que les instructeurs vous enseignent?")
+			say("Dois-je vous apprendre une chose aussi")
+			say("fondamentale?")
+			wait()
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("C'est un évènement important, et je vous ")
+			say("l'expliquerais qu'une seule fois, alors écoutez")
+			say("bien!!!")
+			say("Autrefois il existait qu'un seul et même ")
+			say("royaume uni, mais lorsque les metins ont ")
+			say("commencés à tomber du ciel, cela a eu comme ")
+			say("effet de diviser le royaume en trois parties.")
+			say("Shinshoo, Le royaume du commerce,")
+			say("Chunjo, Le royaume de la religion,")
+			say("Jinno, Le royaume militaires.")
+			wait()
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("Chaque royaume tente de se remettre des ")
+			say("perturbations causés par les pierres Metin.")
+			say("Ils essayent de réunir à nouveau les royaumes.")
+			say("Alors vous devez œuvrer pour le bien des ")
+			say("royaumes! Il est important que vous ne ")
+			say("l'oubliez jamais.")
+			wait()
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("Je vais vous donner votre première mission.")
+			say("Détendez-vous, c'est facile")
+			say("Dans le village d'à côté, vous trouverez un ")
+			say("musicien nommé Yuhwan. Beaucoup pensent qu'il ")
+			say("a quitté l'armée pour être un musicien mais ")
+			say("il est un espion en réalité.")
+			say("Il s'agit d'un document que j'ai besoin ")
+			say("de Yu-Hwan. Trouvez-le et apportez-le moi.")
+			say("N'oubliez pas que c'est une mission secrète.")
+			wait()
+			say_title("Capitaine :")
+			say("")
+			say("Cliquez sur la touche M, pour connaître ")
+			say("l'emplacement du portail pour vous rendre")
+			say(" dans le deuxième village.")
+			wait()
+			set_state(gotomusition)
+		end
+	end
+	state gotomusition begin
+		when letter begin
+			send_letter("Les documents secrets.")
+			local v=find_npc_by_vnum(20017)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Yu-Hwan.")
+			end
+		end
+		when button or info begin
+			say_title("Les documents secrets")
+			say("")
+			say("Allez voir Yu-Hwan dans le deuxième village.")
+		end
+		when __TARGET__.target.click or 20017.chat."Au sujet les documents secrets" begin
+			target.delete("__TARGET__")
+			say_title(" Yu-Hwan:")
+			say("")
+			--                                                  |
+			say("La vie est un rêve, comme tout dans la vie.")
+			say("D'où venons-nous et où allons-nous?")
+			say("Le monde est plein de conflits? ")
+			say("Aucun travail honnête n'est rentable.")
+			say("")
+			say("Écoutiez-vous ma chanson?")
+			wait()
+			say_title("Yu-Hwan:")
+			say("")
+			--                                                  |
+			say("Oh, le Capitaine vous envoie!")
+			say("Chuut, il ne faut pas que des oreilles ")
+			say("indiscrètes nous entendent!")
+			say("Vous devez être digne de confiance si vous ")
+			say("connaissez mon identité ")
+			say("Voici. Ce document contient toutes les ")
+			say("informations dont le Capitaine a besoin.")
+			say("Remettez-le lui rapidement.")
+			wait()
+			say_title("Yu-Hwan:")
+			say("")
+			--                                                  |
+			say("Dépêchez-vous! Si vous restez trop longtemps ")
+			say("quelque chose de grave pourrait se passer.")
+			say("")
+			say("Qu'est-ce que la vie? La vie est courte... ")
+			say("Profitez-en tant que vous le pouvez...")
+			wait()
+			set_state(gotoboss2)
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when letter begin
+			send_letter("Les documents secrets.")
+		end
+		when button or info begin
+			say_title("Les documents secrets")
+			say("")
+			say("Ramenez les documents au capitaine.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Ah vous m'avez ramené les documents?")
+			say("")
+			say("Pas mal pour un nouvel aventurier! ")
+			say("J'attends beaucoup de vous.")
+			say("Prenez ceci comme récompense pour vos efforts.")
+			say("Continuez votre bon travail pour le royaume!")
+			say_title("Reward:")
+			say_reward("Experience : 11.000")
+			say_reward("Yang: 4.000")
+			pc.give_exp2( 11000 )
+			pc.change_money( 4000 )
+			clear_letter()
+			set_state( __COMPLETE__ )
+			set_quest_state("main_quest_lv12", "run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

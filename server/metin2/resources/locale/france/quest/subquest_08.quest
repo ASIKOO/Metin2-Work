@@ -1,0 +1,321 @@
+quest subquest_8 begin
+	state start begin
+		when login or levelup with pc.level >= 15 and pc.level <= 20 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20003)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Gâteaux de riz?")
+			end
+		end
+		when __TARGET__.target.click or 20003.chat."Gâteaux de riz?" with pc.level >= 15 begin
+			target.delete("__TARGET__")
+			say_title("Ah-Yu:")
+			say("")
+			--                                                  |
+			say("Excusez-moi, si vous avez un peu de temps,")
+			say("pourriez-vous m'aider s'il vous plaît?")
+			say("Avez-vous entendu mon bébé pleurer, ")
+			say("il ne s'arrête pas. Je ne sais pas quoi faire.")
+			say("Mon bébé aime le gâteau de riz et je pense ")
+			say("qu'un gâteau de riz aiderait.")
+			say("Je suis sûr que le vendeur d'armes sait où ")
+			say("en trouver. Voulez-vous lui demander de ")
+			say("ma part?")
+			local s=select("Accepter","Rejeter")
+			if 2==s then
+				say("Voulez-vous vraiment abandonnez la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Ah-Yu:")
+					say("")
+					say("Vous êtes occupé?")
+					say("S'il vous plaît revenez.")
+					say("Ne pleure pas mon petit.")
+					say("")
+					return
+				else
+					say_title("Ah-Yu:")
+					say("")
+					say("Ok...")
+					say("Merci pour votre temps.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Ah-Yu:")
+				say("")
+				say("Vous voulez vraiment me faire une faveur?")
+				say("Merci beaucoup!")
+				say("")
+				set_state(ask_for_ricecake)
+			end
+		end
+	end
+
+	state ask_for_ricecake begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir le marchand d'arme")
+			q.set_title("Allez voir le marchand d'arme")
+			q.start()
+
+			local v=find_npc_by_vnum(9001)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v, "Allez voir le marchand d'arme.")
+			end
+		end
+		when info or button begin
+			say_title("Allez voir le marchand d'arme")
+			say("")
+			--                                                  |
+			say("Questionnez le marchand d'arme à propos des")
+			say("gâteaux de riz.")
+		end
+		when __TARGET__.target.click or 9001.chat."Donnez-moi un gâteau de riz" begin
+			target.delete("__TARGET__")
+			say_title("Marchand d'arme:")
+			say("")
+			--                                                  |
+			say("Quoi? Des gâteau de riz? Pourquoi en avez-vous")
+			say("besoin ? Est-ce une arme?")
+			say("Je ne connais pas? Je ne comprends pas...?")
+			say("Ah, des gâteaux de riz, quelque chose à manger!")
+			say("Vous devriez demander à Octavio, il connaît ")
+			say("tous ce qui est possible de connaître")
+			say("en nourriture.")
+			say("")
+			set_state(ask_for_ricecake2)
+		end
+	end
+
+	state ask_for_ricecake2 begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir Octavio.")
+			q.set_title("Allez voir Octavio.")
+			q.start()
+
+			local v= find_npc_by_vnum(20008)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Allez voir Octavio.")
+			end
+		end
+		when info or button begin
+			say_title("Allez voir Octavio.")
+			say("")
+			--                                                  |
+			say("Questionnez Octavio à propos des gâteaux de riz.")
+			say("Il est dans le village "..areaname[pc.get_empire()][0]..".")
+			say("")
+		end
+		when __TARGET__.target.click or 20008.chat."Puis-je avoir un gâteau de riz." begin
+			target.delete("__TARGET__")
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Hmm, vous voulez un gâteau de riz? ")
+			say("Je n'en ai aucun pour le moment.")
+			say("Mais vous pouvez en obtenir auprès Yu-Rang")
+			say("dans le village "..areaname[pc.get_empire()][2]..".")
+			say("")
+			local s=select("Merci, je vais y allez."," Je n'ai pas le temps pour ça.")
+			if 2==s then
+				say("Abandonner?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Octavio:")
+					say("")
+					--                                                  |
+					say("Vous avez un long chemin à parcourir. ")
+					say("A plus tard!")
+					return
+				else
+					say_title("Octavio:")
+					say("")
+					say("Qu'avez-vous dit?")
+					say("")
+					say("Oh c'est honteux...")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Octavio:")
+				say("")
+				say("Très gentil de ta part. Fait un bon voyage.")
+				say("")
+				set_state(ask_for_ricecake3)
+			end
+		end
+	end
+
+	state ask_for_ricecake3 begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir Yu-Rang")
+			q.set_title("Allez voir Yu-Rang")
+			q.start()
+
+			local v=find_npc_by_vnum(20012)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Allez voir Yu-Rang.")
+			end
+		end
+		when info or button begin
+			say_title("Allez voir Yu-Rang")
+			say("")
+			say("Demander à Yu-Rang pour les gâteaux de riz.")
+			say("Vous la trouverez dans le village voisin.")
+			say("")
+		end
+		when __TARGET__.target.click or 20012.chat."Donnez-moi un gâteau de riz." begin
+			target.delete("__TARGET__")
+			say_title("Yu-Rang:")
+			--                                                  |
+			say("")
+			say("Puis-je vous aider? Oh! Des gâteaux de riz.")
+			say("Bien sûr, je peux vous en donner!")
+			say("")
+			say("Mais ... ")
+			say("Une jeune fille nommée Taureau vient souvent")
+			say("ici et me taquine.")
+			say("Je ne sais pas pourquoi elle me taquine et ")
+			say("s'enfuit. Si vous parlez à Taurean pour moi")
+			say(", je vous donnerais un gâteau de riz.")
+			say("")
+			say("Okay?")
+			say("")
+			set_state(ask_for_ricecake4)
+			end
+		end
+
+	state ask_for_ricecake4 begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir Taurean.")
+			q.set_title("Allez voir Taurean.")
+			q.start()
+
+			local v=find_npc_by_vnum(20014)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Allez voir Taurean.")
+			end
+		end
+		when info or button begin
+			say_title("Allez voir Taurean.")
+			say("")
+			say_reward("Allez voir Taurean pour obtenir ")
+			say_reward("un gâteau de riz de Yu-Rang .")
+			say("")
+		end
+		when __TARGET__.target.click or 20014.chat."Pourquoi taquines-tu Yu-Rang?" begin
+			target.delete("__TARGET__")
+			say_title("Taurean:")
+			say("")
+			--                                                  |
+			say("Qui ai-je taquiner? ")
+			say("Oh, la fille qui vend des gâteaux de riz?")
+			say("")
+			say("Je voulais juste jouer, vous voyez ce que")
+			say("je veux dire? Ce n'est pas ce que vous pensez!")
+			say("Je n'ai pas voulu me moquer!")
+			say("Je m'ennuyais et il semblait qu'elle n'avait")
+			say("pas beaucoup à faire, donc je voulais juste ... ")
+			say("la divertir!")
+			say("Je ne recommencerais plus, je le promets!")
+			say("")
+			set_state(report_to_girl)
+		end
+	end
+
+	state report_to_girl begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Retourner voir Yu-Rang")
+			q.set_title("Retourner voir Yu-Rang")
+			q.start()
+			local v=find_npc_by_vnum(20012)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v, "Retourner voir Yu-Rang.")
+			end
+		end
+		when info or button begin
+			say_title("Retourner voir Yu-Rang")
+			say("")
+			--                                                  |
+			say("Retourner voir Yu-Rang et obtenez le gâteau")
+			say(" de riz.")
+		end
+		when __TARGET__.target.click or 20012.chat."Donnez-moi un gâteau de riz." begin
+			target.delete("__TARGET__")
+			say_title("Yu-Rang:")
+			say("")
+			say("Hehe, alors vous avez parler avec Taurean?")
+			say("")
+			say("Merci. Voici un gâteau de riz. Bon appétit")
+			say("")
+			set_state(reward_go)
+		end
+	end
+
+	state reward_go begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Retourner voir Ah-Yu")
+			q.set_title("Retourner voir Ah-Yu")
+			q.start()
+
+			local v=find_npc_by_vnum(20003)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Livrer le gâteau de riz.")
+			end
+		end
+		when info or button begin
+			say_title("Retourner voir Ah-Yu")
+			say("")
+			--                                                  |
+			say("Retourner voir Ah-Yu et livrer lui le gâteau")
+			say("de riz. ")
+			say("Vous la trouverez dans le village "..areaname[pc.get_empire()][1]..".")
+		end
+		when __TARGET__target.click or 20003.chat."Voici un gâteau de riz." begin
+			target.delete("__TARGET__")
+			say_title("Ah-Yu:")
+			say("")
+			--                                                  |
+			say("Vous m'avez apporté le gâteau de riz! ")
+			say("Oh! Mon bébé a arrêté de pleurer. ")
+			say("Merci beaucoup!")
+			pc.give_exp2(36000)
+			set_quest_state("levelup","run")
+			pc.change_money(15000)
+			say_title("Reward:")
+			say("")
+			say_reward("Vous recevez 36.000 points d'expérience ." )
+			say_reward("Vous recevez 15.000 Yang .")
+			say("")
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

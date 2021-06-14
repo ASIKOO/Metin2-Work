@@ -1,0 +1,68 @@
+quest event_dressup begin
+	state start begin
+		when 8001.kill or 8002.kill or 8003.kill or 8004.kill or
+		 8005.kill or 8006.kill or 8007.kill or 8008.kill or
+		 8009.kill or 8010.kill or 8011.kill or 8012.kill or
+		 8013.kill or 8014.kill or 8024.kill or 8025.kill or
+		 8026.kill or 8027.kill with pc.is_gm() == false begin
+			if game.get_event_flag("dressup") == 1 then
+				local plvl = pc.get_level()
+				local mlvl
+				local chance = number(1,10)
+				local vnumlist_m = {41041,41043,41045,41049,41051,41053,41095,41097,41099,41101,41103,41105,41107,41109,41111,41113}
+				local vnumlist_w = {41042,41044,41046,41050,41052,41054,41096,41098,41100,41102,41104,41106,41108,41110,41112,41114}
+				local drop = number(1,16)
+				if npc.get_race() < 8015 then
+					mlvl = (npc.get_race()-8000)*5
+				else
+					mlvl = (npc.get_race()-8009)*5
+				end
+				
+				
+				if mlvl-plvl >= -10 then
+					if chance*10 == 100 then
+						if pc.get_sex() == 1 then
+							game.drop_item_with_ownership(vnumlist_w[drop],1)
+						else
+							game.drop_item_with_ownership(vnumlist_m[drop],1)
+						end
+					end
+				end
+			end
+		end
+		
+		when 8001.kill or 8002.kill or 8003.kill or 8004.kill or
+		 8005.kill or 8006.kill or 8007.kill or 8008.kill or
+		 8009.kill or 8010.kill or 8011.kill or 8012.kill or
+		 8013.kill or 8014.kill or 8024.kill or 8025.kill or
+		 8026.kill or 8027.kill with pc.is_gm() == true begin
+			if game.get_event_flag("dressup") == 1 then
+				local plvl = pc.get_level()
+				local mlvl
+				local chance = number(1,10)
+				local vnumlist_m = {41041,41043,41045,41049,41051,41053,41095,41097,41099,41101,41103,41105,41107,41109,41111,41113}
+				local vnumlist_w = {41042,41044,41046,41050,41052,41054,41096,41098,41100,41102,41104,41106,41108,41110,41112,41114}
+				local drop = number(1,16)
+				if npc.get_race() < 8015 then
+					mlvl = (npc.get_race()-8000)*5
+				else
+					mlvl = (npc.get_race()-8009)*5
+				end
+				
+				chat("Leveldif: "..mlvl-plvl.." Chance: "..chance.." Sex: "..pc.get_sex().." Drop: "..drop..".")
+				
+				if mlvl-plvl >= -10 then
+					if chance*10 == 100 then
+						if pc.get_sex() == 1 then
+							game.drop_item_with_ownership(vnumlist_w[drop],1)
+						else
+							game.drop_item_with_ownership(vnumlist_m[drop],1)
+						end
+					end
+				end
+			end
+		end
+	end
+end
+				
+				

@@ -1,0 +1,2 @@
+D:\Metin2 Server Files\mainline\SRC_2014\Metin2Client\SpeedTreeLib\Debug\SpeedTreeLib.lib
+D:\Metin2 Server Files\mainline\SRC_2014\Metin2Client\SpeedTreeLib\Debug\SpeedTreeLib.pdb

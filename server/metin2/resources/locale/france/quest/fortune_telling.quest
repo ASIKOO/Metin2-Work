@@ -1,0 +1,163 @@
+quest fortune_telling begin
+	state start begin
+		when oldwoman.chat."On m'a dit que vous étiez voyante." begin
+			if pc.level<=20 then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Votre visage m'indique que vous êtes encore très")
+				say("jeune. Pourquoi vouloir connaitre son destin si")
+				say("tôt? Avez-vous des problèmes ? Votre destin vous")
+				say("demande beaucoup d'entrairement. Revenez plus")
+				say("tard !")
+
+			elseif get_time()-pc.getqf("time")<8*10*10 then
+
+				local passed_time = get_time() - pc.getqf("time")
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Voulez-vous vivre votre vie en fonction de ce qui")
+				say("vous aura été prédit? Vous ne devez pas prendre")
+				say("les prédictions trop au sérieux. Ce qui est")
+				say("important c'est l'attitude, le vôtre et la")
+				say("mienne. Si les deux son positives, vous ne")
+				say("risquez rien.Si vous voulez vraiment que je vous")
+				say("prédise votre destin, alors revenez demain.")
+
+				local idx = pc.getqf("idx")
+
+				if idx!=0 then
+					---                                                   l
+					say_reward("Pour votre information: Votre prédiction indique:")
+					say_reward(locale.fortune_words[idx][1])
+					
+					if pc.getqf("talisman") == 0 and special.fortune_telling[idx][5]> 0 then
+
+						local talisman_cost = special.fortune_telling[idx][5]
+						wait()
+						---                                                   l
+						say_title("La vieille dame:")
+						say("Mon pauvre enfant,")
+						say("Puisses-tu un jour trouver la paix.")
+						say("Le sort semble s'acharner sur toi!")
+						say("Si tu veux, je peux te faire un talisman qui te")
+						say("protegera de la malchance qui te poursuit.")
+
+						local s = select("Faites moi un talisman","Cesse donc tes sornettes!")
+
+						if s == 1 then
+							if pc.gold < talisman_cost then
+								---                                                   l
+								say_title("La vieille dame:")
+								say("Désolé mon enfant, moi aussi j'ai besoin d'argent")
+								say("pour survivre...")
+								say("Rapporte moi l'argent, et tu auras le talisman.")
+							else
+								pc.give_item2(70052,1)
+								pc.changegold(-talisman_cost)
+								pc.setqf("talisman", 1)
+							end
+						end
+					end
+				end
+			else
+				local gold = 7777
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Vous êtes trop jeune pour soupirer ainsi !")
+				say("Voulez-vous connaitre votre avenir ?")
+				say("Sachez qu'il existe d'étranges pouvoirs")
+				say("capables de répondre aux questions que vous vous")
+				say("posez à propos de votre destin.")
+
+				local s = select("Ecouter la prédiction", "Ne pas écouter la prédiction")
+
+				if s == 1 then
+
+					n = number(1,10000)
+					local i
+					local idx
+					for i = 1, table.getn(special.fortune_telling) do
+
+						if n<=special.fortune_telling[i][1] then
+							idx = i
+							break
+						else
+							n = n - special.fortune_telling[i][1]
+						end
+					end
+
+					i = idx
+					say(locale.fortune_words[i][2])
+					local t = {}
+					n = 0
+					local j
+					for j = 2,4 do
+
+						if special.fortune_telling[i][j]!= 0 then
+							n=n+1
+							t[n] = j
+						end
+					end
+
+					if n> 0 then
+
+						n = number(1, n)
+						__give_char_priv(t[n]-1, special.fortune_telling[i][t[n]])
+						end
+
+						pc.setqf("time", get_time())
+						pc.setqf("idx", i)
+
+						if special.fortune_telling[i][5]> 0 then
+
+							wait()
+
+							say(locale.fortune_words[i][3])
+
+							local talisman_cost = special.fortune_telling[i][5]
+							---                                                   l
+							say_title("La vieille dame:")
+							say("Mon pauvre enfant,")
+							say("Puisses-tu un jour trouver la paix.")
+							say("Le sort semble s'acharner sur toi!")
+							say("Si tu veux, je peux te faire un talisman qui te")
+							say("protegera de la malchance qui te poursuit.")
+							say_reward("Souhaitez-vous en acheter un?")
+
+							local s = select("Acheter le talisman","Ne pas acheter")
+
+							if s == 1 then
+								if pc.gold < talisman_cost then
+									---                                                   l
+									say_title("La vieille dame:")
+									say("Désolé mon enfant, moi aussi j'ai besoin d'argent")
+									say("pour survivre...")
+									say("Rapporte moi l'argent, et tu auras le talisman.")
+									pc.setqf("talisman", 0)
+								else
+									pc.give_item2(70052,1)
+									pc.changegold(-talisman_cost)
+									pc.setqf("talisman", 1)
+								end
+
+							elseif s == 2 then
+								---                                                   l
+								say_title("La vieille dame:")
+								say("Eh bien! Quel courage! Peu de personne ont un jour")
+								say("osé de bravouer la malchance. Malheuresement, je")
+								say("n'ai plus eu de leurs nouvelles...")
+								pc.setqf("talisman", 0)
+							end
+						end
+
+				elseif s == 2 then
+					---                                                   l
+					say_title("La vieille dame:")
+					say("Très bon choix. Le plus important dans la vie est")
+					say("de faire de son mieux et de suivre son propre")
+					say("chemin. Bonne chance!")
+				end
+			end
+		end
+	end
+end

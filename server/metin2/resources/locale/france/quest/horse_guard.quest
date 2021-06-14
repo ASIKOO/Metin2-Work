@@ -1,0 +1,80 @@
+quest horse_guard begin
+	state start begin
+		when 20349.chat."Utiliser le magasin" begin
+		    npc.open_shop()
+			setskin(NOWINDOW)
+		end
+
+		when 20349.chat."Informations sur les chevaux" begin
+
+			local s=number(1, 7)
+
+			if 1>=s then -- 14.29% (1/7)
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Lorsque vous montez à cheval, sa fatigue augmente")
+				say("et sa santé diminue. Vous ne pouvez pas monter")
+				say("sur un cheval en mauvaise santé. C'est pour cela")
+				say("que vous devez faire une pause de temps en temps.")
+
+			elseif 2>=s then -- 14.29% (1/7)
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Pour débuter une quête équestre vous avez besoin")
+				say("d'une médaille équestre. Vous en trouverez une")
+				say("dans le donjon du singe.")
+
+			elseif 3>=s then -- 14.29% (1/7)
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Les chevaux ont besoin d'une nourriture")
+				say("différente selon leur niveau de développement.")
+				say("Les chevaux pour débutants ne mangent que du")
+				say("foin, les chevaux pour cavaliers avancés")
+				say("uniquement des carottes et les chevaux pour les")
+				say("cavaliers les plus expérimentés mangent du")
+				say("ginseng rouge.")
+				say("On pourrait croire qu'ils sont plus compliqués")
+				say("que nous.")
+
+			elseif 4>=s then -- 14.29% (1/7)
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Il y a différents niveaux d'équitation et vous")
+				say("pourrez aussi développer le niveau de votre")
+				say("cheval pour qu'il devienne plus fort. Seule une")
+				say("personne avec une médaille équestre peut se")
+				say("servir d'un cheval.")
+
+			elseif 5>=s then -- 14.29% (1/7)
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Les chevaux ont 3 niveaux de développemnt : pour")
+				say("débutants, pour cavaliers avancés et pour")
+				say("cavaliers expérimentés. Pour changer de niveau")
+				say("vous devez effectuer une quête.")
+
+			elseif 6>=s then -- 14.29% (1/7)
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Quand le cheval est en bonne santé, il est")
+				say("affiché en vert,quand il a faim en jaune et")
+				say("quand il est affamé, il s'affiche en rouge. Pour")
+				say("repasser en vert il faudrat penser à nourir votre")
+				say("cheval, donc soyez sérieux.")
+
+			elseif 7>=s then -- 14.29% (1/7)
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Si vous ne nourissait pas votre cheval, il mourrat")
+				say("et vous devrez acheter une herbe du donjon pour le")
+				say("réssusiter.")
+			end
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

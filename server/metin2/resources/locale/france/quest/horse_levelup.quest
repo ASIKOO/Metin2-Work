@@ -1,0 +1,691 @@
+quest horse_levelup begin
+	state training1 begin
+		when letter begin
+			send_letter("Les Bo")
+			q.set_counter("Nombre de Bô à tuer:", 5-pc.getqf("kill_count"))
+		end
+
+		when 492.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre de Bo à tuer:", 5-pc.getqf("kill_count"))
+		end
+
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+
+		when leave begin
+			q.done()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Tuez les Bo")
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 5 Bo.")
+		end
+
+		when 492.kill with pc.getf("horse_levelup","kill_count") >= 5 begin
+			setstate(report)
+		end
+
+		when unmount begin
+			setstate(failure)
+		end
+	end
+
+	state training2 begin
+		when letter begin
+			send_letter("Les Chuong")
+			q.set_counter("Nombre de Chuong à tuer:", 5-pc.getqf("kill_count"))
+		end
+
+		when 494.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre de Chuong à tuer:", 5-pc.getqf("kill_count"))
+		end
+
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+
+		when leave begin
+			q.done()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Tuez les Chuong")
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 5 Chuong.")
+		end
+
+		when 494.kill with pc.getf("horse_levelup","kill_count") >= 5 begin
+			setstate(report)
+		end
+
+		when unmount begin
+			setstate(failure)
+		end
+	end
+
+	state training3 begin
+		when letter begin
+			send_letter("Les généraux orcs élites")
+			q.set_counter("Nombre de général à tuer:", 10-pc.getqf("kill_count"))
+		end
+
+		when 635.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre de général à tuer:", 10-pc.getqf("kill_count"))
+		end
+
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+
+		when leave begin
+			q.done()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Tuez les généraux orcs élites")
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 10 généraux orcs élites.")
+		end
+
+		when 635.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+			setstate(report)
+		end
+
+		when unmount begin
+			setstate(failure)
+		end
+	end
+
+	state training4 begin
+	
+		when letter begin
+			
+			send_letter("Les orcs noirs")
+			q.set_counter("Nombre d'orc noir à tuer:", 10-pc.getqf("kill_count"))
+		
+		end
+		
+		when 636.kill begin
+		
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre d'orc noir à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when enter begin
+		
+			pc.setqf("kill_count", 0)
+			
+		end
+		
+		when leave begin
+		
+			q.done()
+			
+		end
+		
+		when button or info begin
+		
+			say_title("Tuez les orcs noirs")
+			say("")
+			---                                                   l
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 10 orcs noirs.")
+			say("")
+			
+		end
+		
+		when 636.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+		
+			setstate(report)
+			
+		end
+		
+		when unmount begin
+		
+			setstate(failure)
+			
+		end
+	end
+	
+	state training5 begin
+	
+		when letter begin
+		
+			send_letter("Les tourmenteurs ésoteriques")
+			q.set_counter("Nombre de tourmenteur à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when 706.kill begin
+		
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre de tourmenteur à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when enter begin
+		
+			pc.setqf("kill_count", 0)
+			
+		end
+		
+		when leave begin
+		
+			q.done()
+			
+		end
+		
+		when button or info begin
+		
+			say_title("Tuez les tourmenteurs ésoteriques")
+			say("")
+			---                                                   l
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 10 tourmenteurs .")
+			say("")
+			
+		end
+		
+		when 706.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+		
+			setstate(report)
+			
+		end
+		
+		when unmount begin
+		
+			setstate(failure)
+			
+		end
+	end
+	
+	state training6 begin
+	
+		when letter begin
+		
+			send_letter("Les araignées à griffes")
+			q.set_counter("Nombre d'araignée à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when 2034.kill begin
+		
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre d'araignée à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when enter begin
+		
+			pc.setqf("kill_count", 0)
+			
+		end
+		
+		when leave begin
+		
+			q.done()
+			
+		end
+		
+		when button or info begin
+		
+			say_title("Tuez les araignées à griffes")
+			say("")
+			---                                                   l
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 10 araignées à griffes.")
+			say("")
+			
+		end
+		
+		when 2034.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+		
+			setstate(report)
+			
+		end
+		
+		when unmount begin
+		
+			setstate(failure)
+			
+		end
+	end
+	
+	state training7 begin
+	
+		when letter begin
+		
+			send_letter("Les Hors-la-lois du désert")
+			q.set_counter("Nombre de Hors-la-loi à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when 2108.kill begin
+		
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre de Hors-la-loi à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when enter begin
+		
+			pc.setqf("kill_count", 0)
+			
+		end
+		
+		when leave begin
+		
+			q.done()
+			
+		end
+		
+		when button or info begin
+		
+			say_title("Tuez les Hors-la-lois du désert")
+			say("")
+			---                                                   l
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 10 Hors-la-lois.")
+			say("")
+			
+		end
+		
+		when 2108.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+		
+			setstate(report)
+			
+		end
+		
+		when unmount begin
+		
+			setstate(failure)
+			
+		end		
+	end
+	
+	state training8 begin
+	
+		when letter begin
+		
+			send_letter("Les golems de glace")
+			q.set_counter("Nombre de golem à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when 1107.kill begin
+		
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre de golem à tuer:", 10-pc.getqf("kill_count"))
+			
+		end
+		
+		when enter begin
+		
+			pc.setqf("kill_count", 0)
+			
+		end
+		
+		when leave begin
+		
+			q.done()
+			
+		end
+		
+		when button or info begin
+		
+			say_title("Tuez les golems de glace")
+			say("")
+			---                                                   l
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 10 golems de glace.")
+			say("")
+			
+		end
+		
+		when 1107.kill with pc.getf("horse_levelup","kill_count") >= 10 begin
+		
+			setstate(report)
+			
+		end
+		
+		when unmount begin
+		
+			setstate(failure)
+			
+		end
+	end
+	
+	state training9 begin
+	
+		when letter begin
+		
+			send_letter("Les combattants tigre")
+			q.set_counter("Nombre de combattant à tuer:", 20-pc.getqf("kill_count"))
+			
+		end
+		
+		when 2203.kill begin
+		
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Nombre de combattant à tuer:", 20-pc.getqf("kill_count"))
+			
+		end
+		
+		when enter begin
+		
+			pc.setqf("kill_count", 0)
+			
+		end
+		
+		when leave begin
+		
+			q.done()
+			
+		end
+		
+		when button or info begin
+		
+			say_title("Tuez les combattants tigre")
+			say("")
+			---                                                   l
+			say("Au cours de cet entrainement, vous devez tuer,")
+			say("descendre de votre cheval, 20 combattants tigre.")
+			say("")
+			
+		end
+		
+		when 2203.kill with pc.getf("horse_levelup","kill_count") >= 20 begin
+		
+			setstate(report)
+			
+		end
+		
+		when unmount begin
+		
+			setstate(failure)
+			
+		end
+	end
+	
+	state start begin
+	
+		when 20349.chat."Entrainement du cheval" with horse.get_grade()==1 and (horse.get_level()>=1 and horse.get_level()<=10) and get_time() < pc.getqf("next_time") begin
+		
+			say_title("Palefrenier :")
+			say("")
+			---                                                   l
+			say("Désolé, tu as effectué un entrainement récemment,")
+			say("ton cheval a besoin de repos.")
+			say("")
+		end
+		
+		when 20349.chat."Entrainement du cheval" with horse.get_grade()==2 and get_time() > pc.getqf("next_time") begin
+			
+			say_title("Palefrenier :")
+			say("")
+			---                                                   l
+			
+			if horse.get_level()==20 then
+			
+				say("Votre cheval est à son niveau maximal")
+				say("Vous ne pouvez plus l'augmenter")
+				say("")
+				
+			elseif pc.countitem("50050")<1 then
+			
+				say("Vous avez besoin d'une médaille équestre pour")
+				say("votre quête.")
+				say("")
+				setstate(need_item50050)
+				
+			elseif get_time()<pc.getqf("next_time") then
+			
+				say("Votre cheval est fatigué.")
+				say("Revenez demain.")
+				say("")
+				
+			elseif horse.get_stamina_pct()<=10 then
+			
+				say("Votre cheval est affamé.")
+				say("Veuillez à le nourrir avant tout entrainement !")
+				say("")
+				
+			elseif horse.get_health_pct()<=10 then
+			
+				say("Votre cheval n'a plus assez d'endurance")
+				say("")
+				
+			elseif horse.is_riding()==0 then
+			
+				say("Vous devez être sur votre cheval")
+				say("")
+				
+			elseif (horse.get_level()>=11 and horse.get_level()<=19) then
+			
+				---                                                   l
+				say("Vous allez entrainer votre cheval.")
+				say("Veuillez ne pas descendre de celui-ci pendant")
+				say("votre mission.")
+				say("Préparez-vous!")
+				say("Votre mission se situe sur la gauche de l'écran.")
+				say("Ouvrez-la afin d'y decouvrir ce qu'il faut faire.")
+				
+				if is_test_server() then
+				
+					pc.setqf("next_time", get_time()+60*60*2)--2h
+					
+				else
+				
+					pc.setqf("next_time", get_time()+60*60*2)--2h
+					
+				end
+				
+				if horse.get_level()==11 then
+				
+					setstate(training1)
+					
+				elseif horse.get_level()==12 then
+				
+					setstate(training2)
+					
+				elseif horse.get_level()==13 then
+				
+					setstate(training3)
+					
+				elseif horse.get_level()==14 then
+				
+					setstate(training4)
+					
+				elseif horse.get_level()==15 then
+				
+					setstate(training5)
+					
+				elseif horse.get_level()==16 then
+				
+					setstate(training6)
+					
+				elseif horse.get_level()==17 then
+				
+					setstate(training7)
+					
+				elseif horse.get_level()==18 then
+				
+					setstate(training8)
+					
+				elseif horse.get_level()==19 then
+				
+					setstate(training9)
+					
+				end
+			end
+		end
+	end
+	
+	state need_item50050 begin
+	
+		when letter begin
+		
+			send_letter("Trouvez une médaille équestre")
+			
+		end
+		when button or info begin
+		
+			say_title("Trouvez une médaille équestre")
+			---                                                   l
+			say("")
+			say("Trouvez une médaille équestre pour pouvoir")
+			say("continuer l'entrainement de votre cheval.")
+			say("")
+			clear_letter()
+			setstate(start)
+			
+		end
+	end
+	
+	state failure begin
+	
+		when letter begin
+		
+			send_letter("Vous êtes descendu du cheval")
+			
+		end
+		
+		when button or info begin
+		
+			say_title("Vous êtes descendu du cheval")
+			say("")
+			---                                                   l
+			say("Vous êtes descendu du cheval !")
+			say("Vous avez donc echoué !")
+			say("Revenez plus tard pour ré-essayer.")
+			say("")
+			clear_letter()
+			setstate(start)
+			
+		end		
+	end
+	
+	state report begin
+	
+		when letter begin
+		
+			local v=find_npc_by_vnum(20349)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Palfrenier")
+			end
+			
+		end
+		
+		when letter begin
+			
+			send_letter("Quête accomplie")
+			
+		end
+		
+		when button or info begin
+		
+			say_title("Quête accomplie")
+			say("")
+			---                                                   l
+			say("Vous avez reussi la quête du cheval.")
+			say("Retournez voir le palefrenier.")
+			say("")
+			
+		end
+		
+		when __TARGET__.target.click or 20349.chat."Les résultats" begin
+		
+			target.delete("__TARGET__")
+			say_title("Palefrenier :")
+			say("")
+			---                                                   l
+			say("Vous avez accomplie votre quête avec succès.")
+			say("")
+			clear_letter()
+			setstate(reward)
+		end
+	end
+
+	state reward begin
+		when letter begin
+			send_letter("Résultat de l'entrainement")
+		end
+
+		when button begin
+			---                                                   l
+			say_title("Résultat de l'entrainement")
+			if horse.get_level()<=10 then
+			
+				say("Votre cheval ne possède pas le niveau nécessaire.")
+				
+			elseif horse.get_level()>=20 then
+			
+				say("Votre cheval a déjà atteint son niveau maximum.")
+				
+			elseif (horse.get_level()>=11 and horse.get_level()<=19) then
+			
+				local s=number(1, 2)
+				if 1>=s then
+				
+					say("")
+					say("Vous avez échoué à l'entrainement.")
+					say("")
+					say("Re-essayer plus tard!")
+					say("")
+					pc.setqf("next_time", 0)
+					
+				elseif 2>=s then
+				
+					say("Félicitations !")
+					
+					if pc.countitem("50050")>=1 then
+					
+						char_log(0, "HORSE_ADVANCE", "BEGIN")
+						pc.removeitem("50050", 1)
+						char_log(0, "HORSE_ADVANCE", "DEC 50050 1")
+						horse.unride()
+						horse.advance()
+						horse.ride()
+						char_log(0, "HORSE_ADVANCE", "INC horse_advance 1")
+						char_log(0, "HORSE_ADVANCE", "END")
+						say("Votre cheval monte au niveau "..(horse.get_level()).." à present")
+						say("")
+						
+						if horse.get_level()==20 then
+						
+							say("Votre cheval est à son niveau maximum")
+							say("Félicitations")
+							pc.setqf("next_time", 0)
+						else
+						
+							say("Continuez jusqu'au lvl 20 pour pouvoir")
+							say("ensuite améliorer ses skills.")
+						end
+					else
+						say("Comment ?! Vous ne possèdez pas de médaille !")
+						say("Allez m'en chercher une si vous souhaitez")
+						say("augmenter votre cheval !")
+					end
+				end
+			end
+			clear_letter()
+			setstate(start)			
+		end
+	end
+
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

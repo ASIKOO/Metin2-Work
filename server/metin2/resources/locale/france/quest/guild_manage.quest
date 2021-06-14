@@ -1,0 +1,118 @@
+quest guild_building begin
+	state start begin
+		when guild_man1.chat."Quitter la guilde." or 
+			guild_man2.chat."Quitter la guilde." or 
+			guild_man3.chat."Quitter la guilde." with pc.hasguild() and not pc.isguildmaster() and (pc.is_gm() or npc.empire == pc.empire) begin
+			---                                                   l
+			say_title("Le Gardien:")
+			say("Voulez-vous quitter la guilde à laquelle vous")
+			say("appartenez? Je suppose que vous ne vous y êtes")
+			say("pas fait de vrais amis. C'est vous qui voyez.")
+			say("Vous voulez vraiment quitter la guilde?")
+
+			local s = select("Oui", "Non")
+
+			if s==1 then
+				---                                                   l
+				say_title("Le Gardien")
+				say("D'accord.")
+				say("Je vais effacer votre nom de la guilde.")
+
+				pc.remove_from_guild()
+				pc.setqf("new_withdraw_time", get_time()-game.get_event_flag("guild_withdraw_delay")*86400)
+				pc.setqf("new_disband_time", get_time()-game.get_event_flag("guild_disband_delay")*86400)
+			end
+		end
+
+		when guild_man1.chat."Dissoudre la guilde." or
+			guild_man2.chat."Dissoudre la guilde." or
+			guild_man3.chat."Dissoudre la guilde." with pc.hasguild() and pc.isguildmaster() and (pc.is_gm() or npc.empire == pc.empire) begin
+			---                                                   l
+			say_title("Le Gardien:")
+			say("Voulez-vous vraiment dissoudre votre guilde?")
+
+			local s = select("Oui", "Non")
+
+			if s==1 then
+				---                                                   l
+				say_title("Le Gardien:")
+				say("La guilde est dissous.")
+
+				pc.destroy_guild()
+				pc.setqf("new_disband_time", get_global_time())
+				pc.setqf("new_withdraw_time", get_global_time())
+			end
+		end
+
+		when guild_man1.chat."Créer une guilde" or
+			guild_man2.chat."Créer une guilde" or
+			guild_man3.chat."Créer une guilde" begin
+
+			local level_limit;
+			local guild_create_item
+			level_limit = 40
+			guild_create_item = false
+
+			if pc.hasguild() then
+				return
+			end
+
+			if game.get_event_flag("guild_withdraw_delay")*86400 >
+				get_global_time() - pc.getqf("new_withdraw_time") then
+				---                                                   l
+				say_title("Le Gardien:")
+				say("Vous venez de dissoudre votre guilde, ou de vous")
+				say("faire virer de la guilde ou vous étiez membre.")
+				say("Vous devez attendre 2 jours avant de pouvoir")
+				say("créer votre propre guilde.")
+				say(string.format("", game.get_event_flag("guild_withdraw_delay")))
+				return
+			end
+
+			if game.get_event_flag("guild_disband_delay")*86400 >
+				get_global_time() - pc.getqf("new_withdraw_time") then
+				---                                                   l
+				say_title("Le Gardien:")
+				say("Vous venez de dissoudre votre guilde, ou de vous")
+				say("faire jetez de la guilde où vous étiez membre.")
+				say("Vous devez attendre 2 jours avant de pouvoir")
+				say("créer votre propre guilde.")
+				say(string.format("", game.get_event_flag("guild_disband_delay")))
+				return
+			end
+
+			---                                                   l
+			say_title("Le Gardien:")
+			say("Voulez-vous créer une guilde?")
+			say("Vous ne pourrez le faire que lorsque vous aurez")
+			say("atteint le niveau 40. Vous devrez également payer")
+			say("200.000 Yangs.")
+			say("Voulez-vous créer une guilde ?")
+
+			local s = select("Oui", "Non")
+
+			if s == 2 then
+				return
+			end
+
+			if pc.level >= 40 then
+				if pc.gold >= 200000 then
+
+					if not guild_create_item or pc.countitem(guild_create_item)>0 then
+						game.request_make_guild()
+  					end
+				else
+					---                                                   l
+					say_title("Le Gardien:")
+					say("Vous ne pouvez pas créer de guilde.")
+					say_reward("Il vous faut 200.000 Yangs pour créer une guilde.")
+					return
+					end
+			else
+				---                                                   l
+				say_title("Le Gardien:")
+				say("Votre niveau est trop bas pour créer une guilde.")
+			end
+		end
+	end
+end

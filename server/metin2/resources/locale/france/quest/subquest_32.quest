@@ -1,0 +1,474 @@
+----------------------------------------------------
+-- SUB QUEST
+-- LV 41
+-- Marchand Ambulant Quest
+----------------------------------------------------
+
+quest subquest_32 begin
+	state start begin
+		when login  or levelup with pc.level >= 41 and pc.level <= 43 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20010)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Marchand Ambulant")
+			end
+		end
+
+		when __TARGET__.target.click or
+			20010.chat."La demande du marchand" with pc.level >= 41 begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Marchand Ambulant :")
+			say("")
+			say("Nous autres itinérants connaissons des moments ")
+			say("difficiles avec la guerre. ")
+			say("Nous devons avoir les produits nécessaires.")
+			say("Si tu veut gagner quelques yang je vais te ")
+			say("dire les produits en mode en ce moment.")
+			say("Un collier fabriqués à partir de dents d'Unggyis!")
+			say("C'est ainsi que nous appelons Les Sorciers Orc ")
+			say("Élite vivant dans la vallée du Dragon. ")
+			say("Leurs grandes dents sont vraiment bien pour ")
+			say("créer des bibelots.")
+			wait()
+			say_title("Marchand Ambulant :")
+			say("")
+			--                                                  |
+			say("Qu'en dites-vous? Pouvez-vous me trouver ")
+			say("quelques dents que je puisse en faire quelques ")
+			say("uns ? J'ai aussi besoin d'autres matériaux pour ")
+			say("ce collier, ce qui n'est pas facile à obtenir ")
+			say("mais la vente de ces colliers est une bonne ")
+			say("affaire. Si vous me ramenez le matériel, je vous!")
+			say("récompenserais bien.")
+			say("Alors, qu'en dites-vous, marché conclu ?")
+			say("")
+			wait()
+			say_title("Marchand Ambulant :")
+			say("")
+			--                                                  |
+			say("J'ai besoin pour ce collier, d'une pierre en ")
+			say("accessoire et de la ficelle. Pour les dents, ")
+			say("tuez des Sorciers Orc Elite, pour la pierre ")
+			say("allez voir la marchande, la ficelle vous pouvez ")
+			say("l'obtenir auprès de Ariyoung.")
+			say("J'ai besoin de 100 dents d'Unggyi pour le reste ")
+			say("demandez aux personne indiqué. J'ai beaucoup ")
+			say("de commandes, alors s'il vous plaît revenez ")
+			say("rapidement.")
+
+
+			local s=select("Acceptez.","Refuser.")
+			if 2==s then
+				say("Vous voulez abandonner ?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Marchand Ambulant:")
+					say("")
+					say("Vous êtes occupez ? Pas de soucis revenez si")
+					say("vous avez plus de temps.")
+					say("")
+  
+				else
+					say_title("Marchand Ambulant")
+					say("")
+					--                                                  |
+					say("Eh bien. Je ne sais pas comment je vais faire ")
+					say("ensuite.")
+					set_state(__GIVEUP__)
+  				end
+			else
+				say_title("Marchand Ambulant")
+				say("")
+				say("Magnifique !")
+				say("Je vais attendre ici pour vous.")
+				say("")
+
+				set_state(gogogo)
+			end
+		end
+	end
+	state gogogo begin
+
+		when letter begin
+			send_letter("Marchand Ambulant")
+			if pc.getqf("sil_done") == 0 or pc.getqf("sil_done") ==2  then
+				local v=find_npc_by_vnum(20021)
+				if 0!=v then
+					target.vid("__TARGET1__",v,"Allez voir Ariyoung")
+				end
+			end
+
+
+			if pc.getqf("sil_done")== 1  then
+
+				local v=find_npc_by_vnum(20003)
+				if 0!=v then
+					target.vid("__TARGET3__",v,"Allez voir Ah-Yu")
+				end
+			end
+
+
+			if pc.count_item(30144) >=100 and pc.count_item(30143)>0  then
+
+				local v=find_npc_by_vnum(9003)
+				if 0==v then
+					target.vid("__TARGET2__",v,"Allez voir la marchande")
+				end
+
+			end
+
+				if  pc.count_item(30139)>=100 and pc.count_item(30140)>0 and   pc.count_item(30141)>0  then
+					set_state(all_item_done)
+			end
+
+
+		end
+
+		when info or button begin
+			say_title("Récupérez les matériaux")
+			say("")
+			--                                                  |
+			say("Le Marchand Ambulant a besoin de matériaux pour ")
+			say("un collier. Il a besoin de 100 dents d'Unggyi, ")
+			say("d'un accessoire décoratif et de ficelle. ")
+			say("Pour les dents, tuez des Sorciers Orc Élite, ")
+			say("pour la pierre allez voir la marchande, ")
+			say("pour la ficelle allez voir Ariyoung.")
+			say("Quand aurez tout, retournez voir le marchand.")
+			say("")
+
+		end
+		when 20021.chat."Donnez moi de la ficelle" with pc.getf("subquest_32","sil_done") == 0 begin
+			target.delete("__TARGET1__")
+
+			say_title("Ariyoung :")
+			say("")
+			--                                                  |
+			say("Vous cherchez des cordes? C'est facile à faire.")
+			say("Mais quand j'en fait, je ne peux pas avancer ")
+			say("mon travail... Mais bon, ce n'est pas grave.")
+			say("")
+			wait()
+			say_title("Ariyoung :")
+			say("")
+			say("Je voulais donner ces vêtements à mon ami Ah-Yu. ")
+			say("Mais pour y aller, je dois quitter ma maison. ")
+			say("Voulez-vous aller porter ces vêtements à Ah-Yu ? ")
+			say("J'en serais heureuse.")
+			say("En attendant, je vous fais la ficelle.")
+			say("")
+
+			local s=select("Accepter","Abandonner")
+			if 2==s then
+				say_title("Ariyoung :")
+				say("")
+				say("Vous voulez abandonner ?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Ariyoung :")
+					say("")
+					--                                                  |
+					say("Vous acceptez la requête du Marchand Ambulant, ")
+					say("et vous venez jusque ici pour me dire non ?")
+					say("Si vous changez d'avis, revenez me voir.")
+					say("")
+				else
+					say_title("Ariyoung :")
+					say("")
+					say("Oh, j'avais espéré que vous feriez ça pour moi.")
+					say("Vous avez d'autres choses à faire ?")
+					say("Ah-Yu vit si loin...")
+					say("Eh bien, au revoir.")
+					say("")
+					set_state(__GIVEUP__)
+				end
+			else
+				say_title("Ariyoung :")
+				say("")
+				--                                                  |
+				say("Vous lui livrez les vêtements ? ")
+				say("Super, merci beaucoup.")
+				say("J'étais un peu triste, j'ai fait les vêtements ")
+				say("il y a un certain temps mais je n'ai pas eu la ")
+				say("possibilité de les lui apporter. Merci !")
+				say("")
+				pc.give_item2(30159)
+				pc.setqf("sil_done",1)
+			end
+		end
+		when 20021.chat."Donnez moi la ficelle" with pc.getf("subquest_32","sil_done") == 1 begin
+			say_title("Ariyoung :")
+			say("")
+			say("Vous ne trouvez pas Ah-Yu ?")
+			say("Elle vit dans le village voisin.")
+			say("Bon voyage !")
+			say("")
+		end
+		when 20021.chat."Donnez moi la ficelle" with pc.getf("subquest_32","sil_done") == 2 begin
+			target.delete("__TARGET1__")
+			say_title("Ariyoung:")
+			say("")
+			--                                                  |
+			say("Ah-Yu était heureuse de son cadeau ?")
+			say("C'est bien de travailler dur, voici votre ")
+			say("ficelle.")
+			say("Il s'agit d'une ficelle résistante qui peut ")
+			say("être utilisé pour beaucoup de choses.")
+			say("")
+			pc.give_item2(30140)
+			pc.setqf("sil_done",3)
+			if  pc.count_item(30141)>0 and  pc.count_item(30139)>=100 then
+				set_state(all_item_done)
+			end
+		end
+		when 20021.chat."Donnez moi la ficelle" with pc.getf("subquest_32","sil_done") == 3 begin
+			say_title("Ariyoung :")
+			say("")
+			say("Vous l'avez déjà eu.")
+		end
+
+		when 20003.chat."Livraison de vêtements" with pc.count_item(30159)>0 begin
+			target.delete("__TARGET3__")
+			say_title("Ah-Yu :")
+			say("")
+			--                                                  |
+			say("Oui ? Ariyoung vous envoie ?")
+			say("")
+			say("Oh, elle a fait des vêtements magnifiques.  ")
+			say("Les bons amis doivent être conservés pour ")
+			say("toujours ! Merci de m'avoir apporté ces ")
+			say("vêtements, dites bien à Ariyoung que je suis")
+			say("très heureuse de son présent !")
+			pc.remove_item(30159)
+			pc.setqf("sil_done",2)
+		end
+
+		when 9003.chat."Donnez moi la pierre accessoire" with pc.getf("subquest_32","jewel_done")==0  begin
+			target.delete("__TARGET2__")
+			say_title("Marchande :")
+			say("")
+			--                                                  |
+			say("Vous cherchez une pierre en accessoire ? ")
+			say("Je peux vous en donner un lorsque vous m'aurez")
+			say("aidé. Pour le moment, je travaille sur un ")
+			say("médicament contre les douleurs, mais un ")
+			say("ingrédient me manque.")
+			say("Ce médicament nécessite le foie d'un tigre.")
+			say("Il est difficile de l'obtenir.")
+			say("")
+			wait()
+			say_title("Marchande :")
+			say("")
+			--                                                  |
+			say("Apportez-moi des herbes médicinales et 100 ")
+			say("foies de tigre, je vous donnerais alors une ")
+			say("pierre accessoire.")
+			say("Chasse les tigres ou les tigres blancs..")
+			say_item_vnum(30143)
+			say_item_vnum(30144)
+			say("")
+			wait()
+			say_title("Marchande :")
+			say("")
+			say("Alors, n'est-ce pas un commerce équitable? ")
+			say("Hahaha ..")
+			local s=select("Accepter","Refuser")
+			if 2==s then
+				say("Vous voulez abandonner ?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Marchande :")
+					say("")
+					say("Ma tâche est trop difficile ?")
+					say("Hey ce n'est pas si difficile que ça ?")
+					say("Si vous changer d'avis, revenez.")
+					say("")
+				else
+					say_title("Marchande :")
+					say("")
+					say("Ah, vous avez fait ce long chemin jusqu'ici")
+					say("à cause de la quête Ambulant Marchand...")
+					say("Ainsi soit-il...")
+					say("Passez une bonne journée")
+					say("")
+					set_state(__GIVEUP__)
+				end
+			else
+				say_title("Marchande :")
+				say("")
+				say("Vraiment vous allez m'aider ?")
+				say("Merci !")
+				say("Bonne chance !")
+				say("")
+				pc.setqf("jewel_done",1)
+			end
+		end
+
+		when 9003.chat."Donnez moi la pierre accessoire" with pc.getf("subquest_32","jewel_done")==1 and  pc.count_item(30143)>=1 and pc.count_item(30144)>=100 begin
+			target.delete("__TARGET2__")
+			say_title("Marchande :")
+			say("")
+			say("Vous avez été très rapide. Merci.")
+			say("")
+			say("Comme promis, voici la pièce en pierre.")
+			say("")
+			say("Tu crois que je vais demander si ")
+			say("le travail était si facile ?")
+			say("")
+            
+			pc.give_item2(30141)
+            
+			pc.remove_item(30143 ,1)
+			pc.remove_item(30144 ,100)
+			pc.setqf("jewel_done",2)
+            
+            
+			if pc.count_item(30140)>0  and  pc.count_item(30139)>=100 then
+				set_state(all_item_done)
+			end
+		end
+
+
+		when 114.kill or 115.kill  begin
+			local s = number(1, 70)
+			if s <= 7 and pc.count_item(30144)<100  then
+				pc.give_item2(30144, 2)
+			end
+	        
+			local a = number(1, 70)
+			if a <= 5 and pc.count_item(30143)== 0  then
+				pc.give_item2(30143, 1)
+			end
+		end
+
+
+		when 634.kill  begin
+
+			local s = number(1, 70)
+			if s <= 7 and pc.count_item(30139)<100  then
+				pc.give_item2(30139, 2)
+
+				if pc.count_item(30139)>=100 and pc.count_item(30140)>0 and pc.count_item(30141)>0 then
+					set_state(all_item_done)
+					return
+				end
+			end
+		end
+	end
+	state all_item_done begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Obtenez les matériaux")
+			q.set_title("Retour au marchand ambulant.")
+			q.start()
+
+			local v=find_npc_by_vnum(20010)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Retour au marchand ambulant.")
+			end
+		end
+		when info or button begin
+			say_reward("Retour au marchand ambulant.")
+			say("")
+			say_reward("J'ai toutes les marchandises.")
+			say_reward("En route pour le marchand ambulant.")
+			say("")
+		end
+
+		when __TARGET__.target.click or
+			20010.chat."J'ai tout les matièriaux" begin
+			if pc.count_item(30140)>=1 and pc.count_item(30141)>=1 and  pc.count_item(30139) >= 100 then
+				target.delete("__TARGET__")
+				say_title("Marchand Ambulant")
+				say("")
+				--                                                  |
+				say("Vous avez tout ?")
+				say("Alors, laissez-moi voir...")
+				say("Oui, vous avez vraiment apporté tout ce dont ")
+				say("j'avais besoin. Merci à vous, je peux élargir ")
+				say("mon offre. Voici votre part.Vous étiez vraiment ")
+				say("bon, donc je vais vous payer en conséquence.")
+				say("Maintenant, je peux vendre mes biens.")
+				say("")
+
+				pc.remove_item(30140,1)
+				pc.remove_item(30141,1)
+				pc.remove_item(30139,100)
+
+				pc.setqf("jewel_done",0)
+				pc.setqf("sil_done",0)
+				
+				say_reward("Vous recevez 500.000 Yang.")
+				pc.change_money(500000)
+				say_reward("Vous recevez 3.000.000 Experience Points.")
+				pc.give_exp2(3000000)
+				set_quest_state("levelup","run")
+
+				say_reward("Vous recevez un anneau d'expérience de 3 heures.")
+				pc.give_item2(72003)
+
+				set_state(THEEND)
+				clear_letter()
+
+			else
+				target.delete("__TARGET__")
+				say_title("Marchand Ambulant :")
+				say("")
+				say("Il manque quelque chose...")
+				say("Avez-vous perdu quelque chose?")
+				say("Vous essayez à nouveau ?")
+				say("")
+				local s=select("Accepter","Rejeter")
+				if 2==s then
+					say("Voulez-vous vraiment annuler la quête?")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Marchand Ambulant")
+						say("")
+						say("Ok, vous essayez à nouveau.")
+						say("Qui ne tente rien n'a rien.")
+						say("Je vous attends.")
+						say("")
+						set_state(gogogo)
+
+					else
+						say_title("Marchand Ambulant:")
+						say("")
+						say("La quête est trop dur?")
+						say("Vous avez essayé.. Je suis désolé.")
+						say("Si j'ai une quête plus facile pour vous un")
+						say("jour, je vous le dirais.")
+						say("Je vous souhaite le meilleur.")
+						say("")
+						set_state(__GIVEUP__)
+					end
+				else
+					say_title("Marchand Ambulant:")
+					say("")
+					say("Vous essayez encore ?")
+					say("Merci.")
+					say("Je vous attend.")
+					say("")
+					set_state(gogogo)
+				end
+			end
+
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+    state THEEND begin
+		when enter begin
+			q.done()
+		end
+	end
+end

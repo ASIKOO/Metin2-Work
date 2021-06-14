@@ -1,0 +1,322 @@
+quest his_daughters_wedding begin
+	state start begin
+		when login or enter or levelup with pc.get_level() >= 7 begin
+			set_state(information)
+		end
+	end
+	
+	state information begin
+		when letter begin
+			send_letter("Le mariage de la fille")
+			local v=find_npc_by_vnum(20008)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Octavio")
+			end
+		end
+		
+		when button or info begin
+			say_title("Le mariage de la fille:")
+			say("")
+			say("Octavio vous cherche!")
+			say("Aller là-bas et voir si vous pouvez l'aider.")
+			say("")
+			wait()
+		end
+		
+		when __TARGET__.target.click or 20008.chat."Le mariage de la fille" begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Octavio:")
+			say("")
+			say("Bonjour aventurier!")
+			say("Je suis sur la lune, ma fille est enfin sur ")
+			say("le point de se marier!!")
+			say("J'ai besoin du plus beau bouquet sur terre ")
+			say("pour cet événement spécial!")
+			say("")
+			wait()
+			say_title("Octavio:")
+			say("")
+			say("La vieille dame sait comment créer un bouquet ")
+			say("magnifique, mais je suis trop occupé à préparer ")
+			say("le plat pour le mariage!")
+			say("Pourriez-vous aller la voir et m'apporte ")
+			say("ce bouquet?")
+			local accept=select("Oui, je vais le faire", "Non, Je suis trop occupé ")
+			if accept == 1 then
+				say_title("Octavio:")
+				say("")
+				say("Merci beaucoup, vous êtes mon héros!")
+				set_state(getbouquet)
+			elseif accept == 2 then
+				say_title("Le mariage de la fille")
+				say("")
+				--                                                  |
+				say("Voulez vous vraiment abandonner cette mission?")
+				say("")
+				local abort=select("Oui", "Non")
+				if abort == 1 then
+					say_title("Octavio:")
+					say("")
+					say("Si ma récompense ne peut pas vous convaincre")
+					say(" il n'y a rien à dire de plus. Au revoir !")
+					set_state(failure)
+				end
+			end
+		end
+	end
+		
+	state getbouquet begin
+		when letter begin
+			send_letter("Le mariage de la fille")
+			local w=find_npc_by_vnum(9006)
+			if 0==w then
+			else
+				target.vid("__TARGET1__", w, "Vieille Dame")
+			end
+		end
+		
+		when button or info begin
+			say_title("Le bouquet de fleur")
+			say("")
+			--                                                  |
+			say("Octavio vous a envoyé voir la Vieille Dame pour")
+			say("en savoir plus sur son plus beau bouquet ")
+			say("de fleurs.")
+			say("Demandez-lui si elle peut en créer un pour ")
+			say("Octavio.")
+		end
+		
+		when __TARGET1__.target.click or 9006.chat."Le mariage de la fille" begin
+			target.delete("__TARGET1__")
+			say_title("Vieille Dame:")
+			say("")
+			--                                                  |
+			say("Bonjour, en quoi puis-je vous aider?")
+			say("Un bouquet de fleurs pour un mariage?!")
+			say("Je me sens honoré qu'Octavio me demande ")
+			say("pour une tache aussi importante.")
+			say("Bien sûr, je vais vous aider mais il y a ")
+			say("certains éléments manquants.")
+			wait()
+			say_title("Vieille Dame:")
+			say("")
+			say("J'ai besoin de fleurs fraîchement cueillies ")
+			say("pour le bouquet :")
+			say_reward("- 1x Fleur rouge sang")
+			say_reward("- 1x Fleur orange")
+			say_reward("- 1x Fleur jaune parfumée")
+			wait()
+			say_title("Vieille Dame:")
+			say("")
+			say("Les animaux cueillent ces fleurs pour montrer ")
+			say("leur amour à leur partenaires.")
+			say("Si vous chassez certains d'entre eux, vous pourriez ")
+			say("en trouver.")
+			say("Apportez-moi ces trois fleurs et je vais créer ")
+			say("le bouquet pour Octavio!")
+			say("")
+			set_state(gatherflower1)
+		end
+	end
+	
+	state gatherflower1 begin
+		when letter begin
+			send_letter("La fleur rouge sang")
+		end
+		
+		when button or info begin
+			say_title("Le mariage de la fille:")
+			say("")
+			--                                                  |
+			say("Afin de créer le meilleur bouquet de fleurs ")
+			say("pour le mariage de la fille d'Octavio , ")
+			say("la Vieille Dame a besoin d'un fleure rouge sang")
+			say_item_vnum(30169)
+			say_reward("Vous pouvez l'obtenir sur les loups")
+			say_reward("alpha affamés.")
+			say("")
+		end
+		
+		when 173.kill begin
+			local drop=number(1,10)
+			if drop == 1 and pc.count_item(30169) ==0 then
+				pc.give_item2(30169, 1)
+				say_title("La fleure rouge sang")
+				say("")
+				say("Vous avez trouvé la fleur rouge sang!")
+				say("Maintenant vous avez besoin de la fleur.")
+				say("orange")
+				say_item_vnum(30170)
+				say("")
+				set_state(gatherflower2)
+			end
+		end
+	end
+	
+	state gatherflower2 begin
+		when letter begin
+			send_letter("Fleur orange")
+		end
+		
+		when button or info begin
+			say_title("Le mariage de la fille:")
+			say("")
+			say("Afin de créer le meilleur bouquet de fleurs ")
+			say("pour le mariage de la fille d'Octavio , ")
+			say("la Vieille Dame a besoin d'un fleure orange")
+			say("")
+			say_item_vnum(30170)
+			say_reward("Vous pouvez l'obtenir sur les loups")
+			say_reward("bleus affamés.")
+		end
+		
+		when 174.kill begin
+			local drop=number(1,10)
+			if drop == 1 and pc.count_item(30170) ==0 then
+				pc.give_item2(30170, 1)
+				say_title("Fleur orange")
+				say("")
+				say("Vous avez trouvé la fleur orange!")
+				say("Maintenant vous avez besoin de la fleur")
+				say("jaune.")
+				say_item_vnum(30171)
+				say("")
+				set_state(gatherflower3)
+			end
+		end
+	end
+		
+	state gatherflower3 begin
+		when letter begin
+			send_letter("Fleur jaune")
+		end
+		
+		when button or info begin
+			say_title("Le mariage de la fille:")
+			say("")
+			say("Afin de créer le meilleur bouquet de fleurs")
+			say("pour le mariage de la fille d'Octavio, ")
+			say("la Vieille Dame a besoin d'un fleure jaune")
+			say_item_vnum(30171)
+			say_reward("Vous pouvez l'obtenir sur les loups")
+			say_reward("alphas bleus affamés")
+		end
+		
+		when 175.kill begin
+			local drop=number(1,8)
+			if drop == 1 and pc.count_item(30171) ==0 then
+				pc.give_item2(30171, 1)
+				say_title("Fleur jaune")
+				say("")
+				say("Vous avez toutes les fleurs")
+				say("Apportez-les à la Vielle Dame!")
+				say("")
+				set_state(makebouquet)
+			end
+		end
+	end
+	
+	state makebouquet begin
+		when letter begin
+			send_letter("Vous avez toutes les fleurs")
+			local x=find_npc_by_vnum(9006)
+			if 0==x then
+			else
+				target.vid("__TARGET2__", x, "Vieille Dame")
+			end
+		end
+		
+		when button or info begin
+			say_title("Le mariage de la fille")
+			say("")
+			--                                                  |
+			say("Vous avez collecté toutes les fleurs dont la")
+			say("Vielle Dame a besoin pour créer le bouquet.")
+			say("Apportez-les lui!")
+			say("")
+		end
+		
+		when __TARGET2__.target.click or 9006.chat."Le mariage de la fille" begin
+			target.delete("__TARGET2__")
+			if pc.count_item(30169) >= 1 and pc.count_item(30170) >= 1 and pc.count_item(30171) >= 1 then
+				say_title("Vieille Dame:")
+				say("")
+				say("Joli travail! Attendez une seconde...")
+				setdelay(300)
+				say("")
+				resetdelay()
+				say("Voilà! Fini! Apportez-le à Octavio!")
+				say("Sa fille doit obtenir ce bouquet de fleurs ")
+				say("tant qu'elles sont encore fraiches.")
+				say("")
+				if pc.get_sex() == 0 then
+					gender = "man"
+				else
+					gender = "woman"
+				end
+				pc.remove_item(30169, 1)
+				pc.remove_item(30170, 1)
+				pc.remove_item(30171, 1)
+				pc.give_item2(30172, 1)
+				set_state(reportsuccess)
+			else
+				say_title("Vieille Dame:")
+				say("")
+				say("Je ne peux pas faire le bouquet sans")
+				say("les fleurs...")
+				say("")
+			end
+		end
+	end
+	
+	state reportsuccess begin
+		when letter begin
+			send_letter("Le mariage de la fille")
+			local y=find_npc_by_vnum(20008)
+			if 0==y then
+			else
+				target.vid("__TARGET3__", y, "Octavio")
+			end
+		end
+		
+		when button or info begin
+			say_title("Le mariage de la fille")
+			say("")
+			--                                                  |
+			say("Vous avez enfin le bouquet de fleurs.")
+			say("")
+			say_item_vnum(30172)
+			say("")
+			say("Amenez-le rapidement à Octavio ")
+			say("")
+		end
+		
+		when __TARGET3__.target.click or 20008.chat."Le mariage de la fille" begin
+			target.delete("__TARGET3__")
+			if pc.count_item(30172) >= 1 then
+				say_title("Octavio:")
+				say("")
+				say("Je n'en crois pas mes yeux!")
+				say("Ce bouquet de fleurs est magnifique!")
+				say("Merci beaucoup!")
+				say("")
+				say_reward("40.000 points d'expérience.")
+				say_reward("30.000 Yang .")
+				say_reward("Item: Masque d'émotion (7 jours)")
+				say("")
+				pc.remove_item(30172, 1)
+				pc.give_exp2( 40000 )
+				pc.give_item2(71033)
+				pc.change_money( 30000 )
+				clear_letter()
+				set_state(complete)
+			end
+		end
+	end
+	state complete begin
+	end
+	state failure begin
+	end
+end

@@ -1,0 +1,309 @@
+quest pony_buy begin
+	state start begin
+		when 20349.chat."Je veux monter à cheval." with horse.get_grade()==0 begin
+			if pc.level<=24 then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Vous devez être au niveau 25 pour pouvoir monter")
+				say("à cheval. Je pense que vous devriez revenir quand")
+				say("vous serez meilleur.")
+
+			elseif pc.countitem("50050")<1 then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Il vous faut une médaille équestre pour y noter")
+				say("vos résultats de l'entrainement de votre cheval.")
+				say("Revenez me voir avec une médaille.")
+				setstate(need_item50050)
+
+			elseif pc.countitem("50050")>=1 and pc.level>=25 then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Oh, vous avez une médaille équestre, superbe !")
+				say("Maintenant vous devez montrer que vous avez")
+				say("l'expérience requise pour monter à cheval. Tuez")
+				say("s'il vous plait 20 archers barbares en 30")
+				say("minutes. Vous êtes prêt à monter à cheval si vous")
+				say("parvenez à faire cela.")
+
+				local b=select("Accepter", "Refuser")
+
+				if 1==b then
+					if pc.countitem("50050")>=1 then
+						pc.removeitem("50050", 1)
+						setstate(test)
+					end
+
+				elseif 2==b then
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Revenez quand vous serez intéressé.")
+				end
+			else
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Vous ne pouvez pas effectuer la mission comme ceci.")
+			end
+		end
+	end
+
+	state need_item50050 begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Vous avez besoin d'une médaille équestre")
+			q.set_title("Vous avez besoin d'une médaille équestre")
+			q.start()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Vous avez besoin d'une médaille équestre")
+			say("J'ai besoin d'une médaille équestre pour y noter")
+			say("vos résultats. Vous en trouverez en tuant des")
+			say("singes dans les donjons des singes.")
+			setstate(start)
+			q.done()
+		end
+	end
+
+	state test begin
+		when letter begin
+			q.set_counter("Reste à tuer", 20-pc.getqf("kill_count"))
+		end
+
+		when 503.kill begin
+			pc.setqf("kill_count", pc.getqf("kill_count")+1)
+			q.set_counter("Reste à tuer", 20-pc.getqf("kill_count"))
+
+			if get_time()>=pc.getqf("limit_time") then
+				setstate(failure)
+			end
+		end
+
+		when letter begin
+			q.set_clock("Temps restant", pc.getqf("limit_time")-get_time())
+		end
+
+		when enter begin
+			pc.setqf("limit_time", get_time()+30*60)
+			pc.setqf("kill_count", 0)
+		end
+
+		when leave begin
+			q.done()
+		end
+
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Qualification pour monter à cheval")
+			q.set_title("Qualification pour monter à cheval")
+			q.start()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Qualification pour monter à cheval.")
+			say("Tuez 20 archers barbare en 30 minutes et informez")
+			say("le garçon d'étable du résultat.")
+		end
+
+		when 503.kill with pc.getf("pony_buy","kill_count") >= 20 and pc.getf("pony_buy","limit_time")>=get_time() begin
+			setstate(report)
+		end
+
+		when 20349.chat."PONY QUEST STATE REPAIR" with horse.get_grade()!=0 begin
+			setstate(start)
+			q.done()
+		end
+
+		when 20349.chat."État de la quête en cours" begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Vous avez 30 minutes pour tuer 20 archers barbares")
+			say("Voulez-vous abandonner la mission ?")
+
+			local b=select("Oui", "Non")
+
+			if 2==b then
+
+			elseif 1==b then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Êtes-vous vraiment sûr de vouloir abandonner la")
+				say("mission ?")
+
+				local b=select("Oui", "Non")
+
+				if 1==b then
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Revenez-me voir si vous changez d'avis.")
+					setstate(start)
+					q.done()
+
+				elseif 2==b then
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Dépêchez vous il n'est peut-être pas trop tard !")
+				end
+			end
+		end
+	end
+
+	state report begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Entrainement réussi !")
+			q.set_title("Entrainement réussi !")
+			q.start()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Retournez voir le palefrenier")
+			say_reward("Donnez au palefrenier les résultats de votre")
+			say_reward("test.")
+		end
+
+		when 20349.chat."PONY QUEST STATE REPAIR" with horse.get_grade()!=0 begin
+			setstate(start)
+			q.done()
+		end
+
+		when 20349.chat."Résultat du test de compétence" with horse.get_grade()==0 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Vous avez terminé notre test avec succès. Pour")
+			say("pouvoir monter à cheval, il vous faut un dessin")
+			say("de cheval. Cela va prendre du temps avant que je")
+			say("l'ait terminé. Revenez demain. N'oubliez pas")
+			say("que le dessin de cheval coûte 100.000 yangs.")
+
+			if is_test_server() then
+				pc.setqf("make_time", get_time()+10)
+			else
+				pc.setqf("make_time", get_time()+number(8, 16)*60*60)
+			end
+			setstate(wait)
+		end
+	end
+
+	state wait begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Dessin de cheval en cours de préparation")
+			q.set_title("Dessin de cheval en cours de préparation")
+			q.start()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Le dessin du cheval est en cours de préparation")
+			say("Le palefrenier vous dessine un cheval, mais il")
+			say("a besoin de temps.")
+			say("Allez voir le palefrenier une fois que le")
+			say("dessin de cheval sera prêt.")
+		end
+
+		when login with get_time()>=pc.getf("pony_buy","make_time") begin
+			setstate(buy)
+		end
+
+		when 20349.chat."PONY QUEST STATE REPAIR" with horse.get_grade()!=0 begin
+			setstate(start)
+			q.done()
+		end
+
+		when 20349.chat."Je veux mon dessin de cheval" with horse.get_grade()==0 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Je n'ai pas encore fini votre dessin de cheval.")
+		end
+	end
+
+	state buy begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Votre dessin de cheval est prêt !")
+			q.set_title("Votre dessin de cheval est prêt !")
+			q.start()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Le dessin de cheval est terminé !")
+			say("Le palefrenier a terminé votre dessin de cheval.")
+			say("Allez voir le palefrenier avec 100.000 yangs")
+			say("pour acheter votre dessin de cheval.")
+		end
+
+		when 20349.chat."Je veux monter à cheval." with horse.get_grade()==0 and get_time()>=pc.getf("pony_buy","make_time") begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Que voulez-vous faire ?")
+
+			local b=select("Améliorer mon cheval", "Ne pas l'améliorer", "Fermer")
+
+			if 1==b then
+				if pc.money>=100000 then
+					char_log(0, "HORSE_BUY", "BEGIN")
+					pc.changemoney(-100000)
+					horse.unride()
+					horse.advance()
+					horse.ride()
+					pc.give_item2("50051", 1)
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Vous pouvez maintenant monter à cheval !")
+					setstate(start)
+					q.done()
+				else
+					---                                                   l
+					say_title("Le palefrenier:")
+					say("Vous n'avez pas assez d'argent.")
+					say_reward("100.000 yangs sont nécessaires.")
+				end
+
+			elseif 2==b then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("C'est vous qui voyez...")
+
+			elseif 3==b then
+				---                                                   l
+				say_title("Le palefrenier:")
+				say("Êtes vous sûr de vouloir quitter ?")
+
+				local b=select("Oui", "Non")
+
+				if 1==b then
+					setstate(start)
+				end
+			end
+		end
+	end
+
+	state failure begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Échec de la qualification")
+			q.set_title("Échec de la qualification")
+			q.start()
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Échec de la qualification pour monter à cheval")
+			say("Vous n'avez pas réussi à tuer les 20 archers en")
+			say("moins de 30 minutes.")
+			setstate(start)
+			q.done()
+		end
+	end
+
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

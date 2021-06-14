@@ -1,0 +1,198 @@
+quest subquest_40 begin
+	state start begin
+		when login or levelup with pc.level >= 56  and pc.level <= 58 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20355)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Supporting War Devices")
+			end
+		end
+
+		when __TARGET__.target.click or 20355.chat."Soutien de dispositif de guerre" with pc.level >= 56 begin
+			target.delete("__TARGET__")
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Comme vous le voyez, les attaques de nos ")
+			say("ennemis augmentent tous les jours et nous ")
+			say("recevons des nouvelles de Yu-Hwan alarmantes.")
+			say("Il y a peu, il nous a déclaré : nous n'avons ")
+			say("pas assez de flèches pour les vaincre.")
+			say("")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			say("Dès qu'ils viennent, nos archers doivent tirer")
+			say("sur eux et les arrêter.")
+			say("Je suis inquiet!")
+			say("Le manque de flèches est un gros problème.")
+			say("")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			say("Pourquoi n'irai vous pas nous chercher des ")
+			say("Flèches?")
+			say("Vous pouvez obtenir des hauts de flèches ")
+			say("les archers pestiférés.")
+			say("Vous les trouver dans la montagne de glace.")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			say("Ces hautes de flèche sont toxiques.")
+			say("L'effet va nous aider à vaincre l'ennemi.")
+			say("Nous avons besoin de 5000 hauts de flèches.")
+			say("C'est une tâche très difficile,")
+			say("mais vous le ferez sûrement bien.")
+			local b=select("Je vais le faire", "C'est beaucoup trop, désolée.")
+			if 2==b then
+				say("Voulez-vous abandonner la mission?")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Capitaine:")
+					say("")
+					--                                                  |
+					say("Est-ce trop loin pour aller à la montagne ? ")
+					say("Si vous changez d'avis revenez me voir")
+					say("")
+					return
+				end
+				say_title("Capitaine:")
+				say("")
+				say("Hum, peur des Archers pestiférés?")
+				say("Il semble que je vous ai surestimé ")
+				say("maintenant, je n'ai plus aucun espoir.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+				end
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Je savais que je pouvais compter sur vous.")
+			say("Vous pourrez obtenir ces hauts de flèches ")
+			say("sur les archers pestiférés.")
+			say("Il est difficile de les obtenir mais je ne sais")
+			say("que vous y arriverez.")
+			set_state(for_five_thousand_bow)
+		end
+	end
+	state for_five_thousand_bow begin
+		when letter begin
+			send_letter("Soutien de dispositif de guerre")
+
+			if pc.count_item("30157")>=3000 then
+				local v=find_npc_by_vnum(20355)
+				if 0 == v then
+				else
+					target.vid("__TARGET__",v,"Visit the Capitaine")
+				end
+			end
+		end
+		when button or info begin
+			if pc.count_item("30157")>=5000 then
+				say_title("Soutien de dispositif de guerre")
+				say("")
+				say("Vous avez les 5000 hauts de flèches.")
+				say("Allez voir le Capitaine.")
+				return
+			end
+			say_title("Soutien de dispositif de guerre")
+			say("")
+			--                                                  |
+			say("Nous avons besoin de flèches pour vaincre ")
+			say("l'ennemi, mais nous avons pas assez de hauts")
+			say("de flèches. ")
+			say("Vous pouvez avoir des hauts de flèches sur")
+			say("les archers pestiférés dans la montagne.")
+			say("Tuez les archers pestiférés et récupérez")
+			say("5.000 hauts de flèches.")
+			say("")
+			say_item_vnum(30157)
+		end
+		when 20355.chat."A propos des hauts de flèches..." with pc.count_item(30157) <3000 begin
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("C'est une certaine maladie répartis sur le ")
+			say("continent.")
+			say("Aucun médecin ne peut l'expliquer.")
+			say("Les flèches sont toujours naturelles, mais ")
+			say("ils deviennent de plus en plus toxiques.")
+			say("Hey, Qu'attendez-vous?")
+			say("")
+			local s=select("Rien", "Je m'interroge seulement sur la maladie.")
+			if 2==s then
+				say("Voulez-vous abandonner la quête?")
+				local a= select("Oui","Non")
+				if 2==a then
+					say_title("Capitaine:")
+					say("")
+					say("Peur de contracter la maladie?")
+					say("Calmez-vous et revenez plus tard.")
+					say("")
+					return
+				end
+				say("Vous êtes de vouloir abandonner?")
+				say("Hmm, peut-être est-ce trop difficile.")
+				say("Je demanderais à quelqu'un d'autres...")
+				say("A bientôt.")
+				set_state(__GIVEUP__)
+				return
+			end
+			say("Je vois...")
+			say("Vous abandonnerez pas, huh?")
+			say("Alors en route !")
+		end
+		when 936.kill   begin
+			local s = number(1, 100)
+			if s <= 40 and pc.count_item("30157")<5000 then
+				pc.give_item2(30157, 50)
+			end
+		end
+
+		when __TARGET__.target.click  or 20355.chat."Donner les 5000 hauts de flèches." with pc.count_item(30157)>=5000 begin
+			target.delete("__TARGET__")
+
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Beau travail!")
+			say("Maintenant nous pouvons préparer les attaques")
+			say("Merci beaucoup.")
+			say("Je vais donner l'ordre de faire les hauts de")
+			say("flèches. C'est une bonne nouvelle.")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			say("Voici une récompense.")
+			say("S'il vous plait, prenez-le.")
+			say("La prochaine fois, que j'ai une question ")
+			say("importante, vous serez le premier que ")
+			say("j'appellerai.   ")
+			pc.remove_item(30157 , 5000)
+			say_reward("Vous recevez ajout de renforcement.")
+			pc.give_item2(71085)
+			say_reward("Vous recevez 6.000.000 Points d'expérience.")
+			pc.give_exp2(6000000)
+			say_reward("Vous recevez 200.000 Yang.")
+			pc.change_money(200000)
+			say("")
+			clear_letter()
+			set_state(COMPLETE)
+		end
+	end
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+	state __GIVEUP__ begin
+	end
+end

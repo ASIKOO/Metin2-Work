@@ -1,0 +1,37 @@
+quest guild_war_join begin
+	state start begin
+		when letter begin
+
+			local e = guild.get_any_war()
+
+			if e != 0 and pc.get_war_map() == 0 then
+				setskin(NOWINDOW)
+				makequestbutton("Demandez la permission de participer.")
+			end
+		end
+
+		when button begin
+
+			local e = guild.get_any_war()
+
+			if e == 0 then
+				---                                                   l
+				say_title("Gestion des guerres:")
+				say("La guerre est finie.")
+			else
+				---                                                   l
+				say_title("Gestion des guerres:")
+				say(""..guild.name(e).." Voulez-vous prendre part à la guerre?")
+
+				local s = select("Oui", "Non")
+
+				if s == 1 then
+					guild.war_enter(e)
+				else
+					setskin(NOWINDOW)
+					makequestbutton("Demandez la permission de participer.")
+				end
+			end
+		end
+	end
+end

@@ -1,0 +1,12 @@
+ScriptType	MapSetting
+
+CellScale	200
+HeightScale	0.500000
+
+ViewRadius	128
+
+MapSize	8	8
+BasePosition	384000	0
+TextureSet	textureset\metin2_map_dd.txt
+Environment	map_dd.msenv
+

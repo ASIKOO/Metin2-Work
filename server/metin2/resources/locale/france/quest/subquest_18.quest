@@ -1,0 +1,274 @@
+-- -----------------------------------------------------------------
+-- SUBQUEST
+--LV 30
+-- Aranyo¡¯s Husband
+--------------------------------------------------------------------
+quest subquest_18 begin
+	state start begin
+		when login or levelup with pc.level >= 10 and pc.level <=12  begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20002)
+			if 0!=v then
+			target.vid("__TARGET__", v, "Où peut il être ?")
+			end
+		end
+		when __TARGET__.target.click or 20002.chat."Trouvez Soon" begin
+			target.delete("__TARGET__")
+			say_title("Aranyo")
+			say("")
+			--                                                  |
+			say("Mon mari est vraiment un réel soucis pour moi.")
+			say("Il se désigne lui même comme savant !")
+			say("Même si nous avons des problèmes pour manger")
+			say("chaque jour, il li seulement des livres.")
+			say("Vous avez vue ça ?")
+			say("Pourquoi ai-je épousé un rat de bibliothèque.")
+			say("")
+
+			local s=select("Je vais vous aider.","Je n'ai pas le temps.")
+
+			if 2==s then
+				--                                                  |
+				say("Voulez vous annuler cette quête ?")
+				say("")
+				local a = select("Oui","Non")
+				if 2==a then
+					say_title("Aranyo")
+					say("")
+					--                                                  |
+					say("Bien..")
+					say("Peut-être que vous chercherez après lui")
+					say("plus tard.")
+					return
+				end
+					say_title("Aranyo")
+					say("")
+					--                                                  |
+					say("Je le trouverais de toute manière.")
+					say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Aranyo")
+			say("")
+			--                                                  |
+			say("Je vous serais très reconnaissante. Si vous ")
+			say("trouvez ce pauvre écrivain, faites le moi ")
+			say("savoir. De toute façon, il est sûrement seul ")
+			say("quelque part dans le village.")
+			say("Il a peut-être pensé à un poème ou autre et")
+			say("veut rester seul à cause de ça.")
+			say("S'il apprend que je cherche après lui, ")
+			say("il pourrait fuir.")
+			set_state(find_mrsoon)
+
+		end
+	end
+	state find_mrsoon begin
+		when letter begin
+			send_letter("Trouvez Soon.")
+
+			local v=find_npc_by_vnum(20023)
+			if 0!=v then
+				target.vid("__TARGET2_", v, "Soon.")
+			end
+
+		end
+		when button or info begin
+			say_title("Trouvez Soon")
+			say("")
+			--                                                  |
+			say("Recherchez un homme qui lit des poèmes.")
+			say("")
+		end
+		when 20002.chat."Trouver Soon"  begin
+			say_title("Aranyo")
+			--                                                  |
+			say("")
+			say("Où pourrait-il se cacher? ")
+			say("Il est devenu bon pour ça.")
+			say("Il est plutôt difficile à trouver.")
+			say("Je me demande si je devrais pas lui mettre")
+			say("une clochette autour du cou.")
+			say("")
+		end
+		when  __TARGET2__target.click or 20023.chat."Trouver Soon!" begin
+			target.delete("__TARGET2_")
+			say_title("Information :")
+			say("")
+			say("J'ai entendu un merveilleux poème.")
+			say(" Cet homme pourrait être le mari de Aranyo !")
+			say("")
+			--                                                  |
+			say("Je voulais faire demi-tour et le lui dire,")
+			say("quand quelqu'un attrapa mon épaule...")
+			say("")
+			wait()
+			say_title("Soon :")
+			say("")
+			say("Vous n'êtes pas d'ici !")
+			say("Est-ce que c'est ma femme qui vous envoie ?")
+			say_title(pc.get_name()..":")
+			say("")
+			--                                                  |
+			say("Oh non ! Il sait qui je suis ! ")
+			say("Dois-je lui dire la vérité ?")
+			local s=select("Non, bien sur que non","Bien...")
+
+			if 1==s then
+				say_title("Soon :")
+				say("")
+				--                                                  |
+				say("Salut, ravi de te rencontrer. ")
+				say("Nous avons un beau temps.")
+				say("Avez-vous lu un bon livre dernièrement ?")
+				say("Je suis en train de lire un livre écrit")
+				say(" par Oja, vous devriez vraiment le lire.")
+				say("")
+				set_state(report_true)
+			elseif 2==s then
+				say_title("Soon :")
+				say("")
+				--                                                  |
+				say("Je suppose que je suis dans le vrai.")
+				say("Ma femme me tape sur les nerfs, je ne peux pas")
+				say("lire tranquillement à la maison.")
+				say("Elle ne comprend pas du tout ma passion")
+				say("Vous m'avez peut-être trouvé ici,")
+				say(" mais je pourrais aller plus loin.")
+				say("Que diriez-vous de ne rien lui dire. ")
+				say("")
+				set_state(report_false)
+			end
+		end
+	end
+	state report_false begin
+		when letter begin
+			send_letter("Retouner voir Aranyo")
+			local v=find_npc_by_vnum(20002)
+			if v!=0 then
+				target.npc("__TARGET__", v, "Aranyo")
+			end
+		end
+		when button or info begin
+			say_title("Retouner voir Aranyo")
+			say("")
+			--                                                  |
+			say("Retourner voir Aranyo et lui dire que vous ")
+			say("n'avez pas trouvé Soon.")
+			say("")
+		end
+
+		when __TARGET__.target.click or 20002.chat."Le secret de Soon" begin
+			target.delete("__TARGET__")
+			say_title("Aranyo")
+			say("")
+			--                                                  |
+			say("Vous ne pouviez pas le trouver ?")
+			say(" J'avais même préparé des pièges !")
+			say("Où diable est-il caché ?")
+			say("Et je suis si occupée...")
+			say("Quel triste sort que j'ai.")
+			set_state(come_back)
+		end
+	end
+	state come_back begin
+		when letter begin
+			send_letter("Retournez voir Mr.Soon")
+			local v=find_npc_by_vnum(20023)
+			if v!=0 then
+				target.npc("__TARGET__", v, "Soon")
+			end
+		end
+		when button or info begin
+			say_title("Retournez voir Mr.Soon")
+			say("")
+			--                                                  |
+			say("Retournez voir Mr.Soon et lui dire que vous ")
+			say("avez réussi.")
+		end
+		when __TARGET__.target.click or 20023.chat."Je suis là." begin
+			target.delete("__TARGET__")
+			say_title("Soon :")
+			say("")
+			--                                                  |
+			say("Prenez ceci, Aventurier.")
+			say("Tout s'est bien passé, vous m'avez sauvé la")
+			say(" vie! Comme promis, voici une récompense.")
+			say_title("Récompense")
+			say("")
+			say_reward("Vous recevez 7.000 d'Experience")
+			pc.give_exp2(7000)
+			say_reward("Vous recevez 5.000 Yang")
+			pc.change_money(10000)
+			say("")
+
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+
+	state report_true begin
+		when letter begin
+			send_letter("Retournez voir Aranyo")
+			local v=find_npc_by_vnum(20002)
+			if v!=0 then
+				target.npc("__TARGET__", v, "Aranyo")
+			end
+		end
+
+		when button or info begin
+			say_title("Retournez voir Aranyo")
+			say("")
+			--                                                  |
+			say("Retournez voir Aranyo et lui dire où vous avez")
+			say("trouvé Soon.")
+			say("")
+		end
+		when 20023.chat."Se cacher est difficile" begin
+			say_title("Soon:")
+			say("")
+			say("Je vous remercie. Vous n'avez pas trahi ma ")
+			say("cachette.")
+			say("Il est si difficile de se cacher de ma femme.")
+			say("Je veux juste étudier ici paisiblement.")
+			say("")
+		end
+		when __TARGET__.target.click or 20002.chat."La cachette de Soon" begin
+			target.delete("__TARGET__")
+			say_title("Aranyo:")
+			say("")
+			say("Vous l'avez trouvé ")
+			--                                                  |
+			say("")
+			say("Merci beaucoup! S'il le découvre, il pourrait")
+			say(" fuir... ")
+			say("Je vais y aller tout de suite...cette fois ...")
+			say("Oh! Ceci, c'est un signe de ma gratitude.")
+			say("")
+			say_title("Récompense")
+			say("")
+			say_reward("Vous recevez 10.000 Expérience")
+			pc.give_exp2(10000)
+			say_reward("Vous recevez 9.000 Yang")
+			pc.change_money(9000)
+		say("")
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+
+end

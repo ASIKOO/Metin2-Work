@@ -1,0 +1,316 @@
+----------------------------------------------------
+--COLLECT QUEST_lv90
+--METIN2 Collect Quest  
+----------------------------------------------------
+quest collect_quest_lv90 begin
+	state start begin
+	end
+
+	state run begin
+		when login or levelup with pc.level >= 90 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			send_letter("La demande du biologiste")
+			local v = find_npc_by_vnum(20084)
+
+			if v!= 0 then
+				target.vid("__TARGET__", v, "Chaegirab")
+			end
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("La demande du biologiste")
+			say("Le biologiste Chaegirab, élève d'Uriel, a")
+			say("désespérément besoin de votre aide. Allez vite")
+			say("le voir.")
+		end
+		
+		when __TARGET__.target.click or
+			20084.chat."Le biologiste Chaegirab." begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Oh !! S'il vous plait, aidez-moi... Je rassemble")
+			say("des informations sur les monstres dans cet Empire")
+			say("mais je n'y arriverai jamais seul. Normalement,")
+			say("je devrais collecter toutes ces informations")
+			say("moi-même. Comme vous pouvez l'imaginer, cela me")
+			say("pose de gros problèmes, je ne suis qu'un simple")
+			say("biologiste. Aidez-moi s'il vous plait... Si vous")
+			say("acceptez de m'aider, il est évident que vous")
+			say("serez bien récompensé.")
+			wait()
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Quand j'étais jeune, mon maitre me disait que la")
+			say("connaissance était la clé.")
+			say("Il me parlait souvent de ces chefs, qui avait")
+			say("dévalisé la grande bibliothège de Hailungjiung.")
+			say("La légende raconte, que ces chefs avides,")
+			say("garderaient ces connaissances sur eux sous forme")
+			say("de certificats...")
+			wait()
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Vous devez tenter par tous les moyens de")
+			say("récupérer ces connaissances.")
+			say("Je vais avoir besoin de 50 certificats du Chef")
+			say("pour pouvoir rassembler les vestiges de ce savoir.")
+			say("Amène-moi ces certificats ddu Chef un par un")
+			say("afin que je puisse avoir le temps de les étudier.")
+			say("Je compte sur toi!")
+			set_state(go_to_disciple)
+			pc.setqf("duration",0)
+			pc.setqf("collect_count",0)
+			pc.setqf("drink_drug",0)
+		end
+	end
+
+	state go_to_disciple begin
+		when letter begin
+			send_letter("La recherche du biologiste")
+		end
+		when button or info begin
+			---                                                   l
+			say_title("Les certificats du Chef")
+			say("Le biologiste Chaegirab, apprenti d'Uriel, à ")
+			say("besoin de 50 certificats du Chef provenant des")
+			say("chefs pour ses recherches. Apportez lui les")
+			say("certificats du Chef un par un afin qu'il")
+			say("ait le temps de les étudier individuellement.")
+			say("Vous trouverez des certificats du Chef sur tout")
+			say("les monstres avec le statut (Boss).")
+			say_item_vnum(30168) 
+			say_reward("Vous avez déjà apporté ".." "..pc.getqf("collect_count").." certificats du Chef.")
+		end
+
+		when 71035.use begin
+			if get_time() < pc.getqf("duration") then
+				---                                                   l
+				say_title("Élixir du chercheur:")
+				say("Le Biologiste Chaegirab doit d'abord finir")
+				say("d'examiner le dernier certificats du Chef que")
+				say("vous lui avez donner.")
+				return
+			end
+			if pc.getqf("drink_drug")==1 then
+				---                                                   l
+				say_title("Élixir du chercheur:")
+				say("L'élixir du chercheur fait déjà éffet sur vous.")
+
+				return
+			end
+			if pc.count_item(30168)==0 then
+				---                                                   l
+				say_title("Élixir du chercheur:")
+				say("Vous ne pouvez pas utiliser l'élixir du chercheur")
+				say("si vous ne disposez pas de certificats du Chef.")
+				return
+			end
+			item.remove()	
+			pc.setqf("drink_drug",1)
+		end
+
+		when 691.kill or
+			792.kill or
+			791.kill or
+			1092.kill or
+			1093.kill or 
+			1304.kill or
+			2091.kill or
+			2191.kill or
+			2206.kill or
+			1901.kill begin
+
+			local s = number(1, 100)
+
+			if s <= 30 and pc.count_item(30168)==0 then
+				pc.give_item2(30168, 1)
+				send_letter("Vous avez trouvé un certificat du Chef.")	
+			end
+		end
+
+		when 20084.chat."Les certificats du Chef " with pc.count_item(30168) >0 begin
+			if get_time() > pc.getqf("duration") then
+				---                                                   l
+				say_title("Le biologiste Chaegirab:")
+				say("Oh!! Vous m'avez apporté un certificat du Chef.")
+				say("Je dois d'abord l'examiner... Un moment...")
+				pc.remove_item("30168", 1)
+				pc.setqf("duration",get_time()+60*60*22)		--(24 heures)
+				wait()
+				
+				local pass_percent
+				if pc.getqf("drink_drug")==0 then
+					pass_percent=60
+				else		
+					pass_percent=100
+				end
+				
+				local s= number(1,100)
+
+				if s<= pass_percent  then
+					if pc.getqf("collect_count")< 49 then
+						local index =pc.getqf("collect_count")+1 
+						pc.setqf("collect_count",index)
+						---                                                   l
+						say_title("Le biologiste Chaegirab:")
+						say("Oh!! Vous êtes vraiment le meilleur.")
+						say("Apportez-moi encore".." "..50-pc.getqf("collect_count").. " s'il vous plait. J'en")
+						say("ai besoin pour finir mes recherches. Bonne")
+						say("chance!")
+						pc.setqf("drink_drug",0)
+						return
+					end
+
+					---                                                   l
+					say_title("Le biologiste Chaegirab:")
+					say("Félicitation!")
+					say("Vous les avez tous trouvés.")
+					say("Je vais pouvoir terminer mes expériences.")
+				   	say("Merci.")
+					pc.setqf("collect_count",0)
+					pc.setqf("drink_drug",0)	
+					pc.setqf("duration",0) 
+					set_state(key_item)
+					return
+				else								
+					---                                                   l
+					say_title("Le biologiste Chaegirab:")
+					say("Je suis désolé mais ce certificat du Chef")
+					say("est abîmée! Allez m'en rechercher")
+					say("une autre en bon état.")			   
+					pc.setqf("drink_drug",0)
+					return
+				end
+			else
+				---                                                   l
+				say_title("Le biologiste Chaegirab:")
+				say("Oh!! Vous m'avez apporté un certificat du Chef.")
+				say("Je dois d'abord l'examiner. Cela peut prendre")
+				say("quelques heures. Revenez plus tard.")
+				return
+			end
+		end
+	end
+
+	state key_item begin
+		when letter begin
+			send_letter("La pierre d'âme du Chef")
+
+			if pc.count_item(30227)>0 then	
+				local v = find_npc_by_vnum(20084)
+				if v != 0 then
+					target.vid("__TARGET__", v, "Chaegirab")
+				end
+			end
+
+		end
+		when button or info begin
+			if pc.count_item(30227) >0 then
+				---                                                   1
+				say_title("La pierre d'âme du Chef")
+				say_reward("Vous avez enfin trouvé la pierre d'âme.")
+				say_reward("Apportez-la au biologiste Chaegirab, il vous")
+				say_reward("attend.")
+				return
+			end
+
+			---                                                   l
+			say_title("La pierre d'âme du Chef")
+			say("Pour finir ses recherches, le biologiste Chaegirab")
+			say("a besoin de la pierre d'âme du Chef.")
+			say_item_vnum(30227)
+			say("La pierre d'âme du Chef ce trouve sur tout les")
+			say("monstres avec le statut (Boss).")
+		end
+
+		when 691.kill or
+			792.kill or
+			791.kill or
+			1092.kill or
+			1093.kill or 
+			1304.kill or
+			2091.kill or
+			2191.kill or
+			2206.kill or
+			1901.kill begin
+
+			local s = number(1, 100)
+
+			if s <= 30 and pc.count_item(30227)==0 then
+				pc.give_item2(30227, 1)
+				send_letter("Vous avez trouvé la Pierre d'âme du Chef.")		
+			end	
+		end
+
+		when __TARGET__.target.click  or
+			20084.chat."Donner la pierre du Chef" with pc.count_item(30227) > 0  begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Oh !! Merci beaucoup... En récompense, je vais")
+			say("augmenter votre force intérieure. Ceci est une")
+			say("recette secrète qui contient le secret de la")
+			say("force! Donnez-là à Baek-Go et il vous préparera")
+			say("une potion de force. Profitez-en! Grâce à votre")
+			say("aide, j'ai appris énormément de choses sur les")
+			say("chefs.")
+			pc.remove_item(30227,1)
+			set_state(__reward)
+		end
+	end
+
+	state __reward begin
+		when letter begin
+			send_letter("La récompense du biologiste")
+
+			local v = find_npc_by_vnum(20018)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Baek-go")
+			end
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("La récompense du biologiste")
+			say("En récompense pour les certificats de Tugyis et")
+			say("la pierre d'âme de Tugyis, le biologiste")
+			say("Chaegirab vous a donné la recette d'une potion")
+			say("secrète. Donnez la recette à Baek-Go, il vous") 			
+			say("confectionnera la potion.")
+		end
+
+		when __TARGET__.target.click  or
+			20018.chat."Récompense de la quete" begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Baek-Go:")
+			say("Laissez-moi regarder. Est-ce la recette que")
+			say("Chaegirab vous à donnée? Hmm, augmentation de la")
+			say("valeur d'attaque contre les joueurs. Oh, voilà.")
+			say("Une boite d'ébène bleue. Prenez-là.")
+			say_reward("Pour vous récompenser d'avoir aidé le")
+			say_reward("biologiste Chaegirab, votre valeur")
+			say_reward("d'attaque contre les joueurs a été ")
+			say_reward("augmentée de +8.")
+			say_reward("L'éffet n'est pas provisoire mais")
+			say_reward("permanent.")
+			pc.give_item2(50114) 
+			clear_letter()
+			affect.add_collect_point(POINT_RESIST_WARRIOR,8,60*60*24*365*60)
+			affect.add_collect_point(POINT_RESIST_ASSASSIN,8,60*60*24*365*60)
+			affect.add_collect_point(POINT_RESIST_SURA,8,60*60*24*365*60)
+			affect.add_collect_point(POINT_RESIST_SHAMAN,8,60*60*24*365*60)
+			set_quest_state("collect_quest_lv92", "run")
+			set_state(__complete)
+		end
+	end
+	state __complete begin
+	end
+end

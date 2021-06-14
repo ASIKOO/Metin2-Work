@@ -1,0 +1,159 @@
+quest subquest_2 begin
+	state start begin
+		when login or levelup with pc.level >= 7 and pc.level <= 12 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(9003)
+
+			if v!= 0 then
+				target.vid("__TARGET__", v, "Le dîner.")
+			end
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Marchande:")
+			say("")
+			say("Je suis certaine que tu connais le marchand")
+			say("d'armure.")
+			say("C'est mon père.")
+			say("J'aimerais préparer à manger pour lui, ")
+			say("mais je ne sais pas ce qu'il veut pour manger.")
+			say("Pouvez-vous lui demander?")
+			say("")
+			set_state(ask_dinner)
+		end
+	end
+
+	state ask_dinner begin
+		when letter begin
+			local v=find_npc_by_vnum(9002)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Marchand d'armures.")
+			end
+		end
+		when letter begin
+			send_letter("Le dîner du marchand d'armures.")
+		end
+		when button or info begin
+			say_title("Information:")
+			say("")
+			--                                                  |
+			say("Allez demander au père de la marchande ce ")
+			say("qu'il aimerait manger ce soir.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Marchand d'armures:")
+			say("")
+			say("Bienvenu!")
+			--                                                  |
+			say("Je produis des armures pour vous protéger ")
+			say("des coups de dagues et d'épées... ")
+			say("Ah! Ma fille vous envoie?")
+			say("Elle se demande ce que je veux pour dîner?")
+			say("")
+			say("Une minute...Mmmhhh, je voudrai :")
+			say(" - Un ragout épicé avec du gibier, de l'ours, ")
+			say("un chou aromatique et deux œufs.")
+			say("Ce type de repas frugal serait parfait!")
+			say("")
+			set_state(report)
+		end
+	end
+	state report begin
+		when letter begin
+			local v = find_npc_by_vnum(9003)
+			if v!= 0 then
+				target.vid("__TARGET__", v, "Le dîner")
+			end
+		end
+
+		when letter begin
+			send_letter("Le dîner.")
+		end
+
+		when button or info begin
+			say_title("Le dîner.")
+			say("")
+			--                                                  |
+			say("Maintenant que vous savez ce que souhaite")
+			say(" manger le père de la marchande, retournez ")
+			say("la voir.")
+			say("Elle vous attend à coté du forgeron")
+			say("")
+		end
+		when 9002.chat."Le dîner" begin
+			say_title("Marchand d'armures: ")
+			say("")
+			--                                                  |
+			say("D'avoir parlé de nourriture me donne faim.")
+			say("")
+			say(" - Un ragout épicé avec du gibier, de l'ours,")
+			say(" un chou aromatique et deux œufs.")
+			say("Ce type de repas frugal serait parfait!")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Marchande:")
+			say("")
+			---                                                   l
+			say("Mon père vous a-t-il dit ce qu'il veut manger?")
+			say("")
+			local s = select(	----"12345678901234567890123456789012345678901234567890"|
+									"Ragout de porc, de l'ours, du chou et 1 œuf",
+									"Ragout de gibier, de l'ours, du chou et 1 œuf",
+									"Ragout de gibier, de l'ours, du chou et 2 œufs",
+									"J'ai oublié ce qu'il voulait manger...")
+			if s == 3 then
+				say_title("Marchande:")
+				say("")
+				--                                                  |
+				say("Merci beaucoup !")
+				say("Tu sais comme tous les hommes, s'il ne mange  ")
+				say("pas a sa faim, il devient intenable...")
+				say("Enfin bon, je vais préparer le dîner tout de ")
+				say("suite.")
+				say_title("Reward:")
+				say("")
+				say_reward("Experience : 800" )
+				say_reward("Yang: 1.500")
+				say("")
+				pc.give_exp2(800)
+				set_quest_state("levelup","run")
+				pc.change_money( 1500 )
+				clear_letter()
+				set_state(__COMPLETE__)
+			elseif s == 4 then
+				say("Marchande:")
+				say("")
+				say("Le nom de ce plat était très long,pas vrai ?")
+				say("Retournez lui demander.")
+				say("")
+				set_state(ask_dinner)
+			else
+				say("Marchande:")
+				say("")
+				say("Il a vraiment dit ça?")
+				say("")
+				say("Je ne pense pas que mon père puisse aimer")
+				say("ce plat la. Ne vous seriez-vous pas trompé ?")
+				say("Pouvez-vous y retourner ?")
+				say("")
+				set_state(ask_dinner)
+			end
+		end
+	end
+
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

@@ -1,0 +1,345 @@
+quest subquest_16 begin
+	state start begin
+		when login or levelup or enter with pc.level >= 25 and pc.level <= 30 begin
+			set_state(information)
+		end
+
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20355)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Capitaine")
+			end
+		end
+
+
+		when __TARGET__.target.click or 20355.chat."La cavalerie lourde" with pc.level >= 25 begin
+			target.delete("__TARGET__")
+
+			say_title("Capitaine :")
+			
+			say("")
+			--                                                  |
+			say("J'ai une nouvelle tâche pour vous.")
+			say("Nous vous demandons de trouver des information")
+			say("a propos de la cavalerie lourde.")
+			say("A l'époque c'était la partie la plus importante")
+			say("de l'armée de Cao Cao, le roi de tout ")
+			say("le continent.")
+			say("La cavalerie lourde était craint par les autres")
+			say("nations en raison de sa remarquable vitesse et ")
+			say("puissance d'attaque.")
+			wait()
+
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("Avec les informations recueillies, ")
+			say("nous pourrons renforcer notre puissance")
+			say("militaire.")
+			say("Allez voir Yu-Hwan le musicien en premier.")
+			say("Je suis certain qu'il sait quelque chose.")
+			say("")
+			local s=select("Je vais le faire.","Je n'ai pas le temps.")
+			if 2==s then
+				say("Voulez vous vraiment annuler cette quete ?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Capitaine :")
+					say("")
+					say("Au revoir.")
+					say("")
+					return
+				end
+				say_title("Capitaine :")
+				say("")
+				say("Je vous voulais comme commandant d'un régiment")
+				say("de cavalerie comme dans les anciens temps...")
+				say("")
+				say("Soyez prudent")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Capitaine :")
+			say("")
+			say("Merci.")
+			say("")
+			say("Soyez prudent pendant cette mission.")
+			say("")
+			set_state(ask_to_yuhwan)
+
+
+
+		end
+	end
+
+	state ask_to_yuhwan begin
+		when info or button begin
+			say_title("La cavalerie lourde.")
+			say("")
+			--                                                  |
+			say("Le Capitaine vous a dit que Yu-Hwan,")
+			say("le musicien du village voisin, a des ")
+			say("informations sur la cavalerie lourde.")
+			say("")
+		end
+
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("La cavalerie lourde.")
+			q.set_title("Allez voir Yu-Hwan le musicien.")
+			q.start()
+
+			local v=find_npc_by_vnum("20017")
+			if 0== v then
+			else
+				target.vid("__TARGET__",v,"Yu-hwan.")
+			end
+		end
+
+		when 20017.chat."La cavalerie lourde" begin
+			target.delete("__TARGET__")
+			say_title("Yu-Hwan :")
+			say("")
+			--                                                  |
+			say("(Chante) La vie est si merveilleux - ")
+			say("l'amour est si beau...")
+			say("Oh, vous encore! Que voulez-vous? ")
+			say("Vous venez me rendre visite assez souvent")
+			say("ces derniers temps !")
+			say("Des informations a propos de la cavalerie")
+			say("lourde?")
+			wait()
+
+			say_title("Yu-Hwan :")
+			say("")
+			--                                                  |
+			say("Eh bien, la meilleure façon d'unir un ")
+			say("continent est d'avoir une puissante armée.")
+			say("La cavalerie lourde était en effet très forte.")
+			say("Avec leurs armures de fer, leur défense et ")
+			say("leur vitesse, ils ont battu tout le monde.")
+			say("C'était la meilleure armée dans les mains ")
+			say("de Cao Cao, le grand seigneur de guerre.")
+			say("La plupart des pays ont péri lors de leurs ")
+			say("attaques.")
+			wait()
+
+			say_title("Yu-Hwan : ")
+			say("")
+			--                                                  |
+			say("Si vous pouviez avoir maintenant une cavalerie")
+			say("lourde, comme celle de cet ancien temps,")
+			say("il n'y aurait pas beaucoup de pays qui ")
+			say("pourraient se défendre.")
+			say("Pour obtenir une cavalerie lourde, ")
+			say("de fortes armures de fer et de la formation")
+			say("dur sont nécessaires. Vous devriez demander ")
+			say("au marchand ambulant et à Uriel.")
+			say("Allez les voir, vous en apprendrez davantage")
+			say("(Chante) La, la, la la, la, la, la, la...")
+			say("")
+			set_state(ask_to_peddler)
+		end
+	end
+
+	state ask_to_peddler begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Marchand ambulant.")
+			q.set_title("La cavalerie lourde.")
+			q.start()
+
+			local v=find_npc_by_vnum("20010")
+			if 0== v then
+			else
+				target.vid("__TARGET1__",v,"Marchand ambulant")
+			end
+		end
+
+		when info or button begin
+			say_title("La cavalerie lourde")
+			say("")
+			--                                                  |
+			say("Yu-Hwan le musicien dit que le marchand ")
+			say("ambulant et Uriel ont des informations ")
+			say("à propos de la cavalerie lourde")
+			say("Écoutons d'abord ce que le marchand ambulant ")
+			say("peut nous en dire.")
+			say("")
+		end
+		when 20010.chat."La cavalerie lourde" begin
+			target.delete("__TARGET1__")
+			say_title("Marchand ambulant")
+			say("")
+			--                                                  |
+			say("Que voulez-vous tirer d'un simple colporteur")
+			say("comme moi?")
+			say("Aujourd'hui, il est difficile de survivre ")
+			say("et tout cela à cause de ces pierres Metin !")
+			say("Les armures de fer de la cavalerie lourde ?")
+			say("")
+			wait()
+			
+			say_title("Marchand ambulant: ")
+			say("")
+			--                                                  |
+			say("Ce sont des armures spéciales dont la ")
+			say("production est un savoir faire unique. ")
+			say("Elles étaient les meilleures jamais faite !")
+			say("Couteaux et flèches normales ne pouvaient ")
+			say("pas passer cette armure parfaite. ")
+			say("Bien sûr, une telle armure est lourde et ")
+			say("pas facile à porter.")
+			say("Seuls les meilleurs soldats pouvaient les ")
+			say("porter.")
+			wait()
+			
+			say_title("Marchand ambulant:")
+			say("")
+			--                                                  |
+			say("Ces armures étaient spéciales!")
+			say("Vous n'imaginez pas tout l'argent qu'il avait")
+			say("fallu pour faire une telle armure de cavalerie.")
+			say("Aujourd'hui, cette armure pourrait même être ")
+			say("faite de pierre Metin.")
+			say("Avec ce nouveau type d'armure, il ne ")
+			say("s'agirait plus seulement d'un rêve.")
+			say("")
+			wait()
+
+			say_title("Marchand ambulant:")
+			say("")
+			say("Je parle trop ...")
+			say("")
+			say("Je dois partir...")
+			say("")
+			set_state(ask_to_uriel)
+		end
+	end
+	state ask_to_uriel begin
+		when letter begin
+			local v=find_npc_by_vnum("20011")
+			if 0== v then
+			else
+				target.vid("__TARGET1__",v,"Uriel")
+			end
+
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir Uriel")
+			q.set_title("La cavalerie lourde")
+			q.start()
+		end
+
+		when info or button begin
+			say_title("La cavalerie lourde :")
+			say("")
+			say("Maintenant, allez dans le village")
+			say("d'à côté et parlez avec Uriel.")
+			say("")
+		end
+		when 20011.chat."La cavalerie lourde" begin
+			target.delete("__TARGET1__")
+			--                                                  |
+			say_title("Uriel: ")
+			say("")
+			say("Ah! Quelle est la raison de votre visite ? ")
+			say("La cavalerie lourde ? ")
+			say("Bien sûr, je sais quelque chose.")
+			say("Cette armée sera toujours dans les mémoires")
+			say("comme la meilleur dans l'histoire.")
+			say("")
+			wait()
+
+			say_title("Uriel : ")
+			say("")
+			--                                                  |
+			say("En raison de l'entraînement intensif, ")
+			say("la cavalerie lourde était supérieur. ")
+			say("Seul les meilleurs pouvaient finir la formation.")
+			say("Je ne connais pas beaucoup de gens qui ")
+			say("pourraient terminer la formation de nos jours.")
+			say("Mais cela ne veut pas dire que c'est impossible.")
+			say("")
+			wait()
+			--                                                  |
+			say_title("Uriel : ")
+			say("")
+			say("Je vais vous donner quelques informations ")
+			say("sur la formation de sorte que vous connaissiez ")
+			say("ce sujet. Je sais que de terribles guerres font")
+			say("rage, mais je ne suis pas sûr que ce soit une ")
+			say("si bonne idée de soulever une fois de plus une ")
+			say("si redoutable armée.")
+			set_state(ask_to_guard)
+		end
+	end
+
+	state ask_to_guard begin
+		when info or button begin
+			say_title("Information :")
+			say("")
+			say("Allez voir le Capitaine et dites lui tout ce que")
+			say("vous avez appris à propos de la cavalerie lourde.")
+			say("")
+		end
+
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir le Capitaine")
+			q.set_title("Allez voir le Capitaine")
+			q.start()
+
+			local v=find_npc_by_vnum("20355")
+			if 0== v then
+			else
+				target.vid("__TARGET__",v,"La cavalerie lourde")
+			end
+		end
+
+		when 20355.chat."Rapport sur la cavalerie lourde" begin
+			target.delete("__TARGET__")
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("Avez-vous découvert des informations utiles ?")
+			say("")
+			say("Oh ! C'est vraiment intéressant.")
+			say("Ah, ce sont les secrets de la cavalerie lourde. ")
+			say("Hmmm...")
+			wait()
+
+			say_title("Capitaine :")
+			say("")
+			--                                                  |
+			say("Cette connaissance extrêmement importante ")
+			say("devrait nous aider à unir les 3 royaumes.")
+			say("Vous avez travaillé dur. ")
+			say("Vous êtes sûrement fatigué, reposez-vous.")
+			wait()
+			say_title("Récompense :")
+			say("")
+			say_reward("Vous recevez 180.000 Points Expérience.")
+			say_reward("Vous recevez 40.000 Yang.")
+			say_reward("Vous recevez Bottes en cuir +4.")
+			say("")
+			pc.give_exp2(180000)
+			pc.change_money(40000)
+			pc.give_item2(15084, 1)
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

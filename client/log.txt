@@ -1,0 +1,370 @@
+0201 20:22:18425 :: 알림: 파일 모드입니다.
+0201 20:22:00001 :: 
+0201 20:22:00001 :: ## Network - OffLine Phase ##
+0201 20:22:00001 :: 
+0201 20:22:00021 :: importing from pack debugInfo
+0201 20:22:00021 :: importing from pack localeInfo
+0201 20:22:00027 :: importing from pack constInfo
+0201 20:22:00031 :: importing from pack mouseModule
+0201 20:22:00033 :: importing from pack ui
+0201 20:22:00056 :: importing from pack networkModule
+0201 20:22:00058 :: importing from pack playerSettingModule
+0201 20:22:00070 :: importing from pack emotion
+0201 20:22:00071 :: importing from pack uiPhaseCurtain
+0201 20:22:00072 :: importing from pack uiCandidate
+0201 20:22:00073 :: importing from pack musicInfo
+0201 20:22:00073 :: importing from pack stringCommander
+0201 20:22:00464 :: NEWMAIN STREAM ----------------------------------------------------------------------------0201 20:22:00464 :: 
+0201 20:22:00464 :: NEW POPUP DIALOG ----------------------------------------------------------------------------0201 20:22:00464 :: 
+0201 20:22:00464 :: importing from pack exception
+0201 20:22:00464 :: ===== Load Script File : UIScript/PopupDialog.py0201 20:22:00464 :: 
+0201 20:22:00464 :: importing from pack uiScriptLocale
+0201 20:22:00471 :: NEW CURTAIN  ----------------------------------------------------------------------------0201 20:22:00471 :: 
+0201 20:22:00471 :: 
+0201 20:22:00471 :: ## Network - OffLine Phase ##
+0201 20:22:00471 :: 
+0201 20:22:00471 :: importing from pack introLogin
+0201 20:22:00477 :: importing from pack serverInfo
+0201 20:22:00478 :: importing from pack uiCommon
+0201 20:22:00480 :: importing from lib time
+0201 20:22:00480 :: importing from pack ServerCommandParser
+0201 20:22:00481 :: NEW LOGIN WINDOW  ----------------------------------------------------------------------------0201 20:22:00481 :: 
+0201 20:22:00481 :: LOGIN WINDOW OPEN ----------------------------------------------------------------------------0201 20:22:00481 :: 
+0201 20:22:00481 :: ===== Load Script File : locale/fr/ui/LoginWindow.py0201 20:22:00481 :: 
+0201 20:22:00605 :: 자동 로그인을 하시려면loginInfo.py파일을 작성해주세요
+
+내용:
+================================================================
+addr=주소
+port=포트
+id=아이디
+pwd=비밀번호
+slot=캐릭터 선택 인덱스 (없거나 -1이면 자동 선택 안함)
+autoLogin=자동 접속 여부
+autoSelect=자동 접속 여부
+localeInfo=(ymir) LC_Ymir 일경우 ymir로 작동. 지정하지 않으면 korea로 작동
+0201 20:22:00605 :: 
+0201 20:22:00627 :: Succeed connecting.
+0201 20:22:07256 :: HANDSHAKE RECV 1431543 0
+0201 20:22:07256 :: HANDSHAKE SEND 1431543
+0201 20:22:07371 :: HANDSHAKE RECV 1431660 58
+0201 20:22:07371 :: HANDSHAKE SEND 1431776
+0201 20:22:07685 :: KEY_AGREEMENT RECV 256
+0201 20:22:07708 :: KEY_AGREEMENT SEND 256
+0201 20:22:07767 :: KEY_AGREEMENT_COMPLETED RECV
+0201 20:22:08196 :: Succeed connecting.
+0201 20:22:08279 :: 
+0201 20:22:08279 :: ## Network - Hand Shake Phase ##
+0201 20:22:08279 :: 
+0201 20:22:08296 :: HANDSHAKE RECV 1430576 0
+0201 20:22:08296 :: HANDSHAKE SEND 1430576
+0201 20:22:08394 :: HANDSHAKE RECV 1430693 58
+0201 20:22:08394 :: HANDSHAKE SEND 1430809
+0201 20:22:08477 :: HANDSHAKE RECV 1430773 40
+0201 20:22:08477 :: HANDSHAKE SEND 1430853
+0201 20:22:08775 :: KEY_AGREEMENT RECV 256
+0201 20:22:08797 :: KEY_AGREEMENT SEND 256
+0201 20:22:08840 :: KEY_AGREEMENT_COMPLETED RECV
+0201 20:22:08905 :: 
+0201 20:22:08905 :: ## Network - Login Phase ##
+0201 20:22:08905 :: 
+0201 20:22:09384 :: 
+0201 20:22:09384 :: ## Network - Select Phase ##
+0201 20:22:09384 :: 
+0201 20:22:09425 :: CPythonNonPlayer::LoadNonPlayerData: locale/fr/mob_proto, sizeof(TMobTable)=255
+0201 20:22:09429 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:158 Line:65]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:159 Line:66]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:160 Line:67]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:161 Line:68]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:162 Line:69]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:256 Line:70]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:257 Line:71]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:258 Line:72]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:259 Line:73]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:260 Line:74]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:261 Line:75]
+0201 20:22:09430 :: CPythonSkill::RegisterSkillTable(locale/fr/SkillTable.txt) - NOT EXIST SkillDesc [Vnum:262 Line:76]
+0201 20:22:09430 :: importing from pack introSelect
+0201 20:22:09433 :: importing from lib math
+0201 20:22:09433 :: importing from pack uiMapNameShower
+0201 20:22:09435 :: importing from pack uiAffectShower
+0201 20:22:09438 :: importing from pack uiToolTip
+0201 20:22:09449 :: importing from pack uiPlayerGauge
+0201 20:22:09449 :: importing from pack uiCharacter
+0201 20:22:09455 :: importing from pack uiTarget
+0201 20:22:09458 :: importing from pack consoleModule
+0201 20:22:09463 :: importing from pack interfaceModule
+0201 20:22:09469 :: importing from pack uiTaskBar
+0201 20:22:09475 :: importing from pack uiInventory
+0201 20:22:09480 :: importing from pack uiRefine
+0201 20:22:09482 :: importing from pack uiAttachMetin
+0201 20:22:09483 :: importing from pack uiPickMoney
+0201 20:22:09483 :: importing from pack uiPrivateShopBuilder
+0201 20:22:09485 :: importing from pack uiDragonSoul
+0201 20:22:09492 :: importing from pack uiChat
+0201 20:22:09498 :: importing from pack colorInfo
+0201 20:22:09498 :: importing from pack uiMessenger
+0201 20:22:09502 :: importing from pack uiGameOption
+0201 20:22:09504 :: importing from pack uiHelp
+0201 20:22:09505 :: importing from pack uiWhisper
+0201 20:22:09508 :: importing from pack uiPointReset
+0201 20:22:09509 :: importing from pack uiShop
+0201 20:22:09511 :: importing from pack uiExchange
+0201 20:22:09512 :: importing from pack uiSystem
+0201 20:22:09513 :: importing from pack uiOption
+0201 20:22:09516 :: importing from pack uiSystemOption
+0201 20:22:09517 :: importing from pack uiSelectMusic
+0201 20:22:09518 :: importing from pack uiRestart
+0201 20:22:09518 :: importing from pack uiMiniMap
+0201 20:22:09521 :: importing from pack uiParty
+0201 20:22:09525 :: importing from pack uiSafebox
+0201 20:22:09528 :: importing from pack uiGuild
+0201 20:22:09542 :: importing from pack uiUploadMark
+0201 20:22:09544 :: importing from pack uiQuest
+0201 20:22:09548 :: importing from pack uiEquipmentDialog
+0201 20:22:09549 :: importing from pack uiGameButton
+0201 20:22:09550 :: importing from pack uiTip
+0201 20:22:09551 :: importing from pack uiCube
+0201 20:22:09554 :: importing from pack uiSelectItem
+0201 20:22:09555 :: ---------------------------------------------------------------------------- CLOSE LOGIN WINDOW 0201 20:22:09555 :: 
+0201 20:22:09555 :: ===== Load Script File : locale/fr/ui/selectcharacterwindow.py0201 20:22:09555 :: 
+0201 20:22:09604 :: ===== Load Script File : uiscript/questiondialog.py0201 20:22:09604 :: 
+0201 20:22:09641 :: CResource::Load file not exist d:\ymir work\effect\affect\damagevalue\0.jpg
+0201 20:22:09642 :: CResource::Load file not exist d:\ymir work\effect\affect\damagevalue\poison0.jpg
+0201 20:22:09653 :: CRaceManager::CreateRace(dwRaceIndex=0)
+0201 20:22:09666 :: CRaceManager::CreateRace(dwRaceIndex=4)
+0201 20:22:09678 :: CRaceManager::CreateRace(dwRaceIndex=1)
+0201 20:22:09690 :: CRaceManager::CreateRace(dwRaceIndex=5)
+0201 20:22:09705 :: CRaceManager::CreateRace(dwRaceIndex=2)
+0201 20:22:09723 :: CRaceManager::CreateRace(dwRaceIndex=6)
+0201 20:22:09741 :: CRaceManager::CreateRace(dwRaceIndex=3)
+0201 20:22:09758 :: CRaceManager::CreateRace(dwRaceIndex=7)
+0201 20:22:09772 :: SelectCharacterInstance: no vid by 0
+0201 20:22:09795 :: ---------------------------------------------------------------------------- DELETE LOGIN WINDOW0201 20:22:09795 :: 
+0201 20:22:13245 :: Succeed connecting.
+0201 20:22:13294 :: 
+0201 20:22:13294 :: ## Network - Hand Shake Phase ##
+0201 20:22:13294 :: 
+0201 20:22:13311 :: HANDSHAKE RECV 1435591 0
+0201 20:22:13311 :: HANDSHAKE SEND 1435591
+0201 20:22:13410 :: HANDSHAKE RECV 1435711 60
+0201 20:22:13410 :: HANDSHAKE SEND 1435831
+0201 20:22:13493 :: HANDSHAKE RECV 1435789 39
+0201 20:22:13493 :: HANDSHAKE SEND 1435867
+0201 20:22:13775 :: KEY_AGREEMENT RECV 256
+0201 20:22:13802 :: KEY_AGREEMENT SEND 256
+0201 20:22:13856 :: KEY_AGREEMENT_COMPLETED RECV
+0201 20:22:13922 :: 
+0201 20:22:13922 :: ## Network - Login Phase ##
+0201 20:22:13922 :: 
+0201 20:22:14483 :: 
+0201 20:22:14483 :: ## Network - Select Phase ##
+0201 20:22:14483 :: 
+0201 20:22:14483 :: importing from pack introLoading
+0201 20:22:14484 :: NEW LOADING WINDOW -------------------------------------------------------------------------------0201 20:22:14484 :: 
+0201 20:22:14631 :: DeleteCharacterInstance: no vid by 1
+0201 20:22:14631 :: DeleteCharacterInstance: no vid by 2
+0201 20:22:14631 :: DeleteCharacterInstance: no vid by 3
+0201 20:22:14631 :: OPEN LOADING WINDOW -------------------------------------------------------------------------------0201 20:22:14631 :: 
+0201 20:22:14631 :: ===== Load Script File : locale/fr/ui/LoadingWindow.py0201 20:22:14631 :: 
+0201 20:22:15126 :: 
+0201 20:22:15126 :: ## Network - Loading Phase ##
+0201 20:22:15126 :: 
+0201 20:22:15159 ::  BINARY_ServerCommand_Reserve0201 20:22:15159 ::  0201 20:22:15159 :: xmas_boom 10201 20:22:15159 :: 
+0201 20:22:15172 :: Property already registered, replace property/devils_dragon_island/mtthunder_thorn01.prb to property/devils_dragon_island/thing/obj_mtthund_thorn01.prb
+0201 20:22:15247 :: LoadWaterMapFile metin2_map_a3\000000\water.wtr 0
+0201 20:22:15247 :: LoadRawHeightMapFile metin2_map_a3\000000\height.raw 0201 20:22:15248 :: LoadHeightMap::CalculateNormal 1 ms
+0201 20:22:15248 :: LoadAttrMapFile metin2_map_a3\000000\attr.atr 0201 20:22:15248 :: 0
+0201 20:22:15248 :: LoadSplatFile metin2_map_a3\000000\tile.raw 0201 20:22:15253 :: CTerrain::RAW_AllocateSplats 5
+0201 20:22:15253 :: CTerrain::LoadShadowTexture 0 ms
+0201 20:22:15253 :: LoadShadowMap metin2_map_a3\000000\shadowmap.raw 0201 20:22:15253 :: 0 ms
+0201 20:22:15253 :: CTerrain::LoadMiniMapTexture 0 ms
+0201 20:22:15254 :: CMapOutdoor::LoadTerrain 8
+0201 20:22:15458 :: LoadWaterMapFile metin2_map_a3\001000\water.wtr 0
+0201 20:22:15458 :: LoadRawHeightMapFile metin2_map_a3\001000\height.raw 0201 20:22:15459 :: LoadHeightMap::CalculateNormal 1 ms
+0201 20:22:15459 :: LoadAttrMapFile metin2_map_a3\001000\attr.atr 0201 20:22:15459 :: 0
+0201 20:22:15459 :: LoadSplatFile metin2_map_a3\001000\tile.raw 0201 20:22:15464 :: CTerrain::RAW_AllocateSplats 5
+0201 20:22:15464 :: CTerrain::LoadShadowTexture 0 ms
+0201 20:22:15464 :: LoadShadowMap metin2_map_a3\001000\shadowmap.raw 0201 20:22:15464 :: 0 ms
+0201 20:22:15464 :: CTerrain::LoadMiniMapTexture 0 ms
+0201 20:22:15465 :: CMapOutdoor::LoadTerrain 8
+0201 20:22:15554 :: LoadWaterMapFile metin2_map_a3\002000\water.wtr 0
+0201 20:22:15554 :: LoadRawHeightMapFile metin2_map_a3\002000\height.raw 0201 20:22:15555 :: LoadHeightMap::CalculateNormal 1 ms
+0201 20:22:15555 :: LoadAttrMapFile metin2_map_a3\002000\attr.atr 0201 20:22:15556 :: 1
+0201 20:22:15556 :: LoadSplatFile metin2_map_a3\002000\tile.raw 0201 20:22:15563 :: CTerrain::RAW_AllocateSplats 7
+0201 20:22:15563 :: CTerrain::LoadShadowTexture 0 ms
+0201 20:22:15563 :: LoadShadowMap metin2_map_a3\002000\shadowmap.raw 0201 20:22:15564 :: 1 ms
+0201 20:22:15564 :: CTerrain::LoadMiniMapTexture 0 ms
+0201 20:22:15565 :: CMapOutdoor::LoadTerrain 11
+0201 20:22:15636 :: LoadWaterMapFile metin2_map_a3\000001\water.wtr 0
+0201 20:22:15636 :: LoadRawHeightMapFile metin2_map_a3\000001\height.raw 0201 20:22:15637 :: LoadHeightMap::CalculateNormal 1 ms
+0201 20:22:15637 :: LoadAttrMapFile metin2_map_a3\000001\attr.atr 0201 20:22:15638 :: 1
+0201 20:22:15638 :: LoadSplatFile metin2_map_a3\000001\tile.raw 0201 20:22:15642 :: CTerrain::RAW_AllocateSplats 4
+0201 20:22:15642 :: CTerrain::LoadShadowTexture 0 ms
+0201 20:22:15642 :: LoadShadowMap metin2_map_a3\000001\shadowmap.raw 0201 20:22:15643 :: 1 ms
+0201 20:22:15643 :: CTerrain::LoadMiniMapTexture 0 ms
+0201 20:22:15643 :: CMapOutdoor::LoadTerrain 7
+0201 20:22:15654 :: LoadWaterMapFile metin2_map_a3\001001\water.wtr 0
+0201 20:22:15654 :: LoadRawHeightMapFile metin2_map_a3\001001\height.raw 0201 20:22:15655 :: LoadHeightMap::CalculateNormal 1 ms
+0201 20:22:15655 :: LoadAttrMapFile metin2_map_a3\001001\attr.atr 0201 20:22:15655 :: 0
+0201 20:22:15655 :: LoadSplatFile metin2_map_a3\001001\tile.raw 0201 20:22:15659 :: CTerrain::RAW_AllocateSplats 4
+0201 20:22:15660 :: CTerrain::LoadShadowTexture 1 ms
+0201 20:22:15660 :: LoadShadowMap metin2_map_a3\001001\shadowmap.raw 0201 20:22:15660 :: 0 ms
+0201 20:22:15660 :: CTerrain::LoadMiniMapTexture 0 ms
+0201 20:22:15661 :: CMapOutdoor::LoadTerrain 7
+0201 20:22:15676 :: LoadWaterMapFile metin2_map_a3\002001\water.wtr 0
+0201 20:22:15676 :: LoadRawHeightMapFile metin2_map_a3\002001\height.raw 0201 20:22:15678 :: LoadHeightMap::CalculateNormal 2 ms
+0201 20:22:15678 :: LoadAttrMapFile metin2_map_a3\002001\attr.atr 0201 20:22:15678 :: 0
+0201 20:22:15678 :: LoadSplatFile metin2_map_a3\002001\tile.raw 0201 20:22:15681 :: CTerrain::RAW_AllocateSplats 3
+0201 20:22:15682 :: CTerrain::LoadShadowTexture 1 ms
+0201 20:22:15682 :: LoadShadowMap metin2_map_a3\002001\shadowmap.raw 0201 20:22:15682 :: 0 ms
+0201 20:22:15682 :: CTerrain::LoadMiniMapTexture 0 ms
+0201 20:22:15683 :: CMapOutdoor::LoadTerrain 7
+0201 20:22:15696 :: Update::Load spent 450 ms
+
+0201 20:22:15701 :: SetDropSoundFile 0 : sound/ui/drop.wav
+0201 20:22:15701 :: SetDropSoundFile 4 : sound/ui/equip_ring_amulet.wav
+0201 20:22:15701 :: SetDropSoundFile 1 : sound/ui/equip_metal_armor.wav
+0201 20:22:15701 :: SetDropSoundFile 3 : sound/ui/equip_bow.wav
+0201 20:22:15701 :: SetDropSoundFile 2 : sound/ui/equip_metal_weapon.wav
+0201 20:22:18209 :: importing from pack game
+0201 20:22:18230 :: ===== Load Script File : UIScript/CharacterWindow.py0201 20:22:18230 :: 
+0201 20:22:18248 :: CResource::Load file not exist d:\ymir work\ui\game\quest\slot_button_01.sub
+0201 20:22:18248 :: ===== Load Script File : locale/fr/ui/InventoryWindow.py0201 20:22:18248 :: 
+0201 20:22:18253 :: ===== Load Script File : UIScript/BeltInventoryWindow.py0201 20:22:18253 :: 
+0201 20:22:18255 :: ===== Load Script File : UIScript/PickMoneyDialog.py0201 20:22:18255 :: 
+0201 20:22:18256 :: ===== Load Script File : uiscript/questiondialog2.py0201 20:22:18256 :: 
+0201 20:22:18257 :: ===== Load Script File : uiscript/refinedialog.py0201 20:22:18257 :: 
+0201 20:22:18258 :: ===== Load Script File : uiscript/attachstonedialog.py0201 20:22:18258 :: 
+0201 20:22:18263 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18263 ::  0201 20:22:18263 :: 1110201 20:22:18263 ::  0201 20:22:18263 :: 00201 20:22:18263 ::  0201 20:22:18263 :: 00201 20:22:18263 :: 
+0201 20:22:18263 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18263 ::  0201 20:22:18263 :: 1120201 20:22:18263 ::  0201 20:22:18263 :: 00201 20:22:18263 ::  0201 20:22:18263 :: 00201 20:22:18263 :: 
+0201 20:22:18263 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18263 ::  0201 20:22:18263 :: 1130201 20:22:18263 ::  0201 20:22:18263 :: 00201 20:22:18263 ::  0201 20:22:18263 :: 00201 20:22:18263 :: 
+0201 20:22:18263 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18263 ::  0201 20:22:18263 :: 1110201 20:22:18263 ::  0201 20:22:18263 :: 00201 20:22:18263 ::  0201 20:22:18263 :: 00201 20:22:18264 :: 
+0201 20:22:18264 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18264 ::  0201 20:22:18264 :: 1120201 20:22:18264 ::  0201 20:22:18264 :: 00201 20:22:18264 ::  0201 20:22:18264 :: 00201 20:22:18264 :: 
+0201 20:22:18264 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18264 ::  0201 20:22:18264 :: 1130201 20:22:18264 ::  0201 20:22:18264 :: 00201 20:22:18264 ::  0201 20:22:18264 :: 00201 20:22:18264 :: 
+0201 20:22:18264 :: ===== Load Script File : locale/fr/ui/dragonsoulwindow.py0201 20:22:18264 :: 
+0201 20:22:18277 :: ===== Load Script File : uiscript/questiondialog.py0201 20:22:18277 :: 
+0201 20:22:18278 :: ===== Load Script File : uiscript/questiondialog2.py0201 20:22:18278 :: 
+0201 20:22:18279 :: ===== Load Script File : UIScript/PopupDialog.py0201 20:22:18279 :: 
+0201 20:22:18280 :: ===== Load Script File : locale/fr/ui/dragonsoulrefinewindow.py0201 20:22:18280 :: 
+0201 20:22:18289 :: ===== Load Script File : UIScript/PopupDialog.py0201 20:22:18289 :: 
+0201 20:22:18292 :: ===== Load Script File : UIScript/AtlasWindow.py0201 20:22:18292 :: 
+0201 20:22:18293 :: ===== Load Script File : UIScript/SafeboxWindow.py0201 20:22:18293 :: 
+0201 20:22:18294 :: ===== Load Script File : UIScript/PickMoneyDialog.py0201 20:22:18294 :: 
+0201 20:22:18295 :: ===== Load Script File : uiscript/popupdialog.py0201 20:22:18295 :: 
+0201 20:22:18295 :: ===== Load Script File : uiscript/changepassworddialog.py0201 20:22:18295 :: 
+0201 20:22:18296 :: ===== Load Script File : UIScript/MallWindow.py0201 20:22:18296 :: 
+0201 20:22:18301 :: ===== Load Script File : UIScript/exchangedialog.py0201 20:22:18301 :: 
+0201 20:22:18302 :: ===== Load Script File : UIScript/PickMoneyDialog.py0201 20:22:18302 :: 
+0201 20:22:18303 :: ===== Load Script File : uiscript/questiondialog2.py0201 20:22:18303 :: 
+0201 20:22:18303 :: ===== Load Script File : uiscript/questiondialog2.py0201 20:22:18303 :: 
+0201 20:22:18305 :: ===== Load Script File : UIScript/shopdialog.py0201 20:22:18305 :: 
+0201 20:22:18306 :: ===== Load Script File : uiscript/restartdialog.py0201 20:22:18306 :: 
+0201 20:22:18306 :: ===== Load Script File : locale/fr/ui/SystemDialog.py0201 20:22:18306 :: 
+0201 20:22:18307 :: ===== Load Script File : locale/fr/ui/passworddialog.py0201 20:22:18308 :: 
+0201 20:22:18309 :: ===== Load Script File : UIScript/PrivateShopBuilder.py0201 20:22:18309 :: 
+0201 20:22:18310 :: ===== Load Script File : locale/fr/ui/TaskBar.py0201 20:22:18310 :: 
+0201 20:22:18324 :: ===== Load Script File : UIScript/MouseButtonWindow.py0201 20:22:18324 :: 
+0201 20:22:18325 :: ===== Load Script File : UIScript/RightMouseButtonWindow.py0201 20:22:18325 :: 
+0201 20:22:18325 :: rampage_over_out0201 20:22:18325 :: 
+0201 20:22:18326 :: ===== Load Script File : locale/fr/ui/giftbox.py0201 20:22:18326 :: 
+0201 20:22:18326 :: ===== Load Script File : locale/fr/ui/ExpandedTaskBar.py0201 20:22:18326 :: 
+0201 20:22:18327 :: ===== Load Script File : locale/fr/ui/EnergyBar.py0201 20:22:18327 :: 
+0201 20:22:18328 :: ===== Load Script File : UIScript/gamewindow.py0201 20:22:18328 :: 
+0201 20:22:18329 :: ===== Load Script File : UIScript/HelpWindow.py0201 20:22:18329 :: 
+0201 20:22:18335 :: importing from pack uiWeb
+0201 20:22:18336 :: ===== Load Script File : locale/fr/ui/WebWindow.py0201 20:22:18336 :: 
+0201 20:22:18336 :: ===== Load Script File : UIScript/CubeWindow.py0201 20:22:18336 :: 
+0201 20:22:18346 :: ===== Load Script File : UIScript/CubeResultWindow.py0201 20:22:18346 :: 
+0201 20:22:18347 :: ===== Load Script File : UIScript/selectitemwindow.py0201 20:22:18347 :: 
+0201 20:22:18348 :: ===== Load Script File : UIScript/MiniMap.py0201 20:22:18348 :: 
+0201 20:22:18349 :: NEW CURTAIN  ----------------------------------------------------------------------------0201 20:22:18349 :: 
+0201 20:22:18351 ::  __ProcessPreservedServerCommand0201 20:22:18351 ::  0201 20:22:18351 :: PRESERVE_DayMode dark0201 20:22:18351 :: 
+0201 20:22:18368 :: ---------------------------------------------------------------------------- CLOSE LOADING WINDOW0201 20:22:18368 :: 
+0201 20:22:18369 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18369 ::  0201 20:22:18369 :: 1110201 20:22:18369 ::  0201 20:22:18369 :: 00201 20:22:18369 ::  0201 20:22:18369 :: 00201 20:22:18369 :: 
+0201 20:22:18369 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18369 ::  0201 20:22:18369 :: 1120201 20:22:18369 ::  0201 20:22:18369 :: 00201 20:22:18369 ::  0201 20:22:18369 :: 00201 20:22:18369 :: 
+0201 20:22:18369 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18369 ::  0201 20:22:18369 :: 1130201 20:22:18369 ::  0201 20:22:18369 :: 00201 20:22:18369 ::  0201 20:22:18369 :: 00201 20:22:18369 :: 
+0201 20:22:18370 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18370 ::  0201 20:22:18370 :: 1110201 20:22:18370 ::  0201 20:22:18370 :: 00201 20:22:18370 ::  0201 20:22:18370 :: 00201 20:22:18370 :: 
+0201 20:22:18370 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18370 ::  0201 20:22:18370 :: 1120201 20:22:18370 ::  0201 20:22:18370 :: 00201 20:22:18370 ::  0201 20:22:18370 :: 00201 20:22:18370 :: 
+0201 20:22:18370 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18370 ::  0201 20:22:18370 :: 1130201 20:22:18370 ::  0201 20:22:18370 :: 00201 20:22:18370 ::  0201 20:22:18370 :: 00201 20:22:18370 :: 
+0201 20:22:18370 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18371 ::  0201 20:22:18371 :: 1110201 20:22:18371 ::  0201 20:22:18371 :: 00201 20:22:18371 ::  0201 20:22:18371 :: 00201 20:22:18371 :: 
+0201 20:22:18371 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18371 ::  0201 20:22:18371 :: 1120201 20:22:18371 ::  0201 20:22:18371 :: 00201 20:22:18371 ::  0201 20:22:18371 :: 00201 20:22:18371 :: 
+0201 20:22:18371 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:18371 ::  0201 20:22:18371 :: 1130201 20:22:18371 ::  0201 20:22:18371 :: 00201 20:22:18371 ::  0201 20:22:18371 :: 00201 20:22:18371 :: 
+0201 20:22:18375 :: ---------------------------------------------------------------------------- DELETE LOADING WINDOW0201 20:22:18375 :: 
+0201 20:22:18456 ::  <SkillInfo> 0 / 400, 400
+0201 20:22:19247 :: BINARY_NEW_AddAffect0201 20:22:19247 ::  0201 20:22:19247 :: 2150201 20:22:19247 ::  0201 20:22:19247 :: 00201 20:22:19247 ::  0201 20:22:19247 :: 00201 20:22:19247 ::  0201 20:22:19247 :: 50201 20:22:19247 :: 
+0201 20:22:19247 :: 
+0201 20:22:19247 :: ## Network - Game Phase ##
+0201 20:22:19247 :: 
+0201 20:22:19279 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19279 ::  0201 20:22:19279 :: 1110201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 :: 
+0201 20:22:19279 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19279 ::  0201 20:22:19279 :: 1120201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 :: 
+0201 20:22:19279 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19279 ::  0201 20:22:19279 :: 1130201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 :: 
+0201 20:22:19279 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19279 ::  0201 20:22:19279 :: 1110201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 :: 
+0201 20:22:19279 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19279 ::  0201 20:22:19279 :: 1120201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 :: 
+0201 20:22:19279 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19279 ::  0201 20:22:19279 :: 1130201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 ::  0201 20:22:19279 :: 00201 20:22:19279 :: 
+0201 20:22:19579 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19579 ::  0201 20:22:19579 :: 1110201 20:22:19579 ::  0201 20:22:19579 :: 00201 20:22:19579 ::  0201 20:22:19579 :: 00201 20:22:19579 :: 
+0201 20:22:19579 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19579 ::  0201 20:22:19579 :: 1120201 20:22:19579 ::  0201 20:22:19579 :: 00201 20:22:19579 ::  0201 20:22:19579 :: 00201 20:22:19579 :: 
+0201 20:22:19579 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19579 ::  0201 20:22:19579 :: 1130201 20:22:19579 ::  0201 20:22:19579 :: 00201 20:22:19579 ::  0201 20:22:19579 :: 00201 20:22:19579 :: 
+0201 20:22:19579 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19579 ::  0201 20:22:19579 :: 1110201 20:22:19579 ::  0201 20:22:19579 :: 00201 20:22:19580 ::  0201 20:22:19580 :: 00201 20:22:19580 :: 
+0201 20:22:19580 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19580 ::  0201 20:22:19580 :: 1120201 20:22:19580 ::  0201 20:22:19580 :: 00201 20:22:19580 ::  0201 20:22:19580 :: 00201 20:22:19580 :: 
+0201 20:22:19580 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19580 ::  0201 20:22:19580 :: 1130201 20:22:19580 ::  0201 20:22:19580 :: 00201 20:22:19580 ::  0201 20:22:19580 :: 00201 20:22:19580 :: 
+0201 20:22:19595 :: BINARY_NEW_AddAffect0201 20:22:19595 ::  0201 20:22:19595 :: 5030201 20:22:19595 ::  0201 20:22:19595 :: 00201 20:22:19595 ::  0201 20:22:19595 :: 00201 20:22:19595 ::  0201 20:22:19595 :: 3127810540201 20:22:19595 :: 
+0201 20:22:19595 :: Add affect 5030201 20:22:19595 :: 
+0201 20:22:19743 :: BINARY_NEW_AddAffect0201 20:22:19743 ::  0201 20:22:19743 :: 2000201 20:22:19743 ::  0201 20:22:19743 :: 190201 20:22:19743 ::  0201 20:22:19743 :: 400201 20:22:19743 ::  0201 20:22:19743 :: 3470201 20:22:19743 :: 
+0201 20:22:19760 :: BINARY_NEW_AddAffect0201 20:22:19760 ::  0201 20:22:19760 :: 2010201 20:22:19760 ::  0201 20:22:19760 :: 170201 20:22:19760 ::  0201 20:22:19760 :: 300201 20:22:19760 ::  0201 20:22:19760 :: 3480201 20:22:19760 :: 
+0201 20:22:19760 :: BINARY_NEW_AddAffect0201 20:22:19760 ::  0201 20:22:19760 :: 2080201 20:22:19760 ::  0201 20:22:19760 :: 00201 20:22:19760 ::  0201 20:22:19760 :: 00201 20:22:19760 ::  0201 20:22:19760 :: 8310201 20:22:19760 :: 
+0201 20:22:19892 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19892 ::  0201 20:22:19892 :: 1110201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 :: 
+0201 20:22:19892 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19892 ::  0201 20:22:19892 :: 1120201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 :: 
+0201 20:22:19892 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19892 ::  0201 20:22:19892 :: 1130201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 :: 
+0201 20:22:19892 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19892 ::  0201 20:22:19892 :: 1110201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 :: 
+0201 20:22:19892 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19892 ::  0201 20:22:19892 :: 1120201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 ::  0201 20:22:19892 :: 00201 20:22:19892 :: 
+0201 20:22:19892 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:19892 ::  0201 20:22:19892 :: 1130201 20:22:19893 ::  0201 20:22:19893 :: 00201 20:22:19893 ::  0201 20:22:19893 :: 00201 20:22:19893 :: 
+0201 20:22:23423 :: Remove Affect 215 00201 20:22:23423 :: 
+0201 20:22:23423 :: __RemoveAffect 215 ( No Affect )0201 20:22:23423 :: 
+0201 20:22:23423 :: __RemoveAffect 27 ( No Affect )0201 20:22:23423 :: 
+0201 20:22:23423 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:23423 ::  0201 20:22:23423 :: 1110201 20:22:23423 ::  0201 20:22:23424 :: 00201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 :: 
+0201 20:22:23424 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:23424 ::  0201 20:22:23424 :: 1120201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 :: 
+0201 20:22:23424 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:23424 ::  0201 20:22:23424 :: 1130201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 :: 
+0201 20:22:23424 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:23424 ::  0201 20:22:23424 :: 1110201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 :: 
+0201 20:22:23424 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:23424 ::  0201 20:22:23424 :: 1120201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 :: 
+0201 20:22:23424 :: ENABLE_NEW_EQUIPMENT_SYSTEM0201 20:22:23424 ::  0201 20:22:23424 :: 1130201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 ::  0201 20:22:23424 :: 00201 20:22:23424 :: 
+0201 20:22:43537 :: Is Opening Belt Inven?? 0201 20:22:43537 ::  0201 20:22:43537 :: 00201 20:22:43537 :: 
+0201 20:22:50202 :: Is Opening Belt Inven?? 0201 20:22:50202 ::  0201 20:22:50202 :: 00201 20:22:50202 :: 
+0201 20:23:54344 :: LoadWaterMapFile metin2_map_a3\003000\water.wtr 0
+0201 20:23:54344 :: LoadRawHeightMapFile metin2_map_a3\003000\height.raw 0201 20:23:54345 :: LoadHeightMap::CalculateNormal 1 ms
+0201 20:23:54345 :: LoadAttrMapFile metin2_map_a3\003000\attr.atr 0201 20:23:54345 :: 0
+0201 20:23:54345 :: LoadSplatFile metin2_map_a3\003000\tile.raw 0201 20:23:54349 :: CTerrain::RAW_AllocateSplats 4
+0201 20:23:54350 :: CTerrain::LoadShadowTexture 1 ms
+0201 20:23:54350 :: LoadShadowMap metin2_map_a3\003000\shadowmap.raw 0201 20:23:54350 :: 0 ms
+0201 20:23:54350 :: CTerrain::LoadMiniMapTexture 0 ms
+0201 20:23:54350 :: CMapOutdoor::LoadTerrain 6
+0201 20:23:54357 :: LoadWaterMapFile metin2_map_a3\003001\water.wtr 0
+0201 20:23:54357 :: LoadRawHeightMapFile metin2_map_a3\003001\height.raw 0201 20:23:54358 :: LoadHeightMap::CalculateNormal 1 ms
+0201 20:23:54358 :: LoadAttrMapFile metin2_map_a3\003001\attr.atr 0201 20:23:54358 :: 0
+0201 20:23:54358 :: LoadSplatFile metin2_map_a3\003001\tile.raw 0201 20:23:54362 :: CTerrain::RAW_AllocateSplats 3
+0201 20:23:54362 :: CTerrain::LoadShadowTexture 0 ms
+0201 20:23:54362 :: LoadShadowMap metin2_map_a3\003001\shadowmap.raw 0201 20:23:54363 :: 1 ms
+0201 20:23:54363 :: CTerrain::LoadMiniMapTexture 0 ms
+0201 20:23:54363 :: CMapOutdoor::LoadTerrain 7
+0201 20:23:54395 :: Update::Load spent 51 ms
+
+0201 20:23:58650 :: Is Opening Belt Inven?? 0201 20:23:58650 ::  0201 20:23:58650 :: 00201 20:23:58650 :: 
+0201 20:23:09392 :: Is Opening Belt Inven?? 0201 20:23:09392 ::  0201 20:23:09392 :: 00201 20:23:09392 :: 
+0201 20:23:25562 :: FadeOutMusic: BGM/blacksea.mp3 - ERROR NOT EXIST
+0201 20:23:25573 :: ===================================================== DESTROYED TARGET BOARD0201 20:23:25573 :: 
+0201 20:23:25573 :: Is Opening Belt Inven?? 0201 20:23:25573 ::  0201 20:23:25573 :: 00201 20:23:25573 :: 
+0201 20:23:25574 :: ---------------------------------------------------------------------------- DESTROY EXCHANGE0201 20:23:25574 :: 
+0201 20:23:25575 ::  ==================================== DESTROIED GUILD WINDOW0201 20:23:25575 :: 
+0201 20:23:25575 ::  =============================== DESTROIED PartyWindow0201 20:23:25575 :: 
+0201 20:23:25576 :: ---------------------------------------------------------------------------- CLOSE GAME WINDOW0201 20:23:25576 :: 
+0201 20:23:25576 :: ---------------------------------------------------------------------------- DELETE CURTAIN0201 20:23:25576 :: 
+0201 20:23:25576 :: ---------------------------------------------------------------------------- DELETE POPUP DIALOG 0201 20:23:25576 :: 
+0201 20:23:25576 :: ---------------------------------------------------------------------------- DELETE CURTAIN0201 20:23:25576 :: 
+0201 20:23:25576 :: ---------------------------------------------------------------------------- DELETE MAIN STREAM 0201 20:23:25576 :: 
+0201 20:23:25591 :: CResourceManager::__DestroyDeletingResourceMap 928
+0201 20:23:25609 :: CResourceManager::__DestroyResourceMap 2629
+0201 20:23:25649 :: CResourceManager::__DestroyResourceMap 0
+0201 20:23:25649 :: CPythonBackground Clear
+0201 20:23:25654 :: PythonIME Clear
+0201 20:23:25654 :: PythonNetworkMainStream Clear
+0201 20:23:25654 :: Python Graphic Clear

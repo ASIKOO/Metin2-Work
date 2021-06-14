@@ -1,0 +1,276 @@
+quest subquest_26 begin
+	state start begin
+		when login or levelup with pc.level >= 57  and pc.level <= 59 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(9005)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Aller voir le Magasinier")
+			end
+		end
+
+		when __TARGET__.target.click or
+			9005.chat."I don't feel good..." begin
+			target.delete("__TARGET__")
+			say_title("Magasinier")
+			say("")
+			--                                                  |
+			say("Mon corps n'est vraiment plus ")
+			say("ce qu'il était.")
+			say("Quand j'étais jeune, je pouvais me lever tôt,")
+			say("travailler toute la nuit, chaque jour de ")
+			say("la semaine. Et boire de l'alcool ...")
+			say("Maintenant, il est même gênant de se lever")
+			say("le matin.")
+			say("Si quelqu'un voudrait me rapporter une soupe")
+			say("de cuisses de grenouille mon énergie serait")
+			say("sûrement augmenter à l'intérieur de moi.")
+			say("")
+			wait()
+			say_title("Magasinier:")
+			say("")
+			--                                                  |
+			say("Qu'est-ce que c'est?")
+			say("Quand vous buvez un bol de ceci, vous pouvez")
+			say("travailler une semaine entière directement")
+			say("parce que vous êtes plein d'énergie.")
+			say("Octavio faisait cette soupe mais il a cessé")
+			say("de le faire il y a un certain temps.")
+			say("")
+
+			local s=select("Je vais parler à Octavio","Je suis occupé.")
+			if 2==s then
+				say("Vous voulez abandonner la quête?")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Magasinier:")
+						say("")
+						say("Bon, lorsque vous n'êtes plus occupé.")
+						say("Revenez plus tard si vous voulez.")
+						say("")
+						return
+					end
+					say_title("Magasinier")
+					say("")
+					say("C'est votre perte,")
+					say("vous manquez la chance d'une vie.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+			end
+			say_title("Magasinier")
+			say("")
+			--                                                  |
+			say("Je le savais!")
+			say("Je savais que vous iriez voir Octavio.")
+			say("Si vous en obtenez une, s'il vous plaît ")
+			say("partager la avec moi.")
+			set_state(ask_octavio)
+		end
+	end
+	state ask_octavio begin
+		when letter begin
+
+			send_letter("Aller voir Octavio ")
+
+			local v=find_npc_by_vnum(20008)
+			if 0==v then
+			else
+				target.vid("__TARGET1__", v, "Octavio")
+			end
+
+		end
+
+		when info or button begin
+
+			say_title("Aller voir Octavio")
+			say("")
+			--                                                  |
+			say("Demandez à Octavio pour la soupe aux cuisses") 
+			say("de grenouille")
+		end
+		when __TARGET1__.target.click or
+			20008.chat."Soupe aux cuisses de grenouille?" begin
+			target.delete("__TARGET1__")
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Soupe aux cuisses de grenouille... ")
+			say("Ouais c'est vrai, je la faisait dans le passé.")
+			say("Mais pas aujourd'hui. ")
+			say("À l'époque, je n'avais pas peur du chef de")
+			say("grenouille des arbre, donc je pouvais obtenir")
+			say("les cuisses de grenouilles facilement")
+			say("")
+			wait("")
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Mais maintenant...")
+			say("Je suis vieux et fatigué.")
+			say("Avec cette soupe je pouvais regagner de")
+			say("l'énergie, mais les chefs de grenouilles des")
+			say("arbres ne sont pas faciles à tuer.")
+			say("Si vous voulez m'apporter les cuisses de ")
+			say("grenouille pour la soupe, je ferrais la")
+			say("meilleure soupe aux cuisses de grenouille")
+			say("dans le monde.")
+			local s=select("Bien sûr que je le ferai.", "Non, je ne peux pas.")
+			if 2==s then
+				say("You want to give up the Quest?")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Octavio:")
+						say("")
+						say("Vous êtes occupé?")
+						say("Lorsque vous changerez d'avis revenez.")
+						say("")
+						return
+					end
+					say_title("Octavio:")
+					say("")
+					say("Ma soupe est bien connue.")
+					say("Si vous le saviez, vous le feriez.")
+					say("Eh bien, au revoir.")
+					say("")
+					set_state(__GIVEUP__)
+			return
+			end
+			say_title("Octavio:")
+			say("")
+			say("Alors dépêchez-vous")
+			say("Je vais tout préparer pour la")
+			say("soupe aux cuisses de grenouille.")
+			say("")
+			set_state(accept)
+		end
+	end
+	state accept begin
+		when letter begin
+			if pc.count_item(30116)>0 then
+				send_letter("Obtenez des cuisses de grenouille")
+
+				local v=find_npc_by_vnum(20008)
+				if 0==v then
+				else
+					target.vid("__TARGET__", v, "Octavio")
+				end
+			end
+			send_letter("Vous avez les cuisses de grenouille")
+		end
+
+		when info or button begin
+			if pc.count_item(30116)>0 then
+
+				say_title("Vous avez les cuisses de grenouille")
+				say("")
+				--                                                  |
+				say("Vous avez les cuisses de grenouille")
+				say("Retournez voir Octavio")
+				say("")
+				return
+			end
+			say_title("Tuer les grenouilles pour obtenir leurs cuisses")
+			say("")
+			--                                                  |
+			say("Tuer des grenouilles pour obtenir leurs jambes ")
+			say("pour Octavio. Vous les trouverez dans le temple")
+			say("sombre.")
+		end
+		when 20008.chat."Je ne peux pas le faire maintenant." with pc.getf("subquest_26","frog_done")==1 begin
+			say_title("Octavio:")
+			say("")
+			say("Qu'est-ce qu'il y a?")
+			say("Quand j'étais aussi jeune que vous,")
+			say("J'obtenais 10 jambes de grenouille par jour.")
+
+			local s=select("Essayer encore", "Abandonnez")
+			if 2==s then
+				say("Vous voulez abandonner la quête?")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Octavio:")
+						say("")
+						say("Vous êtes fatigué?")
+						say("Pourquoi ne faites-vous pas une pause")
+						say("et essayer de nouveau plus tard?")
+						return
+					end
+					say_title("Octavio:")
+					say("")
+					say("J'aurais bien utilisé")
+					say("la soupe aux cuisses de grenouille.")
+					say("Ah bien...")
+					say("Au revoir.")
+					set_state(__GIVEUP__)
+			return
+			end
+			say_title("Octavio:")
+			say("")
+			say("Puis aller le chercher!")
+			say("Je vais préparer la soupe.")
+		end
+
+		when 1302.kill begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30116")==0 then
+				pc.give_item2(30116, 1)
+
+				if pc.count_item("30116")>=1 then
+					local v=find_npc_by_vnum(20008)
+					if 0 != v then
+						target.vid("__TARGET__",v,"Allez voir Octavio")
+					end
+				end
+			end
+		end
+		when __TARGET__.target.click or
+			20008.chat."Vous avez les cuisses de grenouille." with pc.count_item(30116)>=1  begin
+			target.delete("__TARGET__")
+
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Oh! Vous les avez!")
+			say("Maintenant, je peux faire la soupe.")
+			say("Tiens, prends ça.")
+			say("Vous ne pouvez pas imaginer combien d'énergie")
+			say("vous allez gagner. Hahaha!")
+			say("")
+			wait()
+			say_title("Octavio:")
+			say("")
+			say("Assurez-vous ")
+			say("que personne n'entendent parler de cette")
+			say("soupe.")
+			say("En particulier, le magasinier ...")
+			say("Je fais rarement cette soupe.")
+			say("Sinon, tous viennent me déranger.")
+			say("")
+			pc.remove_item(30116,1)
+
+			say_reward("Vous avez reçu 50.000 Yang ")
+			pc.change_money(50000)
+
+			say_reward("Vous avez reçu 5.000.000 points d'expérience.")
+			pc.give_exp2(5000000)
+			say("")
+			clear_letter()
+			set_state(COMPLETE)
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+
+end

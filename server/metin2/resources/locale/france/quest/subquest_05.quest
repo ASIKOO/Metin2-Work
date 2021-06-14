@@ -1,0 +1,241 @@
+quest subquest_5 begin
+	state start begin
+			when login or levelup with pc.level >= 10 and pc.level <= 15 begin
+				set_state(information)
+			end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20023)
+			if v != 0 then
+				target.vid("__TARGETF__", v, "Soon")
+			end
+		end
+		when __TARGETF__.target.click or 20023.chat." Aidez Soon" with pc.level >= 10 begin
+			target.delete("__TARGET__")
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("Bla, bla ... Que diable... Qui étes-vous?")
+			say("Ne me dérangez jamais pendant que je lis! ")
+			say("Juste une minute!")
+			say("Désolé, je ne voulais pas vous criez dessus. ")
+			say("Parfois je trouve quelque chose en lisant que ")
+			say("je ne comprends pas et c'est très frustrant.")
+			say("")
+			wait()
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("J'examine les armes éventails utilisés par ")
+			say("les chamanes.")
+			say("J'ai du mal à  trouver quels sont les meilleurs")
+			say("et il est impossible pour moi de tous les ")
+			say("tester.")
+			say("Uriel le chercheur pourrait connaà®tre ces ")
+			say("éventails. Pouvez-vous lui demander?")
+			say("Je suis intéressé par les types d'éventails ")
+			say("suivants: à‰ventail aquatique, éventail oiseau ")
+			say("céleste, éventail triple, éventail ailes ")
+			say("de grue.")
+			wait()
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("Je veux qu'il liste tous les éventails en ")
+			say("fonction de leur valeur d'attaque.")
+			say("")
+			local s=select("Je vais le faire"," Je ne vais pas le faire")
+			if 2==s then
+				say("Voulez-vous vraiment abandonner?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Soon:")
+					say("")
+					say("C'est bon à  entendre")
+					say("Il suffit de revenir plus tard.")
+					return
+				else
+					say_title("Soon:")
+					say("")
+					say("La honte... ")
+					say("")
+					say("Bien laissez moi lire cela.")
+					say("")
+					clear_letter()
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Soon:")
+				say("")
+				say("Vraiment? Maintenant je suis heureux!")
+				say("")
+				say("Cela va àªtre un bon livre.")
+				say("")
+				set_state(ask_to)
+			end
+		end
+	end
+	state ask_to begin
+		when info or button begin
+			say_title("Aidez Soon.")
+			say("")
+			--                                                  |
+			say("Allez voir Uriel et demander une liste de ")
+			say("ces éventails.")
+		end
+		when letter begin
+			local v = find_npc_by_vnum(20011)
+			if v != 0 then
+				target.vid("__TARGETF__", v, "Uriel")
+			end
+			send_letter("Aidez Soon.")
+		end
+		when __TARGETF__.target.click or 20011.chat."Aidez Soon" begin
+			target.delete("__TARGETF__")
+			say_title("Uriel:")
+			say("")
+			--                                                  |
+			say("Que me voulez-vous? ")
+			say("Le rat de bibliothèque vous envoie?")
+			say("Il lit de tout, mais parfois j'aimerais qu'il")
+			say("puisse aussi en apprendre quelque chose.")
+			say("Il est toujours en train de me déranger.")
+			say("Bien, laissez-moi voir ce qu'il veut savoir ")
+			say("cette fois!")
+			wait()
+			say_title("Uriel:")
+			say("")
+			say("Il veux que j'énumère les éventails en ")
+			say("fonction de leur valeur d'attaque?")
+			say("C'est plutôt facile.")
+			say("La voici: éventail oiseau céleste, éventail  ")
+			say("triple, éventail aquatique et éventail aile ")
+			say("de grue.")
+			say("Okay?")
+			say("")
+			set_state(return_to)
+		end
+	end
+	state return_to begin
+		when letter begin
+			send_letter("Retournez chez Soon.")
+			local v = find_npc_by_vnum(20023)
+			if v != 0 then
+				target.vid("__TARGETF__", v, "Soon.")
+			end
+		end
+		when info or button begin
+			say_title("Retournez chez Soon")
+			say("")
+			--                                                  |
+			say("Retournez voir Soon.")
+			say("")
+		end
+		when __TARGETF__.target.click or 20023.chat."Classement des éventails" begin
+			target.delete("__TARGETF__")
+			say_title("Soon:")
+			say("")
+			say("Alors, Uriel vous a-t-il donner une réponse ")
+			say("claire?")
+			local s = select(
+							"Aquatique, Céleste, aile de grue, Triple.",
+							"Céleste, Triple, Aquatique, aile de grue.",
+							"Oiseau céleste, Triple, Aquatique, aile de grue.",
+							"Oh non, j'ai oublié.")
+			if s == 2 then
+				say_title("Soon:")
+				say("")
+				say("Merci beaucoup!")
+				say("")
+				say("Maintenant je peux lire. Je vous remercie!")
+				say("")
+				pc.give_exp2(6000)
+				set_quest_state("levelup","run")
+				pc.change_money(2000)
+				say_title("Reward")
+				say("")
+				say_reward("Vous recevez 6.000 point d'expérience.")
+				say_reward("Vous recevez 2.000 Yang.")
+				clear_letter()
+				set_state(__COMPLETE__)
+			elseif s==4 then
+				--                                                  |
+				say_title("Soon:")
+				say("")
+				say("Je ne suis pas sur que ce soit exact")
+				say("S'il vous plaà®t, pouvez-vous vérifier ?.")
+				say("")
+				local s=select("Oui c'est correcte","Je ne suis pas sur")
+				if 2==s then
+					say("Fin de quàªte?")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Soon:")
+						say("")
+						say("Bon à  entendre, revenez plus tard.")
+						say("")
+						return
+					else
+						say_title("Soon:")
+						say("")
+						say("Ce n'est pas bon à  entendre!")
+						say("Allez-vous en...")
+						say("")
+						set_state(__GIVEUP__)
+					end
+				else
+					say_title("Soon:")
+					say("")
+					say("Merveilleux, alors revenez plus tard. ")
+					say("")
+					set_state(ask_to)
+				end
+			else
+				say_title("Soon:")
+				say("")
+				say("àŠtes-vous sur que l'ordre est correct?")
+				say("")
+				local s=select("Oui je le suis","non, pas vraiment.")
+				if 2==s then
+					say("Fin de quàªte?")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Soon:")
+						say("")
+						say("Bon à  entendre.")
+						say("")
+						say("Revenez plus tard.")
+						say("")
+						return
+					else
+						say_title("Soon:")
+						say("")
+						say("Cela aurait été trop beau.")
+						say("")
+						say("Allez-vous en...")
+						say("")
+						set_state(__GIVEUP__)
+					end
+				else
+					say_title("Soon:")
+					say("")
+					--                                                  |
+					say("Je ne pense pas que ce soit correct.")
+					say("S'il vous plait demandez lui à  nouveau.")
+					say("")
+					set_state(ask_to)
+				end
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

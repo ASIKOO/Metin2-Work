@@ -1,0 +1,278 @@
+----------------------------------------------------
+--COLLECT QUEST_lv40
+--METIN2 Collect Quest  
+----------------------------------------------------
+quest collect_quest_lv40 begin
+	state start begin
+	end
+
+	state run begin
+		when login or levelup with pc.level >= 40 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			send_letter("La demande du biologiste")
+			local v = find_npc_by_vnum(20084)
+
+			if v!= 0 then
+				target.vid("__TARGET__", v, "Quête du biologiste")
+			end
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("La demande du biologiste")
+			say("Le biologiste Chaegirab, élève d'Uriel, a")
+			say("désespérément besoin de votre aide. Allez vite")
+			say("le voir.")
+		end
+
+		when __TARGET__.target.click or 
+			20084.chat."Aider le biologiste" begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Ah, bonjour! Vous savez, je ne collecte pas que")
+			say("des informations sur les monstres mais je")
+			say("fais aussi une étude sur les différentes sortes")
+			say("de magie. Je n'y arriverai pas non plus tout")
+			say("seul. Normalement je devrais faire les recherches")
+			say("sans aide, mais je m'en sors pas.")
+			say("Pourriez-vous m'aider? Vous serez largement")
+			say("récompensé bien sûr.")
+			wait()
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Je veux en savoir plus sur la secte de la vallée")
+			say("des Dragons. Je crois qu'ils savent beaucoup de")
+			say("choses sur la Magie ancienne, en particulier les")
+			say("Livres maléfiques. Ces livres doivent être la") 
+			say("clé qui me manque pour résoudre mon problème.")
+			say("Amenez-moi un livre à la fois, de manière à ce")
+			say("que j'aie le temps de les consulter et")
+			say("d'évaluer leur contenu.")
+			wait()
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Mais ne m'amenez pas de livres trop vieux ou")
+			say("endommagés, je ne pourrais pas les utiliser pour")
+			say("mes recherches. Il me faut 15 livres en tout, ")
+			say("amenez m'en un seul à la fois. Bonne chance!")																																		  
+			set_state(go_to_disciple)
+			pc.setqf("duration",0)
+			pc.setqf("collect_count",0)
+			pc.setqf("drink_drug",0)
+		end
+	end
+
+	state go_to_disciple begin
+		when letter begin
+			send_letter("La recherche du biologiste")
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("La Magie ancienne")
+			say("Chaegirab, l'élève d'Uriel, effectue des")
+			say("recherches sur la Magie ancienne de la vallée")
+			say("des Dragons. Vous y trouverez des livres")
+			say("maléfiques traitant de l'ensorcellement. Amenez")
+			say("15 de ces livres à la fois!")
+			say_item_vnum(30047) 
+			say_reward("Vous avez déja trouvé "..pc.getqf("collect_count").." livres.")
+		end
+
+		when 71035.use begin
+			if get_time() < pc.getqf("duration") then
+				---                                                   l
+				say_title("Élixir du chercheur:")
+				say("Le Biologiste Chaegirab doit d'abord finir")
+				say("d'examiner le dernier livre maléfique que vous lui")
+				say("avez donner.")
+				return
+			end
+			if pc.getqf("drink_drug")==1 then
+				---                                                   l
+				say_title("Élixir du chercheur:")
+				say("L'élixir du chercheur fait déjà éffet sur vous.")
+				return
+			end
+			if pc.count_item(30047)==0 then
+				---                                                   l
+				say_title("Élixir du chercheur:")
+				say("Vous ne pouvez pas utiliser l'élixir du chercheur")
+				say("si vous ne disposez pas de livre maléfique.")
+				return
+			end
+			item.remove()	
+			pc.setqf("drink_drug",1)
+		end
+
+		when 20084.chat."Les livre maléfique" with pc.count_item(30047) >0 begin
+			if get_time() > pc.getqf("duration") then
+				---                                                   l
+				say_title("Le biologiste Chaegirab:")
+				say("Oh!! Vous m'avez rapporté un livre... Je dois")
+				say("l'examiner... Un moment...")
+				pc.remove_item("30047", 1)
+				pc.setqf("duration",get_time()+60*60*22)		--(24 heures)
+				wait()
+
+				local pass_percent
+					if pc.getqf("drink_drug")==0 then
+						pass_percent=60
+					else
+						pass_percent=90
+					end
+
+				local s= number(1,100)
+
+				if s<= pass_percent  then
+					if pc.getqf("collect_count")< 14 then
+						local index =pc.getqf("collect_count")+1 
+						pc.setqf("collect_count",index)
+						---                                                   l
+						say_title("Le biologiste Chaegirab:")
+						say("Oh!! Vous êtes vraiment le meilleur.")
+						say("Apportez-moi encore".." "..15-pc.getqf("collect_count").. " s'il vous plait. J'en")
+						say("ai besoin pour finir mes recherches. Bonne")
+						say("chance!")
+						pc.setqf("drink_drug",0)
+						return
+					end
+					---                                                   l
+					say_title("Le biologiste Chaegirab:")
+					say("Félicitation!")
+					say("Vous les avez tous trouvés.")
+					say("Je vais pouvoir terminer mes expériences.")
+				   	say("Merci.")
+					pc.setqf("collect_count",0)
+					pc.setqf("drink_drug",0)	
+					pc.setqf("duration",0) 
+					set_state(key_item)
+					return
+				else
+					---                                                   l
+					say_title("Le biologiste Chaegirab:")
+					say("Je suis désolé mais ce livre maléfique")
+					say("est abîmée! Allez m'en rechercher")
+					say("un autre en bon état.")
+					pc.setqf("drink_drug",0)
+					return
+				end
+			else
+				---                                                   l
+				say_title("Le biologiste Chaegirab:")
+				say("Oh!! Vous m'avez apporté un livre maléfique. Je")
+				say("dois d'abord l'examiner. Cela peut prendre")
+				say("quelques heures. Revenez plus tard.")
+				return
+			end
+		end
+	end
+
+	state key_item begin
+		when letter begin
+			send_letter("La pierre d'âme du Temple")
+			if pc.count_item(30221)> 0 then	
+				local v = find_npc_by_vnum(20084)
+				if v!= 0 then
+					target.vid("__TARGET__", v, "La pierre d'âme")
+				end			
+			end		
+		end		
+		
+		when button or info begin
+			if pc.count_item(30221) > 0 then
+				---                                                   1
+				say_title("La pierre d'âme du temple")
+				say_reward("Vous avez enfin trouvé la pierre d'âme.")
+				say_reward("Apportez-la au biologiste Chaegirab, il vous")
+				say_reward("attend.")
+				return
+			end
+			---                                                   1
+			say_title("La pierre d'âme du temple")
+			say("Pour finir ses recherches, le biologiste Chaegirab")
+			say("a besoin de la pierre d'âme du temple.")
+			say_item_vnum(30221)
+			say("Donnez la pierre que vous avez trouvée au")
+			say("biologiste Chaegirab.")
+		end
+
+		when 704.kill or
+			705.kill or
+			706.kill or
+			707.kill begin
+
+			local s = number(1, 100)
+
+			if s == 1 and pc.count_item(30221)==0 then
+				pc.give_item2(30221, 1)
+				send_letter("Vous avez trouvé la Pierre d'âme du Temple.")        
+			end    
+		end
+
+		when __TARGET__.target.click  or
+			20084.chat."Donner la pierre d'âme du temple" with pc.count_item(30221) > 0  begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Oh !! Merci beaucoup... En récompense, je vais")
+			say("augmenter votre force intérieure. Ceci est une")
+			say("recette secrète qui contient le secret de la")
+			say("force! Donnez-là à Baek-Go et il vous préparera")
+			say("une potion de force. Profitez-en! Grâce à votre")
+			say("aide, j'ai appris énormément de choses sur la")
+			say("magie ténébreuse.")
+			pc.remove_item(30221,1)
+			clear_letter()
+			set_state(__reward)
+		end
+	end
+
+	state __reward begin
+		when letter begin
+			send_letter("La récompense du biologiste")
+			local v = find_npc_by_vnum(20018)
+			if v!= 0 then
+				target.vid("__TARGET__", v, "Récompense de la quête du biologiste")
+			end
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("La récompense du biologiste")
+			say("En récompense pour les livres maléfiques et la")
+			say("pierre d'âme du Temple, le biologiste")
+			say("Chaegirab vous a donné la recette d'une potion")
+			say("secrète. Donnez la recette à Baek-Go, il vous") 			
+			say("confectionnera la potion.")
+		end
+
+		when __TARGET__.target.click  or
+			20018.chat."Récompense de la quête"  begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Baek-Go:")
+			say("Laissez-moi regarder. Est-ce la recette que")
+			say("Chaegirab vous à donnée? Hmm, augmentation de la")
+			say("vitesse d'attaque. Oh, voilà. Une boite")
+			say("d'ébène d'apparat. Prenez-là.")
+			say_reward("Pour vous récompenser d'avoir aidé le")
+			say_reward("biologiste Chaegirab, votre vitesse")
+			say_reward("d'attaque a été augmentée de +5. L'éffet")
+			say_reward("n'est pas provisoire mais permanent.")
+			affect.add_collect(apply.ATT_SPEED,5,60*60*24*365*60)
+			pc.give_item2(50110, 1)
+			clear_letter()
+			set_quest_state("collect_quest_lv50", "run")
+			set_state(__complete)
+		end			
+	end
+	state __complete begin
+	end
+end

@@ -1,0 +1,50 @@
+quest hair_shop begin
+	state start begin
+		when 20021.chat."Salon de coiffure" with pc.get_part(PART_HAIR) >= 1001 begin
+			say_title("Ariyoung:")
+			say("")
+			--                                                  |
+			say("Hey vous ! Vos cheveux sont très joli,")
+			say("mais vous ne voulez pas retourner à votre ")
+			say("ancienne coiffure?")
+			say("Je peux restaurer votre ancien coiffure.")
+			say("Alors qu'en dites vous ? ")
+			say("Pour seulement 500.000 Yang je peux restaurer ")
+			say("votre ancienne coiffure...")
+
+			local a = select("Acienne coiffure", "Non merci.")
+			if a == 1 then
+				if pc.money >= 500000 then
+					pc.changemoney(-500000)
+					say_title("Ariyoung:")
+					say("")
+					say("Bonne décision.")
+					say("Un moment s'il vous plait.")
+					say("")
+					wait()
+					say_title("Ariyoung:")
+					say("Hmm ... Fini!")
+					say("Je serais prêt à parier, vous serez satisfait.")
+					say("")
+					pc.set_part(PART_HAIR, 0)
+				else
+					say_title("Ariyoung:")
+					say("")
+					say("Vous n'avez pas assez de yang.")
+					say("Cela coute 500.000 Yang ... 500.000 Yang!")
+					say("")
+					wait()
+					q.done()
+				end
+			elseif a == 2 then
+				say_title("Ariyoung:")
+				say("")
+				say("What a shame. I could beautify you much more.")
+				say("")
+				say("")
+			else
+				say("UNBEKANNTE TASTE ["..a.."]")
+			end
+		end
+	end
+end

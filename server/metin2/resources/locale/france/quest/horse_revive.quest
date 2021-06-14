@@ -1,0 +1,162 @@
+quest horse_revive begin
+	state start begin
+		when 20349.chat."Ressusciter le cheval." with horse.get_grade()==3 and horse.is_dead() and pc.countitem("50059")<1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Vous ne pouvez ressusciter votre cheval qu'avec")
+			say("une herbe du donjon des singes.")
+			say("Mais cela va être compliqué car le donjon est")
+			say("surveillé par les singes. Ces singes sont")
+			say("méchants. Ils transforment tous ceux qui viennent")
+			say("voler leurs herbes en singe.")
+
+			if pc.countitem("50058")>=1 then
+				----------                                                   l
+				say_reward("Les herbes du donjon des singes (Moyen) ne")
+				say_reward("peuvent ressusciter seulement les chevaux de")
+				say_reward("combat. C'est à dire les chevaux entre le niveau")
+				say_reward("11 et 20.")
+
+			elseif pc.countitem("50057")>=1 then
+				----------                                                   l
+				say_reward("Les herbes du donjon des singes (Facile) ne")
+				say_reward("peuvent ressusciter seulement les chevaux.")
+				say_reward("C'est à dire les chevaux entre le niveau 1 et 10.")
+			end
+		end
+
+		when 20349.chat."Ressusciter le cheval." with horse.get_grade()==3 and horse.is_dead() and pc.countitem("50059")>=1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Ces herbes médicinales viennent du donjon des")
+			say("singes. Elles peuvent ressusciter votre cheval.")
+			say("Appelons-le.")
+			horse.summon()
+			wait()
+
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Donnez les herbes à manger à votre cheval et")
+			say("attendez.[DELAY value=400]. . .[/DELAY]")
+			horse.revive()
+			wait()
+
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Votre cheval a été ressuscité. N'oubliez plus de")
+			say("lui donner à manger désormais.")
+			if pc.countitem("50059")>=1 then
+				pc.removeitem("50059", 1)
+			end
+		end
+
+		when 20349.chat."Ressusciter le cheval." with horse.get_grade()==2 and horse.is_dead() and pc.countitem("50058")<1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Vous ne pouvez ressusciter votre cheval qu'avec")
+			say("une herbe du donjon des singes.")
+			say("Mais cela va être compliqué car le donjon est")
+			say("surveillé par les singes. Ces singes sont")
+			say("méchants. Ils transforment tous ceux qui viennent")
+			say("voler leurs herbes en singe.")
+
+			if pc.countitem("50059")>=1 then
+      				----------                                                   l
+				say_reward("Les herbes du donjon des singes (Difficile) ne")
+				say_reward("peuvent ressusciter seulement les chevaux")
+				say_reward("militaire. C'est à dire les chevaux entre le niveau")
+				say_reward("21 et 30.")
+
+			elseif pc.countitem("50057")>=1 then
+				----------                                                   l
+				say_reward("Les herbes du donjon des singes (Facile) ne")
+				say_reward("peuvent ressusciter seulement les chevaux.")
+				say_reward("C'est à dire les chevaux entre le niveau 1 et 10.")
+			end
+		end
+
+		when 20349.chat."Ressusciter le cheval." with horse.get_grade()==2 and horse.is_dead() and pc.countitem("50058")>=1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Ces herbes médicinales viennent du donjon des")
+			say("singes. Elles peuvent ressusciter votre cheval.")
+			say("Appelons-le.")
+			horse.summon()
+			wait()
+
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Donnez les herbes à manger à votre cheval et")
+			say("attendez.[DELAY value=400]. . .[/DELAY]")
+			horse.revive()
+			wait()
+
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Votre cheval a été ressuscité. N'oubliez plus de")
+			say("lui donner à manger désormais.")
+			if pc.countitem("50058")>=1 then
+				pc.removeitem("50058", 1)
+			end
+		end
+
+		when 20349.chat."Ressusciter le cheval." with horse.get_grade()==1 and horse.is_dead() and pc.countitem("50057")<1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Vous ne pouvez ressusciter votre cheval qu'avec")
+			say("une herbe du donjon des singes.")
+			say("Mais cela va être compliqué car le donjon est")
+			say("surveillé par les singes. Ces singes sont")
+			say("méchants. Ils transforment tous ceux qui viennent")
+			say("voler leurs herbes en singe.")
+
+			if pc.countitem("50059")>=1 then
+      				----------                                                   l
+				say_reward("Les herbes du donjon des singes (Difficile) ne")
+				say_reward("peuvent ressusciter seulement les chevaux")
+				say_reward("militaire. C'est à dire les chevaux entre le niveau")
+				say_reward("21 et 30.")
+
+			elseif pc.countitem("50058")>=1 then
+				----------                                                   l
+				say_reward("Les herbes du donjon des singes (Moyen) ne")
+				say_reward("peuvent ressusciter seulement les chevaux de")
+				say_reward("combat. C'est à dire les chevaux entre le niveau")
+				say_reward("11 et 20.")
+			end
+		end
+
+		when 20349.chat."Ressusciter le cheval." with horse.get_grade()==1 and horse.is_dead() and pc.countitem("50057")>=1 begin
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Ces herbes médicinales viennent du donjon des")
+			say("singes. Elles peuvent ressusciter votre cheval.")
+			say("Appelons-le.")
+			horse.summon()
+			wait()
+
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Donnez les herbes à manger à votre cheval et")
+			say("attendez.[DELAY value=400]. . .[/DELAY]")
+			horse.revive()
+			wait()
+
+			---                                                   l
+			say_title("Le palefrenier:")
+			say("Votre cheval a été ressuscité. N'oubliez plus de")
+			say("lui donner à manger désormais.")
+
+			if pc.countitem("50057")>=1 then
+				pc.removeitem("50057", 1)
+
+			end
+		end
+	end
+
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

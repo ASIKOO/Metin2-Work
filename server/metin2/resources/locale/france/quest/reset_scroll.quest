@@ -1,0 +1,120 @@
+quest reset_scroll begin
+	state start begin
+		when 71002.use begin
+			---                                                   l
+			say_title("Redistribution de statut:")
+			say("Ce parchemin vous permet d'oublier vos points") 
+			say("de caracteristiques.")
+			say("Etes-vous sur de vouloir le faire?")
+
+			local s = select("Oui", "Non")
+
+			if 2 == s then
+				return
+			end
+
+			---                                                   l
+			say_title("Redistribution de statut:")
+			say("Tout vos points de caracteristiques vont être")
+			say("remis à zéro.")
+			say("Voulez-vous continuer ?")
+
+			local c = select("Oui", "Non")
+
+			if 2 == c then
+				return
+			end
+
+			char_log(0, "RESET_ALL", "USE_ITEM(71002)")
+			pc.remove_item(71002)
+
+			char_log(0, "RESET_ALL", "RESET_STAT_POINTS")
+			pc.reset_point()
+
+			char_log(0, "RESET_ALL", "RESET_END")
+		end
+
+		when 71003.use begin
+			---                                                   l
+			say_title("Compétence oubliée")
+			say_reward("Une compétence de votre choix va être remise à ")
+			say_reward("zéro, vous pourrez donc attribuer vos points à ")
+			say_reward("nouveau. Vous êtes sur le point de perdre les")
+			say_reward("points gagnés grâce aux livres, donc vous allez")
+			say_reward("récupérer au maximum 17 points, même si votre")
+			say_reward("compétence en possède plus que ça.")
+			wait()
+
+			local result = BuildSkillList(pc.get_job(), pc.get_skill_group())
+
+			local vnum_list = result[1]
+			local name_list = result[2]
+
+			if table.getn(vnum_list) < 2 then
+				---                                                   l
+				say_title("Compétence oubliée")
+				say("Vous n'avez aucune compétence à oublier.")
+				return
+			end
+
+			---                                                   l
+			say("Merci de choisir une compétence à oublier.")
+
+			local i = select_table(name_list)
+
+			if table.getn(name_list) == i then
+				return
+			end
+
+			local name = name_list[i]
+			local vnum = vnum_list[i]
+
+			---                                                   l
+			say_title("Compétence oubliée")
+			say_reward("Une compétence de votre choix est sur le point")
+			say_reward("d'être remise à zéro. Vous allez donc perdre")
+			say_reward("tous les points obtenus grâce aux livres, et")
+			say_reward("récupèrez donc au maximum 17 points, même si")
+			say_reward("votre compétence en comporte plus.")
+			say("Êtes-vous sûr de vouloir réinitialiser la")
+			say(string.format("compétence %s ?", name))
+
+			local s = select("Oui", "Non")
+
+			if 2 == s then
+				return
+			end
+
+			---                                                   l
+			say_title("Compétence oubliée")
+			say("Vous ne pourrez revenir en arrière. Voulez-vous")
+			say("vraiment le faire?")
+
+			local c = select("Oui", "Non")
+
+			if 2 == c then
+				return
+			end
+
+			char_log(0, "RESET_ONE_SKILL", "USE_ITEM(71003)")
+			pc.remove_item(71003)
+
+			char_log(0, "RESET_ONE_SKILL", string.format("RESET_SKILL[%s]", name))
+			pc.clear_one_skill(vnum)
+
+			char_log(0, "RESET_ONE_SKILL", "APPLY_17MASTER_BONUS")
+			pc.setqf("force_to_master_skill", 1)
+
+			---                                                   l
+			say_title("Réinitialiser compétence")
+			say(string.format("Compétence ré-initialisée %s .", name))
+			say_reward("La compétence choisie a été réinitialisée.")
+		end
+
+		when 71100.use begin
+			---                                                   l
+			say_title("Parchemin de compétence:")
+			say("Ce parchemin n'est pas encore disponible.")
+		end
+ 	end
+end

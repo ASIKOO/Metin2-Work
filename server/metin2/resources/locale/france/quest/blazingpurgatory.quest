@@ -1,0 +1,268 @@
+quest blazingpurgatory begin 
+    state start begin 
+        when 20394.chat."Les Gorges du Pugatoire" begin
+            say_title("Gardien du Purgatoire:") 
+            say("Le Dieu de tous les démons, Razador, s'est") 
+            say("réveillé, la fin de l'humanité est proche!") 
+            say("Lutte, vaillant guerrier, avec l'aide de ton") 
+            say("groupe pour sauver le monde de la") 
+            say("destruction de ce nouveau mal !") 
+            say("") 
+            say("") 
+            say("") 
+            wait() 
+            say_title("Gardien du Purgatoire:") 
+            say("Pour accéder au Purgatoire vous devez") 
+            say(" être au minimum lvl 90 et être dans un") 
+            say("groupe.")
+            say("") 
+            say("") 
+            wait() 
+            say_title("Gardien du Purgatoire:") 
+			if pc.get_level() < 100 then 
+				say("Désolé, le chef du groupe n'est pas lvl 100.")
+				party.chat("Le chef du groupe doit être lvl 100.")
+				return
+			end -- if
+			---if not party.is_party() then 
+				---say("Vous devez être dans un groupe pour rejoindre")
+				---say("les Gorges du Purgatoire.")
+				---return
+			---end
+			---if not party.is_leader() then
+				---say("Amenez moi le chef de votre groupe...")
+				---say("je vais lui transmettre ce que je sais.")
+				---return
+			---end
+			say("Parfait, vous avez toutes les qualitées pour")
+			say("entrer, voulez vous essayer de vaincre Razador ?")
+			local x = select("Oui !", "Non")
+			if x == 2 then 
+				return
+			elseif x == 1 then
+				d.join(251)
+			end
+        end 
+
+        when login with pc.get_map_index() >= 2510000 and pc.get_map_index() < 2515000 begin 
+	  notice_all("Le groupe de "..pc.name.." s'engage dans l'antre de de Razador !")
+            say("L'instance est maintenant commencée.") 
+            say("Que le combat commence !") 
+            say("") 
+			d.setf("temps", get_time()) --- Utilisé pour le temps à la fin de l'instance
+
+            if party.is_party() then 
+                if party.is_leader() then 
+                    blazingpurgatory.start() 
+                end 
+            else 
+                if pc.is_gm() then 
+                    blazingpurgatory.start() 
+                end 
+            end 
+        end 
+         
+        function start() 
+            d.regen_file("data/dungeon/flame_dungeon/npc.txt") 
+            d.setf("purgatory_gate_sequence",number(1,7)) 
+            local sequence = {{1,2,3,4,5,6},{4,1,3,2,5,6},{2,5,3,1,4,6},{3,1,6,2,4,5},{5,3,2,4,6,1},{6,1,5,2,4,3},{6,3,5,3,1,4}}  --- charge aléaoirement une de ces séquences, les étapes sont donc aléatoires
+            for i = 1, 6 do 
+                d.regen_file("data/dungeon/blazingpurgatory/blazingpurgatory_gate_"..sequence[d.getf("purgatory_gate_sequence")][i]..".txt") --- charge la regen correspondant à l'étape où on est
+            end 
+            d.setf("acutal_round",0) 
+            d.setf("time", get_time()+60*60*1) 
+            server_timer("purgatorytime",3600,pc.get_map_index()) 
+            server_loop_timer("purgatorytimenotice",300,pc.get_map_index()) 
+            blazingpurgatory.NoticeTime() 
+        end             
+         
+        when purgatorytimenotice.server_timer begin 
+            if d.select(get_server_timer_arg()) then 
+                blazingpurgatory.NoticeTime() 
+            end 
+        end 
+
+        when purgatorytime.server_timer begin 
+            if d.select(get_server_timer_arg()) then 
+                d.notice("Le temps est écoulé ! ") 
+                d.exit_all() 
+            end 
+        end 
+         
+        when 20385.click with pc.get_map_index() >= 2510000 and pc.get_map_index() <= 2515000 and d.getf("block_altar") == 0 begin 
+            if d.getf("purgatory_level") == 7 then 
+                d.setf("block_altar",1) 
+                d.setf("actual_round",7) 
+                d.notice("Vous pensiez que c'était fini ?!") 
+		d.notice("NON !")
+                d.notice("Vous allez maintenant rejoindre Razador.") --- boss
+                timer("warp_to_boss",5) 
+            else 
+                     
+                d.setf("purgatory_level",d.getf("purgatory_level")+1) 
+                blazingpurgatory.purge() 
+                blazingpurgatory.LoadStage() 
+                d.setf("block_altar",1) 
+                 
+                blazingpurgatory.NoticeTime() 
+                d.notice("Un nouvel étage est maintenant ouvert!") 
+            end 
+        end 
+
+        when warp_to_boss.timer begin 
+            d.jump_all(8111,6864) --- coordonnées de la salle du boss, laisser comme tel
+            d.notice("Razador:") 
+            d.notice("Inutile de me résister, vous allez périr !") 
+            d.set_regen_file("data/dungeon/flame_dungeon/fd_fild_boss.txt") 
+            blazingpurgatory.NoticeTime() 
+        end     
+		
+        when 6091.kill with pc.get_map_index() >= 2510000 and pc.get_map_index() <= 2515000 begin --- ID map
+			temps = get_time() - d.getf("temps") --- Prend le temps à partir du moment que "temps" est activé (début de l'instance)
+			sec = math.mod(temps, 60)
+			min = (temps-sec)/60
+			notice_all("Le groupe de "..pc.name.." a terminé les Gorges du Purgatoire en "..min.." minutes et "..sec.." secondes !")
+			d.notice("Vous serez téléporté hors du donjon dans 1 minute !")
+			timer("purgatoires_fin", 60) --- temps en secondes avant de sortir de l'instance
+		end
+		
+		when purgatoires_fin.timer begin --- Au bout de 60 secondes téléporte tout le monde hors de l'instance
+			d.exit_all()
+		end
+         
+        when kill with pc.get_map_index() >= 2510000 and pc.get_map_index() <= 2515000 begin 
+            if d.getf("actual_round") == 1 or d.getf("actual_round") == 3 then 
+                d.setf("kill_count_bp1",d.getf("kill_count_bp1") +1) 
+                if d.getf("kill_count_bp1") == d.getf("bp_kill_to_next") then --- il faut tuer 241 mobs
+                    d.notice("Retournez au près des Gorges d'Am-Heh au centre de la map!") 
+                    blazingpurgatory.purge() 
+                end 
+            elseif d.getf("actual_round") == 2 or d.getf("actual_round") == 5 then 
+                d.setf("kill_count_bp",d.getf("kill_count_bp") +1) 
+                if d.getf("kill_count_bp") == d.getf("kill_to_drop_key") then --- au bout de 50 kill on drop une clé
+                    game.drop_item_with_ownership(50084,1) 
+                    d.setf("kill_count_bp",0) 
+                end 
+            elseif d.getf("actual_round") == 4 and npc.get_race() == 6009 then --- on kill un mini boss
+                if number(1,5) == 1 then 
+                    d.notice("Retournez au près des Gorges d'Am-Heh au centre de la map!") 
+                    blazingpurgatory.purge() 
+                end 
+            elseif d.getf("actual_round") == 6 and npc.get_race() == 8057 then --- on kill une metin
+                d.notice("Retournez au près des Gorges d'Am-Heh au centre de la map!") 
+                blazingpurgatory.purge()     
+            elseif d.getf("actual_round") == 7 and npc.get_race() == 6091 then --- on kill le boss
+                d.notice("Razador est mort !") 
+                d.clear_regen() 
+                d.kill_all() 
+            end 
+        end 
+
+        when 20081.take with pc.get_map_index() >= 2510000 and pc.get_map_index() <= 2515000 begin --- on pose l'item 50084 sur un pillier (clé dropée précédemment)
+            if item.get_vnum() == 50084 then 
+                if d.getf("actual_round") == 2 then 
+                    pc.remove_item(item.get_vnum(),1) 
+                    if number(1,8) == 1 then 
+                        npc.purge() 
+                        d.notice("Retournez au près des Gorges d'Am-Heh au centre de la map!") 
+                        blazingpurgatory.purge() 
+                    else 
+                        syschat("Cette pierre d'ouverture est endommagée!") 
+						syschat("Trouvez en une autre !")
+                    end 
+                elseif d.getf("actual_round") == 5 then 
+                    local sequence = {{1,2,3,4,5,5},{4,3,2,1,5,5},{4,5,3,1,2,2},{5,3,4,2,1,1},{5,1,3,4,2,2}} 
+                    if blazingpurgatory.GetPillarID() == sequence[d.getf("sequence")][d.getf("pillarcount")] then 
+                        pc.remove_item(item.get_vnum(),1) 
+                        npc.purge() 
+                        d.setf("pillarcount", d.getf("pillarcount")+1) 
+                        if d.getf("pillarcount") == 6 then 
+                            d.notice("Retournez au près des Gorges d'Am-Heh au centre de la map!") 
+                            blazingpurgatory.purge() 
+                        else 
+                            d.notice("Continuez comme ça, il reste "..6-d.getf("pillarcount").." pilliers à ouvrir !") 
+                        end 
+                    elseif blazingpurgatory.GetPillarID() == false then 
+                        syschat("Rapprochez vous du pillier !") --- Pas sûr de cette traduction
+                    elseif blazingpurgatory.GetPillarID() != sequence[d.getf("sequence")][d.getf("pillarcount")] then 
+                        pc.remove_item(item.get_vnum(),1) 
+                        syschat("Cet item ne fonctionne pas!") 
+                    end 
+                end 
+            end 
+        end 
+                     
+        function LoadStage() --- gère chaque étape et les regen
+            if d.getf("actual_round") == 1 then -- Alle Monster tötenw 
+                d.regen_file("data/dungeon/flame_dungeon/blazingpurgatory_gate_1.txt") 
+                d.setf("bp_kill_to_next",230) 
+                d.setf("kill_count_bp1",0) 
+            elseif d.getf("actual_round") == 2 then 
+                d.set_regen_file("data/dungeon/flame_dungeon/blazingpurgatory_gate_2.txt") 
+                d.setf("kill_to_drop_key",50) 
+                d.spawn_mob(20081,195,352) 
+            elseif d.getf("actual_round") == 3 then 
+                d.regen_file("data/dungeon/flame_dungeon/blazingpurgatory_gate_3.txt") 
+                d.setf("bp_kill_to_next",230) 
+                d.setf("kill_count_bp1",0) 
+            elseif d.getf("actual_round") == 4 then 
+                d.set_regen_file("data/dungeon/flame_dungeon/blazingpurgatory_gate_4.txt") 
+            elseif d.getf("actual_round") == 5 then 
+                d.set_regen_file("data/dungeon/flame_dungeon/blazingpurgatory_gate_5.txt") 
+                local sequence = {{1,2,3,4,5},{4,3,2,1,5},{4,5,3,1,2},{5,3,4,2,1},{5,1,3,4,2}} 
+                local n = number(1,5) 
+                local coords = {{502,354},{517,354},{487,354},{502,339},{502,369}} 
+                for i = 1, 5 do 
+                    d.spawn_mob(20081, coords[i][1],coords[i][2]) 
+                end 
+                d.setf("pillarcount", 1) 
+                d.setf("sequence",n) 
+                d.setf("kill_to_drop_key",100) 
+            elseif d.getf("actual_round") == 6 then 
+                d.set_regen_file("data/dungeon/flame_dungeon/blazingpurgatory_gate_6.txt") 
+                d.spawn_mob(8057,507,489) 
+            end 
+        end     
+
+        function purge() --- purge tout puis remet les PNJ en place
+            d.setf("block_altar",0) 
+            d.clear_regen() 
+            d.kill_all() 
+            blazingpurgatory.LoadGates() 
+            d.regen_file("data/dungeon/flame_dungeon/npc.txt") 
+            if d.getf("purgatory_level") == 6 then 
+                d.setf("purgatory_level",7) 
+            end 
+        end         
+
+        function LoadGates() 
+            local sequence = {{1,2,3,4,5,6},{4,1,3,2,5,6},{2,5,3,1,4,6},{3,1,6,2,4,5},{5,3,2,4,6,1},{6,1,5,2,4,3},{6,3,5,3,1,4}} 
+            for i = 1, 6-d.getf("purgatory_level") do 
+                d.regen_file("data/dungeon/blazingpurgatory/blazingpurgatory_gate_"..sequence[d.getf("purgatory_gate_sequence")][i]..".txt") 
+            end 
+            d.setf("actual_round",sequence[d.getf("purgatory_gate_sequence")][7-d.getf("purgatory_level")]) 
+        end         
+         
+        function NoticeTime() 
+            local secondsLeft = (d.getf("time") - get_time()) 
+            local minutesLeft = math.ceil(secondsLeft / 60) 
+            d.notice("Il reste "..minutesLeft.." minute(s) !") 
+        end 
+
+        function GetPillarID() 
+            if pc.get_local_x() >= 502 - 5 and pc.get_local_x() <= 502 + 5 and pc.get_local_y() >= 354 - 5 and pc.get_local_y() <= 354 + 5 then 
+                return 1 
+            elseif pc.get_local_x() >= 517 - 5 and pc.get_local_x() <= 517 + 5 and pc.get_local_y() >= 354 - 5 and pc.get_local_y() <= 354 + 5 then 
+                return 2 
+            elseif pc.get_local_x() >= 487 - 5 and pc.get_local_x() <= 487 + 5 and pc.get_local_y() >= 354 - 5 and pc.get_local_y() <= 354 + 5 then 
+                return 3 
+            elseif pc.get_local_x() >= 502 - 5 and pc.get_local_x() <= 502 + 5 and pc.get_local_y() >= 339 - 5 and pc.get_local_y() <= 339 + 5 then 
+                return 4 
+            elseif pc.get_local_x() >= 502 - 5 and pc.get_local_x() <= 502 + 5 and pc.get_local_y() >= 369 - 5 and pc.get_local_y() <= 369 + 5 then 
+                return 5 
+            else 
+                return false 
+            end 
+        end    
+    end 
+end

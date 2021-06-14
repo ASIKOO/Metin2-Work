@@ -1,0 +1,351 @@
+quest subquest_44 begin
+	state start begin
+		when login or  levelup with pc.level >= 37 and pc.level <= 39 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20012)
+			if v!= 0 then
+				target.vid("__TARGET__", v, "The Spider")
+			end
+		end
+		when __TARGET__.target.click or 20012.chat."L'araignée à clochette" with pc.level >= 37 begin
+			target.delete("__TARGET__")
+			say_title("Yu-Rang:")
+			say("")
+			--                                                  |
+			say("Hé, vous pouvez me faire une faveur?")
+			say("Mon ami Taurean est toujours en colère parce ")
+			say("que je l'ai appelé lâche. ")
+			say("Elle dit qu'elle serait assez courageuse, ")
+			say("et elle a fait le pari qu'elle irait accrocher")
+			say("une cloche à une araignée du désert. ")
+			say("Elle a dit qu'elle l'a fait, mais je ne peux ")
+			say("pas la croire.")
+			say("C'est trop dangereux pour moi d'aller vérifier.")
+			say("")
+			wait()
+			say_title("Yu-Rang:")
+			say("")
+			say("Je sais que je devrais faire confiance à ")
+			say("mon ami, mais je veux savoir si elle l'a ")
+			say("vraiment fait .")
+			say("Vous me semblez très fort, vous pourrez le ")
+			say("faire en toute simplicité.")
+			say("Souhaitez-vous y aller et jetez un coup d'oeil?")
+			local s=select("Accepter", "Refuser")
+			if 2==s then
+				say("Refuser la quête?")
+				say("")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Yu-Rang:")
+					say("")
+					say("Pourquoi pas?")
+					say("Okay, Si tu as peur..")
+					say("Reviens me voir si tu changes d'avis.")
+					return
+				end
+				say_title("Yu-Rang:")
+				say("")
+				--                                                  |
+				say("Aaah tu es effrayé?")
+				say("Vous êtes beaucoup plus grand que moi et ")
+				say("vous avez peur ?")
+				say("je vais demander à quelqu'un d'autre.")
+				say("Va-t-en, lâche.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Yu-Rang:")
+			say("")
+			--                                                  |
+			say("Ces araignées vivent dans le désert..")
+			say("Vous êtes forte, vous allez y arriver.")
+			say("Bonne chance!")
+			say("")
+			set_state(go_to_desert)
+			pc.setqf("kill_count", 0)
+		end
+	end
+
+	state go_to_desert begin
+		when letter begin
+			send_letter("L'araignée à cloche")
+		end
+		when button or info begin
+			say_title("Trouver l'araignée")
+			say("")
+			--                                                  |
+			say("Yu-Rang, explique que son amie Taurean a")
+			say("accroché une cloche sur une araignée du désert.")
+			say("Yu-Rang pense que Taurean lui ment.")
+			say("Trouver l'araignée. Elle doit-être dans le")
+			say("désert.")
+			say("")
+		end
+		when 20012.click begin
+			say("Est-ce vrai, ou pas!")
+			say("Je ne peux pas croire que Taurean soit brave.")
+			say("")
+		end
+		when 2001.kill or 2002.kill or 2003.kill or 2004.kill or  2005.kill with pc.getf("subquest_44","spider_eye")==0  begin
+			local cur_kill_count=pc.getqf("kill_count")+1
+			pc.setqf("kill_count", cur_kill_count)
+
+			if cur_kill_count>=number(10, 50) then
+				set_state(fail_find_bell)
+			end
+		end
+	end
+	state fail_find_bell begin
+		when letter begin
+			send_letter("Vous n'avez pas trouver l'araignée.")
+		end
+
+		when info or  button begin
+			say_title("Pas de trace de l'araignée.")
+			say("")
+			say("Que dois-je faire maintenant?")
+			say("Peut-être le mieux est d'aller voir Taurean")
+			say("et de lui demander la vérité.")
+			say("")
+			set_state(go_to_boy)
+		end
+	end
+
+	state go_to_boy begin
+		when letter begin
+			send_letter("Trouver Taurean!")
+
+			local v = find_npc_by_vnum(20014)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Go to Taurean")
+			end
+		end
+		when button or info begin
+			say_title("Trouver Taurean!")
+			say("")
+			say("Trouver Taurean et demandez-lui  ")
+			say("la vérité!")
+			say("")
+		end
+		when __TARGET__.target.click or 20014.chat."Tu es Taurean, n'est-ce pas?" begin
+			target.delete("__TARGET__")
+			say_title("Taurean:")
+			say("")
+			--                                                  |
+			say("Oui ! Vous connaissez le pari avec Yu-Rang?")
+			say("Elle n'a pas vraiment confiance en moi et pense")
+			say("que je ne l'ai pas fait.")
+			say("Elle pense que la bête est trop grosse pour")
+			say("et m'aurait tué, même lorsque je me tenais ")
+			say("loin.")
+			say("")
+			wait()
+			say_title("Taurean:")
+			say("")
+			say("Donc, euh, oui, elle a raison, je n'ai pas ")
+			say("été assez courageuse pour lui avouer.")
+			say("Je suis trop fier. ")
+			say("Vous semblez fort, vous ne pourriez pas")
+			say("accrocher une cloche sur une araignée pour ")
+			say("moi et dire que c'était moi ?")
+			say("S'il vous plaît, s'il vous plaît, de cette ")
+			say("façon je pourrais de nouveau la regarder ")
+			say("dans les yeux.")
+			wait()
+			say_title("Taurean:")
+			say("")
+			--                                                  |
+			say("Vous savez à quel point cette bête est ")
+			say("dangereuse. ")
+			say("J'ai entendu dire que l'araignée a déjà tué ")
+			say("de nombreux guerriers.")
+			say("S'il vous plait, aidez moi !")
+			local s=select("Accepter", "Refuser")
+			if 2==s then
+				say("Voulez vous abandonner la quête?")
+				say("")
+				local a= select("Oui","Non")
+				if 2==a then
+					say_title("Taurean:")
+					say("")
+					say("Vous...vous ne voulez pas le faire?")
+					say("Vous allez dire à Yu-Rang la vérité?")
+					say("S'il vous plaît... aidez-moi...")
+					say("Il y a rien que je puisse faire?")
+					say("")
+					return
+				end
+				say_title("Taurean:")
+				say("")
+				--                                                  |
+				say("Oh..honte..ok..")
+				say("Maintenant Yu-Rang ne va jamais plus me parler.")
+				say("")
+				set_state(report_YuRang)
+				return
+			end
+			say_title("Taurean:")
+			say("")
+			say("J'ai eu raison de penser que vous etiez gentil, ")
+			say("Merci beaucoup et bonne chance!")
+			set_state(attach_bell)
+		end
+	end
+
+	state report_YuRang begin
+		when letter begin
+			send_letter("Retournez voir Yu-Rang")
+			local v=find_npc_by_vnum(20012)
+			if v!=0 then
+				target.vid("__TARGET__", v, "Return to Yu-Rang")
+			end
+		end
+		when button or info begin
+			say_title("Retournez voir Yu-Rang")
+			say("")
+			say("Retournez dire à Yu-Rang que Taurean")
+			say("a menti.")
+			say("")
+		end
+		when 20014.chat."L'histoire de Yu-Rang" begin
+			say_title("Taurean:")
+			say("")
+			--                                                  |
+			say("Yu-Rang ne veut plus parler avec moi.")
+			say("")
+		end
+		when __TARGET__.target.click or 20012.chat."Taurean a menti" begin
+			target.delete("__TARGET__")
+			say_title("Yu-Rang:")
+			say("")
+			say("Quoi? ")
+			say("Qu'elle m'aie menti est assez dur,mais qu'elle ")
+			say("n'a même pas essayé de le faire, est dur.")
+			say("Hmm! Je mets fin à notre amitié!")
+			say("Je suis vraiment déçue.")
+			say("")
+			say_reward("Votre récompense:")
+			say_reward("Vous recevez 30.000 Yang.")
+			pc.change_money(30000)
+			say_reward("Vous recevez 350.000 points d'expérience.")
+			pc.give_exp2(350000)
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state attach_bell begin
+		when letter begin
+			send_letter("Accrocher la cloche!")
+		end
+		when button or info begin
+			say_title("Accrocher la cloche!")
+			say("")
+			--                                                  |
+			say("Attrapez une araignée et accrochez-lui")
+			say("une cloche!")
+			say("")
+		end
+		when 20014.chat."L'histoire de la cloche" begin
+			say_title("Taurean:")
+			say("")
+			say("As-tu accroché la cloche?")
+			say("Non?")
+			say("Ok, veillez à ne pas rencontrer Yu-Rang.")
+			say("")
+		end
+		when 2001.kill or 2002.kill or 2003.kill or 2004.kill or  2005.kill  begin
+			local cur_kill_count=pc.getqf("kill_count")+1
+			pc.setqf("kill_count", cur_kill_count)
+
+			if cur_kill_count>=number(10, 50) then
+				send_letter("C'etait difficile, mais c'est fait.")
+				set_state(report_girl_lie)
+			end
+		end
+	end
+	state report_girl_lie begin
+		when letter begin
+			send_letter("Retournez voir Yu-Rang")
+
+			local v=find_npc_by_vnum(20012)
+			if v!=0 then
+				target.vid("__TARGET__", v, "Return to Yu-Rang")
+			end
+		end
+		when button or info begin
+			say_title("Retournez voir Yu-Rang")
+			say("")
+			--                                                  |
+			say("C'était très difficile, mais finalement vous")
+			say("avez pendu la cloche à l'araignée du désert.")
+			say("Retournez voir Yu-Rang et lui dire ")
+			say("que Taurean a accroché la cloche à l'araignée")
+		end
+		when 20014.chat."L'histoire de la cloche" begin
+			say_title("Taurean:")
+			say("")
+			say("Vous avez accroché la cloche?")
+			say("Oh, merci.")
+			say("Allez le dire à Yu-Rang, s'il vous plait.")
+			say("")
+		end
+		when __TARGET__.target.click or 20012.chat."La cloche" begin
+			target.delete("__TARGET__")
+			say_title("Yu-Rang:")
+			say("")
+			--                                                  |
+			say("Quoi? Taurean a réellement accroché la cloche?")
+			say("Hmm, c'est bon à savoir. Vraiment courageuse.")
+			say("Elle est mon amis, alors.")
+			say("Je suis désolée de ne pas l'avoir cru.")
+			say("Merci de ton aide.")
+			set_state(report_boy_lie)
+		end
+	end
+	state report_boy_lie begin
+		when letter begin
+			send_letter("Retournez voir Taurean")
+			local v=find_npc_by_vnum(20014)
+			if v!=0 then
+				target.vid("__TARGET__", v, "Return to Taurean.")
+			end
+		end
+		when button or info begin
+			say_title("Retournez voir Taurean")
+			say("")
+			say("Retournez voir Taurean et dites lui")
+			say("que vous avez parlé à Yu-Rang.")
+			say("")
+		end
+		when __TARGET__.target.click or 20014.chat."L'histoire se fini bien." begin
+			target.delete("__TARGET__")
+			say_title("Taurean:")
+			say("")
+			say("Merci beaucoup.")
+			say("Maintenant Yu-Rang ne me détestera pas.")
+			say("Vous avez garder le secret.")
+			say_reward("Vous recevez:")
+			say_reward("30.000 Yang et")
+			pc.change_money(30000)
+			say_reward("700.000 points d'expérience.")
+			pc.give_exp2(700000)
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+	state __GIVEUP__ begin
+	end
+end

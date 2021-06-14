@@ -1,0 +1,109 @@
+-- Quest siege
+-- Translation by Romainsch
+-- For Team EB         www.emulation-bay.fr
+
+quest siege begin
+	state start begin
+		when login with game.get_event_flag("siege_war") > 0 begin
+			q.set_icon("scroll_open_blue.tga")
+			set_state(run)
+		end
+	end
+	state run begin
+		when letter begin
+			if game.get_event_flag("siege_war") > 0 then
+				local empire = pc.get_empire()
+				send_letter("Les forteresses assiégées")
+				if game.get_event_flag("siege_war") != 4 and pc.get_level() > 59 then
+					local gate_vnum = 20096 + empire
+					local v=find_npc_by_vnum(gate_vnum)
+					if v != 0 then
+						target.vid("__TARGET2__", v, mob_name(gate_vnum))
+					elseif game.get_event_flag("siege_war") == empire and (pc.get_map_index() < 181 or pc.get_map_index() > 183) then
+						local w=find_npc_by_vnum(9012)
+						if w != 0 then
+							target.vid("__TARGET__", w, mob_name(9012))
+						end
+					end
+				end
+			else
+				set_state(start)
+			end
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			if game.get_event_flag("siege_war") == pc.get_empire() and pc.get_level() > 59 then
+				local name, pid, date, money = mgmt.monarch_state(pc.get_empire())
+				----"123456789012345678901234567890123456789012345678901234567890"| 
+				say_title("Téléporteur :")
+				say("")
+				say("Votre empereur "..name.." a ordonné que tous les ")
+				say("soldats expérimentés rejoignent rapidement notre forteresse.")
+				say("")
+				say("")
+				say("Es-tu donc prêt pour aller te battre ?")
+				say("")
+				local main_set = select("Oui","Non")
+				if main_set == 2 then
+					say_title("Téléporteur :")
+					say("")
+					say("Alors va chercher tes armes et reviens vite!")
+					say("")
+					say("Notre empire "..locale.empire_names[pc.get_empire()].." a besoin")
+					say("de tes talents de combattant !")
+					say("")
+				else
+				    	local empire_castle = 	{
+						{975200, 133000},
+						{977200, 185000},
+						{923900, 183600},
+					}
+					pc.warp(empire_castle[pc.get_empire()][1], empire_castle[pc.get_empire()][2])
+				end
+			end
+		end
+		when button or info begin
+			addimage(20, 12, "siegewar.tga")
+			say("")
+			say("")
+			say("")
+			say_title("")
+			if game.get_event_flag("siege_war") > 0 then
+				if game.get_event_flag("siege_war") == 4 then
+					----"123456789012345678901234567890123456789012345678901234567890"|
+					say("Ecoute moi, habitant de "..locale.empire_names[pc.get_empire()].."!")
+					say("Une des 3 forteresses va bientôt être assiégée.")
+					say("")
+					say("Quand le moment sera venu, la forteresse à attaquer sera")
+					say("annoncée par nos hérauts. Prépare tes armes!")
+
+				elseif game.get_event_flag("siege_war") == pc.get_empire() then
+					say("Soldat de "..locale.empire_names[pc.get_empire()].."! ")
+					say("Notre forteresse se fait assiéger !")
+					----"123456789012345678901234567890123456789012345678901234567890"|
+					say("Va tout de suite au téléporteur puis participe à la")
+					say("défenses des feux-signaux. D'ici 30 minutes, ça sera à ")
+					say("nous de les attaquer! C'est notre seul espoir de victoire!")
+				else
+					say("Soldat de "..locale.empire_names[pc.get_empire()].."! Rends toi ")
+					say("immédiatement à la forteresse de l'empire "..locale.empire_names[game.get_event_flag("siege_war")])
+					say("pour participer au siège !")
+					say("Tu peux rapidement accéder à leur forteresse par les")
+					say("portails de téléportation présents sur tous les territoires")
+					say("classiques. L'objectif est de détruire plus de feux-signaux")
+					say("que nos ennemis.")
+				end
+				say("")
+				say_reward("L'empire gagnant remporte un bonus de 50% d'expérience")
+				say_reward("pour une durée de 60 heures. Le second reçoit un bonus")
+				say_reward("de 25% et le troisième un bonus de 10%.")
+				say("")
+			else
+				say("Les sièges des forteresses sont maintenant terminés !")
+				say("")
+				set_state(start)
+			end
+		end
+	end  --s
+end --q
+

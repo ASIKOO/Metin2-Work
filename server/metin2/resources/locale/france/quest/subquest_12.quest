@@ -1,0 +1,267 @@
+quest subquest_12 begin
+	state start begin
+		when login or levelup with pc.level >= 20 and pc.level <= 25 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local vnum=0
+
+			if pc.get_empire() == 1 then
+				vnum=11000
+			elseif pc.get_empire() == 2 then
+				vnum=11002
+			elseif pc.get_empire() == 3 then
+				vnum=11004
+			end
+
+			local v = find_npc_by_vnum(vnum)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Gardien du village.")
+			end
+		end
+		when __TARGET__.target.click or 11000.chat."Tuer Mi-Jung du Serment Blanc" with pc.level >= 20 begin
+			target.delete("__TARGET__")
+
+			say_title("Gardien du Village:")
+			say("")
+			--                                                  |
+			say("Venez ici un moment. ")
+			say("Vous êtes un bon combattant, j'ai entendu")
+			say("beaucoup de choses sur vous pars le Capitaine.")
+			say("Pouvez-vous chassez Mi-Jung du Serment Blanc?")
+			say("Il est difficile de protéger le village et ")
+			say("ses villageois des attaques du clan du Serment")
+			say("Blanc. Si nous tuons Mi-Jung,un de leurs ")
+			say("dirigeants, la situation pourrait changer pour")
+			say("de bon. La sécurité du village est entre vos ")
+			say("mains. J'espère vous n'échouerez pas!")
+
+			local s=select("Oui, je le ferai.","Je ne peux pas le supporter.")
+			if 2==s then
+				say_title("Gardien du Village:")
+				say("")
+				say("Vous ne voulez vraiment pas nous aider?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Gardien du Village:")
+					say("")
+					say("Il semble que ce n'est pas le bon moment.")
+					say("")
+					say("Revenez plus tard.")
+					say("")
+					return
+				else
+					say_title("Gardien du Village:")
+					say("")
+					--                                                  |
+					say("Si vous ne voulez pas aider, il n'y a rien")
+					say("à faire. Donc laisser moi maintenant ...")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Gardien du Village:")
+				say("")
+				--                                                  |
+				say("Merci!!! Maintenant allez tuer Mi-Jung s'il")
+				say("vous plaît, avant qu'elle et son clan attaque!")
+				say("")
+				set_state(hunt_mijung)
+			end
+		end
+		when __TARGET__.target.click or 11002.chat."Tuer Mi-Jung du Serment Blanc" with pc.level >= 20 begin
+			target.delete("__TARGET__")
+
+			say_title("Gardien du Village:")
+			say("")
+			--                                                  |
+			say("Venez ici un moment. ")
+			say("Vous êtes un bon combattant, j'ai entendu")
+			say("beaucoup de choses sur vous pars le Capitaine.")
+			say("Pouvez-vous chassez Mi-Jung du Serment Blanc?")
+			say("Il est difficile de protéger le village et ")
+			say("ses villageois des attaques du clan du Serment")
+			say("Blanc. Si nous tuons Mi-Jung,un de leurs ")
+			say("dirigeants, la situation pourrait changer pour")
+			say("de bon. La sécurité du village est entre vos ")
+			say("mains. J'espère vous n'échouerez pas!")
+
+			local s=select("Oui, je vais le faire.","Je ne peux pas la supporter.")
+			if 2==s then
+				say_title("Gardien du Village:")
+				say("")
+				say("Vous ne voulez vraiment pas nous aider?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Gardien du Village:")
+					say("")
+					say("Il semble que ce n'est pas le bon moment.")
+					say("")
+					say("Revenez plus tard.")
+					say("")
+					return
+				else
+					say_title("Gardien du Village:")
+					say("")
+					say("Si vous ne voulez pas aider, il n'y a rien à faire.")
+					say("Alors laisser moi maintenant ...")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Gardien du Village:")
+				say("")
+				say("Merci!!! Maintenant allez tuer Mi-Jung s'il")
+				say("vous plaît, avant qu'elle et son clan attaque!")
+				say("")
+				set_state(hunt_mijung)
+			end
+		end
+		when __TARGET__.target.click or 11004.chat."Tuer Mi-Jung du Serment Blanc" with pc.level >= 20 begin
+			target.delete("__TARGET__")
+
+			say_title("Gardien du Village:")
+			say("")
+			--                                                  |
+			say("Venez ici un moment. ")
+			say("Vous êtes un bon combattant, j'ai entendu")
+			say("beaucoup de choses sur vous pars le Capitaine.")
+			say("Pouvez-vous chassez Mi-Jung du Serment Blanc?")
+			say("Il est difficile de protéger le village et ")
+			say("ses villageois des attaques du clan du Serment")
+			say("Blanc. Si nous tuons Mi-Jung,un de leurs ")
+			say("dirigeants, la situation pourrait changer pour")
+			say("de bon. La sécurité du village est entre vos ")
+			say("mains. J'espère vous n'échouerez pas!")
+
+			local s=select("Oui, je vais le faire.","Je ne peux pas le supporter.")
+			if 2==s then
+				say_title("Gardien du Village:")
+				say("")
+				say("Vous ne voulez vraiment pas nous aider?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Gardien du Village:")
+					say("")
+					say("Il semble que ce n'est pas le bon moment.")
+					say("")
+					say("Revenez plus tard.")
+					say("")
+					return
+				else
+					say_title("Gardien du Village:")
+					say("")
+					--                                                  |
+					say("Si vous ne voulez pas aider, il n'y a rien à faire.")
+					say("Alors laissez moi maintenant...")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Gardien du Village:")
+				say("")
+				--                                                  |
+				say("Merci!!! Maintenant allez tuer Mi-Jung s'il")
+				say("vous plaît, avant qu'elle et son clan attaque!")
+				say("")
+				set_state(hunt_mijung)
+			end
+		end
+	end
+
+	state hunt_mijung begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Tuer Mi-Jung.")
+			q.set_title ("Aller et tuer Mi-Jung!")
+			q.start()
+		end
+		when info or button begin
+			say_title("Tuer Mi-Jung du Clan du Serment Blanc.")
+			say("")
+			--                                                  |
+			say("Tuer Mi-Jung du Clan du Serment Blanc.")
+			say("Retournez ensuite voir le Gardien du Village.")
+			say("")
+		end
+		when 391.kill begin
+			set_state(hunt_reward)
+		end
+	end
+
+	state hunt_reward begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Rapport au Gardien du Village.")
+			q.set_title ("Rapport au Gardien du Village.")
+			q.start()
+
+			local vnum=0
+
+			if pc.get_empire() == 1 then
+				vnum=11000
+			elseif pc.get_empire() == 2 then
+				vnum=11002
+			elseif pc.get_empire() == 3 then
+				vnum=11004
+			end
+
+			local v=find_npc_by_vnum(vnum)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Gardien du Village.")
+			end
+		end
+		when info or button begin
+			say_title("Tuer Mi-Jung du Clan du Serment Blanc.")
+			say("")
+			--                                                  |
+			say("Faites un rapport au Gardien du Village!")
+			say("")
+		end
+		when __TARGET__.target.click or
+			11000.chat."Mi-Jung est morte!" or
+			11002.chat."Mi-Jung est morte!" or
+			11004.chat."Mi-Jung est morte!" begin
+			target.delete("__TARGET__")
+			say_title("Gardien du Village:")
+			say("")
+			--                                                  |
+			say("Oh! Vous êtes vraiment aussi bon que je l'ai ")
+			say("entendu, vous êtes incroyable.")
+			say("Je vous remercie!")
+			say("Le solution des problèmes avec le clan du ")
+			say("Serment Blanc est devenu plus facile.")
+			say("Bien fait!")
+			pc.give_exp2(130000)
+			pc.change_money(20000)
+			pc.give_item2("14040", 1)
+			say_title("Reward:")
+			say("")
+			say_reward("Vous avez reçu 130.000 points d'expérience.")
+			say_reward("Vous avez reçu 20.000 Yang.")
+			say_reward("Vous avez reçu un bracelet en argent.")
+			say("")
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

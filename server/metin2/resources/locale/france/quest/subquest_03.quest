@@ -1,0 +1,136 @@
+----------------------------------------------------
+-- SUB QUEST
+-- LV 8
+-- The Medicine
+----------------------------------------------------
+
+quest subquest_3 begin
+	state start begin
+		when login or levelup with pc.level >= 8 and pc.level <= 13 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20018)
+			if v!= 0 then
+				target.vid("__TARGET__", v, "Baek-Go.")
+			end
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Baek-Go:")
+			say("")
+			--                                                  |
+			say("Pouvez-vous m'aider? ")
+			say("Depuis que les pierres de metin sont tombées,")
+			say("une maladie inconnue a éclaté.")
+			say("")
+			say("Plusieurs médecins travaillent d'arrache-pied")
+			say("mais un ingrédient est manquant pour pouvoir")
+			say("préparer un médicament.")
+			say("En dehors du village, il y a trop d'animaux") 
+			say("sauvages et nous ne pouvons pas nous déplacer")
+			say("librement.")
+			wait()
+			say_title("Baek-Go:")
+			say("")
+			--                                                  |
+			say("Pouvez-vous allez me chercher l'ingrédient du")
+			say("médicament ? Je te demande ça car tu es un")
+			say("aventurier. Il me faut un foie de loup bleu.")
+			say("pour le médicament.")
+			say("")
+			say_item_vnum(30029)
+			set_state(hunt_for_wolf)
+		end
+	end
+
+	state hunt_for_wolf begin
+		when letter begin
+			send_letter("Le remède")
+		end
+		when button or info begin
+			say_title("Le remède")
+			say("")
+			--                                                  |
+			say("Depuis que les pierres metins sont tombés,")
+			say("une maladie a éclaté. ")
+			say("Pour produire un médicament Baek-Go a besoin ")
+			say("de foie de loup bleu.")
+			say("")
+			say_item_vnum(30029)
+		end
+		when 20018.chat."Comment puis-je obtenir du foie?" with pc.count_item(30029) == 0 begin
+			say_title("Baek-Go:")
+			say("")
+			--                                                  |
+			say("Vous pouvez avoir un foie en tuant des loup ")
+			say("bleu.")
+			say_item_vnum(30029)
+		end
+		when 174.kill begin
+			local s = number(1, 100)
+			if s <= 5 then
+				pc.give_item2("30029", 1)
+				set_state(go_back_to_doctor)
+			end
+		end
+	end
+	state go_back_to_doctor begin
+		when letter begin
+			send_letter("Retounez voir Baek-Go.")
+			local v = find_npc_by_vnum(20018)
+			if v!= 0 then
+				target.vid("__TARGET__", v, "Baek-Go.")
+			end
+		end
+		when button or info begin
+			say_title("Retounez voir Baek-Go.")
+			say("")
+			--                                                  |
+			say("Vous avez le foie de loup, Apportez le ")
+			say("à Baek-Go.")
+			say("Il se trouve "..areaname[pc.get_empire()][1]..".")
+			say("")
+		end
+		when __TARGET__.target.click begin                        
+			if pc.count_item(30029) > 0 then
+				target.delete("__TARGET__")
+				say_title("Baek-Go:")
+				say("")
+				--                                                  |
+				say("Ah, vous avez retrouvé un foie de loup bleu !")
+				say_item_vnum(30029)
+				say("Tenez en gage de récompense.")
+				wait()
+				say_title("Reward")
+				say("")
+				say_reward("Experience : 3.000")
+				say_reward("Yang: 5.000")
+				say_reward("Item: Bile d'ours")
+				say("")
+				pc.remove_item(30029)
+				pc.give_exp2(3000)
+				set_quest_state("levelup","run")
+				pc.change_money(5000)
+				pc.give_item2(30010, 2)
+				clear_letter()
+				set_state(__COMPLETE__)
+			else
+				say_title("Baek-Go:")
+				say("")
+				--                                                  |
+				say("J'espère que vous n'avez pas perdu le foie?")
+				say("")
+			end
+		end
+	end
+
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

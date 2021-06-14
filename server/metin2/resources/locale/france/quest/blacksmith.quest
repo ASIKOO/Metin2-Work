@@ -1,0 +1,13 @@
+quest blacksmith begin
+	state start begin
+		when blacksmith.chat."Je voudrais améliorer quelque chose." begin
+			---                                                   l
+			say_title("Forgeron:")
+			say("Salut!")
+			say("Je m'occupe d'améliorer les objets. Si vous")
+			say("voulez améliorer un objet, apportez-le-moi.")
+			say_title("Information")
+			say_reward("Prenez l'objet et déposez-le sur le Forgeron.")
+		end
+	end
+end

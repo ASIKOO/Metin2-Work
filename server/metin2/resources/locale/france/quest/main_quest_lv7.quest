@@ -1,0 +1,195 @@
+quest main_quest_lv7 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 7 begin
+			set_state( gotosmith )
+		end
+	end
+	state gotosmith begin
+		when letter begin
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Forgeron")
+			end
+		end
+		when letter begin
+			send_letter("Une autre faveur")
+		end
+		when button or info begin
+			say_title("Une autre faveur")
+			say("")
+			--                                                  |
+			say("Allez voir le forgeron.")
+			say("Il a une autre faveur à vous demander.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Forgeron:")
+			say("")
+			say("Hey, aventurier! Pouvez vous me rendre un autre")
+			say("service?")
+			say("Normalement je ne demande pas aux autres de")
+			say("faire les choses pour moi, mais vous me ")
+			say("semblez digne de confiance.")
+			wait()
+			--                                                  |
+			say_title("Forgeron:")
+			say("")
+			say("J'ai fait une canne à pêche pour mon ami,")
+			say("le pêcheur. ")
+			say("Malheureusement je suis trop occupé pour")
+			say("l'apporter moi-même, pourriez-vous lui apporter")
+			say("pour moi?")
+			say_item("canne à pêche +1", 27400, "")
+			say("")
+			wait()
+			say_title("Forgeron:")
+			say("")
+			--                                                  |
+			say_title("Forgeron:")
+			say("")
+			say("Le pêcheur se trouve près de la rivière.")
+			say("Si vous livrez la canne à pêche au pêcheur,")
+			say("j'améliorai une pièce de votre équipement ")
+			say("gratuitement.")
+			say("C'est un bon compromis, n'est-ce pas?")
+			say("")
+			set_state( gotofisher )
+			q.done()
+		end
+	end
+
+	state gotofisher begin
+		when letter begin
+			send_letter("Livrer la canne")
+		end
+		when button or info begin
+			say_title("Livrer la canne")
+			say("")
+			--                                                  |
+			say("Livrez la canne au pêcheur et récupérez le ")
+			say("certificat de remise.")
+			say_item("canne à pêche +1", 27400, "")
+			say("")
+		end
+		when 20016.chat."La canne à pêche." begin
+			say_title("Forgeron:")
+			--                                                  |
+			say("Vous n'avez pas livré la canne?")
+			say("Qu'est-ce que vous attendez!")
+			say("")
+		end
+		when 9009.chat."J'ai une canne pour vous" begin
+			say_title("Pêcheur:")
+			say("")
+			--                                                  |
+			say("La pêche est un de mes passes temps favoris!")
+			say("")
+			say("Le forgeron a enfin fini ma canne à pêche.")
+			say("Vous vous y connaissez en pêche?")
+			say("")
+			wait()
+			say_title("Pêcheur:")
+			say("")
+			--                                                  |
+			say("Tout d'abord équipez la canne à pêche;")
+			say("Puis placez l'appât sur le crochet. ")
+			say("Ensuite lancer la ligne de la canne à pêche")
+			say("en utilisant votre compétence de pêche.")
+			say("Quand un poisson mord (bulle bleu), ")
+			say("utilisez à nouveau votre compétence.")
+			say("Vous pouvez pêcher divers poissons, le poisson")
+			say("est bon pour la santé et certains d'entre eux ")
+			say("peuvent booster votre énergie. ")
+			say("Essayez la pêche dès que vous avez un peu")
+			say("de temps.")
+			say("")
+			wait()
+			say_title("Pêcheur:")
+			say("")
+			--                                                  |
+			say("Merci encore pour tout.")
+			say("Tenez, voici le certificat.")
+			say_item("Certificat de remise de la canne", 30001,"")
+			say("")
+			set_state( gotosmith2 )
+		end
+	end
+	state gotosmith2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Forgeron")
+			end
+		end
+		when letter begin
+			send_letter("Retournez voir le forgeron.")
+		end
+		when button or info begin
+			say_title("Retournez voir le forgeron.")
+			say("")
+			--                                                  |
+			say("Retournez voir le forgeron à présent que vous")
+			say("avez remis la canne entre de bonnes mains.")
+			say_item("Certificat de remise de la canne", 30001, "")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+				pc.setqf("refine_chance",1)
+				say_title("Forgeron:")
+				say("")
+				--                                                  |
+				say("Ah! Vous avez trouvé le pêcheur?")
+				say("")
+				say("Super, tu m'as fait économiser du temps ")
+				say("en livrant la canne à pêche pour moi.")
+				say("")
+				say("Voici ton bon pour une amélioration gratuit!")
+				say("")
+				set_state(refine)
+				set_quest_state("main_quest_lv9", "run")
+		end
+	end
+	state refine begin
+		when login with pc.getf("main_quest_lv7","refine_chance") == 0 begin
+			clear_letter()
+			set_state( __COMPLETE__ )
+		end
+		when letter begin
+			send_letter("Une amélioration gratuite")
+		end
+		when button or info begin
+			if pc.getqf("refine_chance") > 0 then
+				say_title("Information:")
+				say("")
+				--                                                  |
+				say("Avec le bon d'amélioration gratuite offert ")
+				say("par le forgeron, vous pouvez améliorer un de")
+				say("vos équipement gratuitement.")
+				say("Déposez l'équipement que vous souhaitez ")
+				say("améliorer sur le forgeron.")
+				say("")
+				--                                                  |
+				say("1) Le bon d'amélioration n'est pas affiché.")
+				say("2) L'amélioration ne réussi pas à 100%.")
+				say("3) Limité aux objets jusqu'au level 20.")
+				say("")
+			else
+				say_title("Vous avez déjà utilisé votre bon.")
+				say("")
+				say_reward("Vous avez déjà utilisé votre bon.")
+				say("")
+				clear_letter()
+				set_state(__COMPLETE__)
+			end
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

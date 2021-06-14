@@ -1,0 +1,230 @@
+quest subquest_11 begin
+	state start begin
+		when login or  levelup with pc.level >= 19 and pc.level <= 24 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20006)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Mirine.")
+			end
+		end
+		when __TARGET__.target.click or 20006.chat."Trouver mon frère." with pc.level >= 19 begin
+			target.delete("__TARGET__")
+			say_title("Mirine:")
+			say("")
+			--                                                  |
+			say("Puis-je vous demander une faveur?")
+			say("Mon frère a disparu depuis longtemps.")
+			say("Je n'ai pas eût de nouvelles de lui.")
+			say("Je commence à m'inquiéter.")
+			say("")
+			wait()
+			say_title("Mirine:")
+			say("")
+			--                                                  |
+			say("Mon frère voulait visiter Yu-Hwan le musicien")
+			say("dans le village "..areaname[pc.get_empire()][2])
+			say("Pouvez-vous aller voir Yu-Hwan et lui poser ")
+			say("des questions sur mon frère.")
+			say("Il doit avoir été là.")
+			say("Pourriez-vous regarder pour lui si vous avez")
+			say("le temps?")
+
+			local s=select("Oui, je vais le faire.","Je n'ai pas le temps.")
+			if 2==s then
+				say("Abandonner la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Mirine:")
+					say("")
+					say("Merci!")
+					say("")
+					--                                                  |
+					say("S'il vous plaît chercher-le. ")
+					say("Je suis vraiment inquiète.")
+					say("S'il vous plaît revenez.")
+					say("")
+					return
+				else
+					say_title("Mirine:")
+					say("")
+					say("Vous ne voulez pas m'aider?")
+					say("")
+					say("Bon, à plus tard...")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Mirine:")
+				say("")
+				say("Alors vous allez le chercher?")
+				say("")
+				say("Merci beaucoup! Je suis vraiment inquiète.")
+				say("Bonne chance et faites-moi savoir rapidement!")
+				say("")
+				set_state(find_brother)
+			end
+		end
+	end
+
+	state find_brother begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le frère de Mirine.")
+			q.set_title("Trouver le frère de Mirine.")
+			q.start()
+
+			local v= find_npc_by_vnum(20017)
+			if 0==v then
+			else
+				target.vid("__TARGET1__",v,"Yu-hwan.")
+			end
+		end
+		when info or button begin
+			say_title("Trouver le frère de Mirine.")
+			say("")
+			--                                                  |
+			say("Questionnez Yuhwan dans le village "..areaname[pc.get_empire()][2].." à propos")
+			say("du frère de Mirine.")
+			say("")
+		end
+		when __TARGET1__.target.click or 20017.chat."Avez-vous vu le frère de Mirine?" begin
+			target.delete("__TARGET1__")
+			say_title("Yu-Hwan:")
+			say("")
+			--                                                  |
+			say("Je suis tombé amoureux sans savoir ce que ")
+			say("signifie l'amour ...")
+			say("Qui cherchez-vous? Le frère de Mirine?")
+			say("Nous avons parlé un peu avant de se rendre dans")
+			say("les montagnes, Il a voulu rechercher des herbes")
+			say("rares. Je ne sais pas où il est maintenant.")
+			say("Le chasseur va souvent dans les montagnes. ")
+			say("Vous pouvez le trouver dans ce village.")
+			say("Pourquoi ne pas lui demander?")
+			say("(Sings) La,la,la, l'amour est triste, mais ")
+			say("beau ...")
+			set_state(ask_to_hunter)
+		end
+	end
+
+	state ask_to_hunter begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le frère de Mirine.")
+			q.set_title("Trouver le frère de Mirine.")
+			q.start()
+
+			local v= find_npc_by_vnum(20019)
+			if 0==v then
+			else
+				target.vid("__TARGET2__",v,"Yang-Shin.")
+			end
+		end
+		when info or button begin
+			say_title("Trouver le frère de Mirine.")
+			say("")
+			--                                                  |
+			say_reward("Questionnez Yang-Shin à porpos du frère")
+			say("de Mirine.")
+		end
+		when  __TARGET2__.target.click or 20019.chat."Avez-vous vu le frère de Mirine?" begin
+			target.delete("__TARGET2__")
+			say_title("Yang-Shin:")
+			say("")
+			--                                                  |
+			say("Dans le monde il existe de nombreux problèmes.")
+			say("Aussi la chasse a ses propres problèmes.")
+			say(" Le frère de Mirine vous dites ...?")
+			say("Il était à la recherche d'herbes rares dans ")
+			say("les montagnes, quand je le vit pour la ")
+			say("dernière fois, il allait cueillir du ginseng.")
+			say("Il était très heureux, parce qu'il en avait")
+			say("trouvé beaucoup.")
+			say("Il voulait acheter des habits neufs pour ")
+			say("sa sœur avec les Yangs qu'il allez obtenir")
+			say("à partir de la vente de ces herbes. ")
+			say("C'est vraiment un bon gars.")
+			say("J'ai une lettre qu'il m'a donné, pouvez-vous")
+			say("la donner à sa sœur pour moi?")
+			say("Il devrait être de retour bientôt.")
+			set_state(back_to)
+		end
+	end
+
+	state back_to begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le frère de Mirine.")
+			q.set_title("Trouver le frère de Mirine.")
+			q.start()
+
+			local v= find_npc_by_vnum(20006)
+			if 0==v then
+			else
+				target.vid("__TARGET3__",v,"Dites les nouvelles à Mirine.")
+			end
+		end
+		when info or button begin
+			say_title("Trouver le frère de Mirine.")
+			say("")
+			say("Dites à Mirine les nouvelles à propos de son frère. Vous pouvez la trouver")
+			say("dans "..areaname[pc.get_empire()][1].." village.")
+			say("")
+		end
+		when __TARGET3__.target.click or 20006.chat."Des nouvelles de mon frère?" begin
+			target.delete("__TARGET3__")
+			say_title("Mirine:")
+			say("")
+			--                                                  |
+			say("Oh!Une lettre écrite par mon frère. ")
+			say("Il a trouvé beaucoup d'herbes dans les montagnes?")
+			say("Il faudra un certain temps jusqu'à ce qu'il revienne?")
+			say("")
+			say("Désolé, j'aurais dû savoir cela!")
+			say("")
+			say("Vous avez traversé tous ces ennuis. ")
+			say("Ce n'est pas beaucoup, mais")
+			say("j'espère que vous accepterez mes excuses et me pardonnerez.")
+			say("")
+			wait()
+			say_title("Mirine:")
+			say("")
+			say("Merci pour votre gentillesse. Revenez nous voir bientôt.")
+			say("")
+			say_title("Reward:")
+			say("")
+			say_reward("Vous recevez 100.000 points d'expérience.")
+			say_reward("Vous recevez 15.000 Yang.")
+			local r = number(1,2)
+			if r == 1 then
+				if pc.get_job() == 0 or pc.get_job() == 1 then
+					say_reward("Vous avez reçu Boucles d'oreilles en cuivre +4")
+					pc.give_item2(17024)
+				else
+					say_reward("Vous avez reçu Boucles d'or +4")
+					pc.give_item2(17064)
+				end
+			else
+				say_reward("Vous avez reçu boucles d'oreilles en argent +4")
+				pc.give_item2(17044)
+			end
+			say("")
+			pc.give_exp2(100000)
+			pc.change_money(15000)
+			q.done()
+			set_state(__COMPLETE__)
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+	end
+end

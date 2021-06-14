@@ -1,0 +1,307 @@
+---------------------------------------------------
+-- SUB QUEST
+-- LV 27
+-- Looking for Ari-Young"s Husband
+---------------------------------------------------
+quest subquest_17 begin
+	state start begin
+		when login or levelup with pc.level >= 27  and pc.level <=30 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20021)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Ariyoung")
+			end
+		end
+		when __TARGET__.target.click or 20021.chat."L'histoire du mari d'Ariyoung"  begin
+			target.delete("__TARGET__")
+			say_title("Ariyoung:")
+			say("")
+			--                                                  |
+			say("Beaucoup de temps a passé depuis que j'ai ")
+			say("entendu quelque chose à propos de mon mari.")
+			say("Je suis inquiète, j'espère que rien ne lui ")
+			say("est arrivé.")
+			say("Je ne pense pas qu'il soit utile d'être inquiet,")
+			say("mais mon cœur bat si fort! ")
+			say("Je ne peux pas me calmer.")
+			wait()
+			say_title("Ariyoung:")
+			say("")
+			--                                                  |
+			say("Peut-être que la marchande a entendu quelque ")
+			say("chose à propos de mon mari. Elle a de nombreux")
+			say("clients.")
+			local s=select("Je vais lui rendre visite","Je n'ai pas le temps")
+			if 2==s then
+				say("")
+				say("Vous souhaitez annuler cette quête?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Ariyoung:")
+					say("")
+					say("Si vous reconsidérez ça, revenez .")
+					say("")
+					say("Je vous en prie!")
+					say("")
+					return
+				else
+					say_title("Ariyoung:")
+					say("")
+					say("Vous n'avez pas le temps? ")
+					say("Bon alors ... Au revoir ..")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Ariyoung:")
+				say("")
+				say("Merci pour votre gentillesse. ")
+				say("Dieu, où est mon mari? ...")
+				set_state(to_itemmall_owner)
+			end
+		end
+	end
+
+	state to_itemmall_owner begin
+		when letter begin
+			local v=find_npc_by_vnum(9003)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Parler à la marchande")
+			end
+			send_letter("Parler à la marchande")
+		end
+		when info or button begin
+			say_title("Parler à la marchande")
+			say("")
+			say("Aller voir la marchande et poser lui  des ")
+			say("questions sur le mari d'Ariyoung.")
+			say("")
+		end
+		when __TARGET__.target.click or 9003.chat."L'histoire du mari d'Ariyoung"  begin
+			target.delete("__TARGET__")
+			say_title("Marchande:")
+			say("")
+			--                                                  |
+			say("Elle ne sait pas ce qui s'est passé? ")
+			say("Il est dans un endroit dont personne ne revient.")
+			say("Quand il revenait au village un jour, il a été ")
+			say("agressé par le clan du vent noir et a été tué. ")
+			say("")
+			wait()
+			say_title("Marchande:")
+			say("")
+			--                                                  |
+			say("Je crains qu'elle soit très triste quand vous")
+			say("lui dirait.")
+			say("Ils s'aimaient tellement ...")
+			say("Mais vous devriez lui dire.")
+			say("")
+			set_state(find_ariyoung)
+		end
+	end
+	state find_ariyoung begin
+		when letter begin
+			local v=find_npc_by_vnum(20021)
+			if 0!=v then
+				target.vid("__TARGET__",v,"Retourner voir Ariyoung")
+			end
+			send_letter("Retourner voir Ariyoung")
+		end
+		when info or  button begin
+			say_title("Ariyoung")
+			say("")
+			say("Informer Ariyoung à propos de la mort")
+			say("de son mari.")
+		end
+		when __TARGET__.target.click or 20021.chat."Mon pauvre mari" begin
+			target.delete("__TARGET__")
+			say_title("Ariyoung")
+			say("")
+			--                                                  |
+			say("Qu'est-ce ... que dites-vous?")
+			say("Il ... il a été tué par le clan du vent noir?")
+			say("Oh ... non ...il est mort ... ")
+			say("Je ne sais pas quoi faire sans lui * pleure *")
+			wait()
+			say_title("Ariyoung")
+			say("")
+			--                                                  |
+			say("Voulez-vous s'il vous plaît me ramener le  ")
+			say("corps de mon mari? ")
+			say("S'il vous plaît, pour que je puisse lui dire au revoir.")
+			say("Si cela n'est pas possible, rien ne le fera ...")
+			say("Le Goo-Pae du clan du vent noir a sûrement ")
+			say("quelque chose. S'il vous plaît chercher.")
+			say("")
+			local s=select("Oui, je vous aiderai.","Désolé, je n'ai pas le temps.")
+			if 2==s then
+				say("")
+				say("Vous souhaitez annuler cette quête?")
+				say("")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Ariyoung")
+					say("")
+					--                                                  |
+					say("Si vous reconsidérez cela, revenez. ")
+					say("Je vous en supplie.")
+					say("")
+					return
+				else
+					say_title("Ariyoung")
+					say("")
+					--                                                  |
+					say("")
+					say("Vous n'avez rien trouvé? ")
+					say("Quoi qu'il en soit, je vous remercie.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Ariyoung")
+				say("")
+				say("Je ne peux pas dire combien je suis reconnaissante.")
+				say("Je prierai pour vous.")
+				say("")
+				set_state(hunt)
+			end
+		end
+	end
+
+	state hunt begin
+		when letter begin
+			send_letter("Tuer Goo-Pae")
+		end
+		when info or  button begin
+			say_title("Tuer Goo-Pae")
+			say("")
+			--                                                  |
+			say("Tuez quelques Goo-Pae pour trouver un ")
+			say("souvenir du mari d'Ariyoung.")
+			say("")
+		end
+		when 20021.chat."Le sort du mari de Ariyoung" begin
+			say_title("Ariyoung")
+			say("")
+			--                                                  |
+			say("Comment ça s'est passé?")
+			say("Pouvez-vous trouver quelque chose de ")
+			say("mon mari?")
+			say("Il était tout pour moi. ")
+			say("Je ne sais pas, mais ...")
+			local s=select("Oui, je vais trouver quelque chose.","Désolé, je n'ais pas le temps.")
+			if 2==s then
+				say_title("Ariyoung")
+				say("")
+				say("Vous souhaitez annuler cette quête?")
+				say("")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Ariyoung")
+					say("")
+					--                                                  |
+					say("Goo-Pae du clan du vent noir est fort.")
+					say("Détendez-vous un peu.")
+					say("Merci pour votre aide.")
+					say("")
+					return
+				else
+					say_title("Ariyoung")
+					say("")
+					--                                                  |
+					say("Dieu merci, un autre héros va me ramener")
+					say("un souvenir de mon mari. Merci tout de même.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Ariyoung")
+				say("")
+				--                                                  |
+				say("Oh vous êtes si bon!")
+				say("S'il vous plaît, apportez-moi quelque chose")
+				say("de mon mari.")
+			end
+		end
+		when 493.kill begin
+			local s = number(1, 100)
+			if s <= 20 and pc.count_item("30101")==0 then
+				pc.give_item2("30101")
+				set_state(discover_ring)
+			end
+		end
+	end
+	state discover_ring begin
+		when letter begin
+			send_letter("Vous avez trouvé la bague")
+			local v=find_npc_by_vnum(20021)
+			if 0!=v then
+				target.vid("__TARGET__",v,"Allez voir Ariyoung")
+			end
+		end
+		when info or button begin
+			say_title("Vous avez trouvé l'anneau de mariage.")
+			say("")
+			say_item_vnum(30101)
+			say("Livrer l'anneau de mariage à Ariyoung.")
+			say("")
+		end
+		when __TARGET__.target.click or 20021.chat."L'anneau de mariage" with pc.count_item("30101")>= 1  begin
+			target.delete("__TARGET__")
+			say_title("Ariyoung")
+			say("")
+			--                                                  |
+			say("Cette .. bague .. c'est ma bague de mariage! ")
+			say("Maintenant, mon mari doit reposer en paix.")
+			say("Je vais enterrer cette bague avec une lettre...")
+			say("A partir de maintenant je vais vivre seul. ")
+			say("Au moins, j'ai retrouvé mon alliance. ")
+			say("C'est un sentiment agréable.")
+			say("Je ne pourrais jamais assez vous remercier.")
+			say("")
+			pc.remove_item("30101")
+			set_state(reward)
+		end
+	end
+	state reward begin
+		when letter begin
+			send_letter("Quête terminée!")
+		end
+		when info or button begin
+			say_title("Quête terminée!!")
+			say("")
+			--                                                  |
+			say("Vos actions pour Ariyoung se répandent autour")
+			say("de vous!")
+			say("Beaucoup de gens sollicitent votre aide.")
+			say("")
+			say_reward("Vous avez reçu 325.000 Expérience.")
+			pc.give_exp2(325000)
+			say_reward("Vous avez reçu 50.000 Yang")
+			pc.change_money(50000)
+			say_reward("Vous avez reçu une lame rouillée. ")
+			pc.give_item2(30030)
+			say("")
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

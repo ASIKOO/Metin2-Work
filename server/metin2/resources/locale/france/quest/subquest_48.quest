@@ -1,0 +1,298 @@
+quest subquest_48  begin
+	state start begin
+		when login or levelup with pc.level >= 58 and pc.level <= 60 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Allez voir le capitaine")
+			end
+		end
+
+		when __TARGET__.target.click or 20355.chat."Trouvez l'espion"  begin
+			target.delete("__TARGET__")
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Comme tous nos pays voisins sont des ennemis,")
+			say("il est important d'avoir des amis là-bas")
+			say("qui vont s'infiltrer et nous aider à obtenir")
+			say("des informations afin que nous puissions nous")
+			say("défendre contre des attaques. ")
+			say("C'est vraiment important que la couverture de ")
+			say("ces espions ne soit jamais découverte,")
+			say("parce que nous n'avons jamais pu réagir aux")
+			say("attaques à temps.")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Vous connaissez surement Yu-Hwan le musicien?")
+			say("Il est bien un espion pour nous et a ")
+			say("sa couverture comme musicien. ")
+			say("Un espion ne suffit pas à aider, nous en avons")
+			say("plusieurs dans le monde entier.")
+			say("Certains sont même des pêcheurs du village.")
+			say("")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Comme je ne peux pas entrer en contact avec ")
+			say("eux, sans faire exploser leur couverture, ")
+			say("j'ai besoin de l'aide de soldats intrépides")
+			say("comme vous.")
+			say("Voulez-vous s'il vous plaît aller voir le ")
+			say("pêcheur et me donner les informations dont ")
+			say("j'ai besoin en urgence pour protéger ")
+			say("notre royaume?")
+			local r=select("Accepter", "Refuser")
+			if 2==r then
+				--                                                  |
+				say("Etes-vous sûr de vouloir abandonner?")
+				local a=select("Oui" ,"Non")
+				if 2==a then
+					say_title("Capitaine:")
+					--                                                  |
+					say("")
+					say("Vous voulez d'abord vous préparez?")
+					say("Alors revenez plus tard.")
+					say("Mais dépêchez vous s'il vous plait,")
+					say("c'est vraiment urgent!")
+					return
+				end
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Que se passe-t-il avec vous?")
+				say("la dernière fois vous avez fait un travail  ")
+				say("fantastique à nos côtés! ")
+				say("Je ne peux pas croire que vous nous abandonnez.")
+				say("Mais c'est votre choix, nous ne pouvons ")
+				say("rien faire ...Au revoir.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Ouais!")
+			say("Je savais que je pouvais compter sur vous.")
+			say("Bonne chance et faites attention.")
+			say("")
+			set_state(go_to_otherland)
+		end
+	end
+	state go_to_otherland begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Rencontrez l'espion")
+			q.set_title("Rencontrez l'espion")
+			q.start()
+		end
+		function is_other_vil()
+			local empire = pc.get_empire()
+			local map_num= pc.get_map_index()
+
+			local is_village = 0
+
+			if empire == 1 and map_num == 41 then is_village = 1 end
+			if empire == 2 and map_num ==  1 then is_village = 1 end
+			if empire == 3 and map_num == 21 then is_village = 1 end
+			return is_village
+		end
+
+		when info or button begin
+			local empire = pc.get_empire()
+
+			if empire==1 then
+				say_title("La recherche de l'espion")
+				say("")
+				--                                                  |
+				say("Les espions œuvrant comme pêcheur peuvent ")
+				say("être trouvés dans le village Pyoungmu du ")
+				say("royaume Jinno.")
+				say("Ils recueillent des informations secrètes sur")
+				say("d'autres pays. Essayez d'entrer en contact")
+				say("avec eux. Dès que vous avez des informations,")
+				say("allez voir le capitaine et dites lui")
+				say("ce qu'ils vous ont dit.")
+				say("")
+			elseif  empire ==2 then
+				say_title("La recherche de l'espion")
+				say("")
+				--                                                  |
+				say("Les espions œuvrant comme pêcheur peuvent être")
+				say("trouvés dans le village Youngan du royaume de ")
+				say("Pandemonia. Ils recueillent des informations ")
+				say("secrètes sur d'autres pays. Essayez d'entrer ")
+				say("en contact avec eux. Dès que vous avez des ")
+				say("informations, allez voir le capitaine et ")
+				say("dites lui ce qu'ils vous ont dit.")
+				say("")
+			elseif  empire ==3 then
+				say_title("La recherche de l'espion")
+				say("")
+				say("Les espions œuvrant comme pêcheur peuvent être")
+				say("trouvés dans le village Joan du royaume Chunjo")
+				say("Ils recueillent des informations secrètes sur")
+				say("d'autres pays. Essayez d'entrer en contact")
+				say("avec eux. Dès que vous avez des informations,")
+				say("allez voir le capitaine et dites lui")
+				say("ce qu'ils vous ont dit.")
+				say("")
+			end
+		end
+	
+		when __TARGET__.target.click or 9009.chat."Que faites-vous"  with subquest_48.is_other_vil() ==1  begin
+			target.delete("__TARGET__")
+			say_title("Pêcheur:")
+			say("")
+			--                                                  |
+			say("Psst, silence!! Vous faites partir ailleurs")
+			say("tous les poissons. Pourquoi êtes-vous ici?")
+			say("Vous êtes si fort et maladroit, vous n'êtes")
+			say("surement pas là pour pêcher.")
+			say("")
+			wait()
+			say_title("Pêcheur:")
+			say("")
+			--                                                  |
+			say("Ah, je comprend.")
+			say("Je vous ai attendu pendant un moment, ")
+			say("vous êtes en retard. Ce n'était pas facile ")
+			say("d'obtenir cette information sans se faire ")
+			say("attraper. Vous devez savoir que les ennemis ")
+			say("sont partout et ils veulent que nous nous ")
+			say("trahissons.")
+			wait()
+			say_title("Pêcheur:")
+			say("")
+			--                                                  |
+			say("Donc, nous allons le faire rapidement, ")
+			say("avant que quelqu'un nous voit. ")
+			say("Ici vous avez les documents.")
+			say("Repartez immédiatement et donnez les seulement")
+			say("au Capitaine.")
+			say("")
+			wait()
+			--                                                  |
+			say_title("Pêcheur")
+			say("")
+			say("Une seconde! J'ai quelque chose pour vous.")
+			say("Un petit cadeau.")
+			say("Voilà, maintenant partez. Au revoir.")
+			wait()
+			say_title("Information:")
+			say("")
+			say_reward("Parce que vous êtes très curieux, ")
+			say_reward("vous ouvrez le paquet pour voir ce ")
+			say_reward("que le pêcheur vous a ")
+			say("donné.")
+			wait("")
+			say_pc_name()
+			say("")
+			say("Oh, bien!")
+			say("Des gardons rouge grillés!")
+			say("")
+			say_item_vnum(27873)
+			say_reward("Vous avez reçu 3 gardons rouge grillés.")
+			pc.give_item2(27873,3)
+			set_state(back_to_boss)
+		end
+	end
+	state back_to_boss begin
+		when letter begin
+			send_letter("Retournez voir le Capitaine")
+			if subquest_48.is_my_vil()==1  then
+				local v=find_npc_by_vnum(20355)
+				if 0==v then
+				else
+					target.vid("__TARGET__", v, "Le Capitaine")
+				end
+			end
+		end
+		when info or button begin
+			local empire = pc.get_empire()
+
+			if empire==1 then  --Pandemonia
+				say_title("La recherche de l'espion")
+				--                                                  |
+				say("")
+				say("Vous avez reçu de l'espion dans le village ")
+				say("Pyoungmu du royaume d'Elgoria qui se cache ")
+				say("comme pêcheur les informations importantes que")
+				say("le Capitaine attendait avec impatience.")
+				say("Maintenant retournez dans votre royaume")
+				say("et transmettez l'information au capitaine.")
+				say("")
+			elseif empire ==2 then --Asmodia
+				say_title("La recherche de l'espion")
+				say("")
+				say("Vous avez reçu de l'espion dans le village ")
+				say("Youngan du royaume de Pandemonia qui se cache")
+				say("comme pêcheur les informations importantes que")
+				say("le Capitaine attendait avec impatience.")
+				say("Maintenant retournez dans votre royaume")
+				say("et transmettez l'information au capitaine.")
+				say("")
+			elseif  empire ==3 then  --Elgoria
+				say_title("La recherche de l'espion")
+				say("")
+				say("Vous avez reçu de l'espion dans le village")
+				say("Joan du royaume d'Asmodia qui se cache comme")
+				say("pêcheur les informations importantes que le ")
+				say("Capitaine attendait avec impatience.")
+				say("Maintenant retournez dans votre royaume")
+				say("et transmettez l'information au capitaine.")
+				say("")
+			end
+		end
+
+		function is_my_vil()
+		local empire = pc.get_empire()
+		local map_num= pc.get_map_index()
+
+		local is_village = 0
+
+		if empire == 1 and map_num == 1 then is_village = 1 end
+		if empire == 2 and map_num == 21 then is_village = 1 end
+		if empire == 3 and map_num == 41 then is_village = 1 end
+		return is_village
+		end
+		when __TARGET__.target.click or 20355.chat."Mission réussie"  with subquest_48.is_my_vil() ==1 begin
+			target.delete("__TARGET__")
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Ce sont les documents? Bien!")
+			say("Merci.")
+			say("Maintenant que nous savons à propos des plans")
+			say("de notre ennemi, nous pouvons prendre des ")
+			say("dispositions importantes contre eux.")
+			say("Maintenant, nous avons plus rien à craindre.")
+			say_reward("Vous avez reçu 50.000 Yang .")
+			pc.change_money(50000)
+			say_reward("Vous avez reçu 5.500.000 Points d'expérience.")
+			pc.give_exp2(5500000)
+			say_reward("Vous avez reçu loupe magique.")
+			pc.give_item2(71113,5)
+			set_quest_state("levelup","run")
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

@@ -1,0 +1,241 @@
+quest subquest_4 begin
+	state start begin
+		when login or levelup with pc.level >= 9 and pc.level <= 14 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20016)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Forgeron.")
+			end
+		end
+		when __TARGET__.target.click or 20016.chat."La lettre du forgeron." with pc.level >= 9 begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Forgeron:")
+			say("")
+			say("Salutation à vous, aventurier! Je voudrais vous")
+			say("demandez une faveur.")
+			say("Il y a un homme nommé Deokbae. Il est bûcheron ")
+			say("et c'est un de mes bon ami.")
+			say("Il est un peu ennuyeux, mais il est l'un des ")
+			say("derniers bûcheron travaillant dur.")
+			say("")
+			wait()
+
+			say_title("Forgeron:")
+			say("")
+			--                                                  |
+			say("Je ne l'ai pas vu depuis longtemps et lui ")
+			say("ai écrit une lettre pour lui demandé s'il ")
+			say("allez bien.")
+			say("Je voudrais que vous lui apportiez cette ")
+			say("lettre.")
+			say_item_vnum(30131)
+			say("Aujourd'hui il y a beaucoup de dangers ")
+			say("sur la route, soyez prudent et ne perdez pas")
+			say("cette lettre!")
+			wait()
+			local area = {"Jayang","Bokjung","Bakra"}
+			say_title("Forgeron:")
+			say("")
+			--                                                  |
+			say("Oh, vous ne savez pas comment allez au ")
+			say("prochain village?")
+			say("Appuyer sur 'M' pour voir la carte miniature.")
+			say("Vous accéderez au village en allant au point ")
+			say("bleu nommé "..area[pc.get_empire()].."")
+			say("")
+
+			local s=select("Je veux le faire.","Non, merci.")
+			if 2==s then
+				say("Vraiment annuler la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Forgeron:")
+					say("")
+					say("Revenez bientôt.")
+					say("")
+					return
+				else
+					say_title("Forgeron:")
+					say("")
+					say("Bien, merci en tout cas...")
+					say("")
+					clear_letter()
+					set_state(__GIVEUP__)
+					return
+				end
+
+			else
+				say_title("Forgeron:")
+				say("")
+				say("Vous avez un long chemin à parcourir!")
+				say(" Prenez soin de vous.")
+				pc.give_item2(30131, 1)
+				say("")
+				say_item_vnum(30131)
+				set_state(deliver_letter)
+			end
+		end
+	end
+
+	state deliver_letter begin
+		when info or button begin
+			say_title("Information:")
+			say("")
+			--                                                  |
+			say("Allez et délivrez la lettre du Forgeron ")
+			say("à Deokbae le bûcheron.")
+			say("Vous pouvez le trouvez dans la ville de "..areaname[pc.get_empire()][2]..".")
+		end
+
+		when letter begin
+			send_letter("La lettre du Forgeron.")
+
+			local v=find_npc_by_vnum(20015)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Deokbae le bûcheron")
+			end
+		end
+
+		when __TARGET__.target.click or 20015.chat."La lettre du forgeron" begin
+			if pc.count_item(30131) >= 1 then
+				target.delete("__TARGET__")
+				--                                                  |
+				say_title("Deokbae:")
+				say("")
+				say("Bienvenu. J'ai quelques bonnes haches.")
+				say("")
+				say("Oh! Vous n'avez pas besoin d'une hache? ")
+				say("Est-ce que vous me cherchiez?")
+				say("Ah! Oui bien sur! Le Forgeron. Je le connais.")
+				wait()
+				say_title("Deokbae:")
+				say("")
+				say("Je suis un bûcheron, et je vend des pioches ")
+				say("et d'autres outils. ")
+				say("Parfois j'ai des commandes d'outils de lui.")
+				say("C'est ainsi que nous sommes devenus amis.")
+				say("Vous a-t-il envoyé?")
+				say("")
+				wait()
+
+				say_title("Deokbae:")
+				say("")
+				--                                                  |
+				say("Merci de m'avoir apporté la lettre. ")
+				say("Je dois vraiment allez boire un verre avec lui")
+				say(" au bar des bacheliers.")
+				say("Transmettez mon bonjour au Forgeron.")
+				say("")
+				pc.remove_item("30131", 1)
+				set_state(return_to)
+			else
+				say_title("Deokbae le bûcheron:")
+				say("")
+				--                                                  |
+				say("La lettre du Forgeron?")
+				say("")
+				say("Vous avez mit longtemps. Où est-il ?")
+				say("Vous ne l'avez pas perdu en chemin ?")
+				say("")
+				local s=select("Elle est ici.","Oh, elle n'est plus là.")
+				if 2==s then
+					say("Voulez-vous abandonner la quête?")
+					say("")
+					local a=select("Oui","Non")
+					if 2==a then
+						say_title("Deokbae:")
+						say("")
+						--                                                  |
+						say("C'est gentil de votre part. Revenez bientôt!")
+						say("")
+						return
+					else
+						say_title("Deokbae:")
+						say("")
+						say("Vous l'avez perdu? Allez vous-en... ")
+						say("")
+						clear_letter()
+						set_state(__GIVEUP__)
+						return
+					end
+				else
+					say_title("Deokbae:")
+					say("")
+					--                                                  |
+					say("Retournez auprès du Forgeron et donner lui ")
+					say("cette lettre.")
+					say("Ne perdez pas la lettre encore une fois.")
+					say("")
+					say("Soyez prudent.")
+					say("")
+					set_state(information)
+				end
+			end
+		end
+	end
+
+	state return_to begin
+		when info or button begin
+			say_title("Information:")
+			say("")
+			--                                                  |
+			say("Retournez auprès du Forgeron et recevez ")
+			say("votre récompense.")
+		end
+		when letter begin
+			send_letter("Retournez auprès du Forgeron.")
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Forgeron.")
+			end
+		end
+		when 20016.chat."J'ai livré la lettre." begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Forgeron:")
+			say("")
+			say("Bien, comment va Deokbae?")
+			say("")
+			say("Hehe,il est toujours un ami. ")
+			say("Merci. Prenez cela comme récompense. ")
+			say("Ce n'est pas beaucoup, mais vous en aurez ")
+			say("besoin un jour.")
+			say("Merci encore.")
+			say("")
+			wait()
+			say_title("Récompense:")
+			say("")
+			say_reward("Vous recevez 8.000 points d'expérience" )
+			say_reward("Vous recevez 10.000 Yang.")
+			say_reward("Vous recevez un parchemin de retour.")
+			pc.give_exp2(8000)
+			set_quest_state("levelup","run")
+			pc.change_money(10000)
+			pc.give_item2(22010 , 1)
+			wait()
+			say_title("Forgeron:")
+			say("")
+			--                                                  |
+			say("Les parchemins de retour sont très utiles. ")
+			say("Un clic droit sur eux pour enregistrer votre")
+			say("position actuelle. ")
+			say("Lorsque vous l'utilisez à nouveau, vous serez ")
+			say("téléporté de nouveau à cette position. ")
+			say("Chouette, n'est-ce pas?")
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+	end
+end

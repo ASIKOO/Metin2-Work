@@ -1,0 +1,401 @@
+quest subquest_33 begin
+	state start begin
+		when login or levelup or enter with pc.get_level() >=44  and pc.get_level() <= 46 begin
+			set_state( information )
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20023)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Allez voir le rat de bibliothèque")
+			end
+		end
+
+
+		when __TARGET__.target.click or
+			20023.chat."Carte au trésor de Soon" with pc.level >= 44 begin
+			target.delete("__TARGET__")
+			say_title("Mr.Soon:")
+			say("")
+			--                                                  |
+			say("Bonjour,")
+			say("J'ai trouvé d'étrange informations dans les ")
+			say("textes anciens, quelque part dans ce village ")
+			say("il pourrait y avoir une carte au trésor...")
+			say("Connaissez-vous les dieux protecteurs de la ")
+			say("ville? ")
+			say("Lykos, Scrofa, Bera,Tigris.")
+			say("")
+			wait()
+			say_title("Mr.Soon:")
+			say("")
+			say("Ces quatre monstres divins ont divisé la carte")
+			say("la carte en quatre morceaux et ils la protègent. ")
+			say("C'est un vieux conte de fées donc je ne suis pas ")
+			say("sûr...Que diriez-vous de rechercher une preuve?")
+			say("S'il vous plaît...")
+			say("Je ne peux pas le supporter .. ")
+			say("S'il vous plaît aidez-moi.")
+			local s=select("Accepter","Refuser")
+			if 2==s then
+				say_title("Mr.Soon:")
+				say("")
+				say("Vous voulez vraiment annuler la quête?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Mr.Soon:")
+					say("")
+					say("Pas intéressé par des cartes au trésor?")
+					say("Je vais regarder dans les textes anciens,")
+					say("Revenez quand vous aurez changé d'avis.")
+					say("")
+					return
+				end
+				say_title("Mr.Soon:")
+				say("")
+				say("Vous n'aimez pas ces aventures?")
+				say("Comment saurai-je obtenir les morceaux de carte?")
+				say("")
+				say("Eh bien ... Au revoir.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Soon:")
+			say("")
+			say("Oh")
+			say("Vous allez le faire?")
+			say("Vous êtes un véritable ami.")
+			say("J'ai confiance en vous, vous les trouverez.")
+			say("")
+			set_state(to_gain_map)
+		end
+	end
+
+	state to_gain_map begin
+
+		when letter begin
+			send_letter("La carte au trésor de Soon")
+
+			if  pc.count_item(27988) ==4 then
+				local v = find_npc_by_vnum(20023)
+
+				if v != 0 then
+					target.vid("__TARGET__", v, "Soon")
+				end
+				return
+			end
+		end
+
+		when info or button begin
+			if  pc.count_item(27988) >=4 then
+				say_title("Trouvez la carte au trésor")
+				say("")
+				--                                                  |
+				say("J'ai chassé les dieux animaux à l'extérieur" )
+				say("du village et j'ai trouvé les 4 parties de ")
+				say("la carte au trésor. Je vais le porter à Soon")
+				say("")
+				return
+			end
+			say_title("Chasser les dieux animaux")
+			say("")
+			say("Collecter les 4 parties de")
+			say("la carte au trésor en chassant")
+			say("Lykos, Scrofa, Bera, Tigris." )
+			say("")
+			say_reward("(Pièce trouvé de la carte au trésor : "..pc.count_item(27988).." )")
+			say("")
+		end
+
+
+		when 191.kill begin
+			if	pc.getqf("kill_g1")==0 then
+				pc.give_item2(27988, 1)
+			end
+
+			pc.setqf("kill_g1",1)
+			if	pc.getqf("kill_g1")==1	and	pc.getqf("kill_g2")==1 and	pc.getqf("kill_g3")==1	and	pc.getqf("kill_g4")==1 then
+				set_state(hunt_reward)
+			end
+			return
+		end
+		when 192.kill begin
+			if	pc.getqf("kill_g2")==0 then
+				pc.give_item2(27988, 1)
+			end
+
+			pc.setqf("kill_g2",1)
+
+			if	pc.getqf("kill_g1")==1	and	pc.getqf("kill_g2")==1 and	pc.getqf("kill_g3")==1	and	pc.getqf("kill_g4")==1 then
+				set_state(hunt_reward)
+			end
+			return
+		end
+
+		when 193.kill begin
+			if	pc.getqf("kill_g3")==0 then
+				pc.give_item2(27988, 1)
+			end
+
+			pc.setqf("kill_g3",1)
+
+			if	pc.getqf("kill_g1")==1	and	pc.getqf("kill_g2")==1 and	pc.getqf("kill_g3")==1	and	pc.getqf("kill_g4")==1 then
+				set_state(hunt_reward)
+			end
+			return
+		end
+
+		when 194.kill begin
+			if	pc.getqf("kill_g4")==0 then
+				pc.give_item2(27988, 1)
+			end
+
+			pc.setqf("kill_g4",1)
+
+			if	pc.getqf("kill_g1")==1	and	pc.getqf("kill_g2")==1 and	pc.getqf("kill_g3")==1	and	pc.getqf("kill_g4")==1 then
+				set_state(hunt_reward)
+			end
+			return
+		end
+	end
+
+	state hunt_reward begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("La carte au trésor")
+			q.set_title("La carte au trésor")
+			q.start()
+
+			local v = find_npc_by_vnum(20023)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Allez voir Mr Soon")
+			end
+		end
+
+		when info or button begin
+			say_title("La carte au trésor ")
+			say("")
+			--                                                  |
+			say("Retournez voir Soon et dites lui que vous avez ")
+			say("trouvé tous les morceaux de la carte au trésor.")
+			say("")
+		end
+
+		when __TARGET__.click  or 20023.chat."Les morceaux de carte"  begin
+			target.delete("__TARGET__")
+			if pc.count_item(27988)>=4 then
+				say_title("Mr.Soon:")
+				say("")
+				say("Oh!")
+				say("Fantastique!")
+				say("Enfin j'ai toutes les pièces.")
+				say("Je n'aurais jamais rêvé de ça ...")
+				say("Maintenant, assemblez les morceaux ..")
+				say("pour une carte entière ..")
+				say("attendez une seconde...")
+				say("")
+				wait()
+				say_title("Mr.Soon:")
+				say("")
+				--                                                  |
+				say("Hmm..Il devrait y avoir un trésor?")
+				say("Étrange, je ne peux pas y croire...")
+				say("Voulez-vous aller voir s'il y a un trésor?")
+				say("Hmm, un jeu d'enfant en quelque sorte ...")
+				say("La carte indique que le trésor se trouve à ")
+				say("proximité du rocher du vieil homme, ")
+				say("vous pouvez regarder si vous le désirez.")
+				say("Il est peut-être préférable de brûler cette ")
+				say("carte ... Cette carte puéril .. Je vais")
+				say("la brûler...")
+				say("")
+				local s=select("Je vais essayer","Brûler la.")
+				if 2==s then
+					say_title("Soon:")
+					say("")
+					say("Vous voulez vraiment annuler la quête?")
+					say("")
+					local a=select("Oui","Non")
+					if  1==s then
+							say_title("Mr.Soon:")
+						say("")
+						say("Ouais, vraiment un conte de fées stupide!")
+						say("Brûlons la..")
+						say("Je suis désolé que vous êtes allé et")
+						say("ayez collecté ça.")
+						say("Eh bien, c'est ça, au revoir.")
+						say("")
+						pc.remove_item(27988,4)
+						set_state(__GIVEUP__)
+						return
+					end
+					say_title("Mr.Soon:")
+					say("")
+					say("Pourquoi hésiter?")
+					say("Vous avez déjà recueilli la carte ...")
+					say("Dépêchez-vous, et n'oubliez pas la carte!")
+					say("")
+					set_state(to_gain_tresure)
+					return
+				end
+				say_title("Mr.Soon:")
+				say("")
+				say("Oh")
+				say("Vous allez essayer?")
+				say("Ce serait une surprise si vous trouvez le ")
+				say("trésor. Bonne chance!")
+				say("N'oubliez pas la carte!")
+				say("")
+				set_state(to_gain_tresure)
+				return
+			else
+				say_title("Mr.Soon:")
+				say("")
+				say("La carte a été divisé en 4 parties.")
+				say("Obtenez les autres parties.")
+				say("")
+				local s=select("Essayer encore","Abandonner")
+				if 2==s then
+					say_title("Mr.Soon:")
+					say("")
+					say("Vous abandonnez??")
+					say("Oh eh bien, au revoir.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+				say_title("Mr.Soon:")
+				say("")
+				say("Je savais que vous alliez revenir.")
+				say("J'ai confiance en toi!")
+				say("")
+			end
+		end
+	end
+	state to_gain_tresure begin
+		when letter begin
+			send_letter("La carte au trésor de Soon")
+			local v=find_npc_by_vnum(20009)  -----------old man
+				if 0 == v then
+				else
+					target.vid("__TARGET__",v,"")
+				end
+		end
+
+		when info or button begin
+			say_title("Recherchez le trésor")
+			say("")
+			say_pc_name()
+			say("Hmm, sous le rocher, proche du vieil homme ...")
+			say("Aucune idée.")
+			say("Je dois d'abord demander au vieil homme.")
+			say("Pourquoi le chemin est si loin, fichtre.")
+			say("")
+		end
+
+
+		when __TARGET__.target.click or 20009.chat."Cherchez le trésor" with pc.count_item(27988)>=4 begin
+			target.delete("__TARGET__")
+			say_title("Vieil homme")
+			say("")
+			say("Qu'est-ce que vous cherchez?")
+			say("Montrez moi la carte.")
+			say("Hmmmm..")
+			say("Je pense que je sais.")
+			say("Creusez là-bas.")
+			say("")
+			wait("")
+			say_pc_name()
+			say("")
+			say("J'ai creusé où le vieil homme m'a montré.")
+			say("Après une éternité à creuser ...")
+			say("Je peux voir un coffre!")
+			say_item_vnum(70009)
+            
+			pc.give_item2(70009, 1)
+            
+			set_state(go_to_reward)
+		end
+	end
+
+	state go_to_reward begin
+		when letter begin
+			send_letter("Le trésor existe vraiment!")
+
+			local v=find_npc_by_vnum(20023)
+				if 0 == v then
+				else
+					target.vid("__TARGET__",v,"Allez voir Mr.Soon")
+				end
+		end
+
+		when info or button begin
+			say_title("Trouvez le trésor")
+			say("")
+			say("Je suis allé là où la carte de Mr.Soon")
+			say("m'a conduit et le trésor existe vraiment!")
+			say("Je n'y crois pas.")
+			say("Je dois lui dire.")
+			say("Allez voir Mr.Soon.")
+		end
+
+		when __TARGET__.click or 20023.chat."Trouvez le trésor"  begin
+			target.delete("__TARGET__")
+			if pc.count_item(70009)>=1 then
+				say_title("Mr.Soon:")
+				say("")
+				--                                                  |
+				say("Oh! Quelle surprise!")
+				say("Exactement le trésor mentionné dans les")
+				say("anciens textes. Merci!")
+				say("Tiens, prends ça comme un signe de remerciement.")
+				say("")
+				pc.remove_item(70009,1)
+				pc.remove_item(27988,4)
+
+				say_reward("Vous avez reçu 1.800.000 points d'expérience.")
+				pc.give_exp2(1800000)
+
+				say_reward("Vous avez reçu 50.000 Yang")
+				pc.change_money(50000)
+
+				if pc.job == 0 then
+					pc.give_item2(12244, 1)
+					say_reward("Vous avez reçu masque de la peur +4.")
+				elseif pc.job == 1 then
+					pc.give_item2(12524, 1)
+					say_reward("Vous avez reçu heaume de château+4.")
+				elseif pc.job == 2 then
+					pc.give_item2(12384, 1)
+					say_reward("Vous avez reçu capuchon de fer +4.")
+				elseif pc.job == 3 then
+					pc.give_item2(12664, 1)
+					say_reward("Vous avez reçu chapeau lumière du soleil +4.")
+				end
+				clear_letter()
+				set_state(__COMPLETE__)
+			else
+				say_title("Mr.Soon:")
+				say("")
+				say("Vous ne l'avez pas encore trouvé, l'avez-vous?")
+				say("")
+				return
+			end
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

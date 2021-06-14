@@ -1,0 +1,406 @@
+----------------------------------
+--  Main Quest LV30-32
+--  The Secret Book
+----------------------------------
+quest main_quest_lv32 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 32 begin
+			set_state( gototeacher )
+		end
+	end
+
+	state gototeacher begin
+		when letter begin
+			send_letter("Uriel t'attend")
+
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel")
+			end
+		end
+		when button or info begin
+			say_title("The secret book")
+			----                                                  l
+			say("")
+			say("Uriel a une quête à vous confier.")
+			say("Rejoignez-le sans tarder!")
+			say("")
+		end
+		when __TARGET__.target.click or 20011.chat."Une nouvelle mission" begin
+			target.delete("__TARGET__")
+
+			say_title("Uriel:")
+			say("")
+			----                                                  l
+			say("Depuis notre dernière rencontre, plusieurs choses")
+   			say("importantes se sont produites.")
+   			say("Bien que la partie restante des textes provenant")
+   			say("du monument soient inexploitables, j'ai appris ")
+   			say("une chose importante...")
+			wait()
+			say_title("Uriel:")
+			say("")
+			----                                                  l
+			say("Un marchand ambulant, installé au village de la")
+			say("map 2, s'est vanté auprès de Soon de posséder")
+   			say("des pages recelant des trésors anciens.")
+   			say("Soon a eu l'occasion de consulter ces pages et")
+			say("m'en a immédiatement informé lorsqu'il a reconnu")
+			say("l'ancien dialecte du journal intime.")
+			say("Te rends-tu compte?!Ce marchand possède des pages")
+			say("du journal intime.")
+			say("Accours auprès de ce marchand et récupère moi")
+			say("ces pages par tous les moyens.")
+			set_state( gomerchant )
+		end
+	end
+
+	state gomerchant begin
+		when letter begin
+			send_letter("Le marchand ambulant")
+
+			local v=find_npc_by_vnum(20010)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Marchand ambulant")
+			end
+		end
+		when button or info begin
+			say_title("Searching for the page of the secret book")
+			say("")
+			----                                                  l 
+			say("Uriel t'a annoncé que ce marchand détient des ") 
+			say("pages du journal intimes. Va parler à ce marchand")
+			say("et tente par tous les moyens de récupérer les")
+			say("pages en sa possession.")
+		end
+		when __TARGET__.target.click or 20010.chat."Au sujet des pages" begin
+			target.delete("__TARGET__")
+			say_title("Marchand ambulant :")
+			say("")
+			----                                                  l
+			say("Bonjour à vous," )
+   			say("seriez vous intéressé par ma porcelaine?")
+   			say("des bijoux? de la nourriture?") 
+   			say("J'ai un stock assez important, je suis sur que")
+   			say("nous trouverons votre bonheur.")
+			say("")
+			wait()
+			say_title("Marchand ambulant :")
+			say("")
+			----                                                  l
+			say("En fait, je serais intéressé par vos ouvrages.")
+			say("Soon, le scientifique du village voisin m'a")
+			say("raconté que vous auriez entre vos possession")
+			say("des textes datant de la dynastie Xiang.")
+			say("Seriez vous prêt à vendre ces textes?")
+			say("")
+			wait()
+			say_title("Marchand ambulant :")
+			say("")
+			----                                                  l
+			say("Désolé monsieur mais ces textes sont au delà de ")
+   			say("vos moyens.Ces textes ont bien trop de valeur ")
+   			say("pour être mis entre les mains d'un rustre tel")
+   			say("que vous...")
+   			say("")
+			say_pc_name()
+   			say("")
+   			say("Pour qui me prenez vous?!")
+   			say("Je vous ai demandé votre prix alors dîtes le!")
+   			say("")
+			
+			wait()
+			
+			say_title("Marchand ambulant :")
+			say("")
+			----                                                  l
+			say("Fort bien, pour ces pages, je demande en échange")
+			say("20 épées d'argent +0.")
+			say("Sans cette monnaie d'échange, vous n'obtiendrez")
+			say("jamais ces pages. A vous de voir.")
+			say("Je vous attendrai ici.")
+			set_state( gotorequest )
+		end
+	end
+	state gotorequest begin
+		when letter begin
+			send_letter("La commande du marchand")
+
+			if pc.count_item(60)>=20 then
+				local v=find_npc_by_vnum(20010)
+				if 0==v then
+				else
+					target.vid("__TARGET__", v, "Marchand ambulant")
+				end
+			end
+		end
+		when button or info begin
+			---                                                   l
+			if pc.count_item(60)>=20 then
+				say_title("Vous avez les 20 épées en argent +0")
+				say("")
+				----                                                  l
+				say("Tu as à présent les vingt épées demandées par le")
+				say("marchand ambulant. Retourne le voir pour obtenir")
+				say("les pages.")
+				say("")
+				return
+			end
+			say_title("Trouver 20 épées en argent +0")
+			say("")
+			----                                                  l
+			say_title("La commande du marchand")
+			say("")
+			----                                                  l
+			say("La marchand ambulant n'acceptera de céder les")
+			say("pages qu'en échange de 20 épées d'argent +0.")
+			say("Trouve ces épées et tu pourras obtenir les pages")
+			say("et les rapporter à Uriel.")
+			say("")
+		end
+		when __TARGET__.target.click or 20010.chat."Donner les épées"  begin
+			target.delete("__TARGET__")
+
+			if pc.count_item(60)>=20 then
+				----                                                  l
+				say_title("Marchand ambulant :")
+				say("")
+				say("Eh bien, on peut dire que tu as pris ton temps...")
+				say("Enfin bon, c'est le résultat qui compte pas vrai!")
+				say("Ça me brise le cœur de m'en séparer mais un")
+				say("marché est un marché.")
+				say("Il faut dire que tu m'avais fait une forte")
+				say("impression la première fois. J'avais donc")
+				say("jugé préférable de mettre les pages en lieu")
+				say("sûr, une simple précaution...")
+				say("")
+				wait()
+				say_title("Marchand ambulant :")
+				say("")
+				----                                                  l
+				say("Les pages se situent près du monument Weol")
+				say("en map 1. Va les chercher, elles sont à toi")
+				say("désormais. Fait en bon usage.")
+				say("")
+				pc.remove_item(60,20)
+				set_state( gotodoc )
+			else
+				say_title("Marchand ambulant :")
+				say("")
+				----                                                  l
+				say("Je n'ai pas changé d'avis; mon prix reste le même:")
+				say("20 épées d'argent+0 contre mes précieuses pages...")
+				say("")
+			end
+		end
+	end
+
+	state gotodoc begin
+		when letter begin
+			send_letter("Va chercher les pages.")
+
+			local v=find_npc_by_vnum(20357)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "monument")
+			end
+		end
+		when button or info begin
+			---
+			say_title("Les pages du journal intime.")
+			say("")
+			----                                                  l
+			say("Le marchand ambulant a caché les pages auprès du")
+			say("monument Weol.")
+			say("Va les chercher et donne les à Uriel.")
+			say("")
+			say("")
+		end
+		when __TARGET__.target.click or 20357.chat."Récupérer les pages" begin
+			target.delete("__TARGET__")
+			say("J'ai les pages. Allons voir Uriel maintenant.")
+			say("")
+			pc.give_item2(30150)
+			set_state( gototeacher2 )
+		end
+	end
+
+	state gototeacher2 begin
+		when letter begin
+			send_letter("Donnez les pages à Uriel")
+
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel ")
+			end
+		end
+		when button or info begin
+			say_title("Donnez les pages à Uriel.")
+			say("")
+			say("Vous avez recueilli les informations.")
+			say("Retournez maintenant voir Uriel.")
+		end
+		when __TARGET__.target.click or 20011.chat."Donner les pages" begin
+			target.delete("__TARGET__")
+			say_title("Uriel:")
+			say("")
+			----                                                  l
+			say_reward("Nous nous sommes donc rendu à la vallée des ")
+			say_reward("dragons où les sorciers orcs semblent tirer leur")
+			say_reward("énergie mystique.Nous nous sommes mêlés à eux lors")
+			say_reward("de leur rituel...si vous voulez mon avis, beaucoup")
+			say_reward("de rituels et de sacrifices pour pas grand chose.")
+			say_reward("De la magie a bien été libérée au cours des")
+			say_reward("rituels mais elle n'est que poussière face aux")
+			say_reward("\énergies que nous manipulons...")
+			say_reward("Manifestement, ce n'est pas ici que nous ")
+			say_reward("trouverons notre nouvelle source de puissance.")
+			say_reward("Mais nous ne perdons pas espoir pour autant...")
+			wait()
+			say_title("Uriel:")
+			say("")
+			-----------                                                  l
+			say("Nous progressons, lentement mais sûrement!")
+			say("Le texte fait mention des sorciers orcs de la")
+			say("vallée des dragons. Les sorciers doivent savoir ce")
+			say("qui est advenu des anciens.Questionnez les, usez")
+			say("de la force si nécessaire et revenez me voir dès")
+			say("que vous aurez réussi à leur arracher des")
+			say("informations...")
+			say("Le chasseur Yang-Shin connait bien la région")
+			say("Passez donc le voir avant d'aller à la vallée")
+			say("En attendant, voici ta récompense.")
+			say_reward("Experience : 800.000")
+			pc.give_exp2(800000)
+			say_reward("Yang: 70.000")
+			pc.change_money(70000)
+			say_reward("Changement de bonus")
+			pc.give_item2(71151)
+			pc.remove_item(30150)
+			set_state( gotohunter )
+		end
+	end
+
+	state gotohunter begin
+		when letter begin
+			send_letter("Va voir Yang-Shin")
+
+			local v=find_npc_by_vnum(20019)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Yang-Shin")
+			end
+		end
+		when button or info begin
+			----                                                  l
+			say("Yang-Shin connait bien la vallée des dragons.")
+			say("Il pourra aisément nous renseigner où trouver ces")
+			say("fameux sorciers.")
+			say("")
+		end
+		when __TARGET__.target.click or 20019.chat."Au sujet de la vallée" begin
+			target.delete("__TARGET__")
+			say_title("Yang-Shin:")
+			say("")
+			----                                                  l
+			say("Comment,!Vous souhaitez vous aventurer dans la")
+			say("vallée, seul en plus? Mon pauvre ami, ")
+			say("vous ignorez tout des dangers qui vous guettent...")
+			say("Les orcs vous tomberont en moins de temps qu'il")
+			say("n'en faut.Et même si, par chance, vous arriveriez")
+			say("à dépasser les orcs, les ésotériques ne vous")
+			say("louperont pas eux, ils ont une ouïe si perçante")
+			say("que vous n'arriverez jamais à passer sur leur")
+			say("territoire sans être repéré...")
+			say("Sans compter ces foutus sorciers orcs qui rodent")
+			say("autour de ce foutu temple...")
+			say("")
+			set_state( godoc2 )
+		end
+	end
+
+	state godoc2 begin
+		when letter begin
+			send_letter("La deuxième page")
+		end
+		when button or info begin
+			say_title("La deuxième page")
+			----                                                  l
+			say("Le texte a fait mention des sorciers orcs de la")
+			say("vallée des dragons. Les sorciers doivent donc")
+			say("savoir ce qui est advenu des anciens.")
+			say("Questionnez les, usez de la force si vous le jugez")
+			say("nécessaire, seul le résultat compte!")
+			say("")
+		end
+		when 634.kill begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30150")==0 then
+				pc.give_item2(30150, 1)
+				set_state( goteacher3 )
+			end
+		end
+	end
+	state goteacher3 begin
+		when letter begin
+			send_letter("Vous avez la deuxième page")
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel ")
+			end
+		end
+		when button or info begin
+			say_title("Vous avez la deuxième page")
+			say("")
+			say("Uriel attend impatiemment de vos nouvelles.")
+			say("Ne le faîtes plus attendre, foncez!")
+		end
+		when __TARGET__.target.click or 20011.chat."Donner la deuxième page" begin
+			target.delete("__TARGET__")
+			----                                                  l
+			say_title("Uriel:")
+			say("")
+			say_reward("Notre échec dans la vallée des dragons ne")
+			say_reward("nous a pas découragé pour autant.")
+			say_reward("Nous nous sommes dirigés vers le temple ")
+			say_reward("des ésotériques afin de mieux comprendre ")
+			say_reward("la force extraordinaire qui les habitent.")
+			say_reward("A peine avions nous franchi le seuil du ")
+			say_reward("temple que la magie accumulée en ce lieu")
+			say_reward("a fait chanter notre sang.")
+			say_reward("Comme nous étions heureux!")
+			say_reward("Nous n'avions jamais été aussi proche ")
+			say_reward("de découvrir une nouvelle forme de magie...")
+			say("")
+			wait()
+			say_title("Uriel:")
+			say("")
+			----                                                  l
+			say("La source de cette magie serait donc au temple!")
+			say("Comme c'est intéressant, de plus amples ")
+			say("recherches sont nécessaires...oh ne t'inquiète")
+			say("pas, je te laisse tranquille, tu n'en as que ")
+			say("trop fait et je t'en remercie.")
+			say("Nous serons amenés à nous revoir j'en suis ")
+			say("persuadé jeune homme.")
+			say_reward("Experience : 900.000")
+			pc.give_exp2(900000)
+			say_reward("Yang: 200.000")
+			pc.change_money(200000)
+			say_reward("Items: Ajout bonus")
+			pc.give_item2(71152)
+			pc.remove_item(30150)
+			clear_letter()
+			set_quest_state("main_quest_lv40", "run")
+			set_state(__COMPLETE__)
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

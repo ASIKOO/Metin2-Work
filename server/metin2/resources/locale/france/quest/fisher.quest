@@ -1,0 +1,84 @@
+quest fisher begin
+    state start begin
+		when 9009.chat."Utiliser le magasin" begin
+			npc.open_shop()
+			setskin(NOWINDOW)
+		end
+
+		when 9009.chat."Amélioration de la canne à pêche" begin
+			---                                                   l
+			say_title("Pêcheur:")
+			say("Vous voulez donc connaitre le secret de")
+			say("l'amélioration de votre canne à pêche? Eh")
+			say("bien... Il n'y a pas vraiment de grand secret.")
+			say("Plus vous passerez de temps à pêcher avec votre")
+			say("canne à pêche, plus son niveau augmentera. Une")
+			say("fois que vous aurez atteint le niveau maximal,")
+			say("amenez-moi votre canne et j'aissererai de")
+			say("l'améliorer pour vous.")
+		end
+
+		when 9009.take with item.vnum < 27400 or item.vnum > 27590 begin
+			---                                                   l
+			say_title("Pêcheur:")
+			say("Je peux ameliorer seulement les canne à pêche.")
+		end
+
+		when 9009.take with item.vnum == 27590 begin
+			---                                                   l
+			say_title("Pêcheur:")
+			say("Vous ne pouvez pas améliorer cette canne à pêche")
+			say("puisqu'elle est déjà améliorer au maximum.")
+		end
+
+		when 9009.take with item.vnum >= 27400 and item.vnum < 27590 and item.get_socket(0) != item.get_value(2) begin
+			---                                                   l
+			say_title("Pêcheur:")
+			say("Cette canne à pêche n'as pas assez de points")
+			say("pour être améliorer.")
+		end
+
+		when 9009.take with item.vnum >= 27400 and item.vnum < 27590 and item.get_socket(0) == item.get_value(2) begin
+			---                                                   l
+			say_title("Pêcheur:")
+			say("Vous voulez que j'améliore cette canne à pêche?")
+			say("Laissez-moi regarder...")
+			say(string.format("Le niveau de cette canne à pêche est de %d .", item.get_value(0) / 10))
+			say("Humm, je ne suis pas certain d'être assez bon")
+			say("pour améliorer cette canne à pêche. Voulez-vous")
+			say("que j'essaie?")
+			say(string.format("%d fois sur 100, il est possible que le niveau de", 100 - item.get_value(3)))
+			say("la canne à pêche soit diminué.")
+			say("Voulez-vous quand même que j'essaie?")
+
+			local s = select("Oui", "Non")
+
+			if s == 1 then
+
+				local f = __fish_real_refine_rod(item.get_cell())
+
+				if f == 2 then
+					---                                                   l
+					say_title("Pêcheur:")
+					say("Je suis désolé, mais je n'ai pas réussi à ")
+					say("améliorer votre canne à pêche.")
+
+				elseif f == 1 then
+					---                                                   l
+					say_title("Pêcheur:")
+					say("Parfait, ça a très bien marché! Voici votre canne")
+					say("à pêche améliorée!")
+				else
+					---                                                   l
+					say_title("Pêcheur:")
+					say("Je suis désolé, mais je n'ai pas réussi à ")
+					say("améliorer votre canne à pêche.")
+				end
+			else
+				---                                                   l
+				say_title("Pêcheur:")
+				say("D'accord. Revenez plus tard si vous changez d'avis.")
+			end
+		end
+	end
+end

@@ -1,0 +1,454 @@
+quest subquest_6 begin
+	state start begin
+		when login or levelup with pc.level >= 11 and pc.level <= 16 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(9002)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Marchand d'armure")
+			end
+		end
+
+		when __TARGET__.target.click or
+			9002.chat."La commande d'armure" with pc.level >= 11 begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Marchand d'armure :")
+			say("")
+			say("Merci d'avoir aidé ma fille. Vous pourrez ")
+			say("peut-être m'aider aussi bien. ")
+			say("J'ai une faveur à vous demander.")
+			say("J'ai commandé au forgeron une armure, mais ")
+			say("depuis je n'ai plus de nouvelles de lui.")
+			say("Pouvez-vous aller voir où il en est")
+			say("")
+			local s=select("Oui, je peu.","Je n'ai pas le temps.")
+			if 2==s then
+				say("Vous voulez vraiment annuler ?")
+				local a=select("Oui, certain","Peut être pas")
+				if  2==a then
+					say_title("Vendeur d'armure :")
+					say("")
+					say("Vous allez le faire ?")
+					say("Revenez me voir après avoir parlé au forgeron.")
+					say("")
+					return
+				end
+				say_title("Vendeur d'armure :")
+				say("")
+				say("Partez !")
+				say("")
+				say("Le forgeron m'a promis de me la faire aussi vite")
+				say("que possible !")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Marchand d'armure:")
+			say("")
+			say("Merci beaucoup !")
+			say("")
+			say("Allez demander au forgeron où il en est.")
+			say("")
+			set_state(ask_blacksmith)
+		end
+	end
+
+	state ask_blacksmith begin
+		when info or button begin
+			say_title("La commande d'armure")
+			say("")
+			say("Allez demander au forgeron où il en est.")
+			say("")
+		end
+
+		when letter begin
+			local v = find_npc_by_vnum(20016)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Forgeron")
+			end
+			send_letter("La commande d'armure")
+		end
+
+		when __TARGET__.target.click or 20016.chat."La commande du marchand d'armure" begin
+			target.delete("__TARGET__")
+			say_title("Forgeron :")
+			say("")
+			--                                                  |
+			say("Qu'est ce qu'il y a ? ")
+			say("Pourquoi venez vous me déranger ?")
+			say("Ha, le marchand d'armure vous envoie ? ")
+			say("Ce veille homme est vraiment impatient.")
+			say("Le problème est que je n'ai pas tous les ")
+			say("matériaux.")
+			say("Pouvez-vous les récupérer pour moi ?")
+			say("J'ai besoin de minerai de fer, de cuir et ")
+			say("de charbon.")
+			say("Vous trouverez le fer chez Uriel, le cuir ")
+			say("chez Octavio et le charbon chez Yonah.")
+			say("")
+
+			local s=select("Je vais le faire","Non, pas maintenant")
+			if 2==s then
+				say("Etes vous certain d'annuler cette tâche ?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Forgeron :")
+					say("")
+					say("Oh, vous avez le matériel avec vous ?")
+					say("")
+					say("Il semble que non, revenez plus tard.")
+					say("")
+					return
+				end
+				say_title("Forgeron :")
+				say("")
+				say("Vous avez tout ?")
+				say("")
+				say("Non ? Donc j'irais les chercher moi même.")
+				say("Nous nous reverrons un autre jour.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Forgeron :")
+			say("")
+			say("Alors allez-y, maintenant je peux travailler")
+			say("en toute quiétude à nouveau !")
+			say("")
+			set_state(to_get_material)
+		end
+
+	end
+	state to_get_material begin
+		when letter begin
+			send_letter("Matériaux pour l'armure")
+		end
+		when button or info begin
+			say_title("La commande d'armure")
+			say("")
+			--                                                  |
+			say("Allez chercher les matériaux pour le forgeron :")
+			say("")
+			if pc.getqf("ironore_done") ==1 then
+				say("Le fer - Je l'ai déjà.")
+			else
+				say("Le fer - Je dois le demander à Ureil.")
+			end
+			if pc.getqf("leather_done") ==1 then
+				say("Le cuir - Je l'ai déjà.")
+			else
+				say("Le cuir - Je dois le demander à Octavio.")
+			end
+			if pc.getqf("coal_done") ==1 then
+				say("Charbon - Je l'ai déjà.")
+			else
+				say("Charbon - Je dois le demander à Yonah.")
+			end
+			say("")
+		end
+
+		when letter begin
+			if pc.getqf("leather_done")!=1 then
+				local v=find_npc_by_vnum(20008)
+				if 0!=v then
+					target.vid("__TARGET1__",v,"Allez voir Octavio.")
+				end
+			end
+
+			if pc.getqf("ironore_done")!=1 then
+				local v=find_npc_by_vnum(20011)
+				if 0!=v then
+					target.vid("__TARGET2__",v,"Allez voir Uriel.")
+				end
+			end
+
+			if pc.getqf("coal_done")!=1 then
+				local v=find_npc_by_vnum(20005)
+				if 0!=v then
+					target.vid("__TARGET3__",v,"Allez voir Yonah.")
+				end
+			end
+		end
+
+		when 20011.chat."J'ai besoin de fer" with pc.getf("subquest_6","ironore_done") == 0 begin
+			target.delete("__TARGET2__")
+			if pc.count_item(30132) >= 1 then
+				pc.setqf("ironore_done", 1)
+				pc.remove_item("30132", 1)
+
+				say_title("Uriel:")
+				say("")
+				--                                                  |
+				say("Merci je vais pouvoir avancer mon travail.")
+				say("Ici, vous avez une quantité de fer.")
+				say("")
+				if  pc.getqf("ironore_done") == 1 and pc.getqf("leather_done") == 1 and pc.getqf("coal_done") == 1 then
+					set_state(back_to_blacksmith)
+				end
+				return
+			end
+			say_title("Uriel:")
+			say("")
+			--                                                  |
+			say("Vous avez besoin de fer ? ")
+			say("Je peux vous en donner.")
+			say("Hélas, j'ai perdu un livre récemment, quand ")
+			say("j'ai été poursuivi par un groupe de "..mob_name(171).."")
+			say("Je pense qu'ils l'ont volé !")
+			say("Retrouvez moi mon livre, et je vous donnerez")
+			say("du fer.")
+			say_item_vnum("30132")
+			say("")
+			pc.setqf("for_iron",1)
+
+		end
+		when 20011.chat."J'ai besoin de fer" with pc.getf("subquest_6","ironore_done")==1 begin
+			target.delete("__TARGET2__")
+			say_title("Uriel :")
+			say("")
+			--                                                  |
+			say("Hey, j'ai besoin aussi du minerai de fer ")
+			say("pour moi.")
+			say("Avez-vous oublié que je vous en ai donné déjà?")
+			say("")
+		end
+		when 20008.chat."J'ai besoin de cuir" with pc.getf("subquest_6","leather_done") == 0 begin
+			target.delete("__TARGET1__")
+			if pc.count_item(60001) >= 1 then
+				pc.setqf("leather_done", 1)
+				pc.remove_item("60001", 1)
+
+				say_title("Octavio:")
+				say("")
+				--                                                  |
+				say("Merci de votre aide, maintenant je peux ")
+				say("cuisiner ce plat.")
+				say("Tiens, prends le cuir, tu le mérites.")
+				say("")
+				if pc.getqf("ironore_done") == 1 and pc.getqf("leather_done") == 1 and pc.getqf("coal_done") == 1 then
+
+					set_state(back_to_blacksmith)
+				end
+				return
+			end
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Je peux vous donner du cuir, mais dans ce ")
+			say("monde rien n'est gratuit. Je vous en donnerais")
+			say("quand vous obtiendrais une bile pour moi.")
+			say_item_vnum("60001")
+			say("")
+			pc.setqf("for_leather",1)
+
+		end
+		when 20008.chat."J'ai besoin de cuir" with pc.getf("subquest_06","leather_done")==1 begin
+			target.delete("__TARGET1__")
+			say_title("Octavio:")
+			say("")
+			--                                                  |
+			say("Je vous ai déjà donné du charbon, vous ")
+			say("l'avez perdu ? ")
+			say("")
+		end
+		when 20005.chat."J'ai besoin de charbon" with pc.getf("subquest_6","coal_done") == 0 begin
+			target.delete("__TARGET3__")
+			if pc.count_item(30044) >= 1 then
+				pc.setqf("coal_done", 1)
+				
+
+				say_title("Yonah :")
+				say("")
+				say("Merci. Vous avez fait mieux que prévu.")
+				say("")
+				say("Je vais vous donner du charbon.")
+				say("")
+				pc.remove_item(30044, 1)
+				if  pc.getqf("ironore_done") == 1 and pc.getqf("leather_done") == 1 and pc.getqf("coal_done") == 1 then
+					set_state(back_to_blacksmith)
+				end
+				return
+			end
+			say_title("Yonah :")
+			say("")
+			--                                                  |
+			say("Qui êtes vous, vous me semblez familier...")
+			say("")
+			say("Vous êtes ici pour obtenir un peu de charbon? ")
+			say("Oh, j'ai beaucoup de charbon, mais ça ne sera ")
+			say("pas gratuit.")
+			say("Si vous pouviez faire quelque chose pour moi,")
+			say("je vous donnerez du charbon.")
+			say("")
+			wait()
+
+			say_title("Yonah :")
+			say("")
+			--                                                  |
+			say("Je n'ai pas beaucoup d'argile de coté, ")
+			say("s'il vous pouvez m'en avoir un peu.")
+			say("Vous pouvez obtenir l'argile en chassant le")
+			say("sanglier rouge.")
+			say("Les Sangliers rouges mangent l'argile, ")
+			say("croyez-le ou pas !")
+			say("Merci d'avance.")
+			say("")
+			say_item_vnum("30044")
+			pc.setqf("for_coal",1)
+		end
+		when 20005.chat."J'ai besoin de charbon" with pc.getf("subquest_6","coal_done")==1 begin
+				target.delete("__TARGET3__")
+				say_title("Yonah :")
+				say("")
+				say("Quoi ?")
+				say("")
+				say("Je vous l'ai déjà donné !")
+				say("")
+		end
+		when 171.kill begin
+			local s = number(1, 70)
+			if s <= 5 and pc.count_item("30132")==0  then
+				pc.give_item2("30132", 1)
+			end
+		end
+		when 110.kill  begin
+			local s = number(1, 70)
+			if s <= 5 and pc.count_item("60001")==0  then
+				pc.give_item2("60001", 1)
+			end
+		end
+		when 109.kill  begin
+			local s = number(1, 70)
+			if s <= 5 and pc.count_item("30044")==0  then
+				pc.give_item2("30044", 1)
+			end
+		end
+		when 20016.chat."J'ai tous les matériaux." begin
+			target.delete("__TARGET__")
+			if pc.getqf("ironore_done") != 1 then
+				say_title("Blacksmith:")
+				say("")
+				--                                                  |
+				say("On dirait que vous n'avez pas de fer. ")
+				say("Aller voir Uriel.")
+				return
+			end
+			if pc.getqf("leather_done") != 1 then
+				say_title("Blacksmith:")
+				say("")
+				say("On dirait que vous n'avez pas de cuir. ")
+				say("Aller voir Octavio.")
+				return
+			end
+			if pc.getqf("coal_done") != 1 then
+				say_title("Blacksmith:")
+				say("")
+				--                                                  |
+				say("On dirait que vous n'avez pas de charbon. ")
+				say("Aller voir Yonah.")
+				return
+			end
+		end
+	end
+	state back_to_blacksmith begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("J'ai tout.")
+			q.set_title("Retournez voir le forgeron.")
+			q.start()
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__",v,"Retournez voir le forgeron")
+			end
+		end
+		when info or button begin
+			say_title("L'armure commandé ")
+		say("")
+		say("J'ai tout. Retourner voir le forgeron.")
+			say("")
+		end
+
+		when __TARGET__.target.click or 20016.chat."J'ai vos matériaux." with pc.getf("subquest_6","ironore_done") == 1 and pc.getf("subquest_6","leather_done") == 1 and pc.getf("subquest_6","coal_done") == 1 begin
+			say_title("Blacksmith:")
+			say("")
+			--                                                  |
+			say("Vous avez déjà tout les matériaux, je suis")
+			say("impressionné !")
+			say("")
+			say("Merci, je vais pouvoir finir ma commande.")
+			say("")
+			say("Le marchand d'armure va être heureux.")
+			say("Allez lui dire la bonne nouvelle !")
+			say("")
+			set_state(resource_complete)
+		end
+	end
+	state resource_complete begin
+		when info or button begin
+			say_title("La commande d'armure")
+			say("")
+			say("Informez le marchand que ça commande peut ")
+			say("être fini maintenant.")
+			say("")
+		end
+		when letter begin
+			send_letter("Le commande d'armure.")
+
+			local v=find_npc_by_vnum(9002)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Marchand d'armure")
+			end
+		end
+		when __TARGET__.target.click or 9002.chat."La commande d'armure" begin
+			target.delete("__TARGET__")
+			say_title("Le marchand d'armure:")
+			say("")
+			--                                                  |
+			say("Oh, le forgeron va bientôt livrer la")
+			say(" marchandise ?")
+			say("Ah, merci. Prend ça en récompense.")
+			say_title("Reward:")
+			say("")
+			say_reward("Vous recevez 11.000 Points d'expérience." )
+			say_reward("Vous recevez 15.000 Yang.")
+		if pc.job == 0 then
+				reward = 11215
+				say_reward("Vous recevez une Armure de fer +5.")
+			elseif pc.job == 1 then
+				reward = 11415
+				say_reward("Vous recevez un Costume d'ivoire +5.")
+			elseif pc.job == 2 then
+				reward = 11615
+				say_reward("Vous recevez une Armure du magicien +5.")
+			else
+				reward = 11815
+				say_reward("Vous recevez une Robe turquoise +5.")
+			end
+			say("")
+			pc.give_item2(reward, 1)
+			pc.give_exp2(11000)
+			pc.change_money(15000)
+			set_quest_state("levelup","run")
+			pc.setqf("ironore_done",0)
+			pc.setqf("leather_done" ,0)
+			pc.setqf("coal_done",0)
+		clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

@@ -1,0 +1,275 @@
+---------------------------
+-- Metin 2 - Les Catacombes Démoniaques
+-- By Dj o0O Loic O0o ©
+-- Toute copie non autorisée est interdite !
+---------------------------
+quest devilscatacomb begin
+	state start begin
+		when login begin
+			if pc.get_map_index() == 76 then
+				if pc.get_x() > 3572 or pc.get_y() > 12482 then
+					pc.warp((5376+535)*100, (512+480)*100, 65)
+				end
+
+				pc.set_warp_location(65, 5376+535, 512+480)
+				elseif pc.get_map_index() >= 760000 and pc.get_map_index() < 770000 then
+				pc.set_warp_location(65, 5376+535, 512+480)
+			end
+		end
+
+	----------------------------------
+	-- Catacombes du Diable : Garde --
+	----------------------------------
+
+		when 20367.chat."Dans les Catacombes du Diable." with pc.get_map_index() == 65 begin
+			if pc.get_level() < 75 then
+				---                                                   l
+				say_title(""..mob_name(20367).."")
+				say("L'accès vous est refusé. Votre expérience")
+				say("actuelle ne vous permettrait pas de survivre aux")
+				say("Catacombes du Diable. Revenez quand vous aurez au")
+				say("moins atteint le niveau 75.")
+			else
+				---                                                   l
+				say_title(""..mob_name(20367).."")
+				say("Il y a beaucoup de démons dans les catacombes,")
+				say("il vous faudra être courageux et fort. Aucune")
+				say("personne ne survit dans les catacombes.")
+				say("Voulez-vous vraiment entrer ?")
+
+				local s = select("Entrer", "Ne pas Entrer")
+
+				if s == 1 then
+					---                                                   l
+					say_title(""..mob_name(20367).."")
+					say("Je vais vous téléporter.")
+					say("L'endroit est très dangereux...")
+					say("Prudence et bonne chance...")
+					wait()
+					pc.warp(315100,1209300)
+
+				elseif s == 2 then
+					---                                                   l
+					say_title(""..mob_name(20367).."")
+					say("D'accord, revenez me voir si vous changez d'avis.")
+				end
+			end
+		end
+
+	-------------------------------------
+	-- Catacombes du Diable : Niveau 1 --
+	-------------------------------------
+
+		when 2501.kill with pc.get_map_index()==76 begin
+
+			local s = number(1, 50)
+
+			if s == 1 and pc.count_item(30311)==0 then
+				chat("Cete Méduse infernale disposait une clé à cristal d'âme.")
+				chat("Déposer-la sur la statue mythique pour accéder au deuxième niveau.")
+				game.drop_item(30311, 1)
+			else
+			end
+		end
+
+		when 30101.chat."Accéder au deuxième niveau." with pc.get_map_index()==76 begin
+			if pc.count_item(30311)>=1 then
+				---                                                   l
+				say("Vous avez une clé à cristal d'âme donc vous passez")
+				say("tous au deuxième niveau.")
+				pc.removeitem("30311", 1)
+				wait()
+
+				d.new_jump_all(76, 3072+550, 12032+50)
+				d.setf("devilscatacomb", 2)
+
+				local cristal= pc.count_item(30311)
+				pc.remove_item(30311,cristal)
+
+				d.spawn_mob(30103, 741, 233)
+				d.regen_file("data/dungeon/devilscatacomb1_regen.txt")
+			else
+				---                                                   l
+				say("Pour accéder au deuxième niveau, vous devez tuer")
+				say("des méduses infernale, elles gardent sur elles")
+				say("des clés à cristal d'âme en récupérant une clé ")
+				say("je peu, vous envoyez au deuxième niveau.")
+			end
+		end
+
+	-------------------------------------
+	-- Catacombes du Diable : Niveau 2 --
+	-------------------------------------
+
+		when 30103.chat."Oui, laissez-moi entrer !" with pc.in_dungeon() and d.getf("devilscatacomb") == 2 begin
+			---                                                   l
+			say("En examinant la pierre de plus près, vous")
+			say("remarquez une gravure.")
+			wait()
+
+			---                                                   l
+			say("Seul celui qui possède la tête réduite peut")
+			say("entrer, après que les scellés de trois portes")
+			say("soient brisés.")
+			say("Si vous ne portez pas cette relique sur vous, vous")
+			say("serez téléporté hors des Catacombes du Diable.")
+			wait()
+
+			if pc.count_item(30319)>0 then
+
+				d.regen_file("data/dungeon/devilscatacomb2_regen.txt")
+				d.jump_all(3072+1380, 12032+250)
+
+				pc.remove_item(30319)
+			else
+				pc.warp(591800, 100000)
+			end
+		end
+
+	-------------------------------------
+	-- Catacombes du Diable : Niveau 3 --
+	-------------------------------------
+
+		when 8035.kill with pc.in_dungeon() and pc.get_map_index() >= 760000 and pc.get_map_index() < 770000 begin
+			d.setf("devilscatacomb", 3)
+	    		d.notice("Bienvenue au troisième niveau des catacombes");
+			d.notice("du diable. Vous devez détruire la pierre de");
+			d.notice("metin qui est cachée dans ce monde, pour");
+			d.notice("accéder au niveau suivant.");
+
+			d.spawn_mob(8036, 1350, 150)
+		end
+
+		when 8036.kill with pc.in_dungeon() and d.getf("devilscatacomb") == 3 begin
+	    		d.notice("Vous avez trouvé et détruit la pierre de metin, ");
+			d.notice("de ce fait vous allez être téléporté vers le");
+			d.notice("quatrième niveau des catacombes du diable. Où ");
+			d.notice("vous devez trouver le chemin parmi le labyrinthe");
+			d.notice("pour accéder au cinquième niveau.");
+
+			d.regen_file("data/dungeon/devilscatacomb3_regen.txt")
+
+			d.spawn_mob(10800, 70, 673)
+			d.spawn_mob(10801, 433, 935)
+			d.spawn_mob(10802, 327, 779)
+			d.spawn_mob(10803, 189, 711)
+			d.spawn_mob(10804, 143, 919)
+			d.spawn_mob(10805, 430, 842)
+			
+			mob.spawn(30104,516,778,0,0)
+
+			d.setf("devilscatacomb", 4)
+			timer("devilscatacomb_4", 10)
+		end
+
+		when devilscatacomb_4.timer begin
+			d.jump_all(3072+70, 12032+573)
+		end
+
+	-------------------------------------
+	-- Catacombes du Diable : Niveau 4 --
+	-------------------------------------
+
+		when 30104.chat."Laissez-moi passer !" with pc.in_dungeon() and d.getf("devilscatacomb") == 4 begin
+			---                                                   l
+			say("Vous avez réussi à traverser le labyrinthe je")
+			say("vous envoie tous au niveau prochain.")
+			wait()
+
+			d.regen_file("data/dungeon/devilscatacomb4_regen.txt")
+			d.spawn_mob(30102, 850, 740)
+			d.setf("devilscatacomb", 5)
+			d.notice("Vous voilà au cinquième niveau des catacombes du");
+			d.notice("mal. Ici vous devez tuer Tartare qui garde sur");
+			d.notice("lui un totem grimace qui vous permettra d'accéder");
+			d.notice("au sixième niveau auprès de l'Obélisque basaltique.");
+			timer("devilscatacomb_5", 10)
+		end
+
+		when devilscatacomb_5.timer begin
+			d.jump_all(3072+846, 12032+906)
+		end
+
+	-------------------------------------
+	-- Catacombes du Diable : Niveau 5 --
+	-------------------------------------
+
+		when 30102.chat."Accéder au sixième niveau." with pc.in_dungeon() and d.getf("devilscatacomb") == 5 begin
+			if pc.count_item(30312)>=1 then
+				---                                                   l
+				say("Vous avez le totem grimace donc je vous envoie")
+				say("tous au sixième niveau.")
+				pc.removeitem("30312", 1)
+				wait()
+
+				d.jump_all(3072+1302, 12032+700)
+				d.setf("devilscatacomb", 6)
+
+				d.spawn_mob(30103, 741, 233)
+				d.regen_file("data/dungeon/devilscatacomb5_regen.txt")
+			else
+				---                                                   l
+				say("Pour accéder au sixième niveau, vous devez tuer")
+				say("Tartare, il garde sur lui un totem grimace qui")
+				say("vous permet d'accéder au sixième niveau.")
+			end
+		end
+
+		when 2591.kill with pc.in_dungeon() and pc.get_map_index() >= 760000 and pc.get_map_index() < 770000 begin
+			d.notice("Félicitations ! Vous avez tué Tartare, déposez le");
+			d.notice("totem grimace qu'il a lâché sur l'obélisque");
+			d.notice("basaltique, pour accéder au sixième niveau.");
+			game.drop_item(30312, 1)
+		end
+
+	-------------------------------------
+	-- Catacombes du Diable : Niveau 6 --
+	-------------------------------------
+
+		when 2597.kill with pc.in_dungeon() and d.getf("devilscatacomb") == 6 begin
+			d.kill_all()
+			d.regen_file("data/dungeon/devilscatacomb6_regen.txt")
+			d.notice("Félicitations vous avez tué Charon, dans");
+			d.notice("quelques secondes vous allez être téléporté ");
+			d.notice("dans la salle d'Azraël tuez le pour vaincre");
+			d.notice("les monstres des catacombes du diable.");
+			d.notice("Bonne chance !");
+			timer("devilscatacomb_6", 10)
+		end
+
+		when devilscatacomb_6.timer begin
+			d.jump_all(3072+75, 12032+1118)
+		end
+
+	--------------------------------------------
+	-- Catacombes du Diable : Niveau 7 : Boss --
+	--------------------------------------------
+
+		when 2598.kill with pc.in_dungeon() and pc.get_map_index() >= 760000 and pc.get_map_index() < 770000 begin
+			---                                                   l
+			say("Azraël est vaincu. La paix règne enfin dans les")
+			say("Catacombes du Diable. Vous allez maintenant être")
+			say("téléporté à la surface.")
+
+			notice_all("Félicitations ! "..pc.name.." a terrassé le démon Azraël !")
+
+			d.kill_all()
+			timer("devilscatacomb_end_jump", 20)
+		end
+
+		when devilscatacomb_end_jump.timer begin
+			d.exit_all()
+		end
+	end
+end
+---------------------------
+-- Coordonnées :
+-- Fin niveau 1 :	303 323
+-- Debut niveau 2 :	550 50
+-- Fin niveau 2 :	740 226
+-- Debut niveau 3 :	1380 250
+-- Debut niveau 4 :	70 573
+-- Debut niveau 5 :	846 906
+-- Debut niveau 6 :	1302 700
+-- Salle du Boss :	75 1118
+---------------------------

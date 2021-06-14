@@ -1,0 +1,2447 @@
+" %s ±ºÁÖ ÈÄº¸¿¡¼­ »èÁ¦ÇÏ¿´½À´Ï´Ù";
+"%s a été supprimé de la liste des candidats au poste d'empereur.";
+
+" %s ±ºÁÖ·Î ÀÔ¸í Çß½À´Ï´Ù.";
+"%s a été nommé empereur!";
+
+" %s ±ºÁÖ¸£ Á¦°Å ÇÏ¿´½À´Ï´Ù..";
+" %s peut devenir empereur.";
+
+" %s ±ºÁÖ¸¦ Á¦°Å ÇÒ¼ö ¾ø½À´Ï´Ù.";
+"%s ne peut devenir empereur.";
+
+" %s ´Â ±ºÁÖ ÈÄº¸°¡ ¾Æ´Õ´Ï´Ù.";
+"%s n'est pas inscrit pour l'élection de l'empereur.";
+
+" %s ´Â ±ºÁÖ·Î ÀÔ¸íÇÒ¼ö ¾ø½À´Ï´Ù .";
+"Le joueur %s ne peut etre nommé comme empereur.";
+
+" (¸¸·áÀÏ : %d³â %d¿ù %dÀÏ)";
+"(Date d'expiration : %d années %d mois %d jours)";
+
+"¹«»ç°ø°İ¿¡ %d%% ÀúÇ×";
+"%d%% résistance contre les attaques des guerriers.";
+
+"ÃÖ´ë Áö±¸·Â +%d";
+"Endurance maximale +%d.";
+
+"%d ±ÇÀ» ´õ ÀĞ¾î¾ß ¼ö·ÃÀ» ¿Ï·á ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Vous devez encore lire %d livres de compétence pour acquérir un niveau supplémentaire.";
+
+"%d ³ÉÀ» ÅõÀÚÇÏ¼Ì½À´Ï´Ù.";
+"Vous avez reçu %d Yangs.";
+
+"%d ³ÉÀ» È¹µæÇÏ¼Ì½À´Ï´Ù.";
+"Vous avez reçu %d Yangs.";
+
+"%d ·¹º§ÀÌ µÇ¾î¾ß ´Ù½Ã ¿°»öÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.";
+"Vous devez atteindre le niveau %d pour pouvoir teindre vos cheveux à nouveau.";
+
+"%d ºĞ %d ÃÊ µ¿¾È Ã¤ÆÃ±İÁö »óÅÂÀÔ´Ï´Ù";
+"%d minutes %d secondes avant la fin de votre bannissement du chat.";
+
+"%d ½Ã°£ %d ºĞ %d ÃÊ µ¿¾È Ã¤ÆÃ±İÁö »óÅÂÀÔ´Ï´Ù";
+"%d heures %d minutes %d secondes avant la fin de votre bannissement du chat.";
+
+"%d ½Ã°£ %d ÃÊ µ¿¾È Ã¤ÆÃ±İÁö »óÅÂÀÔ´Ï´Ù";
+"Vous êtes bannis du chat pendant encore %d heures et %d secondes.";
+
+"%d Á¾·ù %d ¸¶¸® ³¬À½";
+"%d espèces %d péchées.";
+
+"%d ÃÊ µ¿¾È Ã¤ÆÃ±İÁö »óÅÂÀÔ´Ï´Ù";
+"%d secondes avant la fin de votre bannissement du chat.";
+
+"%d ÃÊ ÈÄ¿¡ ±ºÁÖÀÇ Ãàº¹À» »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù";
+"Vous devez attendre %d secondes avant de pouvoir utilser la bénédiction de l'empereur";
+
+"%d ÃÊ°£ ÄğÅ¸ÀÓÀÌ Àû¿ëÁßÀÔ´Ï´Ù.";
+"Vous pourrez de nouveau utiliser cette compétance dans %d secondes.";
+
+"%d ÃÊÈÄ ¸ñÀûÁö·Î ÀÌµ¿µË´Ï´Ù.";
+"Dans %d secondes vous allez etre téléporté.";
+
+"%d%% È®·ü·Î °üÅë °ø°İ";
+"Il n'y a pas de pierre brisées à retirer.";
+
+"%d%% È®·ü·Î ÀûÅğÄ¡½Ã °æÇèÄ¡ Ãß°¡ »ó½Â";
+"%d%% de chance d'obtenir plus d'expérience.";
+
+"%d%% È®·ü·Î ÀûÅğÄ¡½Ã µ· 2¹è µå·Ó";
+"%d%% de chance de dropper plus de yangs.";
+
+"%d%% È®·ü·Î ÀûÅğÄ¡½Ã »ı¸í·Â È¸º¹";
+"%d%% de chance de rétablir la totalité de votre vie.";
+
+"%d%% È®·ü·Î ÀûÅğÄ¡½Ã ¾ÆÀÌÅÛ 2¹è µå·Ó";
+"%d%% de chance de dropper plus d'objets.";
+
+"%d%% È®·ü·Î ÀûÅğÄ¡½Ã Á¤½Å·Â È¸º¹";
+"%d%% de chance de rétalir la totalité de votre mana.";
+
+"%d%% È®·ü·Î Ä¡¸íÅ¸ °ø°İ";
+"%d%% de chance de faire un coup critique.";
+
+"%d%% È®·ü·Î Å¸°İ½Ã »ó´ë Àü½Å·Â ¼Ò¸ğ";
+"%d%% des dommages infligés sont drainés et ajoutés aux PM.";
+
+"%d%% È®·ü·Î ÇÇÇØ½Ã Á¤½Å·Â È¸º¹";
+"%d%% des dommages infligés sont drainés et ajoutés aux PV.";
+
+"%dºĞ";
+"%d minutes";
+
+"%dºĞÀÇ °áÁ¦½Ã°£ÀÌ Ãß°¡ µÇ¾ú½À´Ï´Ù. (°áÁ¦¹øÈ£ %d)";
+"%d%% temps additionnel ajouté à votre compte. (Numéro de paiement : %d)";
+
+"%d½Ã°£";
+"%d heures";
+
+"%dÀÇ °æÇèÄ¡¸¦ È¹µæÇß½À´Ï´Ù.";
+"Vous avez reçu %d points d'expérience.";
+
+"%dÃÊ ³²¾Ò½À´Ï´Ù.";
+"%d secondes avant la fermeture.";
+
+"%dÃÊ ÈÄ °ÔÀÓÀÌ ¼Ë´Ù¿î µË´Ï´Ù.";
+"Attention ! Il reste %d secondes avant la fermeture du serveur.";
+
+"%s : %d ¸¶¸®";
+"%s : %d joueur";
+
+"%s killcount %d mobkillcount %d bosskillcount %d ¼ºÁö ÁøÀÔ¼ö %d";
+"%s killcount %d mobkillcount %d bosskillcount %d chance %d";
+
+"%s SP¼Ò¸ğ: %d";
+"%s consomme en PM %d.";
+
+"%s ±æµå°¡ %s ±æµå¿¡ ¼±ÀüÆ÷°í¸¦ ÇÏ¿´½À´Ï´Ù!";
+"La Guilde %s a déclaré la guerre à la Guilde %s !";
+
+"%s ±æµå°¡ %s ±æµå¿ÍÀÇ ÀüÀï¿¡¼­ ½Â¸® Çß½À´Ï´Ù.";
+"La Guilde %s a gagné la guerre contre la Guilde %s.";
+
+"%s ±æµå°¡ %s ±æµåÀÇ ±ê¹ßÀ» »©¾Ñ¾Ò½À´Ï´Ù!";
+"La Guilde %s a capturé le drapeau de la Guilde %s !";
+
+"%s ±æµå¿Í %s ±æµå »çÀÌÀÇ ÀüÀïÀÌ ¹«½ÂºÎ·Î ³¡³µ½À´Ï´Ù.";
+"La guerre entre la Guilde %s et la Guilde %s se termine en match nul.";
+
+"%s ±æµå¿Í %s ±æµå »çÀÌÀÇ ÀüÀïÀÌ Ãë¼ÒµÇ¾ú½À´Ï´Ù.";
+"La guerre entre la Guilde %s et la Guilde %s a été annulée.";
+
+"%s ±æµå¿Í %s ±æµå°¡ Àá½Ã ÈÄ ÀüÀïÀ» ½ÃÀÛÇÕ´Ï´Ù!";
+"La guerre entre la Guilde %s et la Guilde %s commencera dans quelques minutes !";
+
+"%s ±æµå¿Í %s ±æµå°¡ ÀüÀïÀ» ½ÃÀÛÇÏ¿´½À´Ï´Ù!";
+"La guerre entre la Guilde %s et la Guilde %s a démarré !";
+
+"%s ±æµåÀÇ %sÀÌ %d%% Áõ°¡Çß½À´Ï´Ù!";
+"La Guilde %s à le quota %s augmenté de %d%%.";
+
+"%s ±æµåÀÇ %sÀÌ Á¤»óÀ¸·Î µ¹¾Æ¿Ô½À´Ï´Ù.";
+"La Guilde %s à le quota %s revenu à la normal.";
+
+"%s ±æµåÀÇ ±ê¹ßÀ» %s ´ÔÀÌ È¹µæÇÏ¿´½À´Ï´Ù.";
+"Le drapeau de la Guilde %s a été pris par %s.";
+
+"%s ´Ô°úÀÇ ±³È¯ÀÌ ¼º»ç µÇ¾ú½À´Ï´Ù.";
+"L'échange avec %s effectué avec succès.";
+
+"%s ´Ô¿¡°Ô ÆÄÆ¼°¡ÀÔ ½ÅÃ»À» Çß½À´Ï´Ù.";
+"%s a envoyé une demande de groupe.";
+
+"%s ´ÔÀ¸·Î ºÎÅÍ Ä£±¸ µî·ÏÀ» °ÅºÎ ´çÇß½À´Ï´Ù.";
+"%s a rejeté votre demande d'ajout à la liste d'amis.";
+
+"%s ´ÔÀº %d Ã¤³Î¿¡ Á¢¼Ó Áß ÀÔ´Ï´Ù. (ÇöÀç Ã¤³Î: %d)";
+"%s est en ce moment sur le channel %d. (Channel actuel:%d)";
+
+"%s ´ÔÀº %d Ã¤³Î¿¡ Á¢¼ÓÁßÀÔ´Ï´Ù. (ÇöÀç Ã¤³Î: %d)";
+"%s est en ce moment sur le channel %d. (Channel actuel:%d)";
+
+"%s ´ÔÀº ±ÙÃ³¿¡ ÀÖ½À´Ï´Ù";
+"%s est proche de vous.";
+
+"%s ´ÔÀº Á¢¼ÓµÇ ÀÖÁö ¾Ê½À´Ï´Ù.";
+"%s n'est pas connecté.";
+
+"%s ´ÔÀº Á¤»óÀûÀ¸·Î Ãâ¸¶¸¦ ÇÏ¿´½À´Ï´Ù.";
+"%s est maintenant candidat en tant qu'empereur.";
+
+"%s ´ÔÀ» ¼ÒÈ¯ÇÏ¿´½À´Ï´Ù.";
+"%s vous a appelé.";
+
+"%s ´ÔÀÌ ´ë·Ã¿¡¼­ ½Â¸®ÇÏ¿´½À´Ï´Ù.";
+"%s a remporté le duel.";
+
+"%s ´ÔÀÌ ½Â¸®ÇÏ¿´½À´Ï´Ù.";
+"%s a gagné.";
+
+"%s ºí·°! (%d%%)";
+"%s bloqué! (%d%%)";
+
+"%s ¾ÆÀÌÅÛ À» È¹µæÇÏ¼Ì½À´Ï´Ù";
+"%s obtenu.";
+
+"%s ¾ÆÀÌÅÛÀÌ ÇÊ¿äÇÕ´Ï´Ù";
+"<Cheval> Pour nourrir votre cheval vous avez besoin de %s.";
+
+"%s ¿¡°Ô·Î ÀÌµ¿ÇÕ´Ï´Ù";
+"Vous serez téléporter vers %s.";
+
+"%s ¿¡¼­ ¼ÒÄÏ ºüÁú¶§±îÁö ³²Àº ½Ã°£ %d";
+"%s Les pierres de votre arme font %d de dégats.";
+
+"%s È¸ÇÇ! (%d%%)";
+"%s éviter! (%d%%).";
+
+"%s: Á¸ÀçÇÏÁö ¾Ê´Â ±æµå ÀÔ´Ï´Ù.";
+"%s: La guide n'existe pas.";
+
+"%s[%d]°¡ °ø°İ À§Ä¡: %d %d";
+"%s[%d] Position d'attaque: %d%d";
+
+"%s´Ô°úÀÇ ´ë°á ½ÃÀÛ!";
+"La bataille contre %s a commencé !";
+
+"%s´ÔÀÌ ´ë°á½ÅÃ»À» Çß½À´Ï´Ù. ½Â³«ÇÏ·Á¸é ´ë°áµ¿ÀÇ¸¦ ÇÏ¼¼¿ä.";
+"%s vous défie pour une bataille !";
+
+"%s¸¦ ±¸¿ü½À´Ï´Ù.";
+"%s à été cramé.";
+
+"%s¿¡ ¹ÚÇôÀÖ´ø º¸¼®ÀÌ »ç¶óÁı´Ï´Ù.";
+"Le minerai ajouté à %s arrive à expiration.";
+
+"%s¿¡ ÀüÀïÀÇ ½ÃÀÛÀ» ¾Ë¸®´Â ºÀÈ­°¡ ³ªÅ¸³µ½À´Ï´Ù.";
+"Un feu de signalement indique que la guerre commencera dans %s ";
+
+"%s¿¡°Ô ´ë°á½ÅÃ»À» Çß½À´Ï´Ù.";
+"Vous défiez %s pour une bataille !";
+
+"%s¿¡¼­ ºÀÈ­¸¦ µÑ·¯½Î°í ÀüÅõ°¡ ÁøÇàÁßÀÔ´Ï´Ù.";
+"La bataille se déroule dans %s indique le feux de signalement";
+
+"%sÀÇ %sÀÌ %d%% Áõ°¡Çß½À´Ï´Ù!";
+"%s %s est augmenté de %d%%.";
+
+"%sÀÇ %sÀÌ Á¤»óÀ¸·Î µ¹¾Æ¿Ô½À´Ï´Ù.";
+"%s %s est revenu à la normal.";
+
+"%sÀÇ ±ºÁÖ°¡ %s ´ÔÀ¸·Î ±³Ã¼µÇ¾ú½À´Ï´Ù.";
+"Le règne de %s a été renversé ! %s est devenu le nouvel empereur.";
+
+"%sÀÇ ¼ºÀ¸·Î ¸ó½ºÅÍµéÀÌ Áø±ºÇÏ°í ÀÖ½À´Ï´Ù.";
+"Les monstres attaquent le chateau de %s .";
+
+"%sÀÌ ¸ğµç ºÀÈ­¸¦ ÆÄ±«ÇÏ¿´½À´Ï´Ù.";
+"%s a détruits tous les feu de signalement.";
+
+"%sÀÌ ºÀÈ­¸¦ ÆÄ±«Çß½À´Ï´Ù.";
+"%s a détruit un feu de signalement!";
+
+"%sÀÌ ¼ö¼º¿¡ ¼º°øÇß½À´Ï´Ù.";
+"%s a réussi à protéger son chateau.";
+
+"%sÀÌ ¼ö¼º¿¡ ½ÇÆĞÇÏ¿© ÀüÀï¿¡ ÆĞ¹èÇÏ¿´½À´Ï´Ù..";
+"%s est tombé, quand il a essayé de défendre son chateau.";
+
+"%sÀÌ ÇÊ¿äÇÕ´Ï´Ù.";
+"Pour cette action, vous avez besoin de: %s.";
+
+"(%s) ±æµå°¡ »ı¼ºµÇ¾ú½À´Ï´Ù. [ÀÓ½Ã]";
+"<Guilde> La guilde [%s] a été fondé avec succès, grâce à la commande /make.";
+
+". ³ÊÈñ°¡ ¼ºÁöÀÇ ¼öÈ£ÀÚ¸¦ Àâ°Ô µÈ´Ù¸é ³ÊÈñ´Â ¼ºÁöÀÇ ÁÖÀÎÀÌ µÈ´Ù.[ENTER][ENTER]";
+"[ENTER]Assiègez l'empereur de ce pays, et vous serez nommé empereur[ENTER]";
+
+"[%s±ºÁÖ] : %s  ";
+"[%s Empereur] : %s ";
+
+"[%s±ºÁÖ] : %s  º¸À¯±İ¾× %d";
+"[%s Empereur] : %s  a la valeur %d";
+
+"[TEST_ONLY]ÇöÀç ±¹°í : %d";
+"[TEST_ONLY] Taxe actuel : %d";
+
+"+3 ¿µ¼®Àº ÀÌ ¾ÆÀÌÅÛÀ¸·Î °³·®ÇÒ ¼ö ¾ø½À´Ï´Ù";
+"Une pierre +3 ne peut pas être améliorée.";
+
+"<±æµå> %d ½ºÅ³À» »ç¿ëÇÔ (%d, %d) to %u";
+"<Guilde> %d skill fait également appel (%d, %d) a %u.";
+
+"<±æµå> %s ±æµå°¡ ±æµåÀüÀ» °ÅºÎÇÏ¿´½À´Ï´Ù.";
+"<Guilde> Le chef de la Guilde %s a refusé la guerre de guilde.";
+
+"<±æµå> %uÀÇ °æÇèÄ¡¸¦ ÅõÀÚÇÏ¿´½À´Ï´Ù.";
+"<Guilde> Vous donnez %u points d'expérience à la guilde.";
+
+"<±æµå> %uÀÇ ¿ë½Å·ÂÀ» È¸º¹ÇÏ¿´½À´Ï´Ù.";
+"<Guilde> %u Esprit de dragon ont été restauré.";
+
+"<±æµå> [%s] ±æµå°¡ »ı¼ºµÇ¾ú½À´Ï´Ù.";
+"<Guilde> La guilde [%s] a été fondé avec succès.";
+
+"<±æµå> °¡Áö°í ÀÖ´Â µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.";
+"<Guilde> Vous n'avez pas assez de yangs.";
+
+"<±æµå> °æÇèÄ¡ ÅõÀÚ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"<Guilde>Le don d'expérience a échoué.";
+
+"<±æµå> °øÁö±ÛÀ» ÀÛ¼ºÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez pas poster de message.";
+
+"<±æµå> ±×·¯ÇÑ »ç¶÷À» Ã£À» ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Le personnage ne peut etre trouvé!";
+
+"<±æµå> ±×·± ±æµå°¡ ¾ø½À´Ï´Ù.";
+"<Guilde> Cette guilde n'existe pas.";
+
+"<±æµå> ±æµå ±İ°í¿¡¼± ±æµåÀå¸¸ Ãâ±İÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"<Guilde> Seul le chef de Guilde peut utiliser l'argent de la Guilde.";
+
+"<±æµå> ±æµå »ı¼º¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"<Guilde> Création de guilde échouée.";
+
+"<±æµå> ±æµå ½ºÅ³ ·¹º§À» º¯°æÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez augmenté une compétence de Guilde.";
+
+"<±æµå> ±æµå ½ºÅ³Àº ±æµåÀü Áß¿¡¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"<Guilde> Les compétences de guilde ne peuvent être utilisées que dans une guerre.";
+
+"<±æµå> ±æµå ÀÌ¸§ÀÌ ÀûÇÕÇÏÁö ¾Ê½À´Ï´Ù.";
+"<Guilde> Ce nom de guilde est invalide.";
+
+"<±æµå> ±æµå°¡ ÀÌ¹Ì ÃÖ°í ·¹º§ÀÔ´Ï´Ù.";
+"<Guilde> La guilde est déjà au niveau maximal.";
+
+"<±æµå> ±æµå¸¦ »ı¼ºÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez créer de guilde.";
+
+"<±æµå> ±æµå¸¦ ÇØ»êÇÑ Áö %dÀÏÀÌ Áö³ªÁö ¾ÊÀº »ç¶÷Àº ±æµå¿¡ ÃÊ´ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Après avoir quitté, vous ne pouvez recruter un joueur que %d jour après.";
+
+"<±æµå> ±æµå¿¡ ¼ÓÇØÀÖÁö ¾Ê½À´Ï´Ù.";
+"<Guilde> Ce joueur n'appartient pas à la guilde.";
+
+"<±æµå> ±æµå¿ø %s ´ÔÀ» °­Á¦ Å»Åğ ½ÃÄ×½À´Ï´Ù.";
+"<Guilde> Le membre %s a été supprimé de la guilde.";
+
+"<±æµå> ±æµå¿øÀ» °­Á¦ Å»Åğ ½ÃÄ×½À´Ï´Ù.";
+"<Guilde> Vous supprimez un membre de la guilde.";
+
+"<±æµå> ±æµå¿øÀ» °­Á¦ Å»Åğ ½ÃÅ³ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez supprimez un membre de la guilde.";
+
+"<±æµå> ±æµå¿øÀ» ÃÊ´ëÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez pas inviter quelqu'un dans cette guilde.";
+
+"<±æµå> ±æµåÀå¸¸ ±æµå ½ºÅ³À» »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"<Guilde> Seul le Chef de Guilde peut utiliser ces capacités.";
+
+"<±æµå> ±æµåÀåÀ¸·Î Á÷À§¸¦ º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez pas changer les Grades.";
+
+"<±æµå> ±æµåÀåÀÇ ±ÇÇÑÀº º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Les droits du chef de guilde ne peuvent etre modifiés.";
+
+"<±æµå> ±æµåÀåÀÇ Á÷À§ ÀÌ¸§Àº º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Le Grade du Chef de Guilde ne peut changer de nom.";
+
+"<±æµå> ±æµåÀåÀÇ Á÷À§´Â º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez modifier le Grade du Chef de Guilde.";
+
+"<±æµå> ±æµåÀü Áß¿¡´Â ±æµå¿øÀ» Å»Åğ½ÃÅ³ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Au cours des guerres de Guilde, vous ne pouvez supprimer un membre.";
+
+"<±æµå> ±æµåÀü¿¡ ´ëÇÑ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous n'avez pas l'autorisation pour faire ceci.";
+
+"<±æµå> ±æµåÀüÀ» ÇÏ±â À§ÇØ¼± ÃÖ¼ÒÇÑ %d¸íÀÌ ÀÖ¾î¾ß ÇÕ´Ï´Ù.";
+"<Guilde> Votre guilde doit disposer d'au moins %d membres, pour participer à une guerre de guilde.";
+
+"<±æµå> ±æµåÀüÀÌ Ãë¼Ò µÇ¾ú½À´Ï´Ù.";
+"<Guilde> La Guerre de Guilde est terminée.";
+
+"<±æµå> ±æµåÀüÁß¿¡´Â »ç³É¿¡ µû¸¥ ÀÌÀÍÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Il n'y a aucun avantage de chasse durant une guerre de Guildes.";
+
+"<±æµå> ´Ù¸¥ Á¦±¹ »ç¶÷À» ±æµå¿¡ ÃÊ´ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez pas inviter dans la Guilde les joueurs d'un autre royaume.";
+
+"<±æµå> ´õÀÌ»ó Àå¼ö¸¦ ÁöÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Il ne peut y avoir qu'un seul Chef de Guilde.";
+
+"<±æµå> µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.";
+"<Guilde> Pas assez de Yangs.";
+
+"<±æµå> ·¡´õ Á¡¼ö°¡ %d Á¡ÀÌ µÇ¾ú½À´Ï´Ù";
+"<Guilde> La guilde remporte %d points.";
+
+"<±æµå> ·¹´õ Á¡¼ö°¡ ¸ğÀÚ¶ó¼­ ±æµåÀüÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Le chef de la guilde adverse n'est pas connecté.";
+
+"<±æµå> »èÁ¦ÇÒ ¼ö ¾ø´Â ±ÛÀÔ´Ï´Ù.";
+"<Guilde> Ce message ne peut pas etre supprimé.";
+
+"<±æµå> »ó´ë°¡ %d Ã¤³Î¿¡ ÀÖ½À´Ï´Ù. (ÇöÀç Ã¤³Î %d)";
+"<Guilde> Le joueur se trouve sur le Channel %d. (Channel actuelle: %d)";
+
+"<±æµå> »ó´ë°¡ ¿Â¶óÀÎ »óÅÂ°¡ ¾Æ´Õ´Ï´Ù.";
+"<Guilde> Ce joueur n'est pas en ligne.";
+
+"<±æµå> »ó´ë¹æ ±æµå°¡ ÀÌ¹Ì ÀüÀï Áß ÀÔ´Ï´Ù.";
+"<Guilde> Cette guilde est déjà en Guerre.";
+
+"<±æµå> »ó´ë¹æ ±æµåÀÇ ±æµå¿ø ¼ö°¡ ºÎÁ·ÇÏ¿© ±æµåÀüÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Il n'y à pas assez de membres dans la guilde adverse.";
+
+"<±æµå> »ó´ë¹æ ±æµåÀÇ ±æµåÀåÀÌ Á¢¼ÓÁßÀÌ ¾Æ´Õ´Ï´Ù.";
+"<Guilde> Le chef de la guilde adverse n'est pas connecté.";
+
+"<±æµå> »ó´ë¹æ ±æµåÀÇ ·¹´õ Á¡¼ö°¡ ¸ğÀÚ¶ó¼­ ±æµåÀüÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> La Guilde adverse n'est pas assez haut niveau pour participer à une Guerre.";
+
+"<±æµå> »ó´ë¹æ ±æµåÀÇ Àüºñ°¡ ºÎÁ·ÇÏ¿© ±æµåÀüÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> La guilde n'a pas assez de Yangs pour faire une Guerre.";
+
+"<±æµå> »ó´ë¹æÀÌ °°Àº ±æµå°¡ ¾Æ´Õ´Ï´Ù.";
+"<Guilde> Ce joueur n'est pas dans la guilde.";
+
+"<±æµå> »ó´ë¹æÀÌ ±æµå ÃÊ´ë °ÅºÎ »óÅÂÀÔ´Ï´Ù.";
+"<Guilde> Le joueur a décliné l'invitation.";
+
+"<±æµå> »ó´ë¹æÀÌ ÀÌ¹Ì ´Ù¸¥ ±æµå¿¡ ¼ÓÇØÀÖ½À´Ï´Ù.";
+"<Guilde> Ce joueur est déjà dans une autre guilde.";
+
+"<±æµå> ¾ÆÁ÷ °¡ÀÔÇÒ ¼ö ¾ø´Â Ä³¸¯ÅÍÀÔ´Ï´Ù";
+"<Guilde> Ce joueur ne peut rejoindre la guilde.";
+
+"<±æµå> ¿ë½Å·Â È¸º¹¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"<Guilde> L'Esprit de Dragon n'a pas été rétabli.";
+
+"<±æµå> ¿ë½Å·ÂÀÌ ºÎÁ·ÇÕ´Ï´Ù. (%d, %d)";
+"<Guilde> Vous n'avez pas assez d'Esprit de Dragon (%d, %d).";
+
+"<±æµå> ÀÌ¹Ì °°Àº ÀÌ¸§ÀÇ ±æµå°¡ ÀÖ½À´Ï´Ù.";
+"<Guilde> Ce nom de Guilde est déjà utilisé.";
+
+"<±æµå> ÀÌ¹Ì ´Ù¸¥ ÀüÀï¿¡ ÂüÀü Áß ÀÔ´Ï´Ù.";
+"<Guilde> Votre guilde est déjà en guerre.";
+
+"<±æµå> ÀÌ¹Ì ÀüÀï ÁßÀÎ ±æµåÀÔ´Ï´Ù.";
+"<Guilde> Cette Guilde est déjà en guerre.";
+
+"<±æµå> ÀÌ¹Ì ÀüÀïÀÌ ¿¹¾àµÈ ±æµå ÀÔ´Ï´Ù.";
+"<Guilde> Cette Guilde est déjà affecté à une autre Guerre.";
+
+"<±æµå> Àß¸øµÈ ±İ¾×ÀÔ´Ï´Ù.";
+"<Guilde> Le Montant est inexacte.";
+
+"<±æµå> Àá½ÃÈÄ¿¡ ÀÌ¿ëÇØÁÖ½Ê½Ã¿À";
+"<Guilde> Veuillez attendre avant de l'utiliser.";
+
+"<±æµå> Àå±ºÀ» ÁöÁ¤ÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous n'avez pas les pouvoirs pour choisir votre Maitre de Guilde.";
+
+"<±æµå> ÀûÇÕÇÏÁö ¾ÊÀº Á÷À§ ÀÌ¸§ ÀÔ´Ï´Ù.";
+"<Guilde> Ce Grade n'est pas valide.";
+
+"<±æµå> Àüºñ°¡ ºÎÁ·ÇÏ¿© ±æµåÀüÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Votre Guilde n'a pas assez de Yangs pour faire une Guerre.";
+
+"<±æµå> Á¦°øÇÏ°íÀÚ ÇÏ´Â °æÇèÄ¡°¡ ³²Àº °æÇèÄ¡º¸´Ù ¸¹½À´Ï´Ù.";
+"<Guilde> Don expérience plus élevé que nécessaire.";
+
+"<±æµå> Á÷À§ ±ÇÇÑÀ» º¯°æÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez choisir les grades.";
+
+"<±æµå> Á÷À§ ÀÌ¸§À» º¯°æÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez pas modifier le nom des grades.";
+
+"<±æµå> Á÷À§¸¦ º¯°æÇÒ ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne possédez pas les droits nécessaires.";
+
+"<±æµå> ÃÖ´ë ±æµå¿ø ¼ö¸¦ ÃÊ°úÇß½À´Ï´Ù.";
+"<Guilde> La guilde est pleine.";
+
+"<±æµå> ÄğÅ¸ÀÓÀÌ ³¡³ªÁö ¾Ê¾Æ ±æµå ½ºÅ³À» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez pas utiliser les compétences de guilde sans Esprit de Dragon.";
+
+"<±æµå> Å»ÅğÇÑ ÈÄ %dÀÏ ÀÌ³»¿¡´Â ±æµå¸¦ ¸¸µé ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Vous ne pouvez pas créer de guilde avant %d journée.";
+
+"<±æµå> Å»ÅğÇÑ ÈÄ %dÀÏÀÌ Áö³ªÁö ¾ÊÀº »ç¶÷Àº ±æµå¿¡ ÃÊ´ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Le joueur doit attendre %d journée avant d'être pouvoir de nouveau recruté.";
+
+"<±æµå> ÇØ»êÇÑ ÈÄ %dÀÏ ÀÌ³»¿¡´Â ±æµå¸¦ ¸¸µé ¼ö ¾ø½À´Ï´Ù.";
+"<Guilde> Vous devez attendre %d jours pour créer une guilde.";
+
+"<±æµå> ÇöÀç ±æµå°¡ ÀüÀï Áß ÀÔ´Ï´Ù.";
+"<Guilde> La Guilde est déjà en guerre.";
+
+"<¸Ş½ÅÁ®> %s ´ÔÀ» ¸Ş½ÅÀú¿¡¼­ »èÁ¦ÇÏ¿´½À´Ï´Ù.";
+"<Amis> Vous avez supprimé %s de votre liste d'amis.";
+
+"<¸Ş½ÅÁ®> %s ´ÔÀ» Ä£±¸·Î Ãß°¡ÇÏ¿´½À´Ï´Ù.";
+"<Amis> Vous avez ajouté %s à votre liste d'amis.";
+
+"<¸Ş½ÅÁ®> ¿î¿µÀÚ´Â ¸Ş½ÅÁ®¿¡ Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Amis> Un membre du staff ne peut pas être inclus dans votre liste d'amis.";
+
+"<Ã¢°í> °Å¸®°¡ ¸Ö¾î¼­ Ã¢°í¸¦ ¿­ ¼ö ¾ø½À´Ï´Ù.";
+"<Entrepôt> Vous êtes trop loin de l'entrepôt.";
+
+"<Ã¢°í> ±âÁ¸ ºñ¹Ğ¹øÈ£°¡ Æ²·È½À´Ï´Ù.";
+"<Entrepôt> Le mot de passe est erroné.";
+
+"<Ã¢°í> ºñ¹Ğ¹øÈ£´Â ¿µ¹®ÀÚ¸¸ °¡´ÉÇÕ´Ï´Ù.";
+"<Entrepôt> Le mot de passe doit etre écris avec des caractères français.";
+
+"<Ã¢°í> ¿Å±æ ¼ö ¾ø´Â À§Ä¡ÀÔ´Ï´Ù.";
+"<Entrepôt> Vous ne pouvez modifier l'emplacement.";
+
+"<Ã¢°í> ÀÌ ¾ÆÀÌÅÛÀº ³ÖÀ» ¼ö ¾ø½À´Ï´Ù.";
+"<Entrepôt> Cet objet ne peut pas être stocké.";
+
+"<Ã¢°í> Àß¸øµÈ ¾ÏÈ£¸¦ ÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.";
+"<Entrepôt> Vous avez entré un mauvais mot de passe.";
+
+"<Ã¢°í> Ã¢°í ºñ¹Ğ¹øÈ£°¡ º¯°æµÇ¾ú½À´Ï´Ù.";
+"<Entrepôt> Le mot de passe de l'entrepôt à été modifié.";
+
+"<Ã¢°í> Ã¢°í°¡ ÀÌ¹Ì ¿­·ÁÀÖ½À´Ï´Ù.";
+"<Entrepôt> L'entrepôt est déjà ouvert.";
+
+"<Ã¢°í> Ã¢°í¸¦ ´İÀºÁö 10ÃÊ ¾È¿¡´Â ¿­ ¼ö ¾ø½À´Ï´Ù.";
+"<Entrepôt> Vous devez attendre 10 secondes pour ouvrir à nouveau l'entrepôt.";
+
+"<Äù½ºÆ®> ÀÌÀü¿¡ °°Àº º¸»óÀ» ¹ŞÀº ÀûÀÌ ÀÖ¾î ´Ù½Ã ¹ŞÁö ¾Ê½À´Ï´Ù.";
+"<Quête> Récompense déjà donné, vous arrivez trop tard.";
+
+"<ÆÄÆ¼> %s ´ÔÀÌ ÆÄÆ¼ °ÅºÎ »óÅÂÀÔ´Ï´Ù.";
+"<Groupe> %s a rejeté l'invitation.";
+
+"<ÆÄÆ¼> %s´ÔÀÇ ÆÄÆ¼¿¡ Âü°¡ÇÏ¼Ì½À´Ï´Ù.";
+"<Groupe> %s a rejoint le groupe.";
+
+"<ÆÄÆ¼> %s´ÔÀÌ ÆÄÆ¼ ÃÊ´ë¸¦ °ÅÀıÇÏ¼Ì½À´Ï´Ù.";
+"<Groupe> %s a décliné l'invitation.";
+
+"<ÆÄÆ¼> %s´ÔÀÌ ÆÄÆ¼¿¡ Âü°¡ÇÏ¼Ì½À´Ï´Ù.";
+"<Groupe> %s a rejoint le groupe.";
+
+"<ÆÄÆ¼> -30 ~ +30 ·¹º§ ÀÌ³»ÀÇ »ó´ë¹æ¸¸ ÃÊ´ëÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"<Groupe> Seuls les joueurs avec une différence de niveau de -30 à +30 peuvent être invités.";
+
+"<ÆÄÆ¼> °üÀü ¸ğµå¿¡¼± ÆÄÆ¼ ÃÊ´ë¸¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas être spectateur quand vous êtes en groupe.";
+
+"<ÆÄÆ¼> ´Ù¸¥ Á¦±¹°ú ÆÄÆ¼¸¦ ÀÌ·ê ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas créer un groupe avec un joueur d'un autre empire.";
+
+"<ÆÄÆ¼> ´Ù¸¥ ÆÄÆ¼¿øÀ» Å»Åğ½ÃÅ³ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas exclure des membres du groupe.";
+
+"<ÆÄÆ¼> ´ë»óÀ» ¼ÒÈ¯ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas appelez cette personne.";
+
+"<ÆÄÆ¼> ´õ ÀÌ»ó ÆÄÆ¼¿øÀ» ÃÊ´ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas inviter d'autres joueurs dans votre groupe.";
+
+"<ÆÄÆ¼> ´øÀü ¾È¿¡¼­´Â ÆÄÆ¼ ÃÊ´ë¸¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas faire de groupe ici.";
+
+"<ÆÄÆ¼> ´øÀü ¾È¿¡¼­´Â ÆÄÆ¼ ÃÊ´ë¿¡ ÀÀÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas accepter une invitation de groupe ici.";
+
+"<ÆÄÆ¼> ´øÀü ¾È¿¡¼­´Â ÆÄÆ¼¿¡¼­ ³ª°¥ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas quitter de groupe ici.";
+
+"<ÆÄÆ¼> ´øÀü ¾È¿¡¼­´Â ÆÄÆ¼¿¡¼­ Ãß¹æÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez renvoyer quelqu'un du groupe ici.";
+
+"<ÆÄÆ¼> ´øÁ¯³»¿¡¼­´Â ÆÄÆ¼¸¦ ³ª°¥ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas quitter le groupe ici.";
+
+"<ÆÄÆ¼> ´øÁ¯³»¿¡¼­´Â ÆÄÆ¼¿øÀ» Ãß¹æÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez renvoyer un membre du groupe ici.";
+
+"<ÆÄÆ¼> ¸®´õ¸¸ º¯°æÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"<Groupe> Seul le chef du groupe peut le faire.";
+
+"<ÆÄÆ¼> »óÅÂ¸¦ º¯°æÇÏ·Á´Â »ç¶÷ÀÌ ÆÄÆ¼¿øÀÌ ¾Æ´Õ´Ï´Ù.";
+"<Groupe> Ce joueur n'est pas dans le groupe.";
+
+"<ÆÄÆ¼> ¼­¹ö ¹®Á¦·Î ÆÄÆ¼ °ü·Ã Ã³¸®¸¦ ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Le serveur n'a pas autorisé les demande de groupe.";
+
+"<ÆÄÆ¼> ¼ÒÈ¯ÇÏ·Á´Â ´ë»óÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Ce joueur ne peut etre trouvé.";
+
+"<ÆÄÆ¼> ¾îÅÂÄ¿ ¼³Á¤¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"<Groupe> Vous n'avez pas réussi à régler l'attaquant.";
+
+"<ÆÄÆ¼> ÀÌ¹Ì %s´ÔÀº ÆÄÆ¼¿¡ ¼ÓÇØ ÀÖ½À´Ï´Ù.";
+"<Groupe> %s est déjà dans le groupe.";
+
+"<ÆÄÆ¼> ÆÄÆ¼ ±â¼úÀº ÆÄÆ¼Àå¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"<Groupe> Seul le chef de groupe peut choisir les compétences de groupe.";
+
+"<ÆÄÆ¼> ÆÄÆ¼ ÃÊ´ë¿¡ ÀÀÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas accepter l'invitation.";
+
+"<ÆÄÆ¼> ÆÄÆ¼°¡ ÇØ»ê µÇ¾ú½À´Ï´Ù.";
+"<Groupe> Le groupe a été dissous.";
+
+"<ÆÄÆ¼> ÆÄÆ¼³» ÃÖ°í ·¹º§ º¸´Ù 30·¹º§ÀÌ ³·¾Æ ÃÊ´ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Seuls les joueurs avec une différence de niveau -30 à +30 peuvent être invités.";
+
+"<ÆÄÆ¼> ÆÄÆ¼³» ÃÖÀú ·¹º§ º¸´Ù 30·¹º§ÀÌ ³ô¾Æ ÃÊ´ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Seuls les joueurs avec une différence de niveau -30 à +30 peuvent être invités.";
+
+"<ÆÄÆ¼> ÆÄÆ¼¿¡¼­ ³ª°¡¼Ì½À´Ï´Ù.";
+"<Groupe> Vous avez été invité.";
+
+"<ÆÄÆ¼> ÆÄÆ¼¿¡¼­ Ãß¹æ´çÇÏ¼Ì½À´Ï´Ù.";
+"<Groupe> vous avez été exclus du groupe.";
+
+"<ÆÄÆ¼> ÆÄÆ¼¿äÃ»À» ÇÑ Ä³¸¯ÅÍ¸¦ Ã£À»¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Le joueur qui a formulé l'invitation n'est pas en ligne.";
+
+"<ÆÄÆ¼> ÆÄÆ¼¿øÀ» ÃÊ´ëÇÒ ¼ö ÀÖ´Â ±ÇÇÑÀÌ ¾ø½À´Ï´Ù.";
+"<Groupe> Vous n'avez pas le droit d'inviter des membres.";
+
+"<ÆÄÆ¼> ÆÄÆ¼¿øÀ» ÇöÀç À§Ä¡·Î ¼ÒÈ¯ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Les membres du groupe ne peuvent pas se téléporter à la position actuelle.";
+
+"<ÆÄÆ¼> ÆÄÆ¼ÀÇ ÀÎ¿øÁ¦ÇÑÀÌ ÃÊ°úÇÏ¿© ÆÄÆ¼¿¡ Âü°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"<Groupe> Vous ne pouvez pas rejoindre ce groupe car il est plein.";
+
+"10ºĞ µÚ ¼ºÀ» °ø°İÇÒ ¿¹Á¤ÀÔ´Ï´Ù.";
+"L'attaque sur le chateau commence dans 10 minutes.";
+
+"10ÃÊµÚ ´ÙÀ½ ÆÇÀ» ½ÃÀÛÇÕ´Ï´Ù.";
+"10 secondes jusqu'au résultat.";
+
+"10ÃÊµÚ ´ë·ÃÀÌ ½ÃÀÛµË´Ï´Ù.";
+"10 secondes jusqu'au résultat...";
+
+"10ÃÊµÚ ¸¶À»·Î µÇµ¹¾Æ°©´Ï´Ù.";
+"10 secondes jusqu'au résultat...";
+
+"10ÃÊµÚ ¸¶À»·Î ÀÌµ¿ÇÕ´Ï´Ù.";
+"10 secondes jusqu'au résultat...";
+
+"10ÃÊµÚ ÆÇÁ¤ÇÏ°Ú½À´Ï´Ù.";
+"Le résultat de la question sera affiché dans 10 secondes.";
+
+"10ÃÊÈÄ ÀÚµ¿À¸·Î Á¢¼ÓÀÌ Á¾·áµÇ¸ç,";
+"10 secondes jusqu'au résultat...";
+
+"1-50 »çÀÌÀÇ ¼öÄ¡¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä";
+"Choisissez un nombre entre 1 et 50.";
+
+"1ºĞ ÀÌ³»¿¡ ¾Æ¹«µµ Á¢¼ÓÇÏÁö ¾ÊÀ¸¸é ±æµåÀüÀÌ ÀÚµ¿ Á¾·áµË´Ï´Ù.";
+"La guerre de Guilde prendra fin dans 1 minute si aucun membre de la Guilde ne se reconnecte.";
+
+"20¾ï ³ÉÀ» ÃÊ°úÇÏ¿© »óÁ¡À» ¿­¼ö°¡ ¾ø½À´Ï´Ù";
+"Vous ne pouvez pas ouvrir une boutique parce que vous transportez plus de 2 milliards de Yangs.";
+
+"20¾ï³ÉÀÌ ÃÊ°úÇÏ¿© ¹°Ç°À» ÆÈ¼ö ¾ø½À´Ï´Ù.";
+"Vous portez plus de 2 milliards de Yang, vous ne pouvez pas échanger.";
+
+"30ºĞ ³»·Î ±Í¸ñ·ÉÁÖ¸¦ ¹°¸®ÃÄÁÖ¼¼¿ä.";
+"Tuez le Roi démon en 30 minutes.";
+
+"30ºĞÀÌ °æ°úÇß½À´Ï´Ù.. ºÀÈ­°¡ »ç¶óÁı´Ï´Ù.";
+"30 minutes se sont écoulées, le signal disparaît.";
+
+"5ºĞ ÈÄ¿¡ Á¤»óÀûÀ¸·Î Á¢¼ÓÇÏ½Ç¼ö ÀÖ½À´Ï´Ù.";
+"5 secondes jusqu'à la prochaine question.";
+
+"5ÃÊ µÚ Æ²¸®½Å ºĞµéÀ» ¹Ù±ùÀ¸·Î ÀÌµ¿ ½ÃÅ°°Ú½À´Ï´Ù.";
+"Dans 5 secondes, les participants ayant mal répondu à la question devront partir.";
+
+"O ÀÔ´Ï´Ù";
+"Oui (O)";
+
+"OX ¹®Á¦ ½ºÅ©¸³Æ® ·Îµù ¼º°ø";
+"<OX Contest> Script chargé avec succés.";
+
+"OX ¹®Á¦ ½ºÅ©¸³Æ® ·Îµù ½ÇÆĞ";
+"<OX Contest> Erreur lors du chargement du script.";
+
+"OX »óÇ°À» Áö±ŞÇÏ¿´½À´Ï´Ù. ID: %d ¼ö·®: %d";
+"<OX Contest> Récompense(s) donné, ID: %d quantité: %d.";
+
+"OX ÀÌº¥Æ®°¡ ½ÃÀÛµÇ¾ú½À´Ï´Ù.";
+"bientôt débuter. Si vous voulez y participer,";
+
+"OX ÀÌº¥Æ®°¡ ÀÌ¹Ì ÁøÇàÁßÀÔ´Ï´Ù(flag: %d)";
+"L'OX Contest est déjà en cours d'exécution (flag: %d).";
+
+"OX ÀÌº¥Æ®¸¦ ¸¶Ä¡°Ù½À´Ï´Ù.";
+"L'OX Contest est terminé.";
+
+"OXÀÌº¥Æ® ¸ÊÀ» ¸ÕÀú ´İ¾Æ ÁÖ¼¼¿ä.(Flag: %d)";
+"Tout d'abord, vous devez fermer la carte de l'événement OX Contest (flag: %d).";
+
+"OXÀÌº¥Æ®°¡ ´İÈ÷Áö ¾Ê¾Ò°Å³ª, ÄûÁî ÃâÁ¦ÁßÀÔ´Ï´Ù.(flag: %d)";
+"OX Contest non terminé, des erreurs se sont produites (flag: %d).";
+
+"OXÀÌº¥Æ®°¡ ¿­·Á ÀÖÁö ¾Ê°Å³ª ¹®Á¦ ÃâÁ¦ÁßÀÔ´Ï´Ù.(Flag: %d)";
+"OX Contest est terminé, aucune erreur n'est survenue (Flag: %d).";
+
+"OXÀÌº¥Æ®¸¦ °­Á¦ Á¾·á ½ÃÅµ´Ï´Ù.";
+"OX Contest terminé.";
+
+"OXÀÌº¥Æ®ÀÇ ³ª¸ÓÁö ÀÎ¿ø ±â·ÏÀ» ½ÇÆĞÇß½À´Ï´Ù.";
+"OX Les autres participants ne sont pas encore prets.";
+
+"OXÀÌº¥Æ®ÀÇ ³ª¸ÓÁö ÀÎ¿øÀ» ±â·ÏÇÏ¿´½À´Ï´Ù.";
+"OX Les participants sont prets.";
+
+"TEST : ÇöÀç ±¹°í : %d";
+"TEST: Empereur actuel: %d.";
+
+"TEST : È²±İµÎ²¨ºñ°¡ ±¹°í·Î È¯¿øµÇ¾ú½À´Ï´Ù.";
+"TEST: La grenouille d'or a été restitué au trésor de l'empire.";
+
+"TEST : È²±İµÎ²¨ºñ¸¦ ±¹°í·Î È¯¿øÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"TEST: La grenouille d'or n'a pas été restitué au trésor de l'empire.";
+
+"X ÀÔ´Ï´Ù";
+"Non (X)";
+
+"°¡¸¸È÷ ÀÖÀ» ¶§¸¸ Âø¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Vous devez rester immobile pour pouvoir vous équiper.";
+
+"°¢Á¦±¹ ÁøÇà Á¤º¸";
+"Details des empires:";
+
+"°©¿ÊÀ» ¹ş¾î¾ß °³ÀÎ »óÁ¡À» ¿­ ¼ö ÀÖ½À´Ï´Ù.";
+"Vous devez être déséquipé pour ouvrir un magasin.";
+
+"°ªÀ» Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù.";
+"La valeur saisie est incorrecte.";
+
+"°°Àº °³·®¼­¸¦ ÇÕÄ¥ ¼ö´Â ¾ø½À´Ï´Ù.";
+"Vous ne pouvez combiné des informations identiques.";
+
+"°°Àº Á¾·ùÀÇ ¸ŞÆ¾¼®Àº ¿©·¯°³ ºÎÂøÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Une pierre de ce type est déjà sur votre objet.";
+
+"°°Àº Á¾·ùÀÇ À¯´ÏÅ© ¾ÆÀÌÅÛ µÎ °³¸¦ µ¿½Ã¿¡ ÀåÂøÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas utiliser cet objet car vous n'avez pas toutes les qualifications.";
+
+"°°ÀÌ ÁöÀ» ¼ö ¾ø´Â Á¾·ùÀÇ °Ç¹°ÀÌ Áö¾îÁ® ÀÖ½À´Ï´Ù.";
+"Ce type de construction peut être érigée qu'une seule fois.";
+
+"°³·®µÈ ÈÄ ¾ÆÀÌÅÛÀÇ ·¹º§ Á¦ÇÑº¸´Ù ·¹º§ÀÌ ³·½À´Ï´Ù.";
+"Votre niveau n'est pas assez élevé pour pouvoir utiliser cet objet.";
+
+"°³·®À» ÇÏ±â À§ÇÑ µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.";
+"Vous n'avez pas assez de Yang pour l'améliorer.";
+
+"°³·®À» ÇÏ±â À§ÇÑ Àç·á°¡ ºÎÁ·ÇÕ´Ï´Ù.";
+"Pas assez de matériau pour une progression.";
+
+"°³ÀÎ »óÁ¡À» ¿­ ¼ö ¾ø´Â Áö¿ªÀÔ´Ï´Ù";
+"Vous ne pouvez pas ouvrir l'entrepot ici.";
+
+"°³ÀÎ»óÁ¡ »ç¿ëÈÄ %dÃÊ ÀÌ³»¿¡´Â ±ÍÈ¯ºÎ,±ÍÈ¯±â¾ïºÎ¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous devez attendre %d seconde après avoir ouvert un magasin.";
+
+"°Å±â¿¡´Â Å» ¼ö ¾ø¾î¿ä.";
+"Vous ne pouvez pas monter ça.";
+
+"°Å·¡ ÈÄ %dÃÊ ÀÌ³»¿¡ Ã¢°í¸¦ ¿­¼ö ¾ø½À´Ï´Ù.";
+"Après avoir échangé, vous devez attendre %d secondes avant de pouvoir ouvrir un magasin.";
+
+"°Å·¡ ÈÄ %dÃÊ ÀÌ³»¿¡´Â ±ÍÈ¯ºÎ,±ÍÈ¯±â¾ïºÎµîÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous devez attendre %d secondes après la transaction.";
+
+"°Å·¡ ÈÄ %dÃÊ ÀÌ³»¿¡´Â ´Ù¸¥Áö¿ªÀ¸·Î ÀÌµ¿ ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas changer pour le moment. Attendez %d secondes.";
+
+"°Å·¡ ÈÄ 1ºĞ ÀÌ³»¿¡´Â ´Ù¸¥Áö¿ªÀ¸·Î ÀÌµ¿ ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous devez attendre 1 minutes.";
+
+"°Å·¡Ã¢,Ã¢°í µîÀ» ¿¬ »óÅÂ¿¡¼­´Â ±ÍÈ¯ºÎ,±ÍÈ¯±â¾ïºÎ ¸¦ »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez ouvrir plus de deux magasins.";
+
+"°Å·¡Ã¢,Ã¢°í µîÀ» ¿¬ »óÅÂ¿¡¼­´Â ´Ù¸¥°÷À¸·Î ÀÌµ¿,Á¾·á ÇÒ¼ö ¾ø½À´Ï´Ù";
+"Vous devez attendre 10 secondes.";
+
+"°Å·¡Ã¢,Ã¢°í µîÀ» ¿¬ »óÅÂ¿¡¼­´Â ´Ù¸¥°÷À¸·Î ÀÌµ¿ÇÒ¼ö ¾ø½À´Ï´Ù";
+"Vous ne pouvez pas vous téléporter.";
+
+"°Å·¡Ã¢,Ã¢°í µîÀ» ¿¬ »óÅÂ¿¡¼­´Â º¸µû¸®,ºñ´Üº¸µû¸®¸¦ »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez utiliser l'entrepot lorsqu'un autre magasin est ouvert.";
+
+"°ÅÁş";
+"Faux";
+
+"°Ç°­À» À§ÇØ Á¶¼ÓÈ÷ Á¢¼ÓÀ» Á¾·áÇÏ½Å ÈÄ ÈŞ½ÄÀ» ÃëÇØÁÖ½Ê½Ã¿À,";
+"Pour votre santé, il est recommandé de prendre un temps de repos.";
+
+"°Ç¹° ºñ¿ë Á¤º¸ ÀÌ»óÀ¸·Î °Ç¼³ ÀÛ¾÷¿¡ ½ÇÆĞÇß½À´Ï´Ù.";
+"La construction a échoué, veuillez choisir un prix différent.";
+
+"°Ç¹°À» ÁöÀ» ¼ö ¾ø´Â À§Ä¡ÀÔ´Ï´Ù.";
+"Vous ne pouvez pas construire de bâtiments ici.";
+
+"°Ç¼³ ºñ¿ëÀÌ ºÎÁ·ÇÕ´Ï´Ù.";
+"Vous n'avez pas assez de yangs pour construire un bâtiment.";
+
+"°Ç¼³¿¡ ÇÊ¿äÇÑ °Ç¹°ÀÌ Áö¾îÁ® ÀÖÁö ¾Ê½À´Ï´Ù.";
+"Le bâtiment principale doit être construit en premier.";
+
+"°ÔÀÓ ³»ÀÇ ¼öÀÍÀÌ Á¤»óÄ¡ÀÇ 50%·Î ÇÏÇâµË´Ï´Ù.";
+"Le drop de Yangs a été réduit de 50%.";
+
+"°ÔÀÓÀ» Á¾·á ÇÕ´Ï´Ù. Àá½Ã¸¸ ±â´Ù¸®¼¼¿ä.";
+"Vous avez été déconnecté du serveur. Veuillez patienter.";
+
+"°áÀç±â°£ÀÌ %dºĞ ÈÄ ¸¸·á µË´Ï´Ù.";
+"Le jeu expire dans %d minutes.";
+
+"°áÀç±â°£ÀÌ ¸¸·áµÇ¾î Àá½Ã ÈÄ Á¢¼ÓÀÌ Á¾·á µË´Ï´Ù.";
+"Vous allez être déconnecté, car le délai de payement est trop long.";
+
+"°áÈ¥ »óÅÂ°¡ ¾Æ´Ï¸é °áÈ¥¹İÁö¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous devez être marié pour pouvoir porter cette bague.";
+
+"°áÈ¥½ÄÀÌ Á¾·áµË´Ï´Ù.";
+"La cérémonie de mariage est terminée.";
+
+"°áÈ¥ÇÏÁö ¾ÊÀº »óÅÂ¿¡¼­ ¿¹¹°À» Âø¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas utiliser cette objet si vous n'êtes pas marié.";
+
+"°æÇèÄ¡ %d%% Ãß°¡ È¹µæ ÀÌº¥Æ® ÁßÀÔ´Ï´Ù.";
+"Le quota d'expérience est augmenté de %d%%.";
+
+"°æÇèÄ¡ %d%%";
+"Expérience %d%%.";
+
+"°æÇèÄ¡°¡ ºÎÁ·ÇÏ¿© Ã¥À» ÀĞÀ» ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas lire ceci car il vous manque de l'expérience.";
+
+"°í±â°¡ ¹Ì³¢¸¸ »©¸Ô°í Àì½Î°Ô µµ¸ÁÄ¨´Ï´Ù.";
+"Vous perdez votre appât.";
+
+"°í±â°¡ ÀâÇû½À´Ï´Ù! (%s)";
+"Un poisson a été attrapé (%s).";
+
+"°í±â°¡ ÈçÀûµµ ¾øÀÌ »ç¶óÁı´Ï´Ù.";
+"Le poisson a disparu au fond de l'eau.";
+
+"°î±ªÀÌ ¼ö·Ãµµ°¡ ÃÖ´ë(%d)°¡ µÇ¾ú½À´Ï´Ù.";
+"Vos points d'extraction sont élevés à la limite (%d).";
+
+"°î±ªÀÌ°¡ ÃÖ´ë ¼ö·Ãµµ¿¡ µµ´ŞÇÏ¿´½À´Ï´Ù.";
+"Les points de minage sont au maximum.";
+
+"°î±ªÀÌ¸¦ µé°í ÀÖÁö ¾Ê¾Æ¼­ Ä¶ ¼ö ¾ø½À´Ï´Ù.";
+"Sans pioche vous ne pouvez pas miner une veine.";
+
+"°î±ªÀÌ¸¦ ÀåÂøÇÏ¼¼¿ä.";
+"Vous devez utiliser une pioche pour cela.";
+
+"°î±ªÀÌÀÇ ¼ö·Ãµµ°¡ Áõ°¡ÇÏ¿´½À´Ï´Ù! (%d/%d)";
+"Vos points d'extraction on été augmentés (%d/%d).";
+
+"°ñµå µå·Ó·ü %d%% Ãß°¡ ÀÌº¥Æ® ÁßÀÔ´Ï´Ù.";
+"Le quota de yangs lâchés est augmenté de %d%%.";
+
+"°ø°İ·Â +%d";
+"Points d'attaque +%d.";
+
+"°ø°İ·Â +%d%%";
+"Attaque +%d%%.";
+
+"°ø°İ¼Óµµ +%d";
+"Vitesse d'attaque +%d.";
+
+"°øºÎÇÏ±â ½È¾îÁö³×.";
+"Je ne veux pas apprendre plus.";
+
+"°üÀü ¸ğµå·Î ±æµåÀü¿¡ Âü°¡ÇÏ¼Ì½À´Ï´Ù.";
+"Vous pouvez participer à la bataille de guilde en mode observateur.";
+
+"°üÀü »óÅÂ¿¡¼­´Â ±³È¯À» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas échanger tout en observant une guerre de Guilde.";
+
+"°üÅë Ãß°¡ µ¥¹ÌÁö %d";
+"Dommages supplémentaires %d.";
+
+"±¹°í¿¡ µ·ÀÌ ºÎÁ·ÇÏ°Å³ª µ·À» °¡Á®¿Ã¼ö ¾ø´Â »óÈ²ÀÔ´Ï´Ù";
+"Vous n'avez pas assez de Yangs.";
+
+"±¹°í¿¡ µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù. ÇöÀç : %u ÇÊ¿ä±İ¾× : %u";
+"Manque d'impôts. Capital actuelle: u% capital nécessaire: u%.";
+
+"±¹°í¿¡ ÀÚ±İÀÌ ¸ğÀÚ¶ø´Ï´Ù ±¹°í : %d";
+"Pas assez de taxes %d.";
+
+"±ºÁÖ Á¤º¸";
+"Information de l'empereur:";
+
+"±ºÁÖ°¡ ³»¸° Ãàº¹À¸·Î ¸ğµç ¿¡³ÊÁö°¡ °¡µæ Ã¤¿öÁı´Ï´Ù";
+"Les dégats ont été reflétés, grâce a la bénédiction de l'empereur.";
+
+"±ºÁÖ¸¸ÀÌ »ç¿ë °¡´ÉÇÑ ±â´ÉÀÔ´Ï´Ù";
+"Seul l'empereur est autorisé a le faire.";
+
+"±ºÁÖ¸¸ÀÌ »ç¿ë°¡´É ÇÑ ±â´ÉÀÔ´Ï´Ù";
+"Seul l'empereur est autorisé a le faire.";
+
+"±ºÁÖ¸¸ÀÌ »ç¿ëÇÒ¼ö ÀÖ´Â ±â´ÉÀÔ´Ï´Ù";
+"Seul l'empereur est autorisé a le faire.";
+
+"±ºÁÖ¿Í´Â °Å·¡¸¦ ÇÒ¼ö°¡ ¾ø½À´Ï´Ù";
+"Vous ne pouvez faire cela avec l'empereur.";
+
+"±ºÁÖÀÇ ±İ°­±Ç ¿µÇâÀ¸·Î ÀÌÁö¿ª %s À¯Àú´Â 3ºĞ°£ 10 %% ÀÇ ¹æ¾î·ÂÀÌ  Áõ°¡µË´Ï´Ù";
+"Augmentation de 10%% la defense pour %s sur cette zone, car l'empereur utilise son Armure du Diamant.";
+
+"±ºÁÖÀÇ »çÀÚÈÄ ¿µÇâÀ¸·Î ÀÌÁö¿ª %s À¯Àú´Â 3ºĞ°£ 10 %% ÀÇ °ø°İ·ÂÀÌ  Áõ°¡µË´Ï´Ù";
+"Augmentation de 10%% de l'attaque pour %s sur cette zone, car l'empereur utilise le Rugissement du Lion.";
+
+"±ºÁÖÀÇ ÀÚ°İÀ» °¡Áö°í ÀÖÁö ¾Ê½À´Ï´Ù";
+"Ce joueur n'est pas assez qualifiés pour être empereur.";
+
+"±ºÁÖÀÇ ÀÚ°İÀ» °¡Áö°í ÀÖÁö ¾Ê½À´Ï´Ù";
+"Ce joueur n'est pas assez qualifiés pour être empereur.";
+
+"±ºÁÖÀÇ Ãàº¹À¸·Î ÀÌÁö¿ª %s À¯Àú´Â HP,SP°¡ ¸ğµÎ Ã¤¿öÁı´Ï´Ù.";
+"L'empereur bénit pour les %s tous les joueurs ont leurs HP et SP au max.";
+
+"±ºÁÖÀÇ Ãàº¹À» »ç¿ëÇÏ¿´½À´Ï´Ù.";
+"La bénédiction de l'empereur est active.";
+
+"±ºÁÖÀÇ Ãàº¹À» »ç¿ëÇÏ¿´½À´Ï´Ù.";
+"La bénédiction de l'empereur est active.";
+
+"±ºÁ÷ÀÌ ¸ÂÁö¾Ê¾Æ ÀÌ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas utiliser cet objet car vous n'avez pas toutes les qualifications.";
+
+"±Í¸ñ·ÉÁÖ°¡ Åğ°¢ÇÏ¿´½À´Ï´Ù.";
+"Le Roi Démon a pris sa retraite.";
+
+"±Í¸ñ·ÉÁÖ¿Í ±×ÀÇ ºÎÇÏµéÀ» ¸ğµÎ ¹°¸®ÃÆ½À´Ï´Ù.";
+"Le Roi Démon et son serviteur ont été vaincus.";
+
+"±ÍÈ¯¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"La téléportation a échoué.";
+
+"±×°ÍÀ¸·Î ¼ö·ÃÀº ³¡³­ °Å¾ß!";
+"L'entrainement est terminé!";
+
+"±×·¡, ÀÌ ´À³¦ÀÌ¾ß. Ã¼³»¿¡ ±â°¡ ¾ÆÁÖ Ãæ¸¸ÇØ.";
+"Oui, cela me fait du bien. Mon Corps est emplie de Chi.";
+
+"±×·¡, ÃµÃµÈ÷. Á»´õ ÃµÃµÈ÷, ±×·¯³ª ¸·Èû ¾øÀÌ ºü¸£°Ô!";
+"Lentement, lentement, mais c'est bientot terminé.";
+
+"±×·£µå ¸¶½ºÅÍ ¼ö·ÃÀ» ÇÒ ¼ö ¾ø´Â ½ºÅ³ÀÔ´Ï´Ù.";
+"Vous ne pouvez pas entrainer cette compétence en Grand Maitre!";
+
+"±×·± ¸í·É¾î´Â ¾ø½À´Ï´Ù";
+"Cet ordre n'existe pas.";
+
+"±×·± »ç¶÷ÀÌ ¾ø½À´Ï´Ù.";
+"Ce joueur n'existe pas.";
+
+"±×·± ÀÌ¸§ ¶Ç´Â ¹øÈ£ÀÇ ±æµå°¡ ¾ø½À´Ï´Ù.";
+"Aucune Guilde ne porte ce nom.";
+
+"±×·¸Áö ¾ÊÀ¸¸é °Ç°­ »ó¿¡ ÇÇÇØ¸¦ ÀÔÀ» ¼ö ÀÖÀ¸¸ç °ÔÀÓ ³»ÀÇ ¼öÄ¡´Â 0ÀÌ µË´Ï´Ù.";
+"Remise a zéro du statut.";
+
+"±Ù·Â +%d";
+"Force +%d.";
+
+"±Ù·ÂÀÌ ³·¾Æ Âø¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous n'etes pas assez fort pour vous en équiper.";
+
+"±İ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù.";
+"Montant insuffisant.";
+
+"±â¾ïµÈ À§Ä¡°¡ Å¸Á¦±¹¿¡ ¼ÓÇØ ÀÖ¾î¼­ ±ÍÈ¯ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez vous téléporter sur une zone protégé par un autre empire.";
+
+"±â¾ïÇØ µÑ ¼ö ¾ø´Â À§Ä¡ ÀÔ´Ï´Ù.";
+"Vous ne pouvez pas sécuriser la zone.";
+
+"±âÀıÇÏÁö ¾ÊÀ½ %d%%";
+"Résistance à l'étourdissement %d%%";
+
+"±æµå¿¡ °¡ÀÔÇÏÁö ¾Ê¾Ò½À´Ï´Ù.";
+"Vous devez appartenir à une guilde pour utiliser ce canal.";
+
+"±æµå¿ø";
+"Membre";
+
+"±æµåÀå";
+"Chef";
+
+"±æµåÀü¿¡ Âü°¡ÇÑ »ó´ë¹æ ±æµå¿øÀÌ ¾Æ¹«µµ ¾ø½À´Ï´Ù.";
+"Plus aucun membre de la Guilde adverse ne sont connecté.";
+
+"±æµåÀüÀÌ ÀÏÂï Á¾·áµÇ¾î ¹«½ÂºÎ·Î ÆÇÁ¤ µÇ¾ú½À´Ï´Ù. (5ºĞÀÌ Áö³ªÁö ¾ÊÀ½)";
+"La guerre de Guilde se termine sur un match nul en moins de 5 minutes.";
+
+"²Ş¼Ó¿¡¼­ ¾î¶»°Ô¿ä?";
+"Dans mes rèves? Quoi?";
+
+"³ª¹«²Û¸¦ ÅëÇØ ´ÙÀ½ ·¹º§ÀÇ °î±ªÀÌ·Î ¾÷±×·¹ÀÌµå ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Vous pouvez améliorer votre pioche chez Deok-Bae.";
+
+"³ª¹«¿¡¼­ ºÎÅÍ ½ÅºñÇÑ ºûÀÌ ³ª¿É´Ï´Ù.";
+"Une lumière mystérieuse sortie de la boîte.";
+
+"³ªº¸´Ù ³Ê¹« ³ôÀº ·¹º§ÀÇ ¸ó½ºÅÍ·Î´Â º¯½Å ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas vous polymorphier avec cette orbe.";
+
+"³ªÀÇ ±ºÁÖ Á¤º¸";
+"Mes Informations impériales:";
+
+"³ªÀÇ »ï°Å¸® ÁøÇàÁ¤º¸";
+"Détails de la bataille impériale:";
+
+"³¬½Ã Áß¿¡ ¹Ì³¢¸¦ °¥¾Æ³¢¿ï ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas changer d'appât lorsque vous péchez.";
+
+"³¬½Ã´ë°¡ ¾Æ´Ñ ¹°°ÇÀ¸·Î ³¬½Ã¸¦ ÇÒ ¼ö ¾ø½À´Ï´Ù!";
+"Vous ne pouvez pas pécher sans canne!";
+
+"³¬½Ã´ë°¡ ÃÖ´ë ¼ö·Ãµµ¿¡ µµ´ŞÇÏ¿´½À´Ï´Ù.";
+"Vous ne pouvez pas améliorer plus votre canne à péche.";
+
+"³¬½Ã´ë¸¦ ÀåÂø ÇÏ¼¼¿ä.";
+"Veuillez vous équiper de votre canne à péche.";
+
+"³¬½Ã´ë¿¡ %s¸¦ ¹Ì³¢·Î ³¢¿ó´Ï´Ù.";
+"Vous avez fixé un appât %s sur l'hameçon.";
+
+"³¬½Ã´ëÀÇ ¼ö·Ãµµ°¡ Áõ°¡ÇÏ¿´½À´Ï´Ù! (%d/%d)";
+"Vos points de péche ont été augmentés ! (%d/%d).";
+
+"³¬½ÃÀÌº¥Æ®¿ùÃ´ºØ¾î";
+"Vous avez pécher un gros sandre.";
+
+"³¬½ÃÀÌº¥Æ®À×¾î";
+"Vous avez pécher une carpe";
+
+"³²Àº »ı¸í·Â ¾çÀÌ ¸ğÀÚ¶ó »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous n'avez pas assez de Points de Vie.";
+
+"³²Àº ½ºÅÈ Æ÷ÀÎÆ®°¡ ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas distribuer plus de points de statuts.";
+
+"³²Àº ½ºÅÈ Æ÷ÀÎÆ®°¡ Àû½À´Ï´Ù.";
+"Pas assez de point restant.";
+
+"³²Àº Á¤½Å·Â ¾çÀÌ ¸ğÀÚ¶ó »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Pas assez de Mana!";
+
+"³Ê¹« °¡±îÀÌ ÀÖ½À´Ï´Ù.";
+"Vous etes trop près.";
+
+"³Ê¹« ¸Ö¸® ÀÖ½À´Ï´Ù";
+"Vous etes trop loin.";
+
+"³Ñ¾îÁöÁö ¾ÊÀ½ %d%%";
+"Résistance aux chutes %d%%.";
+
+"³à¼®µéÀº ÀÌ°÷ ¼ºÁö¿¡ ÀÖÀ» ÀÚ°İÀ» ÀÒ¾ú´Ù. ¸ğµÎ ¼ºÁö¿¡¼­ ¹°·¯³ª°Å¶ó~~[ENTER][ENTER] 10ÃÊ ÈÄ¿¡ ¸ğµÎ ¸¶À»·Î ÀÌµ¿ÇÏ°Ô µË´Ï´Ù.";
+"Vous ne pouvez pas etre ici! [ENTER][ENTER] Vous allez etre téléporté dans 10 secondes dans votre cité.";
+
+"´©Àû ¿ÀÇÁ¶óÀÎ ½Ã°£ÀÌ 5½Ã°£ÀÌ µÇ¸é Á¤»óÀ¸·Î µ¹¾Æ¿É´Ï´Ù.";
+"Veuillez rester connecté pendant 5 heures!";
+
+"´À·ÁÁöÁö ¾ÊÀ½ %d%%";
+"Résistance aux ralentissements %d%%.";
+
+"´ÔÀÇ ¸»";
+"Cheval.";
+
+"´Ù ÀĞ¾ú´Ù! ÀÌÁ¦ ºñ±Ş¿¡ ÀûÇôÀÖ´Â ´ë·Î Àü½Å¿¡ ±â¸¦ µ¹¸®±â¸¸ ÇÏ¸é,";
+"Je l'ai lu! Maintenant, le Chi peu inonder tout mon corps.";
+
+"´Ù¸¥ °Å·¡Áß(Ã¢°í,±³È¯,»óÁ¡)¿¡´Â °³ÀÎ»óÁ¡À» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous devez attendre 10 secondes avant d'ouvrir un autre magasin";
+
+"´Ù¸¥ °Å·¡Áß(Ã¢°í,±³È¯,»óÁ¡)¿¡´Â »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez l'utiliser pour le moment.";
+
+"´Ù¸¥ °Å·¡ÁßÀÏ°æ¿ì °³ÀÎ»óÁ¡À» ¿­¼ö°¡ ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas ouvrir de magasin tant que vous échangez avec d'autres personnes.";
+
+"´Ù¸¥ °Å·¡Ã¢ÀÌ ¿­·ÁÀÖÀ»°æ¿ì °Å·¡¸¦ ÇÒ¼ö ¾ø½À´Ï´Ù.";
+"La fenêtre d'échange est déjà ouverte.";
+
+"´Ù¸¥ °Å·¡Ã¢ÀÌ ¿­¸°»óÅÂ¿¡¼­´Â »óÁ¡°Å·¡¸¦ ÇÒ¼ö °¡ ¾ø½À´Ï´Ù.";
+"La fenêtre d'échange est déjà ouverte.";
+
+"´Ù¸¥ Á¦±¹ À¯Àú´Â ¼ÒÈ¯ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas appeler des joueurs d'autres empires.";
+
+"´Ù¸¥ ÄÄÇ»ÅÍ¿¡¼­ ·Î±×ÀÎ ÇÏ¿© Á¢¼ÓÀ» Á¾·á ÇÕ´Ï´Ù.";
+"Une personne se connecte avec votre compte. Vous allez être déconnecté.";
+
+"´Ù¸¥°Å·¡Ã¢ÀÌ ¿­¸°»óÅÂ¿¡¼­´Â Ã¢°í¸¦ ¿­¼ö°¡ ¾ø½À´Ï´Ù.";
+"La fenêtre d'échange est déjà ouverte.";
+
+"´ÙÀ½ ¹®Á¦ ÁØºñÇØÁÖ¼¼¿ä.";
+"Prêts pour la question suivante ?";
+
+"´ÙÀÌ¾Æ¸óµå·Î ¼ÒÄÏÀ» Ãß°¡ÇØ¾ßÇÕ´Ï´Ù.";
+"Si vous souhaitez ajouter un emplacement, utilisez un diamant.";
+
+"´İ±â";
+"Fermer";
+
+"´ç½ÅÀº ÀÌ¹Ì °ÔÀÓ ÇÇ·Î »óÅÂ¿¡ µé¾î¼¹À¸¸ç,";
+"Vous avez trop joué! N'hésitez pas à faire des pauses!";
+
+"´ç½ÅÀº ÀÌ¹Ì ¿ÂÀüÇÏÁö ¸øÇÑ °ÔÀÓ ½Ã°£¿¡ µé¾î¼¹½À´Ï´Ù.";
+"Vous avez trop joué! N'hésitez pas à faire des pauses!";
+
+"´ç½ÅÀÇ °Ç°­À» À§ÇØ Á¶¼ÓÈ÷ Á¢¼ÓÀ» Á¾·áÇÏ½Ã°í";
+"Vous avez trop joué! N'hésitez pas à faire des pauses!";
+
+"´ç½ÅÀÇ ´©Àû ¿ÀÇÁ¶óÀÎ ½Ã°£Àº %sÀÌ¸ç, ´©Àû ¿Â¶óÀÎ ½Ã°£Àº %sÀÔ´Ï´Ù.";
+"Vous avez trop joué! N'hésitez pas à faire des pauses!";
+
+"´ç½ÅÀÇ ´©Àû ¿ÀÇÁ¶óÀÎ ½Ã°£Àº %sÀÔ´Ï´Ù.";
+"Vous avez trop joué! N'hésitez pas à faire des pauses!";
+
+"´ç½ÅÀÇ ´©Àû ¿Â¶óÀÎ ½Ã°£Àº 0ÀÌ µÇ¾ú½À´Ï´Ù. 100% È¿°ú¸¦ ¾òÀ¸½Ç ¼ö ÀÖ½À´Ï´Ù.";
+"Votre total d'heure en ligne est de 0. Vous pouvez avoir des bonus à 100% .";
+
+"´ç½ÅÀÇ ´©Àû ¿Â¶óÀÎ ½Ã°£ÀÌ ÀÌ¹Ì %d½Ã°£ÀÌ µÇ¾ú½À´Ï´Ù,";
+"Votre total d'heure en ligne est déjà de %d heures.";
+
+"´ç½ÅÀÇ ´©Àû ¿Â¶óÀÎ ½Ã°£ÀÌ ÀÌ¹Ì %d½Ã°£ÀÌ Áö³µ½À´Ï´Ù.";
+"Votre total d'heure en ligne a déjà dépassée les %d heures.";
+
+"´ë·Ã °­Á¦ Á¾·á ¼º°ø";
+"Le duel est annulé avec succès.";
+
+"´ë·Ã °­Á¦ Á¾·á ½ÇÆĞ";
+"Le duel n'est pas terminé.";
+
+"´ë·Ã »ó´ë°¡ »ç¶óÁ® ´ë·ÃÀ» Á¾·áÇÕ´Ï´Ù.";
+"Le duel s'est terminé lorsque votre adversaire a disparu.";
+
+"´ë·Ã ½Ã°£ ÃÊ°ú·Î ´ë·ÃÀ» Áß´ÜÇÕ´Ï´Ù.";
+"Le duel a été arrêté, car il a duré trop long.";
+
+"´ë·Ã ½ÃÀÛ¿¡ ¹®Á¦°¡ ÀÖ½À´Ï´Ù.";
+"Il y a un problème avec ce duel.";
+
+"´ë·Ã Áß¿¡´Â ÀÌ¿ëÇÒ ¼ö ¾ø´Â ¹°Ç°ÀÔ´Ï´Ù.";
+"Vous ne pouvez utiliser cet item dans la zone de duel.";
+
+"´ë·ÃÀÌ ¼º°øÀûÀ¸·Î ½ÃÀÛ µÇ¾ú½À´Ï´Ù.";
+"Le duel a commencé!";
+
+"´ë·ÃÀÌ ½ÃÀÛµÇ¾ú½À´Ï´Ù.";
+"Le duel a commencé.";
+
+"´ë·ÃÀÚ ¹®Á¦·Î ÀÎÇÏ¿© ´ë·ÃÀ» Á¾·áÇÕ´Ï´Ù.";
+"Le duel s'est terminé, car on ne trouve pas votre adversaire.";
+
+"´ë·ÃÀÚ ¹®Á¦·Î ÀÎÇÏ¿© ´ë·ÃÀ» Áß´ÜÇÕ´Ï´Ù.";
+"Le duel a été arrêté parce qu'un problème s'est produit avec l'arène.";
+
+"´ë·ÃÀÚ°¡ ¾ø½À´Ï´Ù.";
+"Il n'y a aucun ennemis.";
+
+"´ë·ÃÀå ¹®Á¦·Î ÀÎÇÏ¿© ´ë·ÃÀ» Á¾·áÇÕ´Ï´Ù.";
+"Le duel a été arrêté parce qu'un problème s'est produit avec l'arène.";
+
+"´ë·ÃÀå¿¡¼­ »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas utiliser ceci dans l'Arène.";
+
+"´ë¹Ú°ñµå µå·Ó·ü %d%% Ãß°¡ ÀÌº¥Æ® ÁßÀÔ´Ï´Ù.";
+"Le quota de tempête de yangs est augmenté de %d%%.";
+
+"´õ ³ôÀº °æÁöÀÇ ¼ö·ÃÀ» ¼º°øÀûÀ¸·Î ³¡³»¼Ì½À´Ï´Ù.";
+"Vous avez terminé votre entrainement avec succès.";
+
+"´õ ÀÌ»ó OXÀÌº¥Æ® Âü°¡ÀÚ¸¦ ¹ŞÁö ¾Ê½À´Ï´Ù.";
+"L'OX Contest est déjà fermé.";
+
+"´õ ÀÌ»ó °³·®ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Pas d'améliorations possible.";
+
+"´õ ÀÌ»ó ¼ö·ÃÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Ce pouvoir est trop élevé.";
+
+"´õ ÀÌ»ó ½Â¸¶ ¼ö·Ã¼­¸¦ ÀĞÀ» ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas lire cela.";
+
+"´õ ÀÌ»ó ÀÌ ¾ÆÀÌÅÛÀ¸·Î ¼Ó¼ºÀ» Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù";
+"Cet objet ne peut plus être amélioré. Le nombre maximum de bonus a été atteint.";
+
+"´õ ÀÌ»ó ÀÌ ¾ÆÀÌÅÛÀ» ÀÌ¿ëÇÏ¿© ¼Ó¼ºÀ» Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Cet objet ne peut plus être amélioré. Le nombre maximum de bonus a été atteint.";
+
+"´õÀÌ»ó Ä³³¾ ¼ö ¾ø½À´Ï´Ù.";
+"Il n'y a rien à supprimer.";
+
+"´øÀü ¾È¿¡¼­´Â %s%s »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"%s%s ne peut etre utilisé dans un donjon.";
+
+"µ¶ ÀúÇ× %d%%";
+"Résistance au poison %d%%.";
+
+"µ¶°ø°İ %d";
+"Dégats empoisonnée %d.";
+
+"µ· %d ³ÉÀ» È¹µæÇß½À´Ï´Ù.";
+"Vous avez reçu %d Yangs.";
+
+"µ· µå·ÓÀ² %.1f¹è";
+"Chance de drop de Yangs %. 1f";
+
+"µ·ÀÌ ºÎÁ·ÇÏ°Å³ª ¾ÆÀÌÅÛÀÌ Á¦ÀÚ¸®¿¡ ¾ø½À´Ï´Ù.";
+"Vous n'avez pas assez de Yangs ou votre inventaire est plein.";
+
+"µ¿¹°·ù ¸ó½ºÅÍ Å¸°İÄ¡ +%d%%";
+"Puissance d'attaque à cheval contre les monstres: +%d%%.";
+
+"µ¿ÀÏÇÑ ¸Ó¸® ½ºÅ¸ÀÏ·Î´Â ±³Ã¼ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas utiliser cela.";
+
+"µÎ¼Õ°Ë ¹æ¾î %d%%";
+"Défense contre l'épée à deux-mains %d%%.";
+
+"µĞ°© Áß¿¡´Â ´É·ÂÀ» ¿Ã¸± ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas monter votre personnage pendant une transformation.";
+
+"µĞ°© Áß¿¡´Â Âø¿ëÁßÀÎ Àåºñ¸¦ º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas équiper d'objet quand vous êtes transformé.";
+
+"µĞ°©¼­ ¼ö·ÃÀ» ¸¶Ãº½À´Ï´Ù. ½Å¼±¿¡°Ô Ã£¾Æ°¡¼¼¿ä.";
+"Vous avez terminé votre entrainement.";
+
+"µĞ°©¿¡ ½ÇÆĞ ÇÏ¿´½À´Ï´Ù";
+"La polymorphie a échoué.";
+
+"µåµğ¾î ³¡ÀÌ º¸ÀÌ´Â °Ç°¡...  ÀÌ ±â¼úÀº ÀÌÇØÇÏ±â°¡ ³Ê¹« Èûµé¾î..";
+"Vous devez vous entrainer dur pour apprendre cette technique.";
+
+"¶³¾îÁø ¾ÆÀÌÅÛÀº 3ºĞ ÈÄ »ç¶óÁı´Ï´Ù.";
+"L'objet lâché disparaitra dans 3 minutes.";
+
+"¶ß°Å¿î ¹«¾ùÀÌ °è¼Ó ¿ë¼ÚÀ½Ä¡°í ÀÖ¾î! ÀÌ°Ç, ÀÌ°ÍÀº!";
+"Mon corps est chargé de puissance !";
+
+"·¹º§ 20 ÀÌÇÏ´Â ÇÚµåÆù ¹øÈ£¸¦ µî·ÏÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous devez avoir atteint le niveau 20 pour faire celà.";
+
+"·¹º§ 30ÀÌ µÇ±â Àü¿¡´Â ½ÀµæÇÒ ¼ö ÀÖÀ» °Í °°Áö ¾Ê½À´Ï´Ù.";
+"Vous devez avoir atteint le niveau 30 pour faire celà.";
+
+"·¹º§ 50ÀÌ µÇ±â Àü¿¡´Â ½ÀµæÇÒ ¼ö ÀÖÀ» °Í °°Áö ¾Ê½À´Ï´Ù.";
+"Vous devez avoir atteint le niveau 50 pour faire celà.";
+
+"·¹º§ÀÌ ³·¾Æ Âø¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Votre niveau est insuffisant pour cet équipement.";
+
+"·Î±×ÀÎ È­¸éÀ¸·Î µ¹¾Æ °©´Ï´Ù. Àá½Ã¸¸ ±â´Ù¸®¼¼¿ä.";
+"Retour à la fenêtre de connexion. Veuillez patienter.";
+
+"·ê·¿À» µ¹¸³´Ï´Ù. ±İ¾× %d";
+"Participez au tirage pour %d Yang.";
+
+"¸¦";
+" ";
+
+"¸¶¹ı °ø°İ·Â +%d";
+"Attaque magique +%d.";
+
+"¸¶¹ı ¹æ¾î·Â +%d";
+"Défense magique +%d.";
+
+"¸¶¹ı ÀúÇ× %d%%";
+"Résistance à la magie %d%%.";
+
+"¸¶À½ÀÌ ¸¼¾ÆÁö´Â±º. °¡½¿À» Áş´©¸£´ø ¹«¾ğ°¡°¡ Á» °¡º­¿öÁø ´À³¦ÀÌ¾ß.";
+"Vous avez l'esprit clair. Vous pouvez vous concentrer correctement à présent.";
+
+"¸¹Àº Âü¿© ºÎÅ¹µå¸³´Ï´Ù.";
+"Venez nombreux !";
+
+"¸» ¼ÒÈ¯ ¾ÆÀÌÅÛÀ» »ç¿ëÇÏ¼¼¿ä.";
+"Veuillez utiliser un objet pour appeler un cheval.";
+
+"¸» ¼ÒÈ¯¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"<Cheval> L'appel de votre cheval a échoué.";
+
+"¸»¿¡°Ô %s%s ÁÖ¾ú½À´Ï´Ù.";
+"<Cheval> Vous donnez à votre cheval: %s%s";
+
+"¸»¿¡°Ô »ç·á¸¦ ÁÖ¾ú½À´Ï´Ù.";
+"<Cheval> Vous avez nourri votre cheval.";
+
+"¸»¿¡°Ô ¼±ÃÊ¸¦ ÁÖ¾ú½À´Ï´Ù.";
+"<Cheval> Vous avez nourri votre cheval.";
+
+"¸»¿¡¼­ ¸ÕÀú ³»·Á¾ß ÇÕ´Ï´Ù.";
+"Veuillez descendre de votre cheval avant de le renvoyer.";
+
+"¸»À» µ¹·Áº¸³Â½À´Ï´Ù.";
+"Vous renvoyez votre cheval.";
+
+"¸»À» ¸ÕÀú ¼ÒÈ¯ÇØÁÖ¼¼¿ä.";
+"Veuillez appeler votre cheval auparavant.";
+
+"¸»À» ¼ÒÀ¯ÇÏ°í ÀÖÁö ¾Ê½À´Ï´Ù.";
+"Vous n'avez pas de monture.";
+
+"¸»À» Åº »ó´ë¿Í °¨Á¤Ç¥ÇöÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez utiliser les émotions sur un cheval.";
+
+"¸»À» Åº »óÅÂ¿¡¼­ °¨Á¤Ç¥ÇöÀ» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez utiliser les émotions.";
+
+"¸»À» Åº »óÅÂ¿¡¼­ ¿¹º¹À» ÀÔÀ» ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas monter à cheval pendant un mariage.";
+
+"¸»À» Åº »óÅÂ¿¡¼­´Â ¸ÔÀÌ¸¦ ÁÙ ¼ö ¾ø½À´Ï´Ù.";
+"Descendez du cheval pour le nourrir.";
+
+"¸»ÀÇ ½ºÅ×¹Ì³Ê°¡ ºÎÁ·ÇÏ¿© ¸»À» Å» ¼ö ¾ø½À´Ï´Ù.";
+"L'endurance de votre cheval est trop faible.";
+
+"¸»ÀÌ ¾ø½À´Ï´Ù. ¸¶±Â°£ °æºñº´À» Ã£¾Æ°¡¼¼¿ä.";
+"Appelez votre cheval.";
+
+"¸»ÀÌ Á×¾îÀÖ´Â »óÅÂ ÀÔ´Ï´Ù.";
+"Votre cheval est mort.";
+
+"¸ÂÀ¸¸é O, Æ²¸®¸é X·Î ÀÌµ¿ÇØÁÖ¼¼¿ä";
+"Si ceci est vrai, allez sur O. Si ceci est faux, allez sur X.";
+
+"¸Ó´Ï  ·ê·¿ ½ÃÀÛ.";
+"Vous changez l'amélioration.";
+
+"¸ÕÀú ´ÙÀÌ¾Æ¸óµå·Î ¾Ç¼¼¼­¸®¿¡ ¼ÒÄÏÀ» Ãß°¡ÇØ¾ßÇÕ´Ï´Ù.";
+"Veuillez ajouter des emplacements avant d'ajouter des minerais.";
+
+"¸ÕÀú ÀÏ¾î ³ª¼¼¿ä.";
+"Levez-vous.";
+
+"¸ÕÀú Àç°¡ºñ¼­¸¦ ÀÌ¿ëÇÏ¿© ¼Ó¼ºÀ» Ãß°¡½ÃÄÑ ÁÖ¼¼¿ä.";
+"Seul l'orbe de bénédiction peut être utilisé pour un objet possédant déjà 4 bonus.";
+
+"¸ŞÆ¾2ÀÎÁõ¹øÈ£: %s";
+"Mot de passe: %s";
+
+"¸ŞÆ¾¼® ºÎÂø¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.";
+"Cette Pierre d'esprit à été liée avec succés.";
+
+"¸ŞÆ¾¼® ºÎÂø¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"Cette Pierre d'esprit s'est brisée lors de la tentative de liaison.";
+
+"¸í·É¾î¸¦ ¸ğµÎ ÀÔ·ÂÇÏ¼¼¿ä.";
+"Commande incomplète.";
+
+"¸í·É¾îÀÇ ¼­ºê Ä¿¸Çµå°¡ Àß¸ø µÇ¾ú½À´Ï´Ù.";
+"Commande invalide.";
+
+"¸ğ´ÚºÒÀ» ÇÇ¿ï ¼ö ¾ø´Â ÁöÁ¡ÀÔ´Ï´Ù.";
+"Vous ne pouvez pas faire de feu de camp ici!";
+
+"¸ñ¼ûÀ» °É°í ÀüÅõ Áß ÀÔ´Ï´Ù. ÁıÁß ÇÏ¼¼¿ä.";
+"S'il vous plait, concentrez vous!";
+
+"¸ó½ºÅÍµéÀÇ °ø°İ±îÁö 1ºĞ ³²¾Ò½À´Ï´Ù!!!";
+"Il vous reste une minute pour tuer le monstre.";
+
+"¸ó½ºÅÍµéÀÇ °ø°İ±îÁö 5ºĞ ³²¾Ò½À´Ï´Ù!!!";
+"Il vous reste cinq minutes pour tuer le monstre.";
+
+"¸ó½ºÅÍµéÀÇ ´ëÀåÀÌ ³ªÅ¸³µ½À´Ï´Ù.";
+"Le boss a été libéré.";
+
+"¸ó½ºÅÍµéÀÌ ¹°·¯°¡±â ½ÃÀÛÇß½À´Ï´Ù.";
+"Les monstres se sont retirés.";
+
+"¸ó½ºÅÍµéÀÌ ¹°·¯°¥ Á¶ÁüÀ» º¸ÀÔ´Ï´Ù.";
+"Quelques monstres se sont retirés.";
+
+"¸ó½ºÅÍµéÀÌ ¼ºÀ» °ø°İÇÏ±â ½ÃÀÛÇß½À´Ï´Ù.";
+"Les monstres ont commencés a attaquer le château.";
+
+"¸ó½ºÅÍ¿¡°Ô °­ÇÔ +%d%%";
+"Puissance contre les monstres + %d%%.";
+
+"¸ö ¼ÓÀÌ ¶ß°Ì±º. ÇÏÁö¸¸ ¾ÆÁÖ Æí¾ÈÇØ. ÀÌ´ë·Î ±â¸¦ ¾ÈÁ¤½ÃÅ°ÀÚ.";
+"Il me consume intérieurement, mais par contre il calme mon corps!";
+
+"¸ö¿¡¼­ ¹º°¡ ÈûÀÌ ÅÍÁ® ³ª¿À´Â ±âºĞÀÌ¾ß!";
+"Je commence à assimiler la technique...";
+
+"¹«´ç°ø°İ¿¡ %d%% ÀúÇ×";
+"Résistance contre les attaques chamanes %d%%.";
+
+"¹«´ç¿¡°Ô °­ÇÔ +%d%%";
+"Puissance contre les chamanes +%d%%.";
+
+"¹«·á °³·® ±âÈ¸´Â 20 ÀÌÇÏÀÇ ¹«±â¸¸ °¡´ÉÇÕ´Ï´Ù";
+"L'amélioration des items en dessous du niveau 20 est gratuite!";
+
+"¹«»ç°ø°İ¿¡ %d%% ÀúÇ×";
+"Résistance aux guerriers %d%%.";
+
+"¹«»ç¿¡°Ô °­ÇÔ +%d%%";
+"Résistance contre les attaques guerriers +%d%%.";
+
+"¹®ÀÚ ¸Ş¼¼Áö Àü¼Û¿¡´Â 2000¿øÀÌ ÇÊ¿ä ÇÕ´Ï´Ù.";
+"Vous avez besoin de 2000 Yangs pour envoyer un message privé.";
+
+"¹®ÀÚ ¸Ş¼¼Áö Àü¼ÛÀº ·¹º§ 20ºÎÅÍ ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Vous devez avoir atteint le niveau 20 pour envoyer un message privé.";
+
+"¹®ÀÚ ¸Ş¼¼Áö¸¦ Àü¼Û Çß½À´Ï´Ù.";
+"Votre message a été envoyé.";
+
+"¹®Á¦ ÀÔ´Ï´Ù.";
+"Question.";
+
+"¹®Á¦¸¦ ÃâÁ¦ÇÏ¿´½À´Ï´Ù.";
+"Une erreur s'est produite.";
+
+"¹®Á¦¸¦ ÃâÁ¦ÇÏÁö ¸øÇß½À´Ï´Ù.";
+"Aucune erreur ne s'est produite.";
+
+"¹° ¼Ó¿¡ ¸ğ´ÚºÒÀ» ÇÇ¿ï ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas faire du feu sous l'eau.";
+
+"¹°¸®Å¸°İ½Ã ºí·° È®·ü %d%%";
+"Chance de bloquer une attaque physique %d%%.";
+
+"¹°¾à »ç¿ë½Ã %d%% ¼º´É Áõ°¡";
+"Augmente la vie de %d%% quand la potion est utilisée.";
+
+"¹°¾à Á¦Á¶¿¡ ½ÇÆĞÇß½À´Ï´Ù.";
+"Impossible de créer la potion.";
+
+"¹°¾à Á¦ÇÑÀÌ ¾ø½À´Ï´Ù.";
+"Il n'y a aucune limite pour les potions.";
+
+"¹°¾à Á¶ÇÕÀ» À§ÇÑ Àç·á°¡ ºÎÁ·ÇÕ´Ï´Ù.";
+"Il n'y a pas assez d'ingrédients pour faire la potion.";
+
+"¹°¾àÀ» %d °³ ±îÁö »ç¿ë °¡´ÉÇÕ´Ï´Ù.";
+"Vous pouvez utiliser jusqu'à %d potions.";
+
+"¹º°¡ ¸ö ¾È¿¡ ÈûÀÌ »ı±â´Â ±âºĞÀÎ °É.";
+"Je me sens rafraîchi.";
+
+"¹Ì³¢¸¦ ³¢°í ´øÁ® ÁÖ¼¼¿ä.";
+"Mettez un appât sur votre hameçon.";
+
+"¹ÎÃ¸ +%d";
+"Agilité +%d.";
+
+"¹ÎÃ¸ÀÌ ³·¾Æ Âø¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous n'avez pas assez d'agilité pour pouvoir équiper l'objet.";
+
+"¹Ğ±³·ù Å¸°İÄ¡ +%d%%";
+"Puissance contre les Esoteriques +%d%%.";
+
+"¹Ù¶÷ ÀúÇ× %d%%";
+"Résistance au vent %d%%.";
+
+"¹æ¾î·Â +%d";
+"Armure + %d.";
+
+"¹æ¾î·Â +%d%%";
+"Défense + %d%%.";
+
+"¹æ¿ï ¹æ¾î %d%%";
+"Défense contre les flèches %d%%.";
+
+"¹è ¼Ó¿¡¼­ Á¶°³°¡ ³ª¿Ô½À´Ï´Ù.";
+"Il y a un coquillage dans l'estomac du poisson.";
+
+"¹è ¼Ó¿¡¼­ Áö··ÀÌ°¡ ³ª¿Ô½À´Ï´Ù.";
+"Il y a un ver dans le poisson!";
+
+"¹ö¸± ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù.";
+"Vous ne pouvez pas lâcher cet objet.";
+
+"º¯°æ ½ÃÅ³ ¼Ó¼ºÀÌ ¾ø½À´Ï´Ù";
+"Aucun bonus disponible.";
+
+"º¯°æÇÒ ¼Ó¼ºÀÌ ¾ø½À´Ï´Ù.";
+"Aucun bonus disponible.";
+
+"º¯½Å »óÅÂ¿¡¼­´Â ¸»¿¡ Å» ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas faire cela pendant une polymorphie.";
+
+"º¯½ÅÁß¿¡´Â Ã¥À» ÀĞÀ»¼ö ¾ø½À´Ï´Ù.";
+"Vous devez enlever votre armure pour ouvrir un magasin.";
+
+"ºÎÂøÇÒ ¼ö ÀÖ´Â ½½·ÔÀÌ ¾ø½À´Ï´Ù.";
+"Pas d'emplacement libre.";
+
+"ºÎÃ¤ ¹æ¾î %d%%";
+"Résistance contre l'éventail %d%%.";
+
+"ºÒ¹ı ÇÁ·Î±×·¥ÀÌ °¨Áö µÇ¾î °ÔÀÓÀÌ Á¾·á µË´Ï´Ù.";
+"Logiciel illégales détectées. Vous allez être déconnecté.";
+
+"ºñ¼Ó¾î³ª Àº¾î°¡ Æ÷ÇÔµÈ »óÁ¡ ÀÌ¸§À¸·Î »óÁ¡À» ¿­ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez ouvrir l'entrepôt.";
+
+"ºó º´ÀÌ ¸ğÀÚ¸¨´Ï´Ù.";
+"Pas suffisamment de bouteilles vides.";
+
+"»©³¾ ¼ö ÀÖ´Â ¸ŞÆ¾¼®ÀÌ ¾ø½À´Ï´Ù.";
+"Aucune pierre d'esprit ne peut être retirée.";
+
+"»©³¾ ¿µ¼®ÀÌ ¾ø½À´Ï´Ù";
+"Il n'y a pas de pierre qui puisse être enlevée.";
+
+"»ç±Í Å¸¿ö ¿Ï·á º¸»óÀº ÇÑ¹ø±îÁö »ç¿ë°¡´ÉÇÕ´Ï´Ù.";
+"Vous ne pouvez être récompensé qu'une fois pour la Quête de la Tour des Démons.";
+
+"»ç¿ë Á¦ÇÑ·®À» ÃÊ°úÇÏ¿´½À´Ï´Ù.";
+"C'est supérieur à la limite";
+
+"»ç¿ë¹ı: transfer <name>";
+"USE: transfer <name>";
+
+"»ç¿ë¹ı: warpto <character name>";
+"Order: warp to <character name>";
+
+"»ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Ne peux être utilisé";
+
+"»ï°Å¸® ¸÷ ¸®Á¨";
+"Nombre d'ennemis dans la bataille pour l'empire.";
+
+"»ï°Å¸® ÀüÅõ Âü°¡Áß¿¡´Â ±ÍÈ¯ºÎ,±ÍÈ¯±â¾ïºÎ¸¦ »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez utiliser ce parchemin.";
+
+"»ï°Å¸® ÀüÅõ¿¡¼­ %s ±¹°¡°¡ °¡Àå¸ÕÀú Å»¶ôÀ» ÇÏ¿´½À´Ï´Ù";
+"L'empire %s a perdu la bataille, il est éliminé.";
+
+"»ó´ë¹æ Ä³¸¯ÅÍ°¡ Á¢¼ÓÀ» Á¾·áÇÏ¿© ´ë·ÃÀ» ÁßÁöÇÕ´Ï´Ù.";
+"La bataille est terminée, les combattants vont être renvoyés.";
+
+"»ó´ë¹æ Ä³¸¯ÅÍÀÇ ¹®Á¦·Î ÀÎÇÏ¿© ´ë·ÃÀ» Á¾·áÇÕ´Ï´Ù.";
+"La bataille est arrêtée.";
+
+"»ó´ë¹æÀÇ µ·ÀÌ ºÎÁ·ÇÏ°Å³ª ¾ÆÀÌÅÛÀÌ Á¦ÀÚ¸®¿¡ ¾ø½À´Ï´Ù.";
+"L'autre joueur n'a pas assez de Yangs ou pas assez de place dans l'invetaire.";
+
+"»ó´ë¹æÀÇ ¼ÒÁöÇ°¿¡ ºó °ø°£ÀÌ ¾ø½À´Ï´Ù.";
+"L'autre joueur n'a pas assez de place dans son inventaire.";
+
+"»ó´ë¹æÀÇ ÃÑ±İ¾×ÀÌ 20¾ï ³ÉÀ» ÃÊ°úÇÏ¿© °Å·¡¸¦ ÇÒ¼ö°¡ ¾ø½À´Ï´Ù..";
+"L'autre joueur n'a plus de place pour son argent.";
+
+"»ó´ë¹æÀÌ %d Ã¤³Î¿¡ ÀÖ½À´Ï´Ù. (ÇöÀç Ã¤³Î %d)";
+"Erreur, le joueur est dans le channel %d et vous êtes dans le channel %d.";
+
+"»ó´ë¹æÀÌ ±³È¯ °ÅºÎ »óÅÂÀÔ´Ï´Ù.";
+"La demande d'échange a été déclinée.";
+
+"»ó´ë¹æÀÌ ´Ù¸¥ °Å·¡¸¦ ÇÏ°í ÀÖ´Â ÁßÀÔ´Ï´Ù.";
+"L'autre joueur procède déjà à un échange avec une autre personne.";
+
+"»ó´ë¹æÀÌ ´Ù¸¥ °Å·¡ÁßÀÌ¶ó °Å·¡¸¦ ÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Ce joueur est déjà en échange.";
+
+"»ó´ë¹æÀÌ ´ë·ÃÁßÀÔ´Ï´Ù.";
+"Le joueur est déjà dans un autre groupe.";
+
+"»ó´ë¹æÀÌ ¸Ş½ÅÁ® Ãß°¡ °ÅºÎ »óÅÂÀÔ´Ï´Ù.";
+"Le joueur n'accepte pas les demandes d'amis.";
+
+"»ó´ë¹æÀÌ ¿Â¶óÀÎ »óÅÂ°¡ ¾Æ´Õ´Ï´Ù.";
+"Votre conjoint(e) n'est pas en ligne.";
+
+"»ó´ë¹æÀÌ ÀÖ´Â °÷À¸·Î ¿öÇÁÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Impossible de se téléporter vers le joueur.";
+
+"»ó´ë¹æÀÌ ÆÄÆ¼¿¡ ¼ÓÇØÀÖÁö ¾Ê½À´Ï´Ù.";
+"Ce joueur n'est pas dans votre groupe.";
+
+"»óÀÚ°¡ °©ÀÚ±â Æø¹ßÇÏ¿´½À´Ï´Ù! »ı¸í·ÂÀÌ °¨¼ÒÇß½À´Ï´Ù.";
+"La boite a explosé tout à coup. Vous perdez des points de vie.";
+
+"»óÀÚ¿¡¼­ %s °¡ %d °³ ³ª¿Ô½À´Ï´Ù.";
+"Vous avez reçu %s, %d unités.";
+
+"»óÀÚ¿¡¼­ %s °¡ ³ª¿Ô½À´Ï´Ù.";
+"Il y a %s dans cette boite.";
+
+"»óÀÚ¿¡¼­ ³ª¿Â ³ì»ö ¿¬±â¸¦ µéÀÌ¸¶½ÃÀÚ µ¶ÀÌ ¿Â¸öÀ¸·Î ÆÛÁı´Ï´Ù!";
+"Une fumée verte s'échape de la boite et vous empoisonne.";
+
+"»óÀÚ¿¡¼­ ³ª¿Â »¡°£ ¿¬±â¸¦ µéÀÌ¸¶½ÃÀÚ ¿òÁ÷ÀÌ´Â ¼Óµµ°¡ ´À·ÁÁ³½À´Ï´Ù!";
+"La fumée monte tranquillement hors de la boîte, vous pouvez respirer mais celà vous ralentit.";
+
+"»óÀÚ¿¡¼­ ¸ó½ºÅÍ°¡ ³ªÅ¸³µ½À´Ï´Ù!";
+"Des monstres sont sortie de cette boîte...";
+
+"»óÀÚ¿¡¼­ ºÎÅÍ ½ÅºñÇÑ ºûÀÌ ³ª¿É´Ï´Ù.";
+"Vous avez obtenus de l'experience.";
+
+"»óÁ¡°úÀÇ °Å¸®°¡ ³Ê¹« ¸Ö¾î ¹°°ÇÀ» »ì ¼ö ¾ø½À´Ï´Ù.";
+"Vous êtes trop loin.";
+
+"»óÁ¡°úÀÇ °Å¸®°¡ ³Ê¹« ¸Ö¾î ¹°°ÇÀ» ÆÈ ¼ö ¾ø½À´Ï´Ù.";
+"Vous êts trop loin du magasin pour pouvoir acheter quelque chose.";
+
+"»óÇ°À» ¹ŞÀ» ÀÎº¥Åä¸®°¡ ºÎÁ·ÇÕ´Ï´Ù. ÀÎº¥Åä¸®¸¦ ºñ¿öÁÖ¼¼¿ä!";
+"Votre inventaire est plein.";
+
+"»ı°¢¸¸Å­ ÀĞ±â°¡ ½±Áö°¡ ¾Ê±º. ÀÌÇØµµ ¾î·Æ°í ³»¿ëµµ ³­ÇØÇØ.";
+"Je relis la même ligne encore et encore.";
+
+"»ı¸í·Â È¸º¹ +%d";
+"Récupération de mana +%d.";
+
+"¼­¹ö¿¡ Ä¡¸íÀûÀÎ ¿À·ù°¡ ¹ß»ıÇÏ¿© ÀÚµ¿À¸·Î ÀçºÎÆÃµË´Ï´Ù.";
+"Une erreur critique s'est produite, le serveur sera redémarré automatiquement.";
+
+"¼±¾ÇÄ¡°¡ %d Áõ°¡ÇÏ¿´½À´Ï´Ù.";
+"Votre rang a été augmenté de %d points.";
+
+"¼±¾ÇÄ¡¸¦ ´õ ÀÌ»ó ¿Ã¸± ¼ö ¾ø½À´Ï´Ù.";
+"Votre grade est déjà à son maximum de points.";
+
+"¼±ÅÃ ¸Ê Á¤º¸ ¼ºÁö %d Åë·Î %d %d %d";
+"Informations sur la carte: %d - %d %d %d";
+
+"¼º°øÀûÀ¸·Î ¼Ó¼ºÀÌ Ãß°¡ µÇ¾ú½À´Ï´Ù";
+"Amélioration ajoutée avec succès.";
+
+"¼ºº°ÀÌ ¸ÂÁö¾Ê¾Æ ÀÌ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Cet objet ne peut être ouvert que par un individu de l'autre sexe.";
+
+"¼ºº°ÀÌ ¸ÂÁö¾Ê¾Æ ÀÌ ¾ÆÀÌÅÛÀ» ¿­ ¼ö ¾ø½À´Ï´Ù.";
+"Cet objet ne peut être ouvert que par un individu de l'autre sexe.";
+
+"¼º¿¡¼­¸¸ »ç¿ëÇÒ ¼ö ÀÖ´Â ±â´ÉÀÔ´Ï´Ù.";
+"Joueur non trouvé";
+
+"¼ºÁöÀÇ ¸¶¿Õ: ³ÊÈñ ";
+"Le démon du lieu saint.";
+
+"¼ºÁö¿¡¼­ ºÎÈ° ±âÈ¸¸¦ ¸ğµÎ ÀÒ¾ú½À´Ï´Ù! ¸¶À»·Î ÀÌµ¿ÇÕ´Ï´Ù!";
+"Vous avez perdu la chance de résurrection. Retournez à la cité.";
+
+"¼¼±İÀÌ %d %·Î ¼³Á¤µÇ¾ú½À´Ï´Ù";
+"Les impôts ont été modifiés à %d %.";
+
+"¼Ë´Ù¿îÀÌ %dÃÊ ³²¾Ò½À´Ï´Ù.";
+"%d secondes avant la fermeture du serveur.";
+
+"¼ÒÀ¯ µ·ÀÌ 20¾ï³ÉÀ» ³Ñ¾î °Å·¡¸¦ ÇÛ¼ö°¡ ¾ø½À´Ï´Ù.";
+"Vous avez plus de 2 milliards de Yang. Vous ne pouvez pas échanger.";
+
+"¼ÒÁö±İÀÌ ºÎÁ·ÇÏ¿© ÀÌ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù";
+"Vous n'avez pas assez de Yangs.";
+
+"¼ÒÁöÇ°¿¡ ºó °ø°£ÀÌ ¾ø½À´Ï´Ù.";
+"Votre inventaire est plein.";
+
+"¼ÒÁöÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛÀÌ ³Ê¹« ¸¹½À´Ï´Ù.";
+"Votre inventaire est plein.";
+
+"¼ÒÄÏ Ãß°¡¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"Aucun emplacement ajoutée.";
+
+"¼ÒÄÏÀÌ ¼º°øÀûÀ¸·Î Ãß°¡µÇ¾ú½À´Ï´Ù.";
+"Emplacement ajoutée avec succès.";
+
+"¼ÒÈ¯ ¿äÃ»À» º¸³Â½À´Ï´Ù";
+"Demande envoyée.";
+
+"¼ÒÈ¯ÇÒ¼ö ¾ø´Â ¸ó½ºÅÍ ÀÔ´Ï´Ù. ¼ÒÈ¯°¡´ÉÇÑ ¸ó½ºÅÍ´Â È¨ÆäÀÌÁö¸¦ ÂüÁ¶ÇÏ¼¼¿ä";
+"Le monstre ne peut pas être appelé. Vérifiez l'ID du monstre.";
+
+"¼Ó¼º Ãß°¡¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.";
+"Amélioration ajoutée avec succès.";
+
+"¼Ó¼º Ãß°¡¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"Aucune amélioration ajoutée.";
+
+"¼Ó¼ºÀ» ¹Ù²ÛÁö %dºĞ ÀÌ³»¿¡´Â ´Ù½Ã º¯°æÇÒ ¼ö ¾ø½À´Ï´Ù.(%d ºĞ ³²À½)";
+"Vous ne pouvez faire cela qu'au bout de 10 minutes après votre amélioration. (%d minutes restantes.)";
+
+"¼Ó¼ºÀ» º¯°æÇÏ¿´½À´Ï´Ù.";
+"Vous changez l'amélioration.";
+
+"¼Ó¼ºÀ» º¯°æÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù.";
+"Vous ne pouvez pas ajouter de bonus à cet objet.";
+
+"¼ö¶ó°ø°İ¿¡ %d%% ÀúÇ×";
+"%d%% de résistance contre les attaques suras.";
+
+"¼ö¶ó¿¡°Ô °­ÇÔ +%d%%";
+"Puissance contre les suras +%d%%.";
+
+"¼ö·ÃÀÌ ½ÇÆĞ·Î ³¡³µ½À´Ï´Ù. ´Ù½Ã µµÀüÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.";
+"Entrainement échoué. Veuillez réessayer plus tard.";
+
+"¼ö·ÃÇÒ ¼ö ¾ø´Â ½ºÅ³ÀÔ´Ï´Ù.";
+"Vous ne pouvez pas apprendre cette compétence.";
+
+"½ºÅ³ µ¥¹ÌÁö %d%%";
+"Degat de sort %d%%.";
+
+"½ºÅ³ µ¥¹ÌÁö ÀúÇ× %d%%";
+"Résistance contre les dégats des sorts %d%%.";
+
+"½ºÅ³ ·¹º§À» ³»¸®´Âµ¥ ¼º°øÇÏ¿´½À´Ï´Ù.";
+"Vos points de compétences ont été réinitialisés avec succés.";
+
+"½ºÅ³ ·¹º§À» ³»¸± ¼ö ¾ø½À´Ï´Ù.";
+"Impossible de réinitialiser vos compétences.";
+
+"½ºÅÏ +%d";
+"Etourdissement +%d.";
+
+"½½·Î¿ì +%d";
+"Augmentation de la hâte +%d.";
+
+"½Â¸¶ ¼ö·Ã¼­ ÀÌÇØ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"Entrainement échoué. Veuillez réessayer plus tard.";
+
+"½Â¸¶ ¼ö·Ã¼­¸¦ ÀĞ¾î ½Â¸¶ ½ºÅ³ Æ÷ÀÎÆ®¸¦ ¾ò¾ú½À´Ï´Ù.";
+"Vous avez reçu un point d'équitation après avoir lu un manuel d'équitation.";
+
+"½ÃÃ¼·ù Å¸°İÄ¡ +%d%%";
+"Puissance contre les mort-vivants +%d%%";
+
+"½Å¼ö±¹";
+"Shinsoo";
+
+"¾²·¯Áø »óÅÂ¿¡¼­´Â ¸»¿¡ Å» ¼ö ¾ø½À´Ï´Ù.";
+"Impossible quand vous êtes étourdis.";
+
+"¾²·¯Áø »óÅÂ¿¡¼­´Â ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas faire cela alors que vous êtes à terre.";
+
+"¾Æ´Ï ¾î¶»°Ô µÈ °Ô Á¾ÀÏ ÀĞ¾îµµ ¸Ó¸®¿¡ ¾È µé¾î¿À³Ä.";
+"Je relis à nouveau la même ligne...";
+
+"¾Æ¹«°Íµµ ¾òÀ» ¼ö ¾ø¾ú½À´Ï´Ù.";
+"Vous ne pouvez pas ouvrir cette boite.";
+
+"¾ÆÀÌÅÛ °³·®ÈÄ %dÃÊ ÀÌ³»¿¡´Â ±ÍÈ¯ºÎ,±ÍÈ¯±â¾ïºÎ¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous pourrez utiliser a nouveau un parchemin dans %d secondes.";
+
+"¾ÆÀÌÅÛ °³·®ÈÄ %dÃÊ ÀÌ³»¿¡´Â ±ÍÈ¯ºÎ,±ÍÈ¯±â¾ïºÎ¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous pourrez utiliser a nouveau un parchemin dans %d secondes.";
+
+"¾ÆÀÌÅÛ µå·Ó·ü  %d%% Ãß°¡ ÀÌº¥Æ® ÁßÀÔ´Ï´Ù.";
+"Le quota d'objets lâchés est augmenté de %d%%.";
+
+"¾ÆÀÌÅÛ µå·ÓÀ² %.1f¹è";
+"Votre guilde retombe à %d points dans le classement.";
+
+"¾ÆÀÌÅÛ ·ê·¿ ½ÃÀÛ.";
+"Le tirage a été lancé.";
+
+"¾ÆÀÌÅÛ Àü´Ş: %s ´Ô¿¡°Ô %s";
+"Objets échangés : %s, %s.";
+
+"¾ÆÀÌÅÛ È¹µæ: %s";
+"Vous avez reçu %s.";
+
+"¾ÆÀÌÅÛ È¹µæ: %s ´ÔÀ¸·ÎºÎÅÍ %s";
+"Objets reçus : %s, %s exemplaires.";
+
+"¾ÆÀÌÅÛ·Î±×°¡ syslog ¿¡ ³²¾Ò½À´Ï´Ù";
+"L'historique des items est dans le syslog.";
+
+"¾ÆÀÌÅÛÀ» °Ç³×ÁÙ ¼ö ¾ø½À´Ï´Ù.";
+"Cet objet n'est pas échangeable.";
+
+"¾ÆÀÌÅÛÀÇ ·¹º§ Á¦ÇÑº¸´Ù ·¹º§ÀÌ ³·½À´Ï´Ù.";
+"Votre niveau n'est pas assez élevé pour pouvoir utiliser cet objet.";
+
+"¾ÆÁ÷ ¸¶À»¿¡¼­ Àç½ÃÀÛ ÇÒ ¼ö ¾ø½À´Ï´Ù. (%d ÃÊ ³²À½)";
+"Aucun démarrage possible dans la ville, attendez %d secondes.";
+
+"¾ÆÁ÷ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas utiliser ceci maintenant.";
+
+"¾ÆÁ÷ ½Â¸¶ ½ºÅ³À» ¼ö·ÃÇÒ ¼ö ÀÖ´Â ·¹º§ÀÌ ¾Æ´Õ´Ï´Ù.";
+"Votre niveau est trop faible pour étudier des livres d'equitation.";
+
+"¾ÆÁ÷ ÀÌ ¸Ó¸®¸¦ »ç¿ëÇÒ ¼ö ¾ø´Â ·¹º§ÀÔ´Ï´Ù.";
+"Vous ne pouvez pas mettre ceci.";
+
+"¾ÆÁ÷ Àç½ÃÀÛ ÇÒ ¼ö ¾ø½À´Ï´Ù.(%dÃÊ ³²À½ )";
+"Pas de nouveau départ possible (%d secondes d'attente).";
+
+"¾ÆÁ÷ Àç½ÃÀÛ ÇÒ ¼ö ¾ø½À´Ï´Ù. (%dÃÊ ³²À½)";
+"Aucun nouveau démarrage possible actuellement, attendez %d secondes.";
+
+"¾Ç¸¶·ù Å¸°İÄ¡ +%d%%";
+"Puissance contre les démons: +%d%%";
+
+"¾È³çÇÏ¼¼¿ä. ¸ŞÆ¾2 ÀÔ´Ï´Ù.";
+"Une nouvelle session de l'OX-Contest vas";
+
+"¾×¼ö°¡ 20¾ï ³ÉÀ» ÃÊ°úÇÏ¿© °Å·¡¸¦ ÇÒ¼ö°¡ ¾ø½À´Ï´Ù..";
+"Vous avez dépassé le seuil de yang, vous ne pouvez plus interargir avec les autres.";
+
+"¾ç¼Õ°Ë ¹æ¾î %d%%";
+"Défense contre l'épée a deux mains %d%%";
+
+"¾î´ÀÁ¤µµ ÀÌ ±â¼ú¿¡ ´ëÇØ ÀÌÇØ°¡ µÇ¾úÁö¸¸ Á¶±İ ºÎÁ·ÇÑµí ÇÑµ¥..";
+"Je comprends de mieux en mieux cette compétence.";
+
+"¾îºÎ¸¦ ÅëÇØ ´ÙÀ½ ·¹º§ÀÇ ³¬½Ã´ë·Î ¾÷±×·¹ÀÌµå ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Vous pouvez améliorée votre ligne de pêche chez le pécheur.";
+
+"¾òÀº Æ÷ÀÎÆ®·Î´Â ½Â¸¶ ½ºÅ³ÀÇ ·¹º§À» ¿Ã¸± ¼ö ÀÖ½À´Ï´Ù.";
+"Vous pouvez améliorer votre équitation en utilisant ce point.";
+
+"¾ó¸¶ ¾È ³²¾Ò¾î! Á¶±İ¸¸ ´õ!";
+"Pas pour longtemps!";
+
+"¿©ÀÚ¸¸ ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Cet objet ne peut être ouvert que par un individu de l'autre sexe.";
+
+"¿¬°è±â´Â ´õÀÌ»ó ¼ö·ÃÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous utilisez le Combo a sa pleine puissance.";
+
+"¿­¼è°¡ ¸ÂÁö ¾Ê´Â °Í °°´Ù.";
+"Vous n'avez pas la bonne clé.";
+
+"¿­¼è´Â ¸ÂÀ¸³ª ¾ÆÀÌÅÛ ÁÖ´Â ºÎºĞ ±¸ÇöÀÌ ¾ÈµÇ¾ú½À´Ï´Ù.";
+"Il s'agit de la bonne clé!";
+
+"¿­¼è·Î ¿©´Â ¹°°ÇÀÌ ¾Æ´Ñ°Í °°´Ù.";
+"Cet objet ne peut pas être ouvert avec une clé.";
+
+"¿­¼è·Î Àá°Ü ÀÖ¾î¼­ ¿­¸®Áö ¾Ê´Â°Í °°´Ù. ¿­¼è¸¦ ±¸ÇØº¸ÀÚ.";
+"Vérouillé. Vous devriez peux être chercher une clé.";
+
+"¿­½ÉÈ÷ ÇÏ´Â ¹è¿òÀ» °¡Áö´Â °Í¸¸ÀÌ ±â¼úÀ» ¹è¿ï¼ö ÀÖ´Â À¯ÀÏÇÑ ±æÀÌ´Ù..";
+"Vous avez compris une partie de la technique mais il vous manque encore des connaissances.";
+
+"¿­Á¤ÀÇ °¡¸éÀ» Âø¿ë½Ã¿¡¸¸ ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Vous pouvez faire cela uniquement si vous portez un masque d'émotions.";
+
+"¿µ¼® °¨Áö±â°¡ ÈçÀûµµ ¾øÀÌ »ç¶óÁı´Ï´Ù";
+"Vous avez utilisé la boussole pour chercher des metin.";
+
+"¿µ¼® °¨Áö±â°¡ ½Åºñ·Î¿î ºûÀ» ³»¸ç »ç¶óÁı´Ï´Ù";
+"Vous avez utilisé la boussole pour chercher des metin.";
+
+"¿µ¼®Àº ÀÌ ¾ÆÀÌÅÛÀ¸·Î °³·®ÇÒ ¼ö ¾ø½À´Ï´Ù";
+"Vous ne pouvez pas l'améliorer";
+
+"¿¹º¹À» ÀÔÀº »óÅÂ¿¡¼­ ¸»À» Å» ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas monter avec une tenue de mariage.";
+
+"¿ÜÄ¡±â´Â À¯·áÈ¸¿ø¸¸ »ç¿ëÇÒ¼ö ÀÖ½À´Ï´Ù";
+"Vous avez besoin d'un livre d'appel!";
+
+"¿ÜÄ¡±â´Â ·¹º§ %d ÀÌ»ó¸¸ »ç¿ë °¡´É ÇÕ´Ï´Ù.";
+"Il faut être au moins niveau %d pour pouvoir parler en général.";
+
+"¿ë½ÅÀÇ °¡È£·Î °æÇèÄ¡°¡ ¶³¾îÁöÁö ¾Ê¾Ò½À´Ï´Ù.";
+"Vous ne perdez pas d'expérience du fait de la Bénédiction de l'Esprit du Dragon.";
+
+"¿ë½ÅÀÇ º¸È£·Î ¾ÆÀÌÅÛÀÌ ¶³¾îÁöÁö ¾Ê¾Ò½À´Ï´Ù.";
+"Vous avez été proteger par l'Esprit du Dragon.";
+
+"¿î¿µÀÚ Á¦Á¦·Î Ã¤ÆÃÀÌ ±İÁö µÇ¾ú½À´Ï´Ù.";
+"Vous avez été bannis du chat.";
+
+"¿õ±ÍÁ· Å¸°İÄ¡ +%d%%";
+"Puissance contre les Orcs: +%d%%";
+
+"¿ø·¡ À§Ä¡·Î º¹±Í";
+"Téléportation à ta dernière position";
+
+"¿ùº´ ¶Ç´Â Á¾ÀÚ ¸¦ »ç¿ëÇÏ¿´½À´Ï´Ù";
+"Ce gâteau de lune était délicieux.";
+
+"¿ùº´,Á¾ÀÚ »ç¿ëÈÄ 5ÃÊµ¿¾È »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez consommer des gâteaux de lûne que toutes les 5 secondes.";
+
+"À¯·áÈ­ ¾ÆÀÌÅÛÀº °³ÀÎ»óÁ¡¿¡¼­ ÆÇ¸ÅÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas vendre cet article dans un magasin privé!";
+
+"À»µÎÁö¸¦ ÅëÇÏ¿© ÀÔÀå °¡´ÉÇÕ´Ï´Ù.";
+"Montre ce dont tu est capable et recois un prix!";
+
+"ÀÌ °³·®¼­·Î °³·®ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Aucune amélioration possible.";
+
+"ÀÌ °³·®¼­·Î ´õ ÀÌ»ó °³·®ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Cette compétance est au maximum.";
+
+"ÀÌ °÷¿¡¼­ ¿µ¼® °¨Áö±â°¡ µ¿ÀÛÇÏÁö ¾Ê´Â°Í °°½À´Ï´Ù.";
+"La boussole des pierres Metin ne peux pas être utilisée ici.";
+
+"ÀÌ °÷¿¡¼± ÀÌº¥Æ®¿ë °¨Áö±â°¡ µ¿ÀÛÇÏÁö ¾Ê´Â°Í °°½À´Ï´Ù.";
+"La boussole des pierres Metin ne peux pas être utilisée ici.";
+
+"ÀÌ ¸ŞÆ¾¼®Àº ¹«±â¿¡ ºÎÂøÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez lier cette pierre a une armure.";
+
+"ÀÌ ¸ŞÆ¾¼®Àº Àåºñ¿¡ ºÎÂøÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez ajouter de pierre ici.";
+
+"ÀÌ ½ºÅ³Àº ¾ÆÁ÷ ±×·£µå ¸¶½ºÅÍ ¼ö·ÃÀ» ÇÒ °æÁö¿¡ ÀÌ¸£Áö ¾Ê¾Ò½À´Ï´Ù.";
+"Cette compétence n'est pas assez haute pour être entrainée avec une pierre d'âme.";
+
+"ÀÌ ½ºÅ³Àº ¾ÆÁ÷ Ã¥À¸·Î ¼ö·ÃÇÒ °æÁö¿¡ ÀÌ¸£Áö ¾Ê¾Ò½À´Ï´Ù.";
+"Cette compétence n'est pas assez haute pour être entrainée au moyen d'un livre.";
+
+"ÀÌ ½ºÅ³Àº Ã¥À¸·Î ´õÀÌ»ó ¼ö·ÃÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas entrainée cette compétence avec un livre.";
+
+"ÀÌ ¾ÆÀÌÅÛÀ¸·Î °³·®ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Cet objet ne peux être amélioré.";
+
+"ÀÌ ¾ÆÀÌÅÛÀ¸·Î ¼ÒÄÏÀ» Ãß°¡ÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù.";
+"Aucun emplacement ne peut être crée sur cet objet.";
+
+"ÀÌ ¾ÆÀÌÅÛÀº PC¹æ¿¡¼­¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Vous ne pouvez pas utiliser cet article.";
+
+"ÀÌ ¾ÆÀÌÅÛÀº °³·®ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Cet objet ne peux être amélioré.";
+
+"ÀÌ ¾ÆÀÌÅÛÀº ÀÌ ¹æ½ÄÀ¸·Î´Â °³·®ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Cet objet ne peux être plus amélioré.";
+
+"ÀÌ ¾ÆÀÌÅÛÀ» ÀåÂøÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Cet objet ne peux être équipé.";
+
+"ÀÌ ¾×¼¼¼­¸®¿¡´Â ´õÀÌ»ó º¸¼®À» ÀåÂøÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Aucun emplacement n'est libre pour ce minerai.";
+
+"ÀÌ ¾×¼¼¼­¸®¿¡´Â ´õÀÌ»ó ¼ÒÄÏÀ» Ãß°¡ÇÒ °ø°£ÀÌ ¾ø½À´Ï´Ù.";
+"Il n'y a plus d'emplacements disponibles.";
+
+"ÀÌ ¾×¼¼¼­¸®¿¡´Â ´õÀÌ»ó ÀåÂøÇÒ ¼ÒÄÏÀÌ ¾ø½À´Ï´Ù.";
+"Aucun emplacement n'est libre pour ce minerai.";
+
+"ÀÌ Ã¥À¸·Î´Â ´õ ÀÌ»ó ¼ö·ÃÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas vous entrainer plus avec ce livre.";
+
+"ÀÌ Ã¥Àº ³Ê¹« ¾î·Á¿ö ÀÌÇØÇÏ±â°¡ Èûµì´Ï´Ù.";
+"Ce livre est difficile a comprendre...";
+
+"ÀÌ Ã¥Àº ¾Æ¹«¸® ºÁµµ µµ¿òÀÌ µÉ °Í °°Áö ¾Ê½À´Ï´Ù.";
+"La competence est deja en maître parfaite.";
+
+"ÀÌ Ã¥À» ÀĞÀ¸·Á¸é ·¹º§À» ´õ ¿Ã·Á¾ß ÇÕ´Ï´Ù.";
+"Votre niveau est trop faible.";
+
+"ÀÌ Çàµ¿Àº »óÈ£µ¿ÀÇ ÇÏ¿¡ °¡´É ÇÕ´Ï´Ù.";
+"Ils ont besoin de la reconnaissance des joueurs.";
+
+"ÀÌµ¿ µÇ¾îÁú À§Ä¡¿Í ³Ê¹« °¡±î¿ö ±ÍÈ¯ºÎ¸¦ »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez utiliser de parchemin dans la ville car la distance est trop courte.";
+
+"ÀÌµ¿¼Óµµ %d";
+"Vitesse de déplacement %d.";
+
+"ÀÌµ¿ÇÒ ÁØºñ°¡ µÇ¾îÀÖÀ½À¸·Î ±ÍÈ¯ºÎ¸¦ »ç¿ëÇÒ¼ö ¾ø½À´Ï´Ù";
+"Vous êtes prêt à vous téléporter, vous pouvez utiliser un parchemin de téléportation";
+
+"ÀÌ·¡¼­¾ß °øºÎ°¡ ¾ÈµÈ´Ù±¸.";
+"Je ne veux plus en apprendre davantage aujourd'hui.";
+
+"ÀÌ¹Ì ²ÈÇôÀÖ´ø ¹Ì³¢¸¦ »©°í %s¸¦ ³¢¿ó´Ï´Ù.";
+"Vous échangez l'appât actuel avec %s.";
+
+"ÀÌ¹Ì µĞ°©ÁßÀÎ »óÅÂÀÔ´Ï´Ù.";
+"Vous êtes déjà transformé.";
+
+"ÀÌ¹Ì ¼±ÀüÆ÷°í ÁßÀÎ ±æµåÀÔ´Ï´Ù.";
+"Vous âvez proposé une guerre a cette guilde.";
+
+"ÀÌ¹Ì ¿Ïº®ÇÏ°Ô ¾Ë¾ÆµéÀ» ¼ö ÀÖ´Â ¾ğ¾îÀÌ´Ù.";
+"Vous ne pouvez pas lire cela.";
+
+"ÀÌ¹Ì ÀÔÈÄº¸µÇ¾îÀÖ½À´Ï´Ù";
+"Il y a déjà un candidat...";
+
+"ÀÌ¹Ì ÀüÀïÀÌ ³¡³µ½À´Ï´Ù.";
+"La guerre est déjà terminée.";
+
+"ÀÌ¹Ì Á¦Á¶Ã¢ÀÌ ¿­·ÁÀÖ½À´Ï´Ù.";
+"Ouvrez la fenêtre";
+
+"ÀÌ¹Ì ÆÄÆ¼¿¡ ¼ÓÇØ ÀÖÀ¸¹Ç·Î °¡ÀÔ½ÅÃ»À» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas accepter l'invitation parce que vous êtes déjà dans un groupe.";
+
+"ÀÌ¹Ì È¿°ú°¡ °É·Á ÀÖ½À´Ï´Ù.";
+"Cette objet fait déjà effet.";
+
+"ÀÌ¹ÌÅõÇ¥¸¦ ÇßÀ½";
+"Déjà vôté.";
+
+"ÀÌ¹ø¿¡ ÀâÀº ¹°°í±âÀÇ ±æÀÌ´Â %.2fcm";
+"La longueur des poissons capturés est de %.2fcm.";
+
+"ÀÌº¥Æ®¿ë °¨Áö±â°¡ ½Åºñ·Î¿î ºûÀ» ³»¸ç »ç¶óÁı´Ï´Ù.";
+"Le détecteur d'évènement a disparu.";
+
+"ÀÌº¥Æ®¿ë °¨Áö±â°¡ ÈçÀûµµ ¾øÀÌ »ç¶óÁı´Ï´Ù.";
+"Le détecteur d'évènement a disparu.";
+
+"ÀÌ¼º°£¿¡¸¸ ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"Ne peux être utilisé que par le sexe opposé.";
+
+"ÀÌÁ¦ Á» ½½½½ °¡´ÚÀÌ ÀâÈ÷´Â °Í °°Àºµ¥.";
+"Je vient juste de comprendre!";
+
+"ÀÌÁ¦ Ã¥ÀÇ ¸¶Áö¸· ÀåÀÌ¾ß! ¼ö·ÃÀÇ ³¡ÀÌ ´«¿¡ º¸ÀÌ°í ÀÖ¾î!";
+"Je suis sur la dernière page! L'entrainement est presque terminée!";
+
+"ÀÎ°£·ù ¸ó½ºÅÍ Å¸°İÄ¡ +%d%%";
+"Puissance d'attaque contre les monstres +%d%%.";
+
+"ÀÎÁõ¹øÈ£°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã ½ÃµµÇÏ¼¼¿ä.";
+"Votre numéro de confirmation n'est pas correct. S'il vous plaît essayer de nouveau.";
+
+"ÀÔ·ÂÇÏ½Å ÀÌ¸§À» °¡Áø »ç¿ëÀÚ°¡ ¾ø½À´Ï´Ù.";
+"Joueur non connecté";
+
+"ÀÚ°´°ø°İ¿¡ %d%% ÀúÇ×";
+"Résistance contre les attaques ninjas %d%%.";
+
+"ÀÚ°´¿¡°Ô °­ÇÔ +%d%%";
+"Puissance contre les attaques ninjas %d%%.";
+
+"ÀÚ±¹ ¿µÅä¿¡¼­¸¸ »ç¿ëÇÒ ¼ö ÀÖ´Â ±â´ÉÀÔ´Ï´Ù";
+"Vous ne pouvez utiliser cette compétence.";
+
+"ÀÚµ¿À¸·Î ³ª°¡°ÔµË´Ï´Ù.";
+"Vous allez être téléportez vers la cité.";
+
+"ÀÚ½ÅÀ» ¼±ÅÃÇÏ½Ã¸é ¹ÛÀ¸·Î ³ª°¥ ¼ö ÀÖ´Â <°ü¶÷ Á¾·á> ¹öÆ°ÀÌ ³ª¿É´Ï´Ù.";
+"Le personnage apparait à la fin de sa création.";
+
+"ÀÚ½ÅÀ» ¼ÒÈ¯ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez vous appeler vous même.";
+
+"ÀÚÀç°¡ ºÎÁ·ÇÏ¿© °Ç¼³ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous n'avez pas assez de ressource.";
+
+"Àß¸øµÈ µĞ°© ¾ÆÀÌÅÛÀÔ´Ï´Ù.";
+"C'est le mauvais objet.";
+
+"Àß¸øµÈ ¼±ÅÃÀ» Çß½À´Ï´Ù";
+"La réponse est fausse.";
+
+"Àá½Ã ÈÄ OX ÀÌº¥Æ®¸¦ ´Ù½Ã ½ÃÀÛÇÏ°Ú½À´Ï´Ù.";
+"L'OX Contest a été redémarré.";
+
+"Àá½Ã ÈÄ ¸¶À»·Î µ¹¾Æ°©´Ï´Ù.";
+"Vous allez être téléporté vers la cité.";
+
+"Àá½Ã ÈÄ ¸¶À»·Î ÀÌµ¿µÇ°Ú½À´Ï´Ù.";
+"Vous allez être téléporté vers la cité.";
+
+"Àá½ÃÈÄ ¸ğµÎ ¸¶À»·Î ÀÌµ¿µË´Ï´Ù.";
+"Vous allez être téléporté vers la cité.";
+
+"ÀåºñÁßÀÎ ¾ÆÀÌÅÛÀº °³ÀÎ»óÁ¡¿¡¼­ ÆÇ¸ÅÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas améliorer ces articles.";
+
+"ÀåÂø¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.";
+"Minerai ajoutée avec succès.";
+
+"ÀåÂø¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"Aucun minerai ajoutée.";
+
+"Àç·á(%s)°¡ ºÎÁ·ÇÕ´Ï´Ù.";
+"Pas assez d'ingrédients(%s)";
+
+"ÀúÁÖ µÇµ¹¸®±â È®·ü %d%%";
+"Malédiction du reflèt %d%%.";
+
+"ÀûÇÕÇÏÁö ¾ÊÀº ±æµå ÀÌ¸§ ÀÔ´Ï´Ù.";
+"<Guilde> Vous ne pouvez pas utiliser ce nom de guilde.";
+
+"Àü±â ÀúÇ× %d%%";
+"Résistance a la lumière %d%%";
+
+"ÀüÀï ¼­¹ö°¡ ¿­·ÁÀÖÁö ¾Ê¾Æ ±æµåÀüÀ» ½ÃÀÛÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"La guerre de guilde n'a pas pu démarrer.";
+
+"ÀüÅõ°¡ ½ÃÀÛ µÇ¾î Ãë¼Ò µÇ¾ú½À´Ï´Ù.";
+"Annulée. Vous avez déjà commencé à vous battre.";
+
+"Á¤´äÀº";
+"La réponse correcte est.";
+
+"Á¤´äÀÔ´Ï´Ù!";
+"Réponse correcte.";
+
+"Á¤»óÀûÀ¸·Î ÅõÇ¥¸¦ÇÏ¿´½À´Ï´Ù.";
+"Accordé.";
+
+"Á¤½Å·Â È¸º¹ +%d";
+"Régénération de magie +%d.";
+
+"Á¤½Å·ÂÀÌ ºÎÁ·ÇÏ¿© ´Ù¸¥ »ç¶÷ÀÇ Àåºñ¸¦ º¼ ¼ö ¾ø½À´Ï´Ù.";
+"Pas assez de mana.";
+
+"Á¦Á¶ Àç·á°¡ ºÎÁ·ÇÕ´Ï´Ù";
+"Pas assez d'ingrédients.";
+
+"Á¦Á¶Ã¢ÀÌ ¿­·ÁÀÖÁö ¾Ê½À´Ï´Ù";
+"La fenêtre de production n'est pas ouverte.";
+
+"Á¶°³°¡ ÈçÀûµµ ¾øÀÌ »ç¶óÁı´Ï´Ù.";
+"Le coquillage a complètement disparu.";
+
+"Á¶°³¿¡¼­ µ¹Á¶°¢ÀÌ ³ª¿Ô½À´Ï´Ù.";
+"Il y a un morceau de pierre dans le coquillage.";
+
+"Á¶°³¿¡¼­ ¹éÁøÁÖ°¡ ³ª¿Ô½À´Ï´Ù.";
+"Il y a une perle blanche dans le coquillage.";
+
+"Á¶°³¿¡¼­ Ã»ÁøÁÖ°¡ ³ª¿Ô½À´Ï´Ù.";
+"Il y a une perle bleue dans le coquillage.";
+
+"Á¶°³¿¡¼­ ÇÇÁøÁÖ°¡ ³ª¿Ô½À´Ï´Ù.";
+"Il y a une perle rouge dans le coquillage.";
+
+"Á¶¼ÓÈ÷ Á¢¼ÓÀ» Á¾·áÇÏ½Å ÈÄ °Ç°­À» À§ÇØ ÈŞ½ÄÀ» ÃëÇØÁÖ½Ã±â¹Ù¶ø´Ï´Ù.";
+"Connectez vous et achetez des monnaies";
+
+"Á¸ÀçÇÏÁö ¾Ê´Â °Ç¹°ÀÔ´Ï´Ù.";
+"Ce bâtiment n'existe pas.";
+
+"Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌÅÛ ÀÔ´Ï´Ù";
+"Ces objet n'existe pas.";
+
+"Á¸ÀçÇÏÁö ¾Ê´Â Ä³¸¯ÅÍ ÀÔ´Ï´Ù.";
+"Ce joueur n'existe pas.";
+
+"Á» ´õ °¡±îÀÌ °¡¼­ ³»¸®¼¼¿ä.";
+"Approchez vous pour sortir.";
+
+"Á» ´õ °¡±îÀÌ °¡¼­ Å¸¼¼¿ä.";
+"Approchez vous pour monter.";
+
+"ÁÁ¾Æ, ÀÌ ±â¼¼·Î °è¼Ó ³ª°£´Ù!";
+"Je dois rester concentré.";
+
+"ÁÁ¾Ò¾î! Á¶±İ¸¸ ´õ ÀĞÀ¸¸é ³¡ÀÌ´Ù!";
+"Cela m'a éclairé, je l'aurai bientôt finit.";
+
+"ÁÖ¾È¼ú¼­¸¦ ÅëÇØ ÁÖÈ­ÀÔ¸¶¿¡¼­ ºüÁ®³ª¿Ô½À´Ï´Ù.";
+"Vous avez repoussé la malédiction du mauvais Epsrit avec l'aide d'un parchemin d'exorcisme.";
+
+"Á×Àº ¸»¿¡°Ô »ç·á¸¦ ¸ÔÀÏ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas réssusciter le cheval mort.";
+
+"Á×Àº Á¤º¸ %s deadcount %d Empire %d killcount %d(Purpose %d) killmobcount %d, RegenFlag %d";
+"National War: %s ,Nombre de Morts: %d ,Empire: %d Adversaire tuées: %d(Objectif: %d), Monstres tués: %d, RegenFlag %d";
+
+"Á×Áö ¾ÊÀº ¸»¿¡°Ô ¼±ÃÊ¸¦ ¸ÔÀÏ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas nourrir le cheval avec une herbe du donjon des singes.";
+
+"Áß¾Ó Á¦´Ü¿¡ ¾ÇÀÇ ±â¿îÀÌ ¸ğ¿©µì´Ï´Ù.";
+"L'esprit du diable est dans l'autel.";
+
+"Áö±İºÎÅÍ %sÀº 30ºĞ°£ ºÀÈ­¸¦ ÆÄ±«ÇÏ¿© º¸»óÀ» È¹µæ ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+"%s peuvent gagner des récompenses en détruisant les signaux de feu durant 30 minutes.";
+
+"Áö´É +%d";
+"Intelligence +%d.";
+
+"Áö´ÉÀÌ ³·¾Æ Âø¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous n'avez pas assez d'intelligence pour l'équiper.";
+
+"Á÷Á¢ Å¸°İÄ¡ ¹İ»ç È®·ü : %d%%";
+"Reflèt %d%%.";
+
+"Áø³ë±¹";
+"Jinno";
+
+"Âø¿ë ÁßÀÎ ¾ÆÀÌÅÛÀº ÆÇ¸ÅÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas vendre d'article dans un magasin privé.";
+
+"Ã¢°í,°Å·¡Ã¢µîÀÌ ¿­¸° »óÅÂ¿¡¼­´Â °³·®À» ÇÒ¼ö°¡ ¾ø½À´Ï´Ù";
+"Vous ne pouvez l'utiliser.";
+
+"Ã¢°í¸¦ ¿¬ÈÄ %dÃÊ ÀÌ³»¿¡´Â °Å·¡¸¦ ÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Vous pourrez agir à nouveau dans %d secondes.";
+
+"Ã¢°í¸¦ ¿¬ÈÄ %dÃÊ ÀÌ³»¿¡´Â ±ÍÈ¯ºÎ,±ÍÈ¯±â¾ïºÎ¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas utiliser %d, parce que vous aviez une fenêtre d'échange ouvert!";
+
+"Ã¢°í¸¦ ¿¬ÈÄ %dÃÊ ÀÌ³»¿¡´Â ´Ù¸¥°÷À¸·Î ÀÌµ¿ÇÒ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas aller n'importe où lorsque votre entrepôt est ouvert.";
+
+"Ã¤±¤¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.";
+"L'extraction est un succès.";
+
+"Ã¤±¤¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.";
+"L'extraction a échoué.";
+
+"Ã¤±¤À» Áß´ÜÇÏ¿´½À´Ï´Ù.";
+"Extraction annulé.";
+
+"Ã¤ÆÃ ±İÁö »óÅÂÀÔ´Ï´Ù.";
+"Vous recevez une interdiction de parler.";
+
+"Ã¤ÆÃ ±İÁö°¡ Ç®·È½À´Ï´Ù.";
+"Votre interdiction de parler a été retirée.";
+
+"Ã¥À¸·Î ´õ ³ôÀº °æÁöÀÇ ¼ö·ÃÀ» ¼º°øÀûÀ¸·Î ³¡³»¼Ì½À´Ï´Ù.";
+"Vous avez terminé votre entrainement grâce au livre avec succès.";
+
+"Ã¥Àåµµ ÀÌÁ¦ ¾ó¸¶ ³²Áö ¾Ê¾Ò±º.";
+"Vous ne pouvez pas encore lire de nouveau.";
+
+"ÃµÁ¶±¹";
+"Chunjo";
+
+"Ã»¼ÒÇÒ ¼®ÀÌ ¹ÚÇôÀÖÁö ¾Ê½À´Ï´Ù.";
+"Il n'y a pas de pierre qui puisse être enlevée.";
+
+"Ã¼·Â +%d";
+"Endurance +%d.";
+
+"Ã¼·ÂÀÌ ³·¾Æ Âø¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous n'avez pas assez d'endurance pour vous équiper de cet objet.";
+
+"ÃÑ ÄûÁî ¼ö: %d";
+"Nombre de questions: %d.";
+
+"ÃÖ´ë »ı¸í·Â +%d";
+"Points de vie +%d.";
+
+"ÃÖ´ë »ı¸í·Â +%d%%";
+"Capacitée maximale d'energie +%d%%.";
+
+"ÃÖ´ë Á¤½Å·Â +%d";
+"Point de mana +%d.";
+
+"ÃÖ´ë Á¤½Å·Â +%d%%";
+"Seuil d'energie +%d%%.";
+
+"ÃÖ´ë Áö±¸·Â +%d";
+"Maximum endurance + %d.";
+
+"Ãàº¹ÀÇ ¼­¿Í ÇöÃ¶À» ÇÕÄ¥ ¼ö ÀÖ½À´Ï´Ù.";
+"La bénédiction du dragon et le métal magique peuvent être combinés.";
+
+"Ãâ¸¶¸¦ ÇÒ¼ö°¡ ¾ø½À´Ï´Ù";
+"Vous ne pouvez voter.";
+
+"Ãë¼Ò µÇ¾ú½À´Ï´Ù.";
+"Votre déconnexion a été annulée.";
+
+"Ä³¸¯ÅÍ¸¦ ÀüÈ¯ ÇÕ´Ï´Ù. Àá½Ã¸¸ ±â´Ù¸®¼¼¿ä.";
+"Vous avez changé de personnage. Veuillez patienter.";
+
+"ÄğÅ¸ÀÓ -%d";
+"Temps de repos -%d";
+
+"ÄğÅ¸ÀÓ Àû¿ëÁß  %d ÈÄ »ç¿ë°¡´É";
+"Temps de repos, activation après %d minutes.";
+
+"Äù½ºÆ®¸¦ ·ÎµåÇÏ´Â ÁßÀÔ´Ï´Ù. Àá½Ã¸¸ ±â´Ù·Á ÁÖ½Ê½Ã¿À.";
+"Vous avez été déconnecté du serveur. Veuillez patienter.";
+
+"Å©À¹, ±â°¡ ¿ª·ùÇÏ°í ÀÖ¾î! ÀÌ°Å ¼³¸¶ ÁÖÈ­ÀÔ¸¶ÀÎ°¡!? Á¨Àå!";
+"Ce n'était pas du travail. Tu es infernal !";
+
+"Å¬¶óÀÌ¾ğÆ® ¹öÀüÀÌ Æ²·Á ·Î±×¾Æ¿ô µË´Ï´Ù. Á¤»óÀûÀ¸·Î ÆĞÄ¡ ÈÄ Á¢¼ÓÇÏ¼¼¿ä.";
+"La version de votre client n'est pas correct, veuillez faire les mises à jours.";
+
+"Å¸°İÄ¡ %d%% ¸¦ »ı¸í·ÂÀ¸·Î Èí¼ö";
+"Absorbe points de vie durant l'attaque %d%%.";
+
+"Å¸·ÂÄ¡ %d%% ¸¦ Á¤½Å·ÂÀ¸·Î Èí¼ö";
+"Absorbe points de Mana durant l'attaque %d%%.";
+
+"Å¸Á¦±¹ À¯Àú¿¡°Ô´Â ÀÌµ¿ÇÒ¼ö ¾ø½À´Ï´Ù";
+"Vous ne pouvez pas vous téléporter à un joueur inconnu.";
+
+"Å¸Á¦±¹ À¯Àú´Â ¼ÒÈ¯ ÇÒ¼ö ¾ø½À´Ï´Ù";
+"Vous ne pouvez pas appeler un joueur inconnu.";
+
+"Åº »óÅÂ¿¡¼­´Â ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez pas faire celà a cheval.";
+
+"Å×½ºÆ® ¼­¹ö ½Ã°£Á¦ÇÑ Åë°ú";
+"Temps limite de serveur test dépassé.";
+
+"ÆÄÆ¼ ÁßÀÌ ¾Æ´Õ´Ï´Ù.";
+"Vous n'êtes pas dans le groupe";
+
+"ÆÄÆ¼ÀÇ Çùµ¿·ÂÀÌ ³ô¾ÆÁ® Áö±İºÎÅÍ Ãß°¡ °æÇèÄ¡ º¸³Ê½º¸¦ ¹Ş½À´Ï´Ù.";
+"Votre groupe participe, vous recevez un bonus d'expérience.";
+
+"ÆÄÆ¼ÀåÀÌ Á¢¼Ó »óÅÂ°¡ ¾Æ´Ï¶ó¼­ ¿äÃ»À» ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez rejoindre le groupe dont le chef est déconnecté.";
+
+"ÆÇ¸Å±İ¾×ÀÇ %d %% °¡ ¼¼±İÀ¸·Î ³ª°¡°ÔµË´Ï´Ù";
+"Une taxe de %d%% sera prélevée sur la vente.";
+
+"ÆÛÆåÆ® ¸¶½ºÅÍµÈ ½ºÅ³ÀÔ´Ï´Ù. ´õ ÀÌ»ó ¼ö·Ã ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous devez déjà maitriser cette compétance.";
+
+"ÆòÅ¸ µ¥¹ÌÁö %d%%";
+"Puissance d'attaque %d%%.";
+
+"ÆòÅ¸ µ¥¹ÌÁö ÀúÇ× %d%%";
+"Résistance contre la puissance d'attaque %d%%.";
+
+"ÇÃ·¹ÀÌ¾î %d ¿Í ÇÃ·¹ÀÌ¾î  %d¸¦ ÆÄÈ¥½ÃÅµ´Ï´Ù..";
+"Contrat rompu entre le joueur %d et le joueur %d.";
+
+"ÇÑ¼Õ°Ë ¹æ¾î %d%%";
+"Défense à l'épée %d%%.";
+
+"ÇØ´ç À¯Àú´Â %d Ã¤³Î¿¡ ÀÖ½À´Ï´Ù. (ÇöÀç Ã¤³Î %d)";
+"L'utilisateur %d est sur un autre channel. (Channel actuel %d.)";
+
+"ÇÚµåÆù ¹øÈ£°¡ µî·Ï µÇ¾ú½À´Ï´Ù.";
+"Le numéro de téléphone n'a pas été précisé.";
+
+"ÇÚµåÆù ¹øÈ£°¡ µî·ÏµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù.";
+"Le numéro de téléphone est enregistré.";
+
+"ÇöÀç %s ±¹°í¿¡´Â %d ÀÇ µ·ÀÌ ÀÖ½À´Ï´Ù";
+"%s a plus %d";;
+
+"ÇöÀç %s ±¹°í¿¡´Â %u ÀÇ µ·ÀÌ ÀÖ½À´Ï´Ù";
+"%s a plus %u";
+
+"ÇöÀç ³²Àº Âü°¡ÀÚ¼ö : %d";
+"Actuellement, le nombre de participant est: %d.";
+
+"ÇöÀç ½ºÄÚ¾î ½Å¼ö±¹:%d ÃµÁ¶±¹:%d Áø³ë±¹:%d";
+"Points actuels: Empire Shinsoo: %d | Empire Chunjo: %d | Empire Jinno: %d.";
+
+"ÇöÀç ¿Â¶óÀÎ »óÅÂ ÀÔ´Ï´Ù. ±Ó¸»À» ÀÌ¿ëÇÏ¼¼¿ä.";
+"Le joueur est en ligne, envoyez lui un message.";
+
+"ÇöÀç À§Ä¡¿¡¼­ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Vous ne pouvez l'utiliser ici.";
+
+"ÇöÀç ÀÌº¥Æ® Âü°¡ÀÚ ºĞµéÀº ¸¶À»·Î ÀÌµ¿ µÇ°Ú½À´Ï´Ù.";
+"L'Event en cours est limité a cette carte.";
+
+"ÇöÀç ÀüÀïÁßÀÎ ±æµå ÀÔ´Ï´Ù";
+"Voici la liste des guerres de guilde du moment:";
+
+"ÇöÀç Çì¾î½ºÅ¸ÀÏ¿¡¼­´Â ¿°»ö°ú Å»»öÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.";
+"Vous ne pouvez pas changer de coiffure.";
+
+"È­¿° ÀúÇ× %d%%";
+"Résistance au feu %d%%.";
+
+"È° °ø°İ È¸ÇÇ È®·ü %d%%";
+"%d%% chance de bloquer une attaque distante.";
+
+"È°°ø°İ ÀúÇ× %d%%";
+"Resistance aux attaques distantes %d%%.";
+
+"ÈŞ½Ä ¹× ÇĞ¾÷¿¡ ¿­ÁßÇØÁÖ½Ê½Ã¿À.";
+"Concentre toi!";
+
+"¾ÆÀÌÅÛÀÌ ³ª¿Ã È®·ü";
+"d'objets lâchés";
+
+"µ·ÀÌ ³ª¿Ã È®·ü";
+"de yangs lâchés";
+
+"ÀüÁ¦±¹";
+"Le quota";
+
+"°æÇèÄ¡ ¹èÀ²";
+"d'expérience";
+
+"³¬½Ã¸¦ ÇÒ ¼ö ÀÖ´Â °÷ÀÌ ¾Æ´Õ´Ï´Ù";
+"Vous ne pouvez pas pêcher ici!";
+
+"´õÀÌ»ó ÀÌ ¾ÆÀÌÅÛÀ» ÀÌ¿ëÇÏ¿© ¼Ó¼ºÀ» Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.";
+"Seul l'orbe de bénédiction peut être utilisé pour un objet possédant déjà 4 bonus.";
+
+"µ· ´ë¹ÚÀÌ ³ª¿Ã È®·ü";
+"de la tempête de yangs";
+
+"»ó´ë¹æÀÌ Ä£±¸ Ãß°¡¸¦ ¹ŞÀ» ¼ö ¾ø´Â »óÅÂÀÔ´Ï´Ù.";
+"Le joueur n'accepte pas les demandes d'amis.";
+
+"%s´ÔÀÌ ÁÖ»çÀ§¸¦ ±¼·Á %d°¡ ³ª¿Ô½À´Ï´Ù. (%d-%d)";
+"%s a lancé les dés et a obtenu %d. (%d-%d)";
+
+"´ç½ÅÀÌ ÁÖ»çÀ§¸¦ ±¼·Á %d°¡ ³ª¿Ô½À´Ï´Ù. (%d-%d)";
+"Vous avez lancé les dés et vous avez obtenu %d. (%d-%d)";
+
+"ÀÌ¹Ì Å»°ÍÀ» ÀÌ¿ëÁßÀÔ´Ï´Ù.";
+"Vous êtes déjà sur une monture. Vous devez d'abord la quitter.";
+
+"¶³¾îÁø ¾ÆÀÌÅÛÀº %dºĞ ÈÄ »ç¶óÁı´Ï´Ù.";
+"L'argent lâché disparaitra dans %d minutes.";
+
+"³à¼®µéÀº ÀÌ°÷ ¼ºÁö¿¡ ÀÖÀ» ÀÚ°İÀ» ÀÒ¾ú´Ù. ¸ğµÎ ¼ºÁö¿¡¼­ ¹°·¯³ª°Å¶ó~~[ENTER][ENTER] 10ÃÊ ÈÄ¿¡ ¸ğµÎ ¸¶À»·Î ÀÌµ¿ÇÏ°Ô µË´Ï´Ù. ";
+" ont mérité d'[ENTER]être banni du sanctuaire.[ENTER][ENTER]Dans 10 secondes, ils seront téléportés à la cité.";
+
+"µĞ°©ÇÒ ¼ö ¾ø´Â »óÅÂÀÔ´Ï´Ù.";
+"Impossible de faire ceci.";
+
+". ³ÊÈñ°¡ ¼ºÁöÀÇ ¼öÈ£ÀÚ¸¦ Àâ°Ô µÈ´Ù¸é ³ÊÈñ´Â ¼ºÁöÀÇ ÁÖÀÎÀÌ µÈ´Ù.[ENTER][ENTER] ";
+", si vous résistez, vous[ENTER] allez conquérir la Terre Sainte.[ENTER][ENTER]";
+
+"<Ã¢°í> Ã¢°í·Î ¿Å±æ ¼ö ¾ø´Â ¾ÆÀÌÅÛ ÀÔ´Ï´Ù.";
+"<Stockage> Vous ne pouvez pas déplacer cet élément.";
+
+"[%s±ºÁÖ] : %s  º¸À¯±İ¾× %lld";
+"[%s Empereur] : %s a la valeur %lld";
+
+"¾ÆÁ÷ °ñµå¸¦ ¹ö¸± ¼ö ¾ø½À´Ï´Ù.";
+"Vous pouvez déposer des Yangs q'une fois toutes les 10 secondes.";
+
+"ÀÎº¥Åä¸®°¡ ²Ë Â÷¼­ ³»¸± ¼ö ¾ø½À´Ï´Ù.";
+"Votre inventaire est plein.";
+
+"¿ë°¡¸®°¡ %d ÃÊ¸¸¿¡ Á×¾î½áÈ¿¤Ğ¤Ğ";
+"Vous avez réussi à vaincre le dragon bleu en %d secondes!";
+
+"%s¿¡¼­ ¼ÒÄÏ ºüÁú¶§±îÁö ³²Àº ½Ã°£ %d";
+"Temps %d restant.";
+
+"[%s±ºÁÖ] : %s  º¸À¯±İ¾× %lld ";
+"[%s] Empereur : %s Vault : %lld Yang";
+
+"Àû¿ë ·¹º§º¸´Ù ³ô¾Æ »ç¿ëÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.";
+"Cet objet ne peut être utilisé que sur des armes ou des armures jusqu'au niveau 40.";
+
+"¹«±â¿Í °©¿Ê¿¡¸¸ »ç¿ë °¡´ÉÇÕ´Ï´Ù.";
+"Cet objet ne peut pas être utilisé sur les accessoires.";
+
+"Usage: warp <character name> | <x meter> <y meter>[z]";
+"Usage: warp <character name> | <x meter> <y meter>[z]";
+
+"[%s±ºÁÖ] : %s  ";
+"%s de connectés: %s.";

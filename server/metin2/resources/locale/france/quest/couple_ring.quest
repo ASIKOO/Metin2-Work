@@ -1,0 +1,172 @@
+quest couple_ring begin
+	state start begin
+		when 9006.chat."La vengeance du marchand de bagues" with pc.get_level()>=25 begin
+			---                                                   l
+			say_title("La vieille dame:")
+			say("Vous êtes maintenant l'un des guerriers de ce")
+			say("royaume. Si seulement je savais comment vous")
+			say("pourriez vous servire de vos nouvelles")
+			say("compétences. Avez-vous jamais entendu parler des")
+			say("Jin-Hee ? C'est un groupe de dangereuses")
+			say("guerrières élites. L'une d'entre elles à tué le")
+			say("bijoutier de notre village. Ce marchand était non")
+			say("seulement un bon ami, mais aussi un homme très")
+			say("honnête qui vendait des alliances aux jeunes")
+			say("couples ayant l'intention de se marier.")
+			say("Êtes-vous prêt à venger sa mort ? Pour se faire,")
+			say("vous devrez tuer 30 Jin-Hee...")
+
+			local s=select("Bien sûr, je m'en charge.", "Non, les Jin-Hees sont trop redoutables.")
+
+			if 1==s then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("C'est une décision très honorable et courageuse!")
+				say("Souvenez-vous, vous dever tuer 30 Jin-Hee.")
+				say("Faites attention, ils sont habiles et très forts")
+				say("pour se dissimuler !")
+				set_state(kill)
+
+			elseif 2==s then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Hmm, quel dommage. Enfin c'est vous qui décidez.")
+				say("Il est vrai que le courage aveugle mène à une")
+				say("mort certaine. Faites attention à vous!")
+			end
+		end
+	end
+
+	state kill begin
+		when enter begin
+			pc.setqf("kill_count", 0)
+		end
+
+		when leave begin
+			pc.setqf("kill_count", 0)
+			q.done()
+		end
+
+		when letter begin
+			q.set_counter("Jin-hees restantes", couple_ring.get_rest_count());
+		end
+
+		when 394.kill begin
+
+			local kill_count=pc.getqf("kill_count")+1
+
+			pc.setqf("kill_count", kill_count)
+			q.set_counter("Jin-hees restantes", couple_ring.get_rest_count());
+
+			if couple_ring.is_completed() then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Le nombre de Jin-hees tué semble bon, vous devriez")
+				say("peut-être le dire à la vieille dame.")
+				set_state(report)
+			end
+		end
+
+		function get_rest_count()
+			return 30-pc.getqf("kill_count")
+		end
+
+		function is_completed()
+			return pc.getqf("kill_count")>=30 
+		end
+
+		when letter begin
+			send_letter("Vaincre les Jin-Hees.")
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Information:")
+			say("La vieille dame vous a demandé de l'aide :")
+			say("Votre ami le vendeur de bagues a été assasiné ")
+			say("par les Jin-Hees, l'élite du Serment blanc.")
+			say("Vengez-le en tuant 30 Jin-Hees.")
+			say_reward(string.format("Nombre de Jin-Hees restant: %d", couple_ring.get_rest_count()))
+		end
+
+		when 9006.chat."La vengeance du marchand de bagues" begin
+			---                                                   l
+			say_title("La vieille dame:")
+			say("Avez-vous vaincu les Jin-Hees? Ah non, je crois")
+			say("qu'il en reste encore. Si c'est trop difficile,")
+			say("dites-le-moi!")
+
+			local s=select("Continuer", "Annuler")
+
+			if 1==s then
+				---                                                   l
+				say_title("La vieille dame:")
+				say("La famille du marchand de bagues veut venger sa")
+				say("mort! Si vous pouvez les aider et atténuer leur")
+				say("peine, faites-le.")
+			else
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Dommage que vous ne souhaitiez pas venger la mort")
+				say("du marchand de bagues. Hum, bien sûr vous tenez à")
+				say("votre propre vie. Comme vous voulez. Chaque vie a")
+				say("sa propre valeur.")
+				wait()
+				---                                                   l
+				say_title("La vieille dame:")
+				say("Au moment où elle se retourne, vous remarquez que")
+				say("la vieille dame tient quelques chose dans sa main, ")
+				say("un objet brillant. (On dirait une pierre")
+				say("précieuse).")
+
+				local s=select("Je continue à essayer.", "Annuler")
+
+				if 1==s then
+					---                                                   l
+					say_title("La vieille dame:")
+					say("Les pierres précieuses ne m'intéressent pas. Je")
+					say("veux juste que la mort du marchand de bagues soit")
+					say("vengée, pour sa famille. Je vous remercie d'être")
+					say("revenu sur votre décision et d'accepter de")
+					say("remplir cette mission.")
+
+				elseif 2==s then
+					---                                                   l
+					say_title("La vieille dame:")
+					say("Je suis désolé mais, je ne veut vraiment pas")
+					say("risquer ma vie pour un marchand de bagues.")
+					set_state(start)
+					q.done()
+				end
+			end
+		end
+	end
+
+	state report begin
+		when letter begin
+			send_letter("Vous avez battu les Jin-Hees.")
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Vous avez battu les Jin-Hees.")
+			say("Retournez voir la vieille dame et dite lui que")
+			say("vous avez tué les 30 Jin-Hees.")
+		end
+
+		when 9006.chat."La vengeance du marchand de bagues" begin
+			---                                                   l
+			say_title("La vieille dame:")
+			say("Oh! vous avez vengé le marchand de bagues.") 
+			say("Je me ferais un plaisir de vous donner cet") 
+			say("anneau de couple, pour récompense de ce travail.")
+			pc.give_item2(70301)
+			set_state(complete)
+			q.done()
+		end
+	end
+	state complete begin
+	end
+	state failure begin
+	end
+end

@@ -1,0 +1,132 @@
+quest change_name begin
+	state start begin
+		when 71055.use begin
+			if pc.is_gm() then
+				---                                                   l
+				say_title("Remplacement de nom:")
+				say_reward("Un membre du staff ne peu pas changer de nom.")
+				return;
+			end
+
+			if pc.is_engaged() then
+				---                                                   l
+				say_title("Remplacement de nom:")
+				say_reward("Vous ne pouvez pas changer de nom quand vous êtes")
+				say_reward("engagé.")
+				return;
+			end
+
+			if pc.is_married() then
+				---                                                   l
+				say_title("Remplacement de nom:")
+				say_reward("Vous ne pouvez pas changer de nom quand vous êtes")
+				say_reward("marié.")
+				return;
+			end
+
+			if pc.has_guild() then
+				---                                                   l
+				say_title("Remplacement de nom:")
+				say_reward("Pour changer de nom vous devez quitter la guilde")
+				say_reward("ou vous êtes membre.")
+				return;
+			end
+
+			if party.is_party() then
+				---                                                   l
+				say_title("Remplacement de nom:")
+				say_reward("Vous ne pouvez pas changer de nom quand vous êtes")
+				say_reward("dans un groupe.")
+				return;
+			end
+
+			if pc.is_polymorphed() then
+				---                                                   l
+				say_title("Remplacement de nom:")
+				say_reward("Vous ne pouvez pas changer de nom quand vous")
+				say_reward("utilisez une orbe de polymorphie.")
+				return
+			end
+
+			if get_time() < pc.getqf("name_next_time") then
+				---                                                   l
+				say_title("Remplacement de nom:")
+				say_reward("Vous avez déjà changer de nom récemment.")
+				say_reward("Vous devez attendre quelques temps avant de")
+				say_reward("pouvoir changer de nom à nouveau.")
+			end
+
+			---                                                   l
+			say_title("Remplacement de nom:")
+			say("Grâce à cet objet vous pourrez changer de nom.")
+			say("Voulez-vous changer de nom ?")
+
+			local s = select("Oui", "Non")
+
+			if s == 1 then
+				---                                                   l
+				say_title("Remplacement de nom:")
+				say("Veuillez saisir dans la case le nouveau nom que")
+				say("vous avez choisi.")
+
+				local name = pc.name ;
+				local str = input() ;
+				
+				if string.len(str) > 16 then
+					---                                                   l
+					say_title("Remplacement de nom:")
+					say("Ce nom est trop long. S'il vous plaît réessayer")
+					say("avec un nom moins long.")
+					return
+				end
+				
+				local ret = pc.change_name(str) ;
+
+				if ret == 0 then
+					---                                                   l
+					say_title("Remplacement de nom:")
+					say("Vous ne vous êtes pas connectés après que vous")
+					say("ayez changé de nom. Re connectez-vous s'il vous")
+					say("plaît.")
+					char_log(0, "CHANGE_NAME", "HAVE NOT RE-LOGIN")
+
+				elseif ret == 1 then
+					---                                                   l
+					say_title("Remplacement de nom:")
+					say("Un problème est survenu lors de l'utilisation")
+					say("de l'objet veuillez réessayer à nouveau.")
+					char_log(0, "CHANGE_NAME", "ITEM USE PROBLEM")
+
+				elseif ret == 2 then
+					---                                                   l
+					say_title("Remplacement de nom:")
+					say("Vous ne pouvez pas choisir votre propre nom.")
+					say("Veuillez choisir un autre nom.")
+					char_log(0, "CHANGE_NAME", "CAN NOT USE NAME")
+
+				elseif ret == 3 then
+					---                                                   l
+					say_title("Remplacement de nom:")
+					say("Ce nom est déjà utilisé choisissez-en un autre.")
+					char_log(0, "CHANGE_NAME", "ALREADY USING NAME")
+
+				elseif ret == 4 then
+					---                                                   l
+					say_title("Remplacement de nom:")
+					say_reward("Veuillez vous déconnecter complètement et vous")
+					say_reward("reconnecter pour finir l'événement.")
+					pc.remove_item("71055",1)
+					pc.setqf("name_next_time", get_time() + 86400 * 10)
+					char_log(0, "CHANGE_NAME", "SUCCESS: from "..name.." to "..str)
+				else
+					---                                                   l
+					say_title("Remplacement de nom:")
+					say("Une erreur inconnue s'est produite.")
+					char_log(0, "CHANGE_NAME", "UNKNOWN NAME")
+				end
+			else
+				return
+			end
+		end
+	end
+end

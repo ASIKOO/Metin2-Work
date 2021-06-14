@@ -1,0 +1,93 @@
+--Traduit by Salya pour Emulation-bay
+quest main_quest_lv1 begin
+	state start begin
+		when login or levelup with pc.get_level() == 1 begin
+			set_state( gotoinfomation )
+		end
+	end
+	state gotoinfomation begin
+		when letter begin
+			send_letter("Bienvenu sur Metin2")
+		end
+		when button or info begin
+			say_title("Bienvenu sur Metin2")
+			say("")
+			---                                                   l
+			say("Les aventures de Metin2 ne font que commencer!")
+			say("")
+			say("Allez parler au garde du village.Il vous donnera")
+			say("des informations de base et des missions")
+			say("qui vous habitueront au jeu.")
+			say("")
+			wait()
+			say_title("Bienvenu sur Metin2")
+			say("")
+			---                                                   l
+			say("Si vous désirez chasser, vous trouverez")
+			say("des animaux sauvages en dehors du village.")
+			say("Ces animaux sont marqués en rouge sur la minimap")
+			say("")
+			say("Au début vous devriez chasser les chiens errants")
+			say("ce sont les cibles les plus faciles.")
+			say("")
+			say("Bonne chance!")
+			say("")
+			set_state( gototeacher )
+		end
+	end
+
+	state gototeacher begin
+		when letter begin
+			local v=find_npc_by_vnum(20354)
+			if v!=0 then
+				target.vid("__TARGET__", v, mob_name(20354))
+			end
+		end
+		when button or info begin
+			say_title("Trouver le garde du village.")
+			say("")
+			---                                                   l
+			say("Parler au garde du village.")
+			say("")
+			say("Trouvez le pnj avec une flèche qui pointe")
+			say("au dessus de lui.Si vous ne la voyez pas")
+			say("vous pouvez suivre le point rouge qui clignote")
+			say("dans la minimap")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Garde du village:")
+			say("")
+			---                                                   l
+			say("Vous devez être nouveau dans le village.")
+			say("Vous n'avez pas l'étoffe d'un héros.")
+			say("Regardez-vous! Savez vous utiliser une arme?")
+			say("Vous devez être vigilant si vous voulez survire")
+			say("à cette guerre.")
+			say("")
+			say("Je vais vous aider, jusqu'à ce que vous gagnez")
+			say("assez d'expérience, ou que vous passiez level 10.")
+			say("Je suis une personne occupée et je n'aime pas")
+			say("perdre mon temps.")
+			say("")
+			wait()
+			say_title("Garde du village:")
+			say("")
+			---                                                   l
+			say("Maintenant vous devriez aller vous entrainer!")
+			say("Une fois que vous aurez un peu évoluer, revenez")
+			say("me voir.")
+			say("")
+			say("Que faites-vous encore là?")
+			say("Vous n'apprendrez rien en rester ici !")
+			say("")
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("find_squareguard","find")
+			set_quest_state("main_quest_lv2","run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

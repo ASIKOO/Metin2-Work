@@ -1,0 +1,221 @@
+quest subquest_20  begin
+	state start begin
+		when login or levelup with pc.level >= 30  and pc.level <= 32  begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20003)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Ah-Yu!")
+			end
+		end
+		when __TARGET__.target.click or 20003.chat."Les souvenirs du mari"  begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Ah-Yu:")
+			say("")
+			say("Oh mon dieu. Ne pleure pas chérie!")
+			say("")
+			say("Ta maman est aussi de mauvaise humeur. ")
+			say("Si tu continues de pleurer, je vais devenir ")
+			say("folle. S'il te plaît, arrête de pleurer.")
+			say("")
+			wait()
+			say_pc_name()
+			say("")
+			say("Normalement, tu es toujours heureux, ")
+			say("qu'est-ce qui se passe avec toi aujourd'hui?")
+			say("")
+			wait()
+			say_title("Ah-Yu:")
+			say("")
+			say("Je suis inquiète. Mon mari a toujours pris ")
+			say("soin de moi, mais il est mort à la guerre.")
+			say("Seul mon bébé et les lances sont les souvenirs")
+			say("qu'il me reste de lui.")
+			say("")
+			wait()
+			say_title("Ah-Yu:")
+			say("")
+			--                                                  |
+			say("Alors que je travaillais, quelqu'un a volé ")
+			say("les lances. Les voisins disent que les barbares")
+			say("sont coupables. A cause de mon bébé, ")
+			say("je ne peux pas les chercher moi-même.")
+			say_item_vnum(30161)
+			wait()
+			say_title("Ah-Yu:")
+			say("")
+			--                                                  |
+			say("Pouvez-vous m'apporter les lances?")
+			say("Vous les trouverez sûrement sur les barbares.")
+			say("")
+			local b=select("Je vais les rechercher.", "Je n'ai pas le temps.")
+			if 2==b then
+				say("Vous voulez annuler la quête?")
+				local q=select("Oui","Non")
+				if 2==q  then
+					say_title("Ah-Yu:")
+					say("")
+					say("C'est d'accord.")
+					say("Revenez quand vous aurez le temps.")
+					say("")
+					return
+				else
+					say_title("Ah-Yu:")
+					say("")
+					say("Vous êtes un lâche.")
+					say("Vous voulez fuir de toute façon.")
+					say("Lorsque vous allez rencontrer les barbares,")
+					say("vous allez courrir.")
+					say("Allez-vous en.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Ah-Yu:")
+				say("")
+				say("Je vous remercie de m'aider.")
+				say("Il y a 3 lances à trouvés.")
+				say("")
+				set_state(for_husband_product)
+			end
+		end
+	end
+	state for_husband_product begin
+		when letter begin
+			send_letter("Les lances")
+			if pc.count_item(30161) >= 3 then
+				local v=find_npc_by_vnum(20003)
+				if 0==v then
+				else
+					target.vid("__TARGET__",v,"Ah-Yu")
+				end
+			end
+		end
+		when button or info begin
+			if pc.count_item(30161) >= 3 then
+				say_title("Les trois lances")
+				say("")
+				say("Vous avez trouvé les trois lances")
+				say("du mari d'Ah-Yu.")
+				say("Vous devriez retourner voir Ah-Yu")
+				say("")
+				return
+			else
+				say_title("Trouver les lances")
+				say("")
+				--                                                  |
+				say_reward("Soldat barbare, minion barbare, ")
+				say_reward("archer barbare et général barbare ")
+				say("possèdent les lances.")
+				say("Rechercher les lances du mari d'Ah-Yu.")
+				say_reward("Vous devriez trouver les trois lances")
+				say_reward("et les ramener les à Ah-Yu.")
+				say_reward("(Nombre de lances: "..pc.count_item(30161).." )")
+				say("")
+			end
+		end
+		when 501.kill or 502.kill or  503.kill or 504.kill  begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30161")<3  then
+				pc.give_item2("30161", 1)
+				local v=find_npc_by_vnum(20003)
+				if 0==v then
+				else
+					target.vid("__TARGET__",v,"Ah-Yu")
+				end
+			end
+		end
+		when 20003.chat."Les lances" with pc.count_item(30161)==0 begin
+			say_title("Ah-Yu:")
+			say("")
+			--                                                  |
+			say("Vraisemblablement les barbares ont les lances ")
+			say("de mon mari. J'espère qu'ils ne les vendront")
+			say("pas. Ce sont de très bonnes lances.")
+			say("")
+			say("Continuer la recherche?")
+			local s=select("Continuer", "Abandonner")
+			if 2==s then
+				say_title("Ah-Yu:")
+				say("")
+				say("Vous êtes un lâche!")
+				say("Ok, alors je dois y aller moi-même.")
+				say("")
+				say("Vous voulez vraiment abandonner la recherche?")
+				say("")
+				local r=select("Oui.", "Non.")
+				if 2==r then
+					say("")
+					say("Ha, vous me sous-estimer.")
+					say("Je peux le faire seul.")
+					say("")
+					return
+				else
+					say("")
+					say("Vous avez abandonné la recherche ")
+					say("des lances du mari d'Ah-Yu")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say("")
+				say("Merci.")
+				say("")
+			end
+		end
+		when __TARGET__.target.click or 20003.chat."Ramenez les lances du mari" with pc.count_item(30161)>0 begin
+			target.delete("__TARGET__")
+			if pc.count_item(30161)<3 then
+				say_title("Ah-yu:")
+				say("")
+				--                                                  |
+				say("C'est formidable que vous avez trouvé une lance.")
+				say("Pourriez-vous peut-être aussi regarder pour les")
+				say("deux autres?")
+				say("Ils vont de pair.")
+				say("Merci.")
+				say("")
+				local z=select("Essayer à nouveau","Abandonner")
+				if 2==z then
+					say("")
+					say("Vous avez abandonné la recherche des lances")
+					say("du mari d'Ah-Yu")
+					set_state(__GIVEUP__)
+					return
+				else
+					say("Essayer encore")
+					say("")
+				end
+			else
+				say_title("Ah-yu:")
+				say("")
+				say("Oh, ils sont là!")
+				say("Je suis très heureuse, merci.")
+				say("Ce n'est pas beaucoup de Yang, mais prenez-le.")
+				say("")
+				say_reward("Comme récompense pour les trois lances,")
+				say_reward("Vous avez reçu 500.000 Expérience")
+				say_reward("Vous avez reçu 40.000 Yang.")
+				pc.change_money(40000)
+				pc.give_exp2(500000)
+				pc.remove_item(30161, 3)
+				clear_letter()
+				set_state(__COMPLETE__)
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

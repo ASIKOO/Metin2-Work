@@ -1,0 +1,76 @@
+quest spider_dungeon_02floor begin
+	state start begin
+		when 20088.chat."Vers la cave secrète." begin
+			---                                                   l
+			say_title(""..mob_name(20088).."")
+			say("Salut.")
+			say("Je suis le garde du donjon secret des araignées.")
+			say("Voyons voir si vous êtes digne d'entrer dans les")
+			say("caves secrètes.")
+			say("Voulez-vous y entrer ?")
+
+			local s =select("Entrer dans la cave secrète", "Fermer")
+
+			if s == 1 then			
+				if pc.count_item(71095)>0 then
+					---                                                   l
+					say_title(""..mob_name(20088).."")
+					say("Géniale vous avez un ticket !")
+					say("Vous avez accés à la cave secrète.")
+					wait()
+					char_log(0,"GO_SPIDER2","USE_ITEM(71095)")
+					pc.remove_item(71095,1)
+					pc.warp(704100, 464100)
+
+				elseif pc.count_item(71096) >0 then
+					---                                                   l
+					say_title(""..mob_name(20088).."")
+					say("Géniale vous avez un tableau de passage !")
+					say("Vous avez accés à la cave secrète.")
+					wait()
+					char_log(0,"GO_SPIDER2","USE_ITEM(71096)")
+					pc.warp(704100, 464100)
+
+				elseif pc.count_item(71130) >0 then
+					---                                                   l
+					say_title(""..mob_name(20088).."")
+					say("Géniale vous avez un ticket !")
+					say("Vous avez accés à la cave secrète.")
+					wait()
+					char_log(0,"GO_SPIDER2","USE_ITEM(71130)")
+					pc.remove_item(71130,1)
+					pc.warp(704100, 464100)
+				else       
+					---                                                   l
+					say_title(""..mob_name(20088).."")
+					say("Je ne peux pas vous laisser passer. Revenez")
+					say("quand vous aurez une autorisation.")
+				end
+			end
+		end
+
+		when 20089.chat."Retour au premier étage" begin
+			---                                                   l
+			say_title(""..mob_name(20089).."")
+			say("Voulez-vous vraiment revenir au premier étage ?")
+
+			local a = select ( "Oui" , "Non")
+
+			if 1 == a then
+				---                                                   l
+				say_title(""..mob_name(20089).."")
+				say("Une sage décision. Il est dangereux de rester")
+				say("ici. Allez soigner vos blessures.")
+				wait()
+				pc.warp(91700,525300)
+
+			elseif 2 == a then
+				---                                                   l
+				say_title(""..mob_name(20089).."")
+				say("Comme vous voulez...")
+				say("Faites attention!")
+				say("C'est vraiment dangereux ici.")
+			end
+		end
+	end
+end

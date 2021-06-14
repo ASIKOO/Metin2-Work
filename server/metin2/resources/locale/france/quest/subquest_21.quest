@@ -1,0 +1,147 @@
+quest subquest_21 begin
+	state start begin
+		when login or levelup with pc.level >= 48 and pc.level <= 50 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20020)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, " Balso")
+			end
+		end
+		when __TARGET__.target.click or 20020.chat."La peste" begin
+			--                                                  |
+			target.delete("__TARGET__")
+			say_title("Balso:")
+			say("")
+			say("Puis-je vous demander une faveur?")
+			say("")
+			say("Comme vous le savez sûrement déjà, je suis ")
+			say("connu comme un traître et il est difficile de ")
+			say("gagner sa vie. J'ai également eu de bons moments")
+			say("où j'ai bien vécu, mais maintenant c'est le ")
+			say("contraire ...")
+			say("Depuis lors, je fuis et ne peut jamais me reposer.")
+			say("Le pire est arrivé et j'ai été en contact avec ")
+			say("de nombreuses maladies.")
+			say("")
+			wait()
+			--                                                  |
+			say_title("Balso:")
+			say("")
+			say("Selon la médecine traditionnelle, ")
+			say("il y a un remède qui renforce les défenses de")
+			say("l'organisme. ")
+			say("Pouvez-vous m'aider à obtenir ce remède?")
+			say("Comme je vis une vie isolée, je ne peux pas")
+			say("aller chercher ce médicament moi-même. ")
+			say("S'il vous plaît rapporter moi un échantillon")
+			say("des pestiféré où j'ai eu cette maladie inconnue.")
+			say("Je n'aime pas demander cela, mais s'il vous")
+			say("plaît aidez-moi.")
+			local s=select("Je vais vous aider.","Aucunement")
+			if 2==s then
+				say_title("Balso:")
+				say("")
+				say("Vous souhaitez refuser la quête?")
+				say("")
+				local a=select("Oui","Non")
+				if 2==a then
+					--                                                  |
+					say_title("Balso:")
+					say("")
+					say("Eh bien, cela n'arrive toujours qu'à moi. ")
+					say("Partout les gens ne m'aime pas. ")
+					say("Si vous reconsidérer cela, s'il vous plaît")
+					say("revenez plus tard.")
+					return
+				else
+					say_title("Balso:")
+					say("")
+					say("Alors allez, je ne veux plus jamais vous revoir.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Balso:")
+				say("")
+				say("Je vous souhaite tous le meilleur. Merci.")
+				say("")
+				set_state(accept_request)
+			end
+		end
+	end
+
+	state accept_request begin
+		when letter begin
+			send_letter("Le remède pour Balso")
+			if pc.count_item(30152)>0 then
+				local v=find_npc_by_vnum(20020)
+				if 0!= v then
+					target.vid("__TARGET__",v,"Aller voir Balso")
+				end
+			end
+		end
+		when info or  button begin
+			if pc.count_item(30152) >0 then
+				say_title("Aller voir Balso")
+				say("")
+				--                                                  |
+				say("Vous avez trouvé le remède pour Balso, ")
+				say("qui a été infecté par les hommes pestiférés")
+				say("atteints d'une maladie inconnue.")
+				say("Livrer le à Balso.")
+				say("")
+				return
+			else
+				say_title("Obtenez le remède")
+				say("")
+				--                                                  |
+				say("Lors de son long voyage, Balso a été infecté")
+				say("par une maladie. ")
+				say("Pour le traitement il a besoin d'un échantillon")
+				say("de cette maladie inconnue.")
+				say("Vous trouverez les pestiférés au Mont sohan.")
+				say("Prélevez un échantillon de la maladie.")
+				say("")
+			end
+		end
+		when 903.kill with pc.count_item(30152) == 0 begin
+			local s = number(1, 100)
+			if s <= 5 then
+				pc.give_item2(30152, 1)
+			end
+		end
+		when  __TARGET__.target.click or 20020.chat."J'ai l'échantillon" with pc.count_item(30152) > 0 begin
+			target.delete("__TARGET__")
+			say_title("Balso:")
+			say("")
+			--                                                  |
+			say("Oh merci beaucoup.")
+			say("C'est déjà terrible à vivre une vie de fugitif,")
+			say("si en plus par dessus ça je tombe malade.")
+			say("Maintenant, je peux redevenir sain avec ce ")
+			say("remède, merci beaucoup.")
+			say("")
+			say_reward("Reçu 1.800.000 Expérience")
+			say_reward("Reçu 200.000 Yang")
+			say("")
+			pc.remove_item(30152,1)
+			pc.change_money(200000)
+			pc.give_exp2(1800000)
+			clear_letter()
+			set_state(COMPLETE)
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+end

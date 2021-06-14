@@ -1,0 +1,210 @@
+quest subquest_46 begin
+	state start begin
+		when login  or levelup with pc.level >= 53 and pc.level <= 56 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20005)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Le secret de la porcelaine Céladon")
+			end
+		end
+	
+
+
+		when __TARGET__.target.click or 20005.chat."Le secret de la porcelaine Céladon" begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Yonah:")
+			say("")
+			say("Hé aventurier, j'ai encore un problème...")
+			say("Même si je connais les techniques de ")
+			say("fabrication de la porcelaine Céladon,  ")
+			say("je n'ai rien pas obtenu pour travailler.")
+			say("J'ai suivi la recette, mais plus de 100 ")
+			say("essais ont mal tourné, tout a cassé.")
+			say("J'ai alors réalisé que des matériaux spéciaux")
+			say("sont nécessaires pour faire la meilleure")
+			say("porcelaine Céladon.")
+			say("")
+			wait()
+			say_title("Yonah:")
+			say("")
+			say("J'ai besoin d'un type particulier de sable")
+			say("du désert, du minerai de cristal pour la ")
+			say("stabilité et du sang de singe pour la couleur")
+			say("spéciale de la porcelaine. ")
+			say("Seul ce type de porcelaine peut être vendu")
+			say("facilement et j'ai vraiment besoin d'argent.")
+			say("")
+			wait()
+			say_title("Yonah:")
+			say("")
+			--                                                  |
+			say("Pouvez-vous m'obtenir ces matériaux?")
+			say("Je vous récompenserez.")
+			say("Vous devez vaincre les hors la loi du désert ")
+			say("pour obtenir le sable du désert.")
+			say("Le minerai de cristal que vous vous obtiendrez ")
+			say("des mines de cristal, et pour le sang de singe")
+			say("vous devez tuer des singes dans le Donjon ")
+			say("difficile et attraper leur sang ..")
+			say("Bonne chance, cela ne va pas être facile.")
+			say("")
+
+			local s=select("Accepter.","Refuser.")
+			if 2==s then
+				say("Vous voulez mettre fin à cette quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					--                                                  |
+					say_title("Yonah:")
+					say("")
+					say("Si vous êtes occupé maintenant,")
+					say("revenez plus tard.")
+					say("")
+					return
+				end
+				--                                                  |
+				say_title("Yonah:")
+				say("")
+				say("Vous voulez vraiment abandonner?")
+				say("Alors je dois y allez moi-même...")
+				say("J'ai vraiment besoin de la porcelaine.")
+				say("Au revoir et bonne chance.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			--                                                  |
+			say_title("Yonah:")
+			say("")
+			say("Bonne chance dans vos recherches.")
+			say("Seulement quand j'aurais les matériaux correctes,")
+			say("Je pourrais fabriquer de la porcelaine correct.")
+			say("Mes clients m'attendent avec impatience!")
+			say("")
+			set_state(to_get_material)
+		end
+	end
+	state to_get_material begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Porcelaine Celadon")
+			q.set_title("Porcelaine Celadon")
+			q.start()
+
+			if pc.count_item("50611")>0 and pc.count_item("30138")>0 and pc.count_item("30137")>0 then
+				local v = find_npc_by_vnum(20005)
+
+				if v != 0 then
+					target.vid("__TARGET__", v, "Le secret de la porcelaine Celadon")
+				end
+			end
+		end
+
+		when button or info begin
+			if pc.count_item("50611") >= 1  and  pc.count_item("30137") >= 1 and pc.count_item("30138") >= 1 then
+				say_title("Le secret de la porcelaine Celadon")
+				--                                                  |
+				say("")
+				say("Vous avez tous les matériaux dont Yonah a ")
+				say("besoin!! Apportez les à Yonah!")
+				say("")
+				return
+			end
+			say_title("Le secret de la porcelaine Celadon")
+			--                                                  |
+			say("")
+			say("Pour que Yonah puisse fabriquer la porcelaine")
+			say("Celadon, il a besoin de ces matériaux.")
+			say("Sable du désert sur les  hors-la-loi ,")
+			say("minerais de cristal des mines de cristal ")
+			say("et du sang de singe des forts singe de pierre  ")
+			say("ou des forts singes d'or dans le Donjon difficile.")
+			say("Obtenez tous ces matériaux et amenez-les à Yonah!")
+			say("")
+		end
+		when 2108.kill  begin 
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30138")==0  then
+				pc.give_item2("30138", 1)
+				if pc.count_item("50611")>0 and pc.count_item("30137")>0 then
+					local v = find_npc_by_vnum(20005)
+					if v != 0 then
+						target.vid("__TARGET__", v, "Le secret de la porcelaine Celadon")
+					end
+				end
+			end
+		end
+		when 5125.kill or 5126.kill  begin 
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30137")==0  then
+				pc.give_item2("30137", 1)
+				if pc.count_item("50611")>0 and pc.count_item("30138")>0 then
+					local v = find_npc_by_vnum(20005)
+					if v != 0 then
+						target.vid("__TARGET__", v, "Le secret de la porcelaine Celadon")
+					end
+				end
+			end
+		end
+		when __TARGET__.target.click or 20005.chat."Tous les matériaux sont là " begin
+			if pc.count_item("50611") >= 1 and pc.count_item("30137") >= 1 and pc.count_item("30138") >= 1 then
+				target.delete("__TARGET__")
+				--                                                  |
+				say_title("Yonah:")
+				say("")
+				say("Enfin, il est fait! Vous m'avez beaucoup aidé.")
+				say("C'est le jour que j'attendais depuis si ")
+				say("longtemps.")
+				say("Je connais les techniques maintenant et j'ai")
+				say("aussi les bons matériaux.")
+				say("Maintenant, je vais faire la meilleure ")
+				say("porcelaine dans le monde! ")
+				say("Imaginez comment la couleur céladon fera ")
+				say("briller la porcelaine.")
+				say("Tout le monde voudra la regarder.")
+				say("Une telle bénédiction pour mes revenus!")
+				say("Je vais commencer immédiatement à en fabriquer,")
+				say("vous pourrez admirer la première pièce alors.")
+				say("")
+				pc.remove_item("50611",1)
+				pc.remove_item("30137",1)
+				pc.remove_item("30138",1)
+				say_reward("Vous avez reçu 3.000.000 points d'expérience.")
+				pc.give_exp2(3000000)
+				set_quest_state("levelup","run")
+				say_reward("Vous avez reçu 30.000 Yang.")
+				pc.change_money(30000)
+				say_reward("Vous avez reçu 5 loupes magique.")
+				pc.give_item2(71113, 5)
+				clear_letter()
+				set_state(__THEEND__)
+			else
+				say_title("Yonah:")
+				say("")
+				--                                                  |
+				say("Alors ces matériaux? Vous avez déjà oublié? ")
+				say("Pour que je puisse fabriquer la porcelaine")
+				say("Celadon, il a besoin de ces matériaux.")
+				say("Sable du désert sur les  hors-la-loi ,")
+				say("minerais de cristal des mines de cristal ")
+				say("et du sang de singe des forts singe de pierre  ")
+				say("ou des forts singes d'or dans le Donjon difficile.")
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __THEEND__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

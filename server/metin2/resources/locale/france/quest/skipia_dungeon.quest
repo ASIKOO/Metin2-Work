@@ -1,0 +1,76 @@
+quest skipia_dungeon begin
+	state start begin
+		when 20093.chat."Rentrer à Atlantea" begin
+			if pc.get_level() < 75 then
+				---                                                   l
+				say_title(""..mob_name(20093)..":")
+				say("Je suis Koe-Pung, de l'Ordre du Dragon,")
+				say("le gardien du portail. Vous pouvez seulement")
+				say("passer si vous me donnez une Pierre de sang et")
+				say("si vous avez la permission de l'Ordre !")
+				say_reward("Vous pouvez passer qu'à partir du niveau 75 !")
+			else
+				---                                                   l
+				say_title(""..mob_name(20093)..":")
+				say("Je suis Koe-Pung, de l'Ordre du Dragon,")
+				say("le gardien du portail. Vous pouvez seulement")
+				say("passer si vous me donnez une Pierre de sang et")
+				say("si vous avez la permission de l'Ordre !")
+
+				local s = select("Donner une Pierre de Sang", "J'ai compris")
+
+				if s == 1 then
+					if pc.count_item(30190)>0 then
+						---                                                   l
+						say_title(""..mob_name(20093)..":")
+						say("Le Dieu Dragon vous a choisi. Puisse t-il")
+						say("toujours veiller sur vous.")
+						wait()
+						char_log(0,"GO_SKIPIA","USE_ITEM(30190)")
+						pc.remove_item(30190,1)
+						pc.warp(000,1203200)
+
+					elseif pc.count_item(30191)>0 then
+						---                                                   l
+						say_title(""..mob_name(20093)..":")
+						say("Le Dieu Dragon vous a choisi. Puisse t-il")
+						say("toujours veiller sur vous.")
+						wait()
+						char_log(0,"GO_SKIPIA","USE_ITEM(30191)")
+						pc.remove_item(30191,1)
+						pc.warp(000,1203200)
+					else
+						---                                                   l
+						say_title(""..mob_name(20093)..":")
+						say("Je ne peu pas vous téléporter.")
+						say("Il vous faut une Pierre de sang.")
+						say_item("Pierre de sang", 30190, "")
+					end
+				end
+			end
+		end
+
+		when 20090.chat."Quitter Atlantea" begin
+			---                                                   l
+			say_title(""..mob_name(20090)..":")
+			say("Voulez-vous vraiment quitter atlantea ?")
+
+			local a = select ("Oui", "Non")
+
+			if 1 == a then
+				---                                                   l
+				say_title(""..mob_name(20090)..":")
+				say("Une sage décision. C'est bien trop dangereux")
+				say("ici. Sortez et allez soigner vos blessures.")
+				wait()
+				pc.warp(284200,810600)
+
+			elseif 2 == a then
+				---                                                   l
+				say_title(""..mob_name(20090)..":")
+				say("Vous êtes très courageux. Bonne chance dans les")
+				say("profondeurs de ces horribles lieux.")
+			end
+		end
+	end
+end

@@ -1,0 +1,23 @@
+WELCOME_MSG = "DB Server has been started"
+
+SQL_PLAYER = "localhost player metin2_2014 @METIN2! 0"
+SQL_ACCOUNT = "localhost account metin2_2014 @METIN2! 0"
+SQL_COMMON = "localhost common metin2_2014 @METIN2! 0"
+SQL_HOTBACKUP = "localhost hotbackup metin2_2014 @METIN2! 0"
+
+TABLE_POSTFIX = " "
+
+BIND_PORT               = 15000
+DB_SLEEP_MSEC           = 10
+CLIENT_HEART_FPS        = 10
+HASH_PLAYER_LIFE_SEC    = 600
+BACKUP_LIMIT_SEC        = 3600
+PLAYER_ID_START = 100
+PLAYER_DELETE_LEVEL_LIMIT = 75
+PLAYER_DELETE_CHECK_SIMPLE = 1
+
+ITEM_ID_RANGE = 2000000000 2100000000
+
+MIN_LENGTH_OF_SOCIAL_ID = 7
+
+SIMPLE_SOCIALID = 1

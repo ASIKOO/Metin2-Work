@@ -1,0 +1,73 @@
+quest system_management begin
+	state start begin
+		when 20358.chat."Statistiques des empires" with pc.is_gm() begin
+			local s_name, s_pid, s_date, s_money = mgmt.monarch_state(1)
+			local c_name, c_pid, c_date, c_money = mgmt.monarch_state(2)
+			local j_name, j_pid, j_date, j_money = mgmt.monarch_state(3)
+
+			---                                                   l
+			say_title("Gestion des empereurs:")
+			say("Statistiques des Empereur par empire.")
+			say("")
+			say_reward("Shinsoo :")
+			say(string.format("   Empereur : %s(%d)    Date d'élection : %s", s_name, s_pid, s_date))
+			say(              "   Trésorerie : "..s_money)
+			say("")
+			say_reward("Chunjo :")
+			say(string.format("   Empereur : %s(%d)    Date d'élection : %s", c_name, c_pid, c_date))
+			say(              "   Trésorerie : "..c_money)
+			say("")
+			say_reward("Jinno :")
+			say(string.format("   Empereur : %s(%d)    Date d'élection : %s", j_name, j_pid, j_date))
+			say(              "   Trésorerie : "..j_money)
+		end
+
+		when 20358.chat."Modif. Stats Empire." with pc.is_gm() begin
+			---                                                   l
+			say_title("Gestion des Empereurs:")
+			say("Choisissez l'empire cible.")
+
+			local s = select("Shinsoo", "Chunjo", "Jinno", "Fermer")
+
+			if s != 4 then
+				---                                                   l
+				say_title("Gestion des empereurs:")
+				say("Entrer la valeur choissis:")
+
+				local pid = input()
+
+				---                                                   l
+				say_title("Gestion des empereurs:")
+				say("Vous avez choisi la valeurs: "..pid)
+				say("Continuez ?")
+
+				local q = select("Oui", "Non")
+
+				if q == 1 then
+					local n
+					if s == 1 then
+						n = "Shinsoo"
+					elseif s == 2 then
+						n = "Chunjo"
+					elseif s == 3 then
+						n = "Jinno"
+					end
+
+					---                                                   l
+					say_title("Gestion des empereurs:")
+					say(n.." valider "..pid.." ?")
+					say("Etes vous sur ?")
+
+					q = select("Oui", "Non")
+
+					if q == 1 then
+						---                                                   l
+						say_title("Gestion des empereurs:")
+						say("Action validée.")
+						mgmt.monarch_change_lord(s, pid)
+					end
+				end
+			end
+		end
+	end
+end

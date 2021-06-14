@@ -1,0 +1,21 @@
+quest remove_polymorph begin
+	state start begin
+		when oldwoman.chat."Retirer la polymorphie" with pc.is_polymorphed() begin
+			---                                                   l
+			say_title("La vieille dame:") 
+			say("Je vois que vous utilisez la polymorphie.")
+			say("Je peux vous aidez à sortir de cette état.")
+			say("Voulez-vous être remis dans votre etat normal ?")
+
+			local s=select("Oui", "Non")
+
+			if 1==s then
+				---                                                   l
+				say_title("La vieille dame:") 
+				say("Vous voilà de nouveau normal.")
+				pc.remove_polymorph()
+			end
+			return
+		end
+	end
+end

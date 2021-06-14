@@ -1,0 +1,96 @@
+quest guild_war_observer begin
+	state start begin
+		when guild_war_observer1.chat."Voir la liste des combats de guilde" begin
+
+			local g = guild.get_warp_war_list()
+			local gname_table = {}
+
+			table.foreachi(g,
+
+			function(n, p)
+				gname_table[n] = guild.get_name(p[1]).." vs "..guild.get_name(p[2])
+			end)
+
+			if table.getn(g) == 0 then
+				---                                                   l
+				say_title("Maitre d'Armes:")
+				say("Il n'y a en ce moment aucun combat de guilde.")
+			else
+				gname_table[table.getn(g)+1] = locale.close
+				---                                                   l
+				say_title("Maitre d'Armes:")
+				say("Les combats de guildes suivants sont actuellement")
+				say("en cours:")
+				say_reward("Cliquez sur la war que vous voulez regarder.")
+
+				local s = select_table(gname_table)
+
+				if s != table.getn(gname_table) then
+					pc.warp_to_guild_war_observer_position(g[s][1], g[s][2])
+				end
+			end
+		end
+
+		when guild_war_observer2.chat."Voir la liste des combats de guilde" begin
+
+			local g = guild.get_warp_war_list()
+			local gname_table = {}
+
+			table.foreachi(g,
+
+			function(n, p)
+				gname_table[n] = guild.get_name(p[1]).." vs "..guild.get_name(p[2])
+			end)
+
+			if table.getn(g) == 0 then
+				---                                                   l
+				say_title("Maitre d'Armes:")
+				say("Il n'y a en ce moment aucun combat de guilde.")
+			else
+				gname_table[table.getn(g)+1] = locale.close
+				---                                                   l
+				say_title("Maitre d'Armes:")
+				say("Les combats de guildes suivants sont actuellement")
+				say("en cours:")
+				say_reward("Cliquez sur la war que vous voulez regarder.")
+
+				local s = select_table(gname_table)
+
+				if s != table.getn(gname_table) then
+					pc.warp_to_guild_war_observer_position(g[s][1], g[s][2])
+				end
+			end
+		end
+
+		when guild_war_observer3.chat."Voir la liste des combats de guilde" begin
+
+			local g = guild.get_warp_war_list()
+			local gname_table = {}
+
+			table.foreachi(g,
+
+			function(n, p)
+				gname_table[n] = guild.get_name(p[1]).." vs "..guild.get_name(p[2])
+			end)
+
+			if table.getn(g) == 0 then
+				---                                                   l
+				say_title("Maitre d'Armes:")
+				say("Il n'y a en ce moment aucun combat de guilde.")
+			else
+				gname_table[table.getn(g)+1] = locale.close
+				---                                                   l
+				say_title("Maitre d'Armes:")
+				say("Les combats de guildes suivants sont actuellement")
+				say("en cours:")
+				say_reward("Cliquez sur la war que vous voulez regarder.")
+
+				local s = select_table(gname_table)
+
+				if s != table.getn(gname_table) then
+					pc.warp_to_guild_war_observer_position(g[s][1], g[s][2])
+				end
+			end
+		end
+	end
+end

@@ -1,0 +1,239 @@
+quest subquest_28 begin
+	state start begin
+		when login or levelup with pc.level >=52   and pc.level <= 54 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20017)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "")
+			end
+		end
+
+		when __TARGET__.target.click or
+			20017.chat."Ce son n'est pas aussi bon qu'avant" begin
+			target.delete("__TARGET__")
+			say("Yu-hwan :")
+			say("Ding Ding Ding")
+			say("Argh! Ce n'est pas la bonne musique..")
+			say("C'est vraiment déprimant...")
+			say("Mon ami forgeron me comprendra..")
+			say("")
+			set_state(to_weaponshop)
+		end
+	end
+
+	state to_weaponshop begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir le forgeron")
+			q.set_title("Allez voir le forgeron")
+			q.start()
+			
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "")
+			end
+
+		end
+		when info or button begin
+			say(locale.NOTICE_COLOR.."Allez voir le forgeron"..locale.NORMAL_COLOR)
+			say("")
+			say("Allez voir le forgeron et demandez lui")
+			say("pourquoi Yu-hwan est si déprimé.")
+			say("")
+		end
+
+		
+		when __TARGET__.target.click or
+			20016.chat."Yu-hwan?"begin
+			target.delete("__TARGET__")
+			say("Forgeron:")
+			say("Ah !! Yu-hwan ?")
+			say("C'est à cause de son instrument")
+			say("Il en a toujours joué jour et nuit")
+			say("Son instrument est usé.")
+			--                                                  |
+			say("Il se sentirait mieux s'il pouvait en changer")
+			say("les cordes.. Récemment Yu-hwan ne joue plus.")
+			say("")	
+			set_state(back_to_yuhwan)
+		end
+	end
+	state back_to_yuhwan begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Retour voir Yu-hwan le musicien")
+			q.set_title("Retour voir Yu-hwan le musicien")
+			q.start()
+		
+			local v=find_npc_by_vnum(20017)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Retour voir Yu-hwan le musicien")
+			end
+		end
+		
+		when info or  button begin
+			say(locale.NOTICE_COLOR.."Retour voir Yu-hwan le musicien"..locale.NORMAL_COLOR)
+			say("Retour voir Yu-hwan le musicien déprimé ")
+			say("qui ne peut pas jouer de son instrument")
+			say("")
+		end
+		
+		when __TARGET__.target.click or
+			20017.chat."Cet instrument a un problème.." begin
+			target.delete("__TARGET__")
+			say("Yu-hwan :")
+			say("Oui..")
+			--                                                  |
+			say("La raison est que je ne plus jouer avec mon")
+			say("instrument une claire et belle sonorité..")
+			say("Impossible de bien jouer avec des cordes")
+			say("cassées. Pouvez-vous m'aider à rejouer ?")
+			say("Cette corde est faite de toile d'araignée griffue")
+			say("Soupir... Tant pis..")
+			say("")
+			local s=select("Je vais essayé ","Je suis désolé..." )
+			if 2==s then
+				say("Voulez-vous abandonner la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say("Yu-hwan: ")
+					--                                                  |
+					say("Ainsi vous ne voulez pas écouter ma musique !")
+					say("Venez quand vous changerez d'avis")
+					say("Je vais attendre")
+					say("")
+					return
+				end
+				say("Yu-hwan:")
+				say("Yeah..Tant pis")
+				say("*Soupir*")
+				say("Merci de m'avoir écouté quand même.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+					
+			say("Yu-hwan:")
+			say("Oh!!!!")
+			say("Merci!")
+			say("")
+			set_state(find_spider)
+			
+		end
+	end
+	state find_spider begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("L'instrument de Yu-hwan")
+			q.set_title("L'instrument de Yu-hwan")
+			q.start()
+			
+			if pc.count_item(30056)>0 then
+				local v=find_npc_by_vnum(20017)
+				if 0!= v then
+					target.vid("__TARGET__",v,"Retournez voir Yu-hwan")
+				end 
+			end
+
+		end
+		when info or  button begin
+			if pc.count_item(30056)>0 then
+				say(locale.NOTICE_COLOR.."Récupérer la toile"..locale.NORMAL_COLOR)
+				say("")
+				say("La toile de l'araignée griffue..")
+				say("Ramenons cela à Yu-hwan.")
+				say("")
+				return
+			end
+	
+			say(locale.NOTICE_COLOR.."Attrapez l'araignée griffue"..locale.NORMAL_COLOR)
+			say("")
+			say("Attrapez l'araignée griffue au désert.")
+			say("Apportez la toile d'araignée à Yu-hwan.")
+			say("")
+		end
+		when 2054.kill  begin
+			
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item(30056)==0  then
+				pc.give_item2(30056, 1)
+			end
+		end
+		when __TARGET__.target.click or 
+			20017.chat."Jouez de l'instrument" begin
+			target.delete("__TARGET__")
+			if  pc.count_item("30056")>=1 then 
+				target.delete("__TARGET__")
+				say("Yu-hwan :")
+				say("Wha..")
+				say("Vous l'avez")
+				say("Merci ! Merci !")
+				say("Vous voulez écouter ma musique ?")
+				say("")
+				pc.removeitem("30056",1)
+				say_reward("Vous gagnez 2.800.000 points d'expérience")
+				pc.give_exp2(2800000)
+				set_quest_state("levelup","run")
+				
+				say_reward("Vous avez herbes de médicinal.")
+				pc.give_item2(50725,5)
+				pc.give_item2(50726,5)
+				say_reward("Vous gagnez parchemin d'exorcisme..")
+				pc.give_item2(71001)
+				clear_letter()
+				set_state(__COMPLETE__)
+				return
+			else
+				say("Yu-hwan :")
+				say("Vous ne l'avez pas !")
+				say("Je ne savais pas que c'était si")
+				say("difficile pour vous ?")
+				say("")
+				local s=select("Essayez encore","Abandonner" )
+				if 2==s then
+					say("Voulez-vous abandonner la quête ?")
+					local a=select("Oui","Non")
+					if  2==a then
+						say("Yu-hwan :")
+						--                                                  |
+						say("Quoi un groupe en colère d'araignées griffue ?")
+						say("On dirait qu'elles ont été plus fortes...")
+						say("Essayez encore")
+						say("")
+						return
+					end
+					say("Yu-hwan :")
+					say("Vous êtes certain ?")
+					say("J'ai pensé que vous pourriez le faire..")
+					say("Vous pouvez faire n'importe quoi avec les")
+					say("araignées griffue, je suppose.")
+					say("Eh bien... merci quand même")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+						
+				say("Yu-hwan :")
+				say("Merci ! Je compte sur vous.")
+				say("")
+			end
+
+		end
+	end	
+  state __GIVEUP__ begin
+  end
+  state __COMPLETE__ begin
+	  when enter begin
+		q.done()
+	  end
+	  
+  end
+  end

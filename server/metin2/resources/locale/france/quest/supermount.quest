@@ -1,0 +1,297 @@
+quest supermount begin
+	state start begin
+
+		-- drop des certificats
+		when kill with supermount.is_time2drop() begin
+			local setting = supermount.setting()
+			-- parcours liste des mobs qui drop certificats
+			for i=1,table.getn(setting.mob2kill) do
+				if setting.mob2kill[i][1] == npc.get_race() and number(1,100) <= setting.mob2kill[i][2] then
+					local alea2 = number(1,100)
+					-- parcours liste des drop possibles
+					for j=1,table.getn(setting.drop) do
+						if alea2 <= setting.drop[j][2] then
+							pc.give_item2(setting.drop[j][1], 1)
+							break
+						end
+					end
+					break
+				end
+			end
+		end
+
+		-- notify supermount event ON
+		when login with supermount.is_time2drop() begin
+			notice("Event super-montures actif : Vous pouvez actuellement drop des certificats pour monture.")
+		end
+
+		-- infos
+		when 20349.chat."Les montures" begin
+			topsay(20349)
+			---												   l
+			say("Pour obtenir une monture à partir d'un")
+			say("certificat, veuillez glissez le certificat")
+			say("sur moi pour que je vous le délie.")
+			say("")
+			say("Pour améliorer votre monture, veuillez")
+			say("glisser son manuel d'appel sur moi.")
+			say("")
+			wait()
+			topsay(20349)
+			---												   l
+			say("Pour faire évoluer une jeune monture en une")
+			say("monture sauvage, vous aurez besoin d'un ")
+			say("parchemin d'évolution.")
+			say("")
+			---												   l
+			say("Pour faire évoluer une monture sauvage en une")
+			say("monture vaillante, vous aurez besoin d'un ")
+			say("parchemin de mutation.")
+			say("")
+			wait()
+			topsay(20349)
+			---												   l
+			say("Vous pouvez aussi prolonger la durée de vie")
+			say("de votre monture vaillante si il lui reste")
+			say("moins d'un jour d'existence.")
+			say("")
+			---												   l
+			say("Pour cela, glissez l'objet d'invocation sur")
+			say("moi. Il vous faudra 200.000 "..locale.gold)
+			say("et un parchemin de mutation.")
+			say("")
+		end
+
+		-- délier certificats
+		when 20349.take with item.vnum >= 52701 and item.vnum <= 52704 begin
+			topsay(20349)
+			---												   l
+			say("Voulez-vous délier votre certificat pour")
+			say("récupérer une monture ?")
+
+			local s = select("Oui", "Non")
+			
+			if s == 1 then
+				topsay(20349)
+				---												   l
+				say("Quel type de bonus voulez-vous que votre")
+				say("monture vous confère ?")
+
+				local s2 = select("Force contre monstres (5% max)", "Expérience gagnée (5% max)", "Points de vie (500 max)", "Défense (150 max)", "Valeur d'attaque (100 max)")
+				
+				pc.give_item2(item.get_value(s2 - 1), 1)
+				item.remove()
+				
+			end
+		end
+
+		--améliorer : monture jeune > sauvage
+		--améliorer : monture sauvage > vaillante
+		when 20349.take with supermount.is_young_mount_invok_item(item.vnum) or supermount.is_savage_mount_invok_item(item.vnum) begin
+			local setting = supermount.setting()
+			local mount_name = setting.mount_name
+			local needs = setting.needs_4_mount_up
+			local lv = 1
+			
+			if supermount.is_savage_mount_invok_item(item.vnum) then
+				lv = 2
+			end
+		
+			topsay(20349)
+			----"                                                  "|
+			say("Voulez-vous améliorer votre monture "..mount_name[lv].." ?")
+			say("")
+			say("Pour ce faire, vous avez besoin d'un")
+			say(item_name(needs[lv][3])..".")
+
+			local s = select("L'améliorer", "Annuler")
+			
+			if s == 1 then
+				if horse.get_level() < needs[lv][1] or pc.get_level() < needs[lv][2] then
+					topsay(20349)
+					---												   l
+					say("Vous devez avoir votre cheval niveau "..needs[lv][1])
+					say("et votre perso niveau "..needs[lv][2].." au ")
+					say("minimum pour obtenir une monture sauvage.")
+
+				elseif pc.count_item(needs[lv][3]) < 1 then
+					topsay(20349)
+					----"                                                  "|
+					say("Vous n'avez pas : "..item_name(needs[lv][3])..".")
+					say("")
+					say_item_vnum(needs[lv][3])
+				else
+					local time_bonus = number(1,4)
+					
+					topsay(20349)
+					----"                                                  "|
+					say("Votre monture a évolué en monture "..mount_name[lv + 1]..".")
+					say("")
+					pc.give_item2(item.vnum + 5, 1) -- nouvel item d'invocation
+					pc.remove_item(needs[lv][3], 1) -- suppression du parchemin d'évolution
+					item.remove() -- on le supprime
+				end
+			end
+		end
+
+		-- rallonger vie monture vaillante
+		when 20349.take with supermount.is_brave_mount_invok_item(item.vnum) and (item.get_socket(0) - get_global_time() < 24*60*60) begin
+			local setting = supermount.setting()
+			local price = setting.revive_price
+			
+			topsay(20349)
+			---												   l
+			say("Il reste moins d'une journée à vivre à votre")
+			say("monture vaillante.")
+			say("")
+			say("Vous avez cependant la possibilité de tenter")
+			say("de prolonger la durée de vie de votre")
+			say("monture vaillante.")
+			say("")
+			wait()
+			topsay(20349)
+			---												   l
+			say("Pour cela, il vous faudra un parchemin de")
+			say("mutation et donner "..price.." "..locale.gold..".")
+			say("")
+			say("Voulez-vous le tenter même si un échec")
+			say("est possible ?")
+
+			local s = select("Tenter", "Annuler")
+			
+			if s == 1 then
+				if pc.get_gold() < price then
+					topsay(20349)
+					---												   l
+					say("Vous n'avez pas assez d'argent sur vous. ")
+					say("Vous devez posséder "..price.." "..locale.gold..".")
+					say("")
+				elseif pc.count_item(setting.mutation_scroll) < 1 then
+					topsay(20349)
+					---												   l
+					say("Vous n'avez pas de parchemin de mutation.")
+					say("")
+					say_item_vnum(setting.mutation_scroll)
+					say("")
+				else
+					local alea = number(0,3)
+					topsay(20349)
+					---												   l
+					say("La durée de vie de votre monture vaillante")
+					say("est prolongée de "..alea.." jour(s).")
+					say("")
+					item.set_socket(0, item.get_socket(0) + alea*24*60*60)
+					pc.remove_item(setting.mutation_scroll, 1)
+				end
+			end
+		end
+	end
+
+	-- toutes les fonctions
+	state __FUNC__ begin
+		
+		-- pour personnaliser votre quête, c'est ici
+		function setting()
+			return
+			{
+				["drop"] = {
+						{52701, 25},--25% Certificat de lion
+						{52702, 50},--25% Certificat de tigre
+						{52703, 75},--25% Certificat de sanglier
+						{52704, 100}--25% Certificat de loup
+				},
+				
+				["mob2kill"] = {
+						{8011, 2},--2% de chance de drop un item en tuant ce mob, metin 55
+						{8012, 4}, -- metin 60
+						{8013, 5}, -- metin 65
+						{8014, 7}, -- metin 70
+				},
+				
+				["revive_price"] = 200000,
+				
+				["blessing_scroll"] = 50067, -- vnum
+				
+				["mutation_scroll"] = 50068, -- vnum
+
+				-- ["needs_4_mount_up"] = {{11, 25, supermount.setting().blessing_scroll}, {21, 50, supermount.setting().mutation_scroll}},
+				["needs_4_mount_up"] = {{11, 25, 50067}, {21, 50, 50068}}, -- lvl min cheval, lvl min joueur, parchemin   (1ère liste : monture jeune>sauvage)
+																															-- (2ème liste : monture sauvage>vaillante)
+
+				["mount_name"] = {"jeune", "sauvage", "vaillante"}, 
+				
+				["young_mount_invok_item_vnum"] = {
+													52001, 52002, 52003, 52004, 52005,
+													52016, 52017, 52018, 52019, 52020,
+													52031, 52032, 52033, 52034, 52035,
+													52046, 52047, 52048, 52049, 52050
+												},
+												
+				["savage_mount_invok_item_vnum"] = {
+													52006, 52007, 52008, 52009, 52010,
+													52021, 52022, 52023, 52024, 52025,
+													52036, 52037, 52038, 52039, 52040,
+													52051, 52052, 52053, 52054, 52055
+												},
+												
+				["brave_mount_invok_item_vnum"] = {
+													52011, 52012, 52013, 52014, 52015,
+													52026, 52027, 52028, 52029, 52030,
+													52041, 52042, 52043, 52044, 52045,
+													52056, 52057, 52058, 52059, 52060
+												},
+			}
+		end
+		
+		-- retourne vrai si on est dans les heures de drop du certificat
+		function is_time2drop()
+			local h_i = 19
+			local h_f = 22
+			-- players can drop between 19:00 and 22:00
+			local b = os.date("%H") - math.floor(os.date("%H") / h_f)*h_f >= h_i ;
+			return b
+		end
+		
+		-- retourne vrai si monture jeune
+		function is_young_mount_invok_item(vnum)
+			local b = false
+			local setting = supermount.setting()
+			
+			for i=1,table.getn(setting.young_mount_invok_item_vnum) do
+				if setting.young_mount_invok_item_vnum[i] == vnum then
+					b = true ;
+					break ;
+				end
+			end
+			return b
+		end
+		
+		-- retourne vrai si monture sauvage
+		function is_savage_mount_invok_item(vnum)
+			local b = false
+			local setting = supermount.setting()
+			
+			for i=1,table.getn(setting.savage_mount_invok_item_vnum) do
+				if setting.savage_mount_invok_item_vnum[i] == vnum then
+					b = true ;
+					break ;
+				end
+			end
+			return b
+		end
+		
+		-- retourne vrai si monture vaillante
+		function is_brave_mount_invok_item(vnum)
+			local b = false
+			local setting = supermount.setting()
+			
+			for i=1,table.getn(setting.brave_mount_invok_item_vnum) do
+				if setting.brave_mount_invok_item_vnum[i] == vnum then
+					b = true ;
+					break ;
+				end
+			end
+			return b
+		end
+	end
+end

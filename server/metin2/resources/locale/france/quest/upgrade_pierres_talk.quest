@@ -1,0 +1,42 @@
+quest upgrade_pierres_talk begin
+	state start begin
+		when 20091.chat."Les nouvelles connaissances..." begin
+			---                                                   l
+			say_title(""..mob_name(20091)..":")
+			say("Mon ami, le monde est plein de mystères")
+			say("irrésolus. Et moi, je suis un chercheur de")
+			say("réponses, un chercheur de connaissances.")
+			say("Avez-vous déjà entendu parler d'armes et de")
+			say("Pierres d'Esprit épiques?")
+		end
+
+		when 20091.chat."Qu'est-ce que vous faites en ce moment?" begin
+			---                                                   l
+			say_title(""..mob_name(20091)..":")
+			say("Vous savez déjà que je suis à la recherche de")
+			say("nouvelles connaissances. Actuellement,")
+			say("j'expérimente avec une nouvelle méthode")
+			say("d'amélioration qui rend les armes plus")
+			say("performantes et les Pierres d'Esprit plus")
+			say("puissantes qu'elles ne pouvait l'être")
+			say("auparavant.")
+		end
+
+		when 20091.chat."La recherche d'armes..." begin
+			---                                                   l
+			say_title(""..mob_name(20091)..":")
+			say("Intéressant, vous ne trouvez pas? Vous voulez en")
+			say("savoir plus? Apportez-moi une Épée de bataille+9,")
+			say("un Arc géant dragon jaune+9, un Éventail du")
+			say("salut+9, un Couteau du dragon+9, une Épée")
+			say("d'exorcisme+9, un Gong terre et ciel+9 ou une")
+			say("Lame de croc fantôme+9. J'aurais aussi besoin")
+			say("d'un Traité d'escrime et de deux Parchemins de")
+			say("Bénédiction. J'aissaierai ensuite de vous forger")
+			say("une arme épique à partir de ces objets.")
+			say("")
+			say("Je ne peux cependant pas vous promettre que cela")
+			say("va fonctionner.")
+		end
+	end
+end

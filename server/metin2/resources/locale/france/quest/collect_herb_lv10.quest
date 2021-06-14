@@ -1,0 +1,155 @@
+quest make_herb_lv10 begin
+	state start begin
+		when login or levelup with pc.get_level() ==10 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			send_letter("L'analyse du biologiste")
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Biologiste Chaegirab")
+			end
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("L'analyse du biologiste")
+			say("Le biologiste Chaegirab, élève d'Uriel, vous")
+			say("cherche. Veuillez aller le voir et demandez-lui")
+			say("si vous pouvez l'aider.")
+		end
+
+		when __TARGET__.target.click or
+			20084.chat."Le biologiste Chaegirab." begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Ciel, aidez-moi s'il vous plait... J'étudie")
+			say("toutes sortes de plantes de cet empire. Il")
+			say("semble impossible de faire cela moi-même. Je")
+			say("sais que je devrai le faire moi-même. Mais je")
+			say("suis juste un chercheur qui n'a pas votre force")
+			say("et votre courage. Aidez-moi s'il vous plait.")
+			wait()
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("J'étudie en ce moment la fleur de kaki. J'ai")
+			say("besoin de beaucoup de fleurs de kaki pour mes")
+			say("expériences. Pourriez-vous m'en apporter? 5")
+			say("fleurs de kaki devraient suffire. Aidez-moi")
+			say("s'il vous plait! Apportez-les moi une par une")
+			say("afin que j'aie le temps de les étudier!")
+			set_state(go_to_disciple)
+			pc.setqf("collect_count",0)
+			pc.setqf("drink_drug",0)
+		end
+	end
+
+	state go_to_disciple begin
+		when letter begin
+			send_letter("Quête spéciale! Ramassez des herbes")
+		end
+
+		when button or info begin
+			---                                                   l
+			say_title("Chercher des fleurs Kaki")
+			say("Le biologiste Chaegirab, l'apprenti d'Uriel,")
+			say("cherche des fleurs de Kaki. Apportez-lui une")
+			say("une fleur de Kaki à la fois pour ses expériences.")
+			say("Vous pouvez les obtenir sur des "..mob_name(177).."")
+			say_item_vnum(50703)
+			say_reward("Jusqu'à présent vous avez collecté ".." "..pc.getqf("collect_count").."fleurs")
+		end
+
+		when 71035.use begin
+			if pc.getqf("drink_drug")==1 then
+				---                                                   l
+				say_title("Élixir du chercheur:")
+				say("L'élixir du chercheur fait déjà éffet sur vous.")
+				return
+			end
+
+			if pc.count_item(50703)==0 then
+				---                                                   l
+				say_title("Élixir du chercheur:")
+				say("Vous ne pouvez pas utiliser l'élixir du chercheur")
+				say("si vous ne disposez pas de fleurs de Kaki.")
+				return
+			end
+			item.remove()
+			pc.setqf("drink_drug",1)
+		end
+
+		when 177.kill begin
+			if pc.count_item(50703)<5- pc.getqf("collect_count")then
+				pc.give_item2(50703, 1)
+			end
+		end
+
+		when 20084.chat."Donner une fleur de kaki" with pc.count_item(50703) >0 begin
+			---                                                   l
+			say_title("Le biologiste Chaegirab:")
+			say("Oh!! Vous en avez trouvé une!")
+			say("Laissez-moi voir...")
+			say("Juste un instant.")
+			pc.remove_item(50703, 1)
+			wait()
+
+			local pass_percent
+
+			if pc.getqf("drink_drug")==0 then
+				pass_percent=90
+			else
+				pass_percent=100
+			end
+
+			local s= number(1,100)
+
+			if s<= pass_percent then
+				if pc.getqf("collect_count")< 4 then
+					local index =pc.getqf("collect_count")+1
+					pc.setqf("collect_count",index)
+					---                                                   l
+					say_title("Le biologiste Chaegirab:")
+					say("Oh!! Cette fleur de Kaki est parfaite !")
+					say("Il m'en faudrait encore".." "..5-pc.getqf("collect_count").. ". Essayez")
+					say("de les trouver s'il vous plait.")
+					pc.setqf("drink_drug",0)
+					return
+				end
+				---                                                   l
+				say_title("Le biologiste Chaegirab:")
+				say("Félicitation!")
+				say("Vous les avez toutes trouvées.")
+				say("Je vais pourvoir terminer mes expériences.")
+				say("Merci.")
+				say_reward("Vous recevez Collier de cuivre+3.")
+				say_reward("Vous recevez 5000 yangs.")
+				say_reward("Vous recevez 6500 points d'expériences.")
+
+				pc.setqf("collect_count",0)
+				pc.setqf("drink_drug",0)
+				clear_letter()
+				set_state(__complete)
+
+				pc.give_item2(16023)
+				pc.change_money(5000)
+				pc.give_exp2(6500)
+				set_quest_state("levelup","run")
+				return
+			else
+				---                                                   l
+				say_title("Le biologiste Chaegirab:")
+				say("Cette fleur est abîmée!")
+				say("Allez m'en chercher une autre!")
+				pc.setqf("drink_drug",0)
+				return
+			end
+		end
+	end
+	state __complete begin
+	end
+end

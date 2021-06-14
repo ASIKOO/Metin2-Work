@@ -1,0 +1,326 @@
+quest subquest_25 begin
+	state start begin
+		when login or levelup with pc.level >= 31  and pc.level <= 33 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20022)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "David")
+			end
+		end
+
+		when __TARGET__.target.click or
+		 20022.chat."Oh ma bien-aimée Ariyoung" begin
+			target.delete("__TARGET__")
+			say_title("David:")
+			say("")
+			say("Uhm.. ")
+			--                                                  |
+			say("Connaissez-vous Madame Ariyoung?")
+			say("Eh bien, elle est ... était marié.")
+			say("Alors, elle n'est plus une vraie dame.")
+			say("Mais cela n'a pas d'importance, ")
+			say("elle est toujours aussi belle.")
+			say("Eh bien ... Je suis tombé amoureux d'elle")
+			say("depuis longtemps.")
+			say("Quand elle s'est mariée avec son mari,")
+			say("elle était très jeune ...")
+			say("Je pense que j'étais malchanceux ...")
+			say("")
+			wait()
+			say_title("David:")
+			say("")
+			say("Maintenant que son mari est mort à la guerre.")
+			say("Elle est maintenant une veuve assez jeune.")
+			say("Même si elle était mariée ...")
+			say("Je veux qu'elle sache ce que je ressens.")
+			say("Je sais que c'est vraiment un plaisir étrange,")
+			say("mais pouvez-vous m'aider?")
+			say("")
+			wait()
+			say_title("David:")
+			say("")
+			say("Vous pensez qu'elle aime un bel homme? ")
+			say("Et de beaux vêtements.  ")
+			say("Je dois d'abord savoir ce qu'elle aime,")
+			say("alors je pourrai lui parler.")
+			say("Pouvez-vous trouver cela s'il vous plaît?")
+			say("Mais ne lui dites rien à propos de moi!")
+			say("")
+			set_state(to_hear_about_her)
+		end
+	end
+
+	state to_hear_about_her begin
+		when letter begin
+			setskin(NOWINDOW)
+			q.set_title("Aller voir Ariyoung")
+			q.start()
+			makequestbutton("Aller voir  Ariyoung ")
+
+			local v=find_npc_by_vnum(20021)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Aller voir Ariyoung")
+			end
+
+		end
+
+		when info or button begin
+			say_title("Aller voir Ariyoung")
+			say("")
+			--                                                  |
+			say("David aime la veuve Ariyoung.")
+			say("Pour l'aider a dire à Ariyoung ce qu'il ressent,")
+			say("vous devez savoir ce qu'elle aime.")
+			say("Alors demandez à Ariyoung ce qu'elle aime, ")
+			say("mais attention de ne pas en dire trop.")
+		end
+
+		when  __TARGET__.target.click or
+			20021.chat."Qu'aimes-tu?" begin
+			target.delete("__TARGET__")
+			say_title("Ariyoung:")
+			say("")
+			--                                                  |
+			say("Eh bien, depuis que j'ai perdu mon mari à ")
+			say("la guerre, je me sens très seule. ")
+			say("Hmm, ce qui me ferait me sentir mieux?")
+			say("Mon mari m'a toujours apporté des fleurs.")
+			say("")
+			wait()
+			say_title("Ariyoung:")
+			say("")
+			say("Ces fleurs poussent loin")
+			say("de notre village. ")
+			say("Bien qu'il était dangereux, ")
+			say("il m'apportait ces fleurs. ")
+			say("Je ne peux plus voir ces fleurs ,")
+			say("maintenant que mon mari est mort.")
+			say("Eh bien, des jours comme ça me font ")
+			say("m'ennuyer de lui. Uhm, ce que j'ai dit?...")
+			say("Oublier simplement ce que je viens de dire.")
+			say("")
+			say("")
+			set_state(order)
+		end
+	end
+	state order begin
+		when letter begin
+			setskin(NOWINDOW)
+			q.set_title("Aller voir David")
+			q.start()
+			makequestbutton("Aller voir David ")
+
+			local v=find_npc_by_vnum(20022)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, " David ")
+			end
+
+		end
+		when info or button begin
+			say_title("David")
+			say("")
+			say("Aller voir David")
+			say("et dites lui ce qu'aime Ariyoung!")
+			say("")
+		end
+
+		when __TARGET__.target.click or
+			20022.chat."Donner lui une fleur"  begin
+			target.delete("__TARGET__")
+
+			say_title("David:")
+			say("")
+			--                                                  |
+			say("Alors qu'est-ce qu'elle aime?")
+			say("Vous ne lui avez rien dit sur moi?")
+			say("Elle aime une fleur que son mari lui à toujours")
+			say("apporter? ")
+			say("C'est loin du village et il n'est pas facile")
+			say("pour moi de faire cela.")
+			say("Et il pourrait y avoir des monstres, ")
+			say("comme des tigres.")
+			wait()
+			say_title("David:")
+			say("")
+			say("Ouais, pourquoi ne m'aides tu pas? ")
+			say("Pourquoi ne pas prendre la fleur pour moi? ")
+			say("Ce serait en faveur pour nous deux.")
+			say("Hein? Ce n'était pas le contrat?")
+			say("Allez, vous ne pouvez pas voir à quel point ")
+			say("j'essaie d'obtenir son amour? ")
+			say("Je vais vous récompenser avec beaucoup de Yang.")
+			say("")
+			local s=select("Accepter.","Refuser.")
+			if 2==s then
+				say("Vous voulez abandonner la quête de David?")
+				local a=select("Oui","Non")
+					if  2==a then
+						say_title("David:")
+						say("")
+						say("Zut.")
+						--                                                  |
+						say("Comment vais-je obtenir cette fleur pour elle.")
+						say("S'il vous plaît revenez quand vous aurez ")
+						say("changer d'avis.")
+						return
+					end
+					say_title("David:")
+					say("")
+					--                                                  |
+					say("N'avez-vous jamais aimé?")
+					say("Avez-vous aucune idée de ce que je ressens ")
+					say("pour Ariyoung?")
+					say("Oh Ariyoung...")
+					set_state(__GIVEUP__)
+					return
+				end
+				say_title("David:")
+				say("")
+				say("Merci beaucoup!")
+				say("S'il vous plaît apportez-moi cette fleur.")
+				set_state(find_flower)
+				pc.setqf("flower_done",0)
+			end
+
+
+	end
+
+	state find_flower begin
+		when letter begin
+			setskin(NOWINDOW)
+			q.set_title("Obtenez la fleur" )
+			q.start()
+			makequestbutton("Obtenez la fleur")
+
+			local v=find_npc_by_vnum(20358)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Les fleurs")
+			end
+
+
+		end
+		when info or  button begin
+			say_title("Obtenir les fleurs")
+			say("")
+			--                                                  |
+			say("Pour aider David,")
+			say("a dire à Ariyoung qu'est-ce qu'il ressent,")
+			say("vous devez obtenir une fleur spéciale.")
+			say("Les fleurs sont dans la partie sud de la carte")
+		end
+		when 20022.chat. "Je n'ai pas réussi a obtenir les fleurs." begin
+			say_title("David:")
+			say("")
+			say("Hmm, mince..")
+			say("Je voulais lui dire mes sentiments.")
+			say("Il est tellement difficile d'obtenir son amour.")
+			say("Ma très chère Ariyoung ...")
+			say("")
+
+			local s=select("Je vais essayer.","J'abandonne.")
+			if 2==s then
+				say("Vous voulez abandonner la quête de David?")
+				local a=select("Oui","Non")
+					if  2==a then
+						say_title("David:")
+						say("")
+						say("Oh....")
+						say("Si vous avez fait votre choix,")
+						say("Je vais vous attendre ici.")
+						say("Aidez moi s'il vous plaît...")
+						return
+					end
+					say_title("David:")
+					say("")
+					--                                                  |
+					say("Voulez-vous que mon amour finisse comme cela?")
+					say("Ariyoung...")
+					set_state(__GIVEUP__)
+					return
+			end
+			say_title("David:")
+			say("")
+			--                                                  |
+			say("Je vous remercie beaucoup.")
+			say("Vous devez être amoureux.")
+			say("")
+		end
+		when __TARGET__.target.click or
+			20358.chat."Les fleurs préférés d'Ariyoung" with pc.getf("subquest_25","flower_done")==0 begin
+				target.delete("__TARGET__")
+				say("Ces fleurs ressemblent à celles,")
+				say("qu'a décrit Ariyoung.")
+				pc.give_item2(30153, 1)
+				pc.setqf("flower_done",1)
+				set_state(go_to_reward)
+			end
+
+	end
+
+	state go_to_reward begin
+		when letter begin
+			setskin(NOWINDOW)
+			q.set_title("J'ai les fleurs" )
+			q.start()
+			makequestbutton("J'ai les fleurs")
+
+			local v=find_npc_by_vnum(20022)
+			if 0 == v then
+				else
+					target.vid("__TARGET__",v,"Retournez voir David")
+			end
+
+		end
+		when info or  button begin
+			say_title("J'ai les fleurs")
+			say("")
+			say("Je dois donner les fleurs à David,")
+			say("qui aime Ariyoung.")
+
+		end
+
+		when __TARGET__.target.click or
+			20022.chat."Les fleurs" with pc.count_item(30153) > 0 begin
+			target.delete("__TARGET__")
+			say_title("David:")
+			say("")
+			--                                                  |
+			say("C'est la fleur?")
+			say("Maintenant, je peux dire à Ariyoung ce que ")
+			say("je ressens pour elle.")
+			say("Vous pensez que ce n'est pas encore le moment?")
+			say("Cependant, je peux lui dire maintenant, ")
+			say("je l'aime. Ce n'est pas grave s'il est trop tôt.")
+			say("Je vous remercie beaucoup.")
+			say("Voici votre récompense.")
+			say("")
+			pc.remove_item(30153,1)
+
+			say_reward("Vous avez reçu 300.000 points d'expérience.")
+			pc.give_exp2(300000)
+			say_reward("Vous avez reçu 20.000 Yang")
+			pc.change_money(20000)
+			say_reward("Vous avez reçu un Shuriken +")
+			pc.give_item2(30075)
+			pc.setqf("state", 0)
+
+			clear_letter()
+			set_state(__COMPLETE__)
+
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+	end
+end

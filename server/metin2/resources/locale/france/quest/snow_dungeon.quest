@@ -1,0 +1,785 @@
+quest snow_dungeon begin
+state start begin
+    when 9010.chat."Spawn Statue" with snow_dungeon.is_nemeres_dungeon() == true begin
+        d.purge()
+        d.spawn_mob_dir(20397, 173,262,1)
+        setskin(NOWINDOW)
+    end
+    when 9010.chat."TESTSERVER: SnowD Jump level 9" with snow_dungeon.is_nemeres_dungeon() == true  begin
+        local set = snow_dungeon.get_settings()
+        d.notice("Der Richtige Schlüssel wurde gefunden, in wenigen Sekunden geht es in den nächsten Stock.")
+        server_timer("Jp_9",6,d.get_map_index())
+        d.clear_regen()
+        d.kill_all()
+        d.regen_file("data/dungeon/ice_dungeon/zone_9.txt")
+        setskin(NOWINDOW)
+    end
+    when 9010.chat."TESTSERVER: SnowD Jump level 10" with snow_dungeon.is_nemeres_dungeon() == true  begin
+        local set = snow_dungeon.get_settings()
+        server_timer("Jp_Boss",3,d.get_map_index())
+        d.clear_regen()
+        d.kill_all()
+        d.regen_file("data/dungeon/ice_dungeon/zone_boss.txt")
+        local v = set.BossVnumGroup
+        d.spawn_group(v, 928, 335, 5 ,1, 1) --    (Input from SRC: argument: vnum,x,y,radius,aggressive,count)
+        setskin(NOWINDOW)
+    end
+    when 9010.chat."TESTSERVER: SnowD Spawn Boss" with snow_dungeon.is_nemeres_dungeon() == true  begin
+        local set = snow_dungeon.get_settings()
+        local v = set.BossVnumGroup
+        d.spawn_group(v, 928, 335, 5 ,1, 1) --    (INFO from SRC: argument: vnum,x,y,radius,aggressive,count)
+    end
+    when 9010.chat."TESTSERVER: SnowD Ending" with snow_dungeon.is_nemeres_dungeon() == true  begin
+        server_timer("Jp_OutAll",5,d.get_map_index())
+        say("done")
+    end
+    -- when 30331.use begin --key_level_2
+        -- LIB_writelog("{"..pc.get_local_x()..","..pc.get_local_y().."}",3,"snowcordis.txt")
+        -- d.spawn_mob(20399, pc.get_local_x(), pc.get_local_y())
+        -- chat("write Nordstern Kordinaten")
+    -- end
+    when 9010.chat."TESTSERVER: SnowD Spawn create Cords Test level 5" with snow_dungeon.is_nemeres_dungeon() == true  begin
+        snow_dungeon._Create_Stones_level5()
+        setskin(NOWINDOW)
+    end
+    when 9010.chat."TESTSERVER: SnowD Create Key level 5" with snow_dungeon.is_nemeres_dungeon() == true  begin
+        snow_dungeon._DropKeyOnLevel5()
+        setskin(NOWINDOW)
+    end
+    when 9010.chat."TESTSERVER: SnowD Get Kords from Level" with snow_dungeon.is_nemeres_dungeon() == true begin
+        local set = snow_dungeon.get_settings()
+        local warp_to_level = set.Position_level_1
+        local level = 2
+        say("old: x: "..warp_to_level[1].." y:"..warp_to_level[2].."")
+        local warp_to_level = set. _G[ "Position_level_"..level ]
+        say("new: x: "..warp_to_level[1].." y:"..warp_to_level[2].."")
+        --DONT WORKS!
+    end
+    function get_settings()
+        local snow_dungeon_settings = {}
+        snow_dungeon_settings.map_index = 252                        --Index du donjon glace
+        snow_dungeon_settings.base_cord = {26000, 26000}             --Base Kordinaten 
+        snow_dungeon_settings.outside_entry_pos = {61,4321,1667}     --Mapindex, Exit Position (Eisland)
+        snow_dungeon_settings.need_level = 100                        --Ab wann ist der Dungeon betretbar.
+        snow_dungeon_settings.need_level_group = 100                 --Benötigte Level für Gruppenmitglieder
+        snow_dungeon_settings.WaitBeforOutAllOnExit = 60            --Wartezeit bevor alle alle herausteleportiert werden bei einem erfolgreichen Run. (Empfohlen 60)
+        snow_dungeon_settings.NextJumpTime = 5                        --Wann man zur nächsten ebene Gejumpt wird (timer) (Empfohlen 5)
+        snow_dungeon_settings.DurationLoopTimer = 45                --Welchen intervall die Level und Missionen geprüft werden sollen. (Empfohlen 45)
+        snow_dungeon_settings.wait_duration = 60*60*4                --Ab wann der Dungeon wieder betretbar ist (PartyLeader)
+        snow_dungeon_settings.maxlife_time_on_dungeon = 60*60*1    --Maximale Zeit für den Dungeon.
+        snow_dungeon_settings.DurationMaxOnReJoinGroup = 60*5        --Maximale Zeit innerhalb wann man wieder in die Gruppe joinen kann.
+        snow_dungeon_settings.key_level_2 = 30331                    --KeyVnum für die 2.Ebene    --Frostschlüssel
+        snow_dungeon_settings.NpcVnum_level_5 = 20398                --MobVnum von 5.Ebene    --Würfel des Arktos
+        snow_dungeon_settings.StoneCount_level_5 = 6                --Wie viele Würfel des Arktos sollen erscheinen? 
+        snow_dungeon_settings.Key_on_level_5 = 30332                --KeyVnum von 5.Ebene    --Nordstern
+        snow_dungeon_settings.StoneCords_level_5 = {
+        {432,508},{437,493},{448,492},{448,476},{467,475},{466,464},
+        {462,450},{458,428},{446,439},{431,431},{415,416},{402,427},
+        {397,438},{375,434},{374,456},{390,468},{385,492},{402,505},
+        {404,489},{386,482}
+        }    --Positionen von Würfel des Arktos
+        snow_dungeon_settings.MobVnum_level_6 = 8058                --MobVnum von 6.Ebene    --Metin der Kälte
+        snow_dungeon_settings.MobVnum_level_7 = 6151                --MobVnum von 7.Ebene    --Szel
+        snow_dungeon_settings.SzelCords_level_7 = {
+        {752,499},{758,479},{772,452},{763,444},{750,451},{728,441},
+        {726,455},{718,482},{715,491},{731,473},{748,429}
+        } --Positionen von Szel
+        snow_dungeon_settings.Key_on_level_8 = 30333                --KeyVnum von 8.Ebene    --Eisblumenschlüssel
+        snow_dungeon_settings.NpcVnum_level_9 = 20399                --MobVnum von 9.Ebene    --Säule des Norddrachen
+        snow_dungeon_settings.BossVnumGroup = 6062                    --GroupMobVnum vom Boss --(Group.txt)
+        snow_dungeon_settings.BossVnum = 6191                        --MobVnum von 10.Ebene    --Nemere(6191)
+        
+        snow_dungeon_settings.Position_level_1 = { 171,271 }         --Position ebene 1    --Startposition        --Töte alle Monster auf dieser Ebene.
+        snow_dungeon_settings.Position_level_2 = { 761,270 }         --Position ebene 2                        --Finde den richtigen Frostschlüssel, nur ein Schamane kann ihn benutzen.
+        snow_dungeon_settings.Position_level_3 = { 187,491 }         --Position ebene 3                        --Töte alle Monster auf dieser Ebene.
+        snow_dungeon_settings.Position_level_4 = { 421,259 }         --Position ebene 4                        --Töte alle Monster auf dieser Ebene.
+        snow_dungeon_settings.Position_level_5 = { 419,530 }         --Position ebene 5                        --Öffnet die Siegel an den Würfel des Arktos in der richtigen Reihenfolge. (Zieht Nordstern auf die Würfel)
+        snow_dungeon_settings.Position_level_6 = { 571,706 }         --Position ebene 6                        --Töte alle Monster auf dieser Ebene. Danach Zersöre den Metin der Kälte (Nur ein Schamane kann ihn Schaden)
+        snow_dungeon_settings.Position_level_7 = { 746,534 }         --Position ebene 7                        --Töte alle Monster auf dieser Ebene und Szel
+        snow_dungeon_settings.Position_level_8 = { 303,710 }         --Position ebene 8                        --Der Eisblumenschlüssel muss gedroppt werden, jedoch kann dieser nur von Schamanen und Ninja benutzt werden.
+        snow_dungeon_settings.Position_level_9 = { 848,693  }         --Position ebene 9                        --Zerstört die Säule des Norddrachen. Nur Ninjas und Schamanen können ihm Schaden zufügen.
+        snow_dungeon_settings.Position_level_10 = { 927,391 }         --Position ebene 10 (BossZone)            --Besiege Nemere, den König über Frost und Eis.    
+        snow_dungeon_settings.Enable_TestServerMode = false            --Ob TestServer mode aktiviert ist. Wenn ja werden die Aufgaben schneller beendet.
+        snow_dungeon_settings.IsNewga_me_re_vi_sion = true                --Need ga_me_re_vi_sion 40301
+        return snow_dungeon_settings
+    end
+    function is_TestServerMode()
+        local set = snow_dungeon.get_settings()
+        return set.Enable_TestServerMode
+    end
+    function is_nemeres_dungeon()
+        local set = snow_dungeon.get_settings()
+        local map = pc.get_map_index()
+        if map >= (set.map_index * 10000) and map < (set.map_index * 10000 + 9000) then
+            return true
+        else
+            return false
+        end
+    end
+    when 20395.chat."Rejoignez votre groupe" with (party.is_party() and d.find(party.getf("ice_dungeon_map_index"))) begin
+        local set = snow_dungeon.get_settings()
+        local n = party.getf("ice_dungeon_map_index")
+        local cord = set.base_cord
+        local level = d.getf_from_map_index("level", n)
+        --say("Aktuelles Dungeon Level deiner Gruppe: "..level.."")
+        if level == 0 then
+            say_npc_name()
+            say("Votre groupe a déjà terminé l'instance.")
+            return
+        end
+        if pc.getqf("out_party_time") < get_global_time() then
+            say_npc()
+            say("")
+            say("Il fallait revenir avant  "..math.ceil(set.DurationMaxOnReJoinGroup  /60) .." Minute(s)")
+            say("Vous ne pouvez plus rejoindre votre groupe.")
+            say("Désolé.")
+            return
+        end
+        if n == 0 then
+            setskin(NOWINDOW)
+            return
+        else
+            say_npc()
+            say("")
+            say("Voulez vous rejoindre votre groupe ?")
+            if select("Oui","Non") == 1 then
+                local warp_to_level = set.Position_level_1
+                local level = d.getf_from_map_index("level", n)
+                if level >= 1 and level <= 10 then
+                    if level == 1 then         warp_to_level = set.Position_level_1
+                    elseif level == 2 then    warp_to_level = set.Position_level_2
+                    elseif level == 3 then    warp_to_level = set.Position_level_3
+                    elseif level == 4 then    warp_to_level = set.Position_level_4
+                    elseif level == 5 then    warp_to_level = set.Position_level_5
+                    elseif level == 6 then    warp_to_level = set.Position_level_6
+                    elseif level == 7 then    warp_to_level = set.Position_level_7
+                    elseif level == 8 then    warp_to_level = set.Position_level_8
+                    elseif level == 9 then    warp_to_level = set.Position_level_9
+                    elseif level == 10 then    warp_to_level = set.Position_level_10
+                    end
+                    pc.warp((cord[1] + warp_to_level[1])*100,(cord[2] + warp_to_level[2])*100,n)
+                else
+                    return
+                end
+            end
+        end
+    end
+    
+    when 20395.chat."Observatoire de Nemere" begin
+        local set = snow_dungeon.get_settings()
+        local need_level = set.need_level
+        say_npc()
+        say("")
+        say("Voulez vous que votre groupe entre dans")
+        say("le donjon pour combattre Nemere ?")
+	say("")
+        if select("Oui !","Non, nous ne sommes pas prêt ...") == 2 then
+            return
+        end
+        if (pc.is_gm() and pc.getf("snow_dungeon","duration") >= get_global_time()) then
+            say("Your are GameMaster, remove the duration?")
+            if select("Oui","Non") == 1 then
+                pc.setf("snow_dungeon","duration",0)
+                return
+            end
+        end
+        if (is_test_server() and snow_dungeon.is_TestServerMode() == true ) then
+            say("TestServer Mode is enable.")
+            say("Join now")
+            timer("make_dungeon",3)
+            return
+        end
+        --if not party.is_leader() then
+            --say_npc()
+            --say("J'apprécie votre courage mais seul, vous n'arriverez")
+            --say("point à détruire Nemere, maitre des neiges.")
+            --say("Construisez un groupe redoutable et puissant pour")
+            --say("que je puisse vous laissez entrer dans le donjon.")
+            --return
+        --end
+        if pc.get_level() < need_level then
+            say("Vous devez au moins avoir le niveau "..need_level.."")
+            say("pour entrer dans le donjon.")
+            return
+        end
+        if pc.getf("snow_dungeon","duration") >= get_global_time() then
+            say_npc()
+            say("Le temps d'attente pour entrer dans le donjon")
+            say("n'a pas encore expirer.")
+            say("Il reste: "..LIB_duration(pc.getf("snow_dungeon","duration") - get_global_time()).."")
+            return
+        end
+        if snow_dungeon._CheckMembersLevel() == false then    
+            return
+        else
+            timer("make_dungeon",2)
+        end
+    end
+    when 20397.chat."Que la bataille commence !" begin --Eisiger Löwe
+        say_npc()
+        say("")
+        say("Voulez vous commencer la bataille ?")
+        if select("Oui","Non, on est pas prêt") == 1 then
+            local set = snow_dungeon.get_settings()
+            local loop_durr = set.DurationLoopTimer
+            local wait_durations = set.wait_duration
+            local t = get_global_time()
+            d.setf("LastTimeGetOutPut",0)    
+            server_loop_timer("CheckLevelAndCountKillOnMobs",loop_durr,d.get_map_index())
+            d.regen_file("data/dungeon/ice_dungeon/zone_1.txt")
+            d.setf("Start_Time",t + set.maxlife_time_on_dungeon)
+            server_timer("Jp_OutAllFailNotice",(t + set.maxlife_time_on_dungeon) -  t,d.get_map_index())
+            --pc.setqf("duration",t + wait_durations)
+            d.setqf2("snow_dungeon","duration",t + wait_durations)
+            d.setf("level",1)
+            d.notice("Tuer tous les monstres pour accéder à l'étage suivant.") 
+            npc.purge()
+            snow_dungeon._GetLastTime()
+        end
+        setskin(NOWINDOW)
+    end
+    when make_dungeon.timer begin
+        local set = snow_dungeon.get_settings()
+        local cord = set.base_cord
+        local start_pos = set.Position_level_1
+        local t = get_global_time()
+        --d.new_jump_party(set.map_index,(cord[1] + start_pos[1]), (cord[2] + start_pos[2]))
+        --d.new_jump_all(set.map_index,(cord[1] + start_pos[1]), (cord[2] + start_pos[2]))
+	d.join(252)
+        snow_dungeon._ClearAlls()
+        d.setf("party_leader_pid",party.get_leader_pid())
+        party.setf("ice_dungeon_map_index",d.get_map_index())
+        d.spawn_mob_dir(20397, 173,262,1) --Eisiger Löwe
+    end
+    function _ClearAlls()
+        local d_index = d.get_map_index()
+        clear_server_timer("CheckLevelAndCountKillOnMobs",d_index)
+        clear_server_timer("Jp_1",d_index)
+        clear_server_timer("Jp_2",d_index)
+        clear_server_timer("Jp_3",d_index)
+        clear_server_timer("Jp_4",d_index)
+        clear_server_timer("Jp_5",d_index)
+        clear_server_timer("Jp_6",d_index)
+        clear_server_timer("Jp_7",d_index)
+        clear_server_timer("Jp_8",d_index)
+        clear_server_timer("Jp_9",d_index)
+        clear_server_timer("Jp_10",d_index)
+        clear_server_timer("Jp_OutAll",d_index)
+        clear_server_timer("Jp_OutAllFail",d_index)
+        clear_server_timer("Jp_OutAllFailNotice",d_index)
+        d.setf("level",0)    
+        d.setf("party_leader_pid",0)
+        d.setf("Start_Time",0)
+        d.setf("LastTimeGetOutPut",0)
+        d.setf("Stone_5_count",0)
+        d.setf("Stone_5_item_fail",0)
+        d.clear_regen()
+        d.kill_all()
+    end
+    
+    function _CheckMembersLevel()
+        local set = snow_dungeon.get_settings()
+        local user_fail_level = {}
+        local pids = {party.get_member_pids()}
+        local need_level = set.need_level_group
+        local have_ninja = false
+        local have_shaman = false
+        for i = 1, table.getn(pids), 1 do
+            q.begin_other_pc_block(pids[i])
+            if pc.get_level() < need_level then
+                table.insert(user_fail_level, table.getn(user_fail_level) +1, pc.get_name())
+            end
+            local job = pc.get_job()
+            if job == 1 -- Ninja weiblich
+            or job == 5 --Ninja männlich
+            then
+                have_ninja = true
+            end
+            if job == 3 -- Schamane weiblich
+            or job == 7 --Schamane männlich
+            then
+                have_shaman = true
+            end
+            q.end_other_pc_block()
+        end
+        if (is_test_server() and snow_dungeon.is_TestServerMode() == true ) then
+            --dchat("TestServer Mode is enable.")
+            return true
+        end
+        ---if have_ninja == false then
+           --- say("Vous ne pouvez pas rentrer dans ce donjon sans")
+            ---say("avoir un ninja dans votre groupe.")
+            ---return false
+        ---end
+        ---if have_shaman == false then
+            ---say("Vous ne pouvez pas rentrer dans ce donjon sans")
+            ---say("avoir un shaman dans votre groupe.")
+            ---return false
+        ---end
+        if table.getn(user_fail_level) >= 1 then
+            say_npc()
+            say("")
+            say("Certains membres du groupe n'ont pas le level")
+            say("requis: "..need_level)
+            for x = 1, table.getn(user_fail_level), 1 do
+                say(color(1,1,0), "    "..user_fail_level[x])
+            end
+            return false
+        end
+        if table.getn(user_fail_level) == 0 then
+            return true
+        end
+    end
+    when logout begin
+        if snow_dungeon.is_nemeres_dungeon() == true then
+        local set = snow_dungeon.get_settings()
+        pc.setqf("out_party_time",get_global_time() + set.DurationMaxOnReJoinGroup)
+        --snow_dungeon.unregister_name()
+        end
+    end
+    
+    when login begin
+        if snow_dungeon.is_nemeres_dungeon() == true then
+            local set = snow_dungeon.get_settings()
+            local backk = set.outside_entry_pos
+            pc.set_warp_location(backk[1], backk[2],backk[3])
+            if d.getf("party_leader_pid") != party.get_leader_pid() then
+                chat("nemeres_wait_dungeon #RAUS:#  Outside, your Group is not on this Dungeon")
+                chat("nemeres_wait_dungeon #RAUS:#debug -> "..d.getf("party_leader_pid").." != "..party.get_leader_pid().."")
+                d.exit()
+                return
+            end
+            if pc.get_level() < set.need_level_group then
+                chat("nemeres_wait_dungeon #RAUS:#  My level is low")
+                d.exit()
+                return
+            end
+            --chat("Willkommen im Nemeres Warte, Ihr habt "..math.ceil((d.getf("Start_Time")  - get_global_time()) /60) .." Minuten Zeit.")
+            --notice("Tötet alle Monster auf dieser Ebene um in den nächsten Stock zu gelangen.")
+            --snow_dungeon._GetLastTime()
+        end
+    end
+    
+    function _GetLastTime()
+        local c = get_global_time()
+        local t = d.getf("Start_Time") - c
+        local o = d.getf("LastTimeGetOutPut")
+        --d.notice("CurrentTime: "..c.." Last: "..o.."")
+        if c >= o then
+            if t >= 60 then
+                d.notice("Il vous reste "..math.ceil(t / 60).." Minute(s).")
+            else
+                d.notice("Il vous reste "..t .." Seconde(s).")
+            end
+            if t >= (60*10) then
+                d.setf("LastTimeGetOutPut",c + 60*5)
+            elseif t >= (60*5) then
+                d.setf("LastTimeGetOutPut",c + 60*2)
+            else
+                d.setf("LastTimeGetOutPut",c + 10)
+            end
+            --d.setf("LastTimeGetOutPut",c + 60*number(3,5)) -- Random
+        end
+    end
+    
+    when Jp_OutAllFailNotice.server_timer begin
+        if d.select(get_server_timer_arg()) then
+            d.notice("Zeit ist abgelaufen.")
+            server_timer("Jp_OutAll",1,d.get_map_index())
+        end
+    end
+    
+    when CheckLevelAndCountKillOnMobs.server_timer begin
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            local level = d.getf("level")
+            local mob_count = d.count_monster()
+            local next_jump_time = set.NextJumpTime
+            d.notice("level: "..level.." mob_count: "..mob_count.."")
+            if level == 1 and mob_count <= 0 then
+                d.notice("Vous avez tué tous les monstres. Vous allez être téléporté à l'étage suivant.")
+                d.notice("")
+                server_timer("Jp_2",next_jump_time,d.get_map_index())
+                d.clear_regen()
+                d.kill_all()
+                d.set_regen_file("data/dungeon/ice_dungeon/zone_2.txt")
+            elseif level == 3 and mob_count <= 0 then
+                d.notice("Vous avez tué tous les monstres. Vous allez être téléporté à l'étage suivant.")
+                d.notice("")
+                server_timer("Jp_4",next_jump_time,d.get_map_index())
+                d.clear_regen()
+                d.kill_all()
+                d.regen_file("data/dungeon/ice_dungeon/zone_4.txt")
+            elseif level == 4 and mob_count <= 0 then
+                d.notice("Vous avez tué tous les monstres. Vous allez être téléporté à l'étage suivant.")
+                d.notice("")
+                server_timer("Jp_5",next_jump_time,d.get_map_index())
+                d.clear_regen()
+                d.kill_all()
+                d.set_regen_file("data/dungeon/ice_dungeon/zone_5.txt")
+            elseif level == 6 and mob_count <= 0 then
+                local MobStonelvl6 = set.MobVnum_level_6
+                d.notice("Vous avez tué tous les monstres, la metin "..mob_name(MobStonelvl6).." apparait.")
+                d.notice("")
+                d.clear_regen()
+                d.kill_all()
+                d.regen_file("data/dungeon/ice_dungeon/zone_6.txt")
+                d.spawn_mob(MobStonelvl6,570,649)
+            elseif level == 7 and mob_count <= 0 then
+                d.notice("Vous avez tué tous les monstres. Vous allez être téléporté à l'étage suivant.")
+                d.notice("")
+                server_timer("Jp_8",next_jump_time,d.get_map_index())
+                d.clear_regen()
+                d.kill_all()
+                d.set_regen_file("data/dungeon/ice_dungeon/zone_8.txt")                
+            end
+            snow_dungeon._GetLastTime()
+        end
+    end
+
+    when Jp_2.server_timer begin --Jump Level 2
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            local v = set.key_level_2
+            d.setf("level",2)
+            local cord = set.base_cord
+            local pos = set.Position_level_2
+            d.jump_all((cord[1] + pos[1]), (cord[2] + pos[2]))
+            d.notice("Il faut dropper "..item_name(v).." pour accéder à l'étage suivant.")
+            d.notice("")
+        end
+    end
+    when 30331.use with snow_dungeon.is_nemeres_dungeon() == true begin --key_level_2
+        local set = snow_dungeon.get_settings()
+        local next_jump_time = set.NextJumpTime
+        local job = pc.get_job()
+        local level = d.getf("level")
+        if level == 2 then
+            if (is_test_server() and snow_dungeon.is_TestServerMode() == true ) then
+                --dchat("SET VARIABLE JOB 3")
+                job = 3
+            end
+            if job == 3 -- Schamane weiblich
+            or job == 7 --Schamane männlich
+            then
+                if number(1,3) == 1 then --or d.count_monster() < 10 then
+                    d.notice("C'est la bonne clé ! Vous allez être téléporté.")
+                    server_timer("Jp_3",next_jump_time,d.get_map_index())
+                    d.clear_regen()
+                    d.kill_all()
+                    d.regen_file("data/dungeon/ice_dungeon/zone_3.txt")
+                    item.remove()
+                else
+                    d.notice("C'est la mauvaise clé...")
+                    item.remove()
+                end
+            else
+                d.notice("Il n'y a que les Chamanes qui puissent utiliser cette clé.")
+                return
+            end
+        end
+    end
+    
+    when Jp_3.server_timer begin --Jump Level 3
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            d.setf("level",3)
+            local cord_MQ = set.base_cord
+            local pos = set.Position_level_3
+            d.jump_all((cord_MQ[1] + pos[1]), (cord_MQ[2] + pos[2]))
+            d.notice("Tuez tous les mobs pour accéder à l'étage suivant.")
+        end
+    end
+    
+    when Jp_4.server_timer begin --Jump Level 4
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            d.setf("level",4)
+            local cord = set.base_cord
+            local pos = set.Position_level_4
+            d.jump_all((cord[1] + pos[1]), (cord[2] + pos[2]))
+            d.notice("Tuez tous les mobs pour accéder à l'étage suivant.")
+        end
+    end
+    
+    when Jp_5.server_timer begin --Jump Level 5
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            local v = set.NpcVnum_level_5
+            d.setf("level",5)
+            local cord = set.base_cord
+            local pos = set.Position_level_5
+            d.jump_all((cord[1] + pos[1]), (cord[2] + pos[2]))
+            d.notice("Posez les sceaux dropés sur les "..mob_name(v).." dans le bon ordre !")
+            if set.IsNewga_me_re_vi_sion == true then
+                d.notice("Les sceaux se dropent sur les mobs...")
+            else
+                d.notice("Les sceaux se dropent sur les mobs...")
+            end
+            snow_dungeon._Create_Stones_level5()
+        end
+    end
+    
+    function _DropKeyOnLevel5()
+        if number(1,1000) >= 666 then --Abbruch der weiteren funtion -> Damit es spannend bleibt bei den würfeln... :P
+            return
+        end
+        local set = snow_dungeon.get_settings()
+        local count = set.StoneCount_level_5
+        local vnum = set.Key_on_level_5
+        local get_random_unique = d.get_unique_vid("stone5_"..number(1,count).."")
+        local fail_count = d.getf("Stone_5_item_fail") +1
+        local search = d.getf("Stone_5_count")
+        local search2 = d.get_unique_vid("stone5_"..search.."")
+        if search2 != get_random_unique then
+            d.setf("Stone_5_item_fail",fail_count)
+        end
+        --
+        if set.IsNewga_me_re_vi_sion == true then
+            --New function
+            game.drop_item(vnum,1)
+        else
+            game.drop_item(vnum,1)
+        end
+        --dchat("Creaty Key fail_count: "..fail_count.."")
+        if (is_test_server() and snow_dungeon.is_TestServerMode() == true ) then --Wenn TestServer Modus
+            item.set_socket(1,search2)
+            d.setf("Stone_5_item_fail",0)
+        elseif fail_count > 6 then --Wenn mehr wie x mal nicht richtig erstellt wird, dann kommt der richtige Key
+            item.set_socket(1,search2)
+            d.setf("Stone_5_item_fail",0)
+        else    
+            item.set_socket(1,get_random_unique)
+        end
+    end
+    
+    function _Create_Stones_level5()
+        local set = snow_dungeon.get_settings()
+        local stone_level5_count_MQ = set.StoneCount_level_5
+        local c = set.StoneCords_level_5 --{ {432,508},{437,493},{448,492},{448,476},{467,475},{466,464}}
+        local v = set.NpcVnum_level_5
+        for i = 1, stone_level5_count_MQ, 1 do
+            local n = number(1,table.getn(c))
+            --d.spawn_mob(20398, c[n][1], c[n][2])
+            d.set_unique("stone5_"..i.."", d.spawn_mob(v, c[n][1], c[n][2]))
+            --d.set_unique("stone5_"..i.."", mob.spawn(20398, c[n][1], c[n][2],1,1,1)) --GEHT
+            --d.set_unique("stone5_"..i.."", d.spawn_mob_ac_dir(20398, c[n][1], c[n][2],i)) --GEHT
+            table.remove(c,n)
+            if i == 1 then
+                d.setf("Stone_5_count",1)
+                d.setf("Stone_5_item_fail",0)
+            end
+        end
+    end
+    
+    when 20398.take begin --NpcVnum_level_5
+        if snow_dungeon.is_nemeres_dungeon() == true then
+            local set = snow_dungeon.get_settings()
+            local stone_level5_count = set.StoneCount_level_5
+            local next_jump_time = set.NextJumpTime
+            local vnum = item.get_vnum()
+            local key_level_5 = set.Key_on_level_5 --30332
+            local unique_item = item.get_socket(1)
+            --dchat("unique_item: "..unique_item.."")
+            if (is_test_server() and snow_dungeon.is_TestServerMode() == true ) then
+                d.notice("TESTSERVERMODE, in wenigen Sekunden geht es in den nächsten Stock.")
+                npc.purge()
+                item.remove()
+                server_timer("Jp_6",next_jump_time,d.get_map_index())
+                d.clear_regen()
+                d.kill_all()
+                d.regen_file("data/dungeon/ice_dungeon/zone_6.txt")
+                return
+            end
+            if vnum == key_level_5 then
+                local npc_vid = npc.get_vid()
+                local search = d.getf("Stone_5_count")
+                local search2 = d.get_unique_vid("stone5_"..search.."")
+                --dchat("npc_vid: "..npc_vid.." search:"..search.." search2:"..search2.." ")
+                if npc_vid == search2 then
+		    local s = number(1, 100)
+                    if s >= 51 then
+                        local new = search +1 
+                        if new > stone_level5_count then
+                            d.notice("Vous avez posé la dernière pierre. Vous allez être téléporté à l'étage suivant.")
+                            npc.purge()
+                            item.remove()
+                            server_timer("Jp_6",next_jump_time,d.get_map_index())
+                            d.clear_regen()
+                            d.kill_all()
+                            d.regen_file("data/dungeon/ice_dungeon/zone_6.txt")
+                        else
+                            d.notice("Le pillier numéro "..search.." a été ouvert. Il reste ".. stone_level5_count - search .." à ouvrir.")
+                            npc.purge()
+                            item.remove()
+                        end
+                        d.setf("Stone_5_count",new)
+                    else
+                        chat("C'est le bon pillier mais la clé n'a pas l'air bonne ...")
+                        item.remove()
+                    end
+                else
+                    chat("Ce n'est pas le bon pillier ...")
+		    item.remove()
+                end
+            end
+        end    --if is dungeon end
+    end    --when end
+    
+    when Jp_6.server_timer begin --Jump Level 6
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            local v = set.MobVnum_level_6
+            d.setf("level",6)
+            local cord = set.base_cord
+            local pos = set.Position_level_6
+            d.jump_all((cord[1] + pos[1]), (cord[2] + pos[2]))
+            
+            d.notice("Tuez tous les monstres puis détruisez la "..mob_name(v).."")
+            d.notice("Seulement les chamanes peuvent lui faire des dégâts.")
+            --d.spawn_mob(v,570,649)
+            
+        end
+    end
+    
+    when Jp_7.server_timer begin --Jump Level 7
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            local v = set.MobVnum_level_7
+            d.setf("level",7)
+            local cord = set.base_cord
+            local pos = set.Position_level_7
+            d.jump_all((cord[1] + pos[1]), (cord[2] + pos[2]))
+            d.notice("Tuez tous les mobs puis le boss "..mob_name(v)..".")
+        end
+    end
+    
+    when Jp_8.server_timer begin --Jump Level 8
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            local v = set.Key_on_level_8
+            d.setf("level",8)
+            local cord = set.base_cord
+            local pos = set.Position_level_8
+            d.jump_all((cord[1] + pos[1]), (cord[2] + pos[2]))
+            d.notice("Droppez des "..item_name(v).." sur les monstres ")
+            d.notice("Il n'y a que les Ninjas et les Chamanes qui puissent les utiliser.")
+        end
+    end
+    
+    when 30333.use with snow_dungeon.is_nemeres_dungeon() == true begin --Key_on_level_8
+        local set = snow_dungeon.get_settings()
+        local next_jump_time = set.NextJumpTime
+        local level = d.getf("level")
+        local job = pc.get_job()
+        if level == 8 then
+            if (is_test_server() and snow_dungeon.is_TestServerMode() == true ) then
+                --dchat("SET VARIABLE JOB 3")
+                job = 3
+            end
+            if job == 1 -- Ninja weiblich
+            or job == 5 --Ninja männlich
+            or job == 3 -- Schamane weiblich
+            or job == 7 --Schamane männlich
+            then
+                if number(1,3) == 1 then
+                    d.notice("C'est la bonne clé ! Vous allez être téléporté.")
+                    server_timer("Jp_9",next_jump_time,d.get_map_index())
+                    d.clear_regen()
+                    d.kill_all()
+                    d.regen_file("data/dungeon/ice_dungeon/zone_9.txt")
+                    item.remove()
+                else
+                    d.notice("La clé n'est pas bonne !")
+                    item.remove()
+                end
+            else
+                d.notice("Il n'y a que les Chamanes ou les Ninjas qui peuvent utiliser cette clé.")
+                return
+            end
+        end
+    end
+    
+    when Jp_9.server_timer begin --Jump Level 9
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            local v = set.NpcVnum_level_9
+            d.setf("level",9)
+            local cord = set.base_cord
+            local pos = set.Position_level_9
+            d.jump_all((cord[1] + pos[1]), (cord[2] + pos[2]))
+            d.notice("Tuez "..mob_name(v).." ")
+            d.notice("Mais il n'y a que les Chamanes ou les Ninjas qui peuvent lui faire des dégâts.")
+            d.notice("")
+            d.spawn_mob(v,849,655)
+        end
+    end
+    
+    when Jp_Boss.server_timer begin --Jump Level BossZone
+        if d.select(get_server_timer_arg()) then
+            local set = snow_dungeon.get_settings()
+            local v = set.BossVnum
+            d.setf("level",10)
+            local cord = set.base_cord
+            local pos = set.Position_level_10
+            d.jump_all((cord[1] + pos[1]), (cord[2] + pos[2]))
+            d.notice("Détruire "..mob_name(v)..", le roi de givre et de glace.")
+        end
+    end
+    
+    when kill begin
+        if snow_dungeon.is_nemeres_dungeon() == true then
+            local set = snow_dungeon.get_settings()
+            local next_jump_time = set.NextJumpTime
+            local level = d.getf("level")
+            local stone_level_6 = set.MobVnum_level_6
+            local stone_level_9 = set.NpcVnum_level_9
+            local boss_vnum = set.BossVnum
+            local wait_time = set.WaitBeforOutAllOnExit
+            local mobvnum = npc.get_race()
+            --dchat("nemeres_wait_dungeon MobVnum = "..mobvnum.."")
+            if level == 2 and mobvnum >= 6101 and mobvnum <= 6108 and 1 == number(1,50)  then
+                local v = set.key_level_2
+                game.drop_item(v,1)
+            elseif level == 5 and mobvnum >= 6101 and mobvnum <= 6108 and 1 == number(1,15) then
+                snow_dungeon._DropKeyOnLevel5()
+            elseif level == 6 and mobvnum == stone_level_6 then
+                d.notice("La "..mob_name(stone_level_6).." a été détruite. Vous allez être téléporté à l'étage suivant.")
+                d.notice("")
+                server_timer("Jp_7",next_jump_time,d.get_map_index())
+                d.clear_regen()
+                d.kill_all()
+                d.regen_file("data/dungeon/ice_dungeon/zone_7.txt") --Szel
+                local v_MQv = set.MobVnum_level_7
+                local c = set.SzelCords_level_7
+                local n = number(1,table.getn(c))
+                d.spawn_mob(v_MQv, c[n][1], c[n][2])
+            elseif level == 8 and mobvnum >= 6101 and mobvnum <= 6108 and 1 == number(1,10) then
+                local v = set.Key_on_level_8
+                game.drop_item(v,1)    
+            elseif level == 9 and mobvnum == stone_level_9 then
+                d.notice("Le "..mob_name(stone_level_9).." a été détruit, vous allez être téléporté.")
+                server_timer("Jp_Boss",next_jump_time,d.get_map_index())
+                d.clear_regen()
+                d.kill_all()
+                d.regen_file("data/dungeon/ice_dungeon/zone_boss.txt")
+                local v = set.BossVnumGroup
+                d.spawn_group(v, 928, 335, 5 ,1, 1) --    (Input from SRC: argument: vnum,x,y,radius,aggressive,count)
+            elseif level == 10 and mobvnum == boss_vnum then
+                d.clear_regen()
+                d.kill_all()
+                d.notice(""..mob_name(boss_vnum).." a été vaincu ! Vous allez être téléporté dans "..wait_time.." secondes.")
+                server_timer("Jp_OutAll",wait_time,d.get_map_index())
+            end
+        end
+    end
+    when Jp_OutAll.server_timer begin --Jump Out Bye bye ;D
+        if d.select(get_server_timer_arg()) then
+            snow_dungeon._ExitAll()
+        end
+    end
+    function _ExitAll()
+        d.exit_all()
+    end
+end
+end  

@@ -1,0 +1,76 @@
+quest give_basic_weapon begin
+	state start begin
+		when login begin
+			if pc.getqf("basic_weapon") == 0 then
+				pc.setqf("basic_weapon", 1)
+
+		--Equipement pour Guerrier
+
+				local arme = 19		--Epée+9
+				local arme2 = 3009		--Glaive+9
+				local armure = 11209		--Armure du singe+9
+				local casque = 12209		--Heaume traditionnel+9
+
+		--Equipement pour Ninja
+				
+				if pc.job == 1 then
+					arme = 19		--Epée+9
+					arme2 = 1009		--Dague+9
+					armure = 11409	--Costume azur+9
+					casque = 12349	--Capuchon en cuir+9
+
+		--Equipement pour Sura
+
+				elseif pc.job == 2 then
+					arme = 19		--Epée+9
+					arme2 = 0		--Rien
+					armure = 11609	--Armure de réquiem+9
+					casque = 12489	--Heaume sanglant+9
+
+		--Equipement pour Chamane
+
+				elseif pc.job == 3 then
+					arme = 7009		--Eventail+9
+					arme2 = 0		--Rien
+					armure = 11809	--Robe Pourpre+9
+					casque = 12629	--Chapeau de moine+9
+				end
+
+				if pc.countitem(arme) == 0 and pc.countitem(arme2) == 0 and pc.countitem(armure) == 0 and pc.countitem(casque) == 0  and pc.weapon != arme then
+					pc.give_gold(10000000)	--10 000 000 Yangs
+					pc.give_item2(50052, 1)	--Livre cheval de combat
+					pc.give_item2(27003, 200)	--Potion Rouge(G) x200
+					pc.give_item2(27006, 200)	--Potion Bleue(G) x200
+					pc.give_item2(72727,	1)	--Élixir de la lune (P)
+					pc.give_item2(72723,	1)	--Élixir du soleil (P)
+					pc.give_item2(15009, 1)	--Chaussures de cuir+9
+					pc.give_item2(13009, 1)	--Bouclier de bataille+9
+					pc.give_item2(14009, 1)	--Bracelet de bois+9
+					pc.give_item2(16009, 1)	--Collier de bois+9
+					pc.give_item2(17009, 1)	--Boucles oreilles bois+9
+					pc.give_item2(arme)		--Arme level 0+9 différente pour chaque race.
+					pc.give_item2(arme2)		--Arme level 0+9 différente pour chaque race.
+					pc.give_item2(armure)	--Armure level 0+9 différente pour chaque race.
+					pc.give_item2(casque)	--Casque level 0+9 différent pour chaque race.
+					pc.set_skill_level(131, 1)
+					repeat 
+						horse . advance () 
+					until horse . get_level () >= 11
+					horse.summon()
+					horse.ride()
+				end
+
+				local empire={"Shinsoo", "Chunjo", "Jinno"}
+				notice_all("Le personnage ".. pc.get_name() .." du royaume "..empire[pc.getempire()].." a été crée.")
+				---                                                   l
+				say_title("Bienvenue "..pc.name.." :")
+				say("Les grands sages ont décidé de vous aidez pour")
+				say("le début de l'aventure et vous on fait grâce de")
+				say("plusieurs présents. Ils vous ont donné une")
+				say("monture niveau 11 ainsi que tout l'équipement du")
+				say("débutant +9 (bouclier, armure, armes et bijoux) !")
+				say("Alors qu'attendez vous ? Bonne chance !")
+			end
+		end
+	end
+end

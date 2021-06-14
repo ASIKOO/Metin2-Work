@@ -1,0 +1,293 @@
+quest subquest_23 begin
+	state start begin
+		when login or levelup with pc.level >= 36  and pc.level <= 38 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v= find_npc_by_vnum(20006)
+			if v!= 0 then
+				target.vid("__TARGET__",v,"Mirine")
+			end
+		end
+		when __TARGET__.target.click or 20006.chat."Mon frère a encore disparu"  begin
+			target.delete("__TARGET__")
+			say_title("Mirine:")
+			say("")
+			--                                                  |
+			say("Un moment, s'il vous plaît ..")
+			say("Tu m'as donné la lettre de mon frère, mais")
+			say("il ne m'a toujours pas donner de nouvelles ")
+			say("de lui.")
+			say("")
+			wait()
+			say("")
+			say_title("Mirine:")
+			say("")
+			say("Je suis inquiète pour lui qu'il")
+			say("ne m'a pas contacté. ")
+			say("Désolé, mais peut-être pourriez-vous")
+			say("chercher à nouveau après mon frère?")
+			say("Peut-être que Yu-Hwan sait quelque chose.")
+			say("")
+			local s=select("Accepter", "Refuser")
+			if 2==s then
+				say("Vous voulez abandonner?")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Mirine:")
+					say("")
+					say("..Sanglots ..")
+					say("J'attends ... Revenez s'il vous plaît.")
+					say("")
+					return
+				else
+					say_pc_name()
+					say("")
+					say("Je n'ai pas le temps.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_pc_name()
+				say("")
+				say("Aider cette pauvre fille est bien")
+				say("Alors allons-y!")
+				say("")
+				set_state(to_yuhwan)
+			end
+		end
+	end
+	state to_yuhwan begin
+		when letter begin
+			send_letter("Le frère disparu!")
+			local v= find_npc_by_vnum(20017)
+			if v!= 0 then
+				target.vid("__TARGET__",v,"Aller voir Yu-Hwan")
+			end
+		end
+		when button or info begin
+			say_title("Aller voir Yu-Hwan")
+			say("")
+			--                                                  |
+			say("Le frère aîné de Mirine a encore disparu.")
+			say("Il n'a pas donné signe de vie depuis")
+			say(" un certain temps.")
+			say("La lettre que vous lui avez apporté récemment ")
+			say("été le dernier contact.  ")
+			say("Parler à Yu-Hwan pour avoir des nouvelles")
+			say("du frère de Mirine.")
+		end
+		when __TARGET__.target.click or 20017.chat."Avez-vous vu le frère aîné?" begin
+			target.delete("__TARGET__")
+			say_title("Yu-Hwan:")
+			say("")
+			--                                                  |
+			say("Mirine vous envoie?")
+			say("Elle est très inquiète pour son frère.")
+			say("Qu'est-ce que je peux faire ...")
+			say("Je ne l'ai pas vu moi-même depuis longtemps.")
+			say("Je ne me souviens pas vraiment non plus.")
+			say("Je n'ai aucun contact avec lui pour le moment.")
+			say("C'est pourquoi je m'inquiète aussi ...")
+			say("Peut-être que quelque chose lui est arrivé.")
+			say("J'ai entendu dire que le chasseur Yang-Shin")
+			say("l'a vu.")
+			say("Demandez-lui, peut-être qu'il a une idée.")
+			set_state(to_hunter)
+		end
+	end
+
+	state to_hunter begin
+		when letter begin
+			send_letter("Rechercher le chasseur!")
+			local v= find_npc_by_vnum(20019)
+			if v!= 0 then
+				target.vid("__TARGET__",v,"Aller voir Yang-Shin le chasseur")
+			end
+		end
+		when button or info begin
+			say_title("Aller voir Yang-Shin le chasseur")
+			say("")
+			say("Pour rechercher le frère aîné,")
+			say("parlez au chasseur Yang-Shin.")
+			say("")
+		end
+		when __TARGET__.target.click or 20019.chat."Avez-vous vu le frère de Mirine?" begin
+			target.delete("__TARGET__")
+			say_title("Yang-Shin:")
+			say("")
+			--                                                  |
+			say("Le frère aîné de Mirine?")
+			say("La dernière fois que je l'ai rencontré,")
+			say("il était en train de collecter des herbes.")
+			say("Il est allé à la vallée du Dragon.")
+			say("Il ya beaucoup de fantômes et c'est")
+			say("très dangereux là-bas.")
+			say("")
+			wait()
+			say_title("Yang-Shin:")
+			say("")
+			--                                                  |
+			say("Même les plus braves chasseurs ne vont pas à la")
+			say("vallée du Dragon.")
+			say("Là il y est allé pour trouver des herbes.")
+			say("S'il n'a pas encore fait de signe de vie,")
+			say("sûrement que quelque chose s'est passé.")
+			say("Allez à la Vallée du Dragon,")
+			say("là, vous pouvez le trouver.")
+			say("")
+			local s=select("Je vais le rechercher", "Abandonner")
+			if 2==s then
+				say("Abandonner la recherche?")
+				say("")
+				local a=select("Oui","Non")
+				if 2== a then
+					say_pc_name()
+					say("")
+					say("Pas même pour une récompense?")
+					say("Revenez quand vous aurez le temps.")
+					say("")
+					return
+				else
+					say_pc_name()
+					say("")
+					--                                                  |
+					say("Mirine n'a plus de nouvelle de son frère qui ")
+					say("est allé à la vallée du dragon.")
+					say("il y a pu s'y passer n'importe quoi.")
+					say("Mirine vous a demandé de chercher après lui.")
+					say("Mais vous ne voulez pas y aller.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_pc_name()
+				say("")
+				--                                                  |
+				say("Non seulement la vallée du Dragon est")
+				say("dangereuse en outre, les fantômes sont")
+				say("effrayant.")
+				say("Mirine vous a demandé cela désespérément.")
+				say("Vous vous êtes décidé à rechercher le frère.")
+				set_state(to_danger_place)
+			end
+		end
+	end
+	
+	state to_danger_place begin
+		when letter begin
+			send_letter("Retrouvez le frère de Mirine!")
+			local v= find_npc_by_vnum(20356)
+			if v!= 0 then
+				target.vid("__TARGET__",v,"Recherchez le frère aîné dans la vallée du dragon!")
+			end
+		end
+		when button or info begin
+			say_title("Retrouvez le frère de Mirine.")
+			say("")
+			--                                                  |
+			say("Il faut que tu retrouves le frère de Mirine,")
+			say("elle est triste.")
+			say("La dernière fois qu'il a été aperçu, ")
+			say("c'était dans la Vallée des Dragons.")
+			say("Tu devrais y jeter un coup d'œil .")
+		end
+		when __TARGET__.target.click or 20356.chat."Le corps!" begin
+			target.delete("__TARGET__")
+			say_pc_name()
+			say("")
+			say("Il ya un corps frais.")
+			say("Il ressemble à un homme mince.")
+			say("Il porte un collier avec un pendentif.")
+			say("Il pourrait y avoir un lien entre le frère aîné ")
+			say("et ce collier.")
+			say("Je vais le donner à Mirine")
+			pc.give_item2(16082)
+			pc.give_item2(30155)
+			set_state(to_mirinae)
+		end
+	end
+	
+	state to_mirinae  begin
+		when letter begin
+			send_letter("Aller voir Mirine")
+			local v= find_npc_by_vnum(20006)
+			if v!= 0 then
+				target.vid("__TARGET__",v,"Aller voir Mirine")
+			end
+		end
+		when button or info begin
+			say("Annoncez à Mirine que son frère est mort et donnez")
+			say("lui le pendentif.")
+		end
+		when __TARGET__.target.click or 20006.chat."La Mort de mon frère" with pc.count_item(16082)>0 and pc.count_item(30155)>0 begin
+			target.delete("__TARGET__")
+			say_title("Mirine:")
+			say("")
+			say("Vous avez un message de mon frère?")
+			say("Oh ce collier...")
+			say("C'est le collier qu'il portait toujours, ")
+			say("j'ai presque le même.")
+			say("Nous avons toujours porté ces colliers.")
+			say("Mais ... mon frère n'est pas ici ...")
+			say("Seul le collier est revenu...")
+			say("")
+			wait()
+			say_title("Mirine:")
+			say("")
+			--                                                  |
+			say("Mon pauvre frère ...")
+			say("Tout ça à cause de la guerre.")
+			say("S'il n'y avait pas cette guerre")
+			say("nous serions toujours heureux ...")
+			say("À cause de la guerre, nous n'avions pas ")
+			say("beaucoup d'argent.")
+			say("Mon frère aîné a vendu les herbes et là, ")
+			say("nous avions de l'argent grâce à cela, donc,")
+			say(" nous pouvions mangé.")
+			say("Mon frère a toujours travaillé dur.")
+			say("A cause de moi mon frère est mort.")
+			say("")
+			wait()
+			say_title("Mirine:")
+			say("")
+			--                                                  |
+			say("Merci à vous de m'avoir apporté cela, parce que")
+			say("maintenant je sais ce qui s'est passé.")
+			say("Si vous ne m'auriez pas aidé. ")
+			say("Je n'aurais jamais su ce qui lui est arrivé ")
+			say("")
+			wait()
+			say_title("Mirine:")
+			say("")
+			say("Je prendrais bien soin du pendentif de ")
+			say("mon grand frère, le collier est pour vous en")
+			say("guise de remerciement. ")
+			say("Il peut certainement vous aider.")
+			say("Merci pour votre aide.")
+			say("Il est sûrement au paradis maintenant, ")
+			say("ne pensez-vous pas?")
+			say("")
+			pc.remove_item(30155,1)
+			say_reward("Vous avez reçu 600.000 Expérience.")
+			say_reward("Vous avez reçu 35.000 Yang.")
+			pc.give_exp2(600000)
+			pc.change_money(35000)
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__  begin
+		when enter begin
+			q.done()
+		end
+	end
+end

@@ -1,0 +1,74 @@
+Èò»ö ´ó±â+	04  --natte ruban+
+Èò»ö ´ó±â	10  --nate ruban
+È­ÀåÇ°	10 --creme du visage
+È£¶ûÀÌ¹ßÅé	04 --griffe de tigre
+È£¶ûÀÌ°¡Á×	10 --fourure de tigre
+Çë°ÒÁ¶°¢+	06 --morceau de tissu+
+Çë°ÒÁ¶°¢	20 --morceau de tissu
+Ç®ÀÙ	10 --feuille
+Ç¥Ã¢+	5 --shuriken+
+Ç¥Ã¢	10 --shuriken
+ÅõÁö¹üÀÇ ÀÌ»¡	10 --croc tigre de combat
+Àü°¥ÀÇ Áı°Ô¹ß	15 --pince de scorpion
+Àü°¥ÀÇ µ¶Ä§	10 --dard de scorpion
+Àü°¥ÀÇ ²¿¸®+	15 --queue de scorpion+
+Àü°¥ÀÇ ²¿¸®	20 --queue de scorpion
+ÀúÁÖÀÇ ¼­+	05 --livre maléfique+
+ÀúÁÖÀÇ ¼­	15 --livre maléfique
+¿õ±ÍÀÇ ¾î±İ´Ï+	06 --dent d orc+
+¿õ±ÍÀÇ ¾î±İ´Ï	10 --molaire
+¿õ±ÍÀÇ ºÎÀû+	04 --amulette orc +
+¿õ±ÍÀÇ ºÎÀû	10 --amulette orc
+¿À¶ûÄÉÀÇ Àü¸®Ç°	10 --dent de barbare
+¾óÀ½Á¶°¢+	04 --morceau de glace+
+¾óÀ½Á¶°¢	10 --morceau de glace
+¾óÀ½»Ô¹ü°í·¡ÀÇ »Ô	04 --corne de baleine tueuse
+¾óÀ½±¸½½+	05 --orbe de glace+
+¾óÀ½±¸½½	15 --orbe de glace
+¾Ë ¼ö ¾ø´Â ¾à+	10 --medicament inconnu+
+¾Ë ¼ö ¾ø´Â ¾à	10 --medicament inconnu
+¾Ë ¼ö ¾ø´Â ºÎÀû+	06 --taliseman inconnu+ 
+¾Ë ¼ö ¾ø´Â ºÎÀû	10 --taliseman inconnu
+½ÇÅ¸·¡	10 --pelote
+¼³ÀÎÀÇ ÅĞ+	04 --fourrure de yeti+
+¼³ÀÎÀÇ ÅĞ	10 --fourrure de yeti
+»ç±ÍÀÇ À¯Ç°+	10 --souvenir du demon+
+»ç±ÍÀÇ À¯Ç°	20 --souvenir du demon
+»ç±ÍÀÇ º¸¼®+	04 --gemme du demon+
+»ç±ÍÀÇ º¸¼®	10 --gemme du demon
+ºñ³à	10 --epingle a cheveux
+ºÓÀº ´ó±â	10 --natte de ruban rouge
+ºÒÅ¸´Â °¥Äû	10 --criniere flamboyante
+¹ìÀÇ ²¿¸®	10 --queue de serpent
+¹ìÀÇ ²¿¸®+	10 --queue de serpent+
+¹ì°¡Á×	10 --peau de serpent
+¹éÈ£°¡Á×	10 --peau de tigre blanc
+¹Ğ±³ÀÔ¹®¼­+	06 --manuel esoterique+
+¹Ğ±³ÀÔ¹®¼­	10 --manuel esoterique
+¹«ÀÎÀÇ ÁõÇ¥	10 --symbole de guerrier
+¸äµÅÁöÀÇ ¾î±İ´Ï	10 --dent de sanglier
+µÅÁöÄÚ	10 --groin
+´Á´ëÅĞ+	05 --fourrure de loup+
+´Á´ëÅĞ	05 --fourrure de loup
+´Á´ë¹ßÅé+	06 --griffe de loup+
+´Á´ë¹ßÅé	10 --griffe de loup
+³ì½¼ ´Ü°ËÁ¶°¢	10 --lame rouillee
+³ë¸®°³	0.4 --ornement
+³°Àº Èæ»öµµº¹+	06 --uniforme noir use+
+³°Àº Èæ»öµµº¹	10 --uniforme noir use
+±úÁø »ç±â±×¸©	10 --porcelaine brisee
+±úÁø º¸¼®Á¶°¢	10 --morceau de gemme
+±úÁø °©¿ÊÁ¶°¢	10 --armure cassee
+±ê¹ß	10 --drapeau
+°õÀÇ ¾µ°³+	06 --bile d ours+
+°õÀÇ ¾µ°³	10 --bile d ours
+°õ¹ß¹Ù´Ú+	06 --cuir de patte d ours+
+°õ¹ß¹Ù´Ú	10 --cuir de patte d ours
+°Å¹ÌÁÙ	10 --toile d araignee
+°Å¹ÌÀÇ µ¶ÁÖ¸Ó´Ï	10 --glande venin d araignee
+°Å¹ÌÀÇ ´«	10 --yeux d araignee
+°Å¹Ì¾ËÁı	10 --poche d oeuf d araignee
+°Å¹Ì´Ù¸®	10 --patte d araignee
+°³±¸¸®Çú¹Ù´Ú	10 --langue de grenouille
+°³±¸¸®´Ù¸®	10 --patte de grenouille
+±Í¸ñ°¡Áö	10 --Rameau

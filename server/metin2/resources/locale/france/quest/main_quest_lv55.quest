@@ -1,0 +1,357 @@
+----------------------------------
+--	Main Quest LV55
+--	The Seek for the Monuments	
+----------------------------------
+
+
+quest main_quest_lv55 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup with  pc.get_level() >= 55 begin
+			set_state( survey8 )
+		end
+	end
+
+state survey8 begin
+		when letter begin
+			send_letter("Les monuments")
+
+			if main_quest_lv55.is_other_vil()==1  then
+				local v=find_npc_by_vnum(20357)
+				if 0==v then
+				else
+					target.vid("__TARGET1__", v, "Monument")
+				end
+			end
+		end
+		when button or info begin
+			local empire = pc.get_empire()
+			if empire ==1 then --Pandemonia
+				---                                                   l
+				say_title("Les monuments")
+				say("")
+				say("Les ancêtres du côté obscur, qui détiennent")
+				say("la clé de l'ancien enchantement, pourraient être")
+				say("dans l'empire Joan .")
+				say("Donc vous devriez aller à Joan à la recherche")
+				say("de traces.")
+				say("Uriel pense que vous pourriez trouver des")
+				say("indices près du mémorial.")
+				say("")
+			elseif empire ==2 then --Asmodia
+				say_title("Les monuments")
+				say("")
+				---                                                   l
+				say("Les ancêtres du côté obscur, qui détiennent")
+				say("la clé de l'ancien enchantement, pourraient être")
+				say("dans l'empire Pyungmo .")
+				say("Donc vous devriez aller à Pyungmo à la recherche")
+				say("de traces.")
+				say("Uriel pense que vous pourriez trouver des")
+				say("indices près du mémorial.")
+				say("")
+			elseif empire ==3 then  --Elgoria
+				say("Les ancêtres du côté obscur, qui détiennent")
+				say("la clé de l'ancien enchantement, pourraient être")
+				say("dans l'empire Youngan .")
+				say("Donc vous devriez aller à Youngan à la recherche")
+				say("de traces.")
+				say("Uriel pense que vous pourriez trouver des")
+				say("indices près du mémorial.")
+				say("")
+			end
+		end
+
+		function is_other_vil()
+			local empire = pc.get_empire()
+			local map_num= pc.get_map_index()
+
+			local is_village = 0
+
+			if empire == 1 and map_num == 21 then is_village = 1 end
+			if empire == 2 and map_num == 41 then is_village = 1 end
+			if empire == 3 and map_num ==  1 then is_village = 1 end
+			return is_village
+		end
+
+		when __TARGET1__.target.click or
+			20357.chat."Le monument!" with main_quest_lv55.is_other_vil()==1 begin
+			say_pc_name()
+			say("C'est le monument dont parlait Uriel!")
+			say("Vous avez trouvé une page!")
+			say("")
+			pc.give_item2(30150)
+			set_state( gototeacher8)
+		end
+	end
+
+	state gototeacher8 begin
+		when letter begin
+			send_letter("La douzième page")
+			if main_quest_lv55.is_my_vil()==1 then
+				local v=find_npc_by_vnum(20011)
+				if 0==v then
+				else
+					target.vid("__TARGET__", v, "Uriel")
+				end
+			end
+		end
+		when button or info begin
+			local empire = pc.get_empire()
+			if empire ==2 then --Asmodia
+				say_title("La douzième page")
+				say("")
+				---                                                   l
+				say("Après avoir trouvé la douzième page à Pyungmo")
+				say("vous devriez aller voir Uriel.")
+				say("" )
+			elseif empire ==1 then --Pandemonia
+				say_title("La douzième page")
+				say("")
+				say("Après avoir trouvé la douzième page à Joan")
+				say("vous devriez aller voir Uriel.")
+				say("" )
+				
+			elseif empire ==3 then --Elgoria
+				
+				say_title("La douzième page")
+				say("")
+				say("Après avoir trouvé la douzième page à Joan")
+				say("vous devriez aller voir Uriel.")
+				say("" )
+			end
+		end
+
+		function is_my_vil()
+			local empire = pc.get_empire()
+			local map_num= pc.get_map_index()
+
+			local is_village = 0
+
+			if empire == 1 and map_num == 1 then is_village = 1 end
+			if empire == 2 and map_num == 21 then is_village = 1 end
+			if empire == 3 and map_num == 41 then is_village = 1 end
+			return is_village
+		end
+
+		when __TARGET__.target.click or 20011.chat."La douzième page" with main_quest_lv55.is_my_vil()==1 begin
+			target.delete("__TARGET__")
+			----------                                                   l
+			say_title("Uriel:")
+			say("")
+			say("Je suis ravi de vous revoir.")
+			say("Vous avez trouvé la douzième la page? ")
+			say("Parfait, nous allons donc voir quels renseignements")
+			say("nous obtenons.")
+			say("")
+			wait()
+			say_title("La douzième page:")
+			say("")
+			say_reward("Enfin, nous avons trouvé quelques trucs.")
+			say_reward("Nos adversaires nous ont dit que nous")
+			say_reward("ne trouverons pas l'enchantement dans")
+			say_reward("la cave des araignées, mais que nous devions")
+			say_reward("chercher dans le temple noir. ")
+   			say_reward("Cet endroit est relié aux anciennes")
+			say_reward("croyances et rituels sombres.")
+			say("")
+   			wait()
+			say_title("La douzième page:")
+			say("")
+			----------                                                   l
+			say_reward("Pour être en mesure de compléter notre ")
+			say_reward("enchantement nous devrions aller dans le temple,")
+			say_reward("Nous sommes très fatigués... ")
+			say_reward("Nous prenons route pour le temple sombre.")
+			say_reward("Nous sommes proches de notre but.")
+			say("")
+			wait()
+			say_title("Uriel:")
+			say("")
+			say("Ah, les ancêtres semble avoir trouvé le bon endroit.")
+			say("La fin de l'histoire se rapproche de plus en plus.")
+			say("Le prochain endroit est le Temple sombre...")
+		   	say("Il s'agit certainement du temple dans la vallée ")
+		   	say("du dragon. C'est à cette endroit où il y a eu")
+			say("divers cérémonies religieuses par le passé. ")
+			say("C'est un lieu rempli d'énergies malfaisantes.")
+			say("")
+			wait()
+			say_title("Uriel:")
+			say("")
+			say("Maintenant, il n'y a plus d'humains dans le temple,")
+		   	say("il ne reste que des monstres.")
+		   	say("Bien que se soit dangereux, nous pouvons pas ")
+			say("reculer.")
+			say("Allez chercher les dernières informations dans le")
+			say("temple. Vite!")
+			say("")
+			say_reward("Vous recevez 5.000.000 EXP")
+			pc.give_exp2(5000000)
+			say_reward("Vous recevez t 162.500 Yang")
+			pc.change_money(162500)
+			pc.remove_item(30150)
+			set_state(last_shot)
+		end
+	end
+
+	state last_shot begin
+		when letter begin
+			send_letter("La dernière page")
+
+		end
+		when button or info begin
+			say_title("La dernière page")
+			---                                                   l
+			say("")
+			say("Bien que la destination des sorciers soient")
+			say("incomplète, ceux ci semblent s'enfoncer plus")
+			say("profondément dans le temple. Ils ont fait la")
+			say("rencontre de plusieurs croques mitaines.D'après")
+			say("Uriel, il y a eu de rudes combats.Les croques")
+			say("mitaines possèdent peut être une trace de leur")
+			say("passage pouvant nous indiquer leur destination.")
+			say("")
+		end
+
+		when 1303.kill begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30150")==0 then
+				set_state(takepaper)
+			end
+		end
+	end
+
+	state takepaper begin
+		when letter begin
+			send_letter("Le temple sombre")
+
+			local v=find_npc_by_vnum(20363)
+			if 0==v then
+			else
+				target.vid("__TARGET1__", v, "Monument")
+			end
+
+		end
+		when button or info begin
+			say_title("Le temple sombre")
+			say("")
+			---                                                   l
+			say_reward("Une énergie malsaine émane de la tour...")
+			say_reward("Il est complètement entourée de cette")
+			say_reward("énergie. ")
+			say_reward("Il semble être à l'origine de l'énergie")
+			say_reward("malsaine. Ici,c'est le début de tout...")
+			say("")
+			wait()
+			say_title("Le temple sombre")
+			say("")
+			say("Maintenant que vous avez plus d'informations")
+			say("que l'énergie maléfique s'amplifie autour")
+			say("de la tour, vous devriez allez faire un tour")
+			say("là-bas.")
+			say("")
+		end
+		when __TARGET1__.target.click or 20363.chat."Lire les inscriptions" begin
+			target.delete("__TARGET1__")
+			say("Vous avez finalement trouvé la dernière page!")
+			pc.give_item2(30150)
+			set_state( gototeacher)
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			send_letter("La dernière page")
+
+			local v=find_npc_by_vnum(20011)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Uriel")
+			end
+		end
+		when button or info begin
+			say_title("La dernière page")
+			say("")
+			---                                                   l
+			say("vous avez trouvé la dernière page dans ")
+			say("le temple. Retournez voir Uriel.")
+			say("")
+		end
+		when __TARGET__.target.click or 20011.chat."La dernière page" begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Uriel:")
+			say("")
+			say("Ceci est la dernière page, la treizième page!")
+			say("Grâce votre aide, je peux continuer mon")
+			say("exploration.")
+			say("Ce fît dangereux, mais c'était très important ")
+			say("aussi.")
+			say("Voyons voir ce que contient la dernière page.")
+			say("")
+			wait()
+			say_title("La treizième page")
+			say("")
+			-----------                                                   l
+			say_reward("Après un long moment, nous sommes tous arrivés")
+			say_reward("avec difficulté.")
+			say_reward("Nous avons fait une cérémonie dans le temple,")
+			say_reward("Nous avons à déplorer de nombreuses victimes,")
+			say_reward("mais nous ne pouvons pas hésiter.")
+			say_reward("Dès le début, nous connaissions les risques")
+			say("d'une tel magie, mais nous devions le faire pour")
+			say("protéger nos enfants.")
+			say("")
+			wait()
+			say_title("La treizième page")
+			say("")
+			-----------                                                   l
+			say_reward("Si nous pouvons sauver le pays, nous serions")
+			say_reward("heureux. Sept personnes ont commencés la cérémonie.")
+			say_reward("La pièce s'est rempli d'énergie, mais tout d'un")
+			say_reward("je me suis senti étourdi.")
+			say_reward("Seul les six autres continuèrent la cérémonie.")
+			say_reward("Le temple tout entier trembla.")
+			say("")
+			wait()
+			say_title("La treizième page")
+			say("")
+			say_reward("Heureusement, j'ai échappé à l'enchantement,")
+			say_reward("mais mes six compagnons sont envoutés.")
+			say_reward("Soudain, une lueur brillante est apparue et")
+			say_reward("je me suis évanoui.")
+			say_reward("Le sort a-t-il échoué?")
+			say_reward("Oh, Non!")
+			say_reward("C'était notre dernier espoir, ")
+			say_reward("et cela se termine ainsi...!")
+			say("")
+			wait()
+			say_title("Uriel:")
+			say("")
+			-----------                                                   l
+			say("Merci de m'avoir apporté ces réponses mon ami.")
+			say("Mon amitié et ma gratitude ne sont acquises à ")
+			say("jamais. Car sans toi, cette quête n'aurait été ")
+			say("que poussière dans le vent.")
+			say("")
+			wait()
+			say_title("Uriel:")
+			say("")
+			say("Vous devriez vous reposer.")
+			say("Je dois repenser à tout cela.")
+			say("")
+			say_reward("Vous recevez 5.9000.000 EXP")
+			pc.give_exp2(5900000)
+			say_reward("Vous recevez 275.000 Yang")
+			pc.change_money(275000)
+			say_reward("You gained Liutao")
+			pc.give_item2(71012)
+			pc.remove_item(30150)
+			clear_letter()
+			set_state(__COMPLETE__)
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

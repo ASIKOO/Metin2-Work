@@ -1,0 +1,137 @@
+quest subquest_22 begin
+	state start begin
+		when login or levelup with pc.level >= 35  and pc.level <= 37 begin
+			set_state(information)
+		end
+	end
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20015)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Deokbae")
+			end
+		end
+		when __TARGET__.target.click or 20015.chat."La hache d'or" begin
+			target.delete("__TARGET__")
+			say_title("Deokbae:")
+			say("")
+			--                                                  |
+			say("Oh non...oh non...")
+			say("J'ai perdu la hache.")
+			say("Peut-être que vous savez de quelle hache")
+			say("je parle? Ah oui..")
+			say("Vous le savez?")
+			say("Oui, c'est la Hache en or")
+			say("Je l'ai eu du forgeron.")
+			say("Mais un général barbare l'a volé.")
+			say("")
+			wait()
+			say_title("Deokbae:")
+			say("")
+			--                                                  |
+			say("Si le forgeron sait cela, il va devenir fou ")
+			say("et ne réparera plus mes haches ...")
+			say("C'est une bonne hache.")
+			say("Pouvez-vous me la ramener?")
+			say("")
+			local s=select("Accepter","Refuser.")
+			if 2==s then
+				say("Vous voulez annuler la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Deokbae:")
+					say("")
+					say("Oh..")
+					say("Quand vous aurez le temps revenez.")
+					say("")
+					return
+				else
+					say_title("Deokbae:")
+					say("")
+					--                                                  |
+					say("Trop dur pour vous? ")
+					say("Eh bien je ne peux rien faire alors.")
+					say("Mais attention, les barbares sont partout.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+			else
+				say_title("Deokbae:")
+				say("")
+				say("Merci.")
+				say("Je vous fais confiance!")
+				say("")
+				set_state(hunt_for_goldaxe)
+			end
+		end
+	end
+
+	state hunt_for_goldaxe begin
+		when letter begin
+			send_letter("La Hache d'or de Deokbae")
+			if pc.count_item(30102)>0 then
+				local v=find_npc_by_vnum(20015)
+				if 0==v then
+				else
+					target.vid("__TARGET__",v,"Aller voir Deokbae")
+				end
+			end
+		end
+		when info or  button begin
+			if pc.count_item(30102)>0 then
+				say_title("Vous avez trouvé la Hache d'or.")
+				say("")
+				--                                                  |
+				say("Vous avez obtenu la Hache d'or.")
+				say("Livrer la à Deokbae.")
+				say("")
+				return
+			else
+				say_title("Rechercher la Hache d'or")
+				say("")
+				--                                                  |
+				say("Obtenez la Hache d'or sur des généraux barbares.")
+				say("")
+			end
+		end
+		when 504.kill begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30102")==0  then
+				pc.give_item2("30102", 1)
+				local v=find_npc_by_vnum(20015)
+				if 0==v then
+				else
+					target.vid("__TARGET__",v,"Aller voir Deokbae")
+				end
+			end
+		end
+		when 20015.chat."J'ai la hache!" with pc.count_item("30102")>=1 begin
+			target.delete("__TARGET__")
+			say_title("Deokbae :")
+			say("")
+			--                                                  |
+			say("Oh mon Dieu, sans votre aide je n'aurais jamais")
+			say("vu cette hache à nouveau.")
+			say("Merci beaucoup.")
+			say("Maintenant, je prendrais mieux soin d'elle.")
+			say("Je l'emporterai toujours avec moi.")
+			say("")
+			pc.remove_item("30102",1)
+			say_reward("Vous avez reçu 400.000 Expérience.")
+			pc.give_exp2(400000)
+			say_reward("Vous avez reçu 30.000 Yang.")
+			pc.change_money(30000)
+			set_state(__THEEND__)
+			clear_letter()
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __THEEND__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

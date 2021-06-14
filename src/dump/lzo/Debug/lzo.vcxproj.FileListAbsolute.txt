@@ -1,0 +1,2 @@
+D:\Metin2 Server Files\mainline\SRC_2014\Metin2DumpProto\Debug\lzo.pdb
+D:\Metin2 Server Files\mainline\SRC_2014\Metin2DumpProto\lzo\Debug\lzo.pdb

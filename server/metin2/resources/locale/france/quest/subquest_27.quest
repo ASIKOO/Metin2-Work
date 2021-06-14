@@ -1,0 +1,331 @@
+------------------------------------------
+--SUB QUEST
+--LV 38
+--Secret Temple Book for a bookworm
+-----------------------------------------
+quest subquest_27 begin
+	state start begin
+		when login or levelup with pc.level >= 38  and pc.level <= 40  begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20023)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Soon")
+			end
+		end
+
+		when __TARGET__.target.click or
+		 20023.chat."La joie de la lecture." begin
+			target.delete("__TARGET__")
+			say_title("Soon :")
+			say("")
+			--                                                  |
+			say("Vous aimez l'écriture? " )
+			say("Les mots qui deviennent des phrases, ")
+			say("puis deviennent des livres.")
+			say("Imaginez la joie d'écrire ce que d'autres" )
+			say("personnes peuvent lire.")
+			say("")
+			wait()
+			say_title("Soon :")
+			say("")
+			say("Faites ce que vous aimes, et vous ne ")
+			say("travaillerez pas un seul jours de votre vie.")
+			say("Que serait ma vie sans livre !")
+			say("C'est la vie ! Mais ma femme ne comprend pas.")
+			say("Peut-être que vous pourrez la convaincre.")
+			say("")
+			set_state(to_wife)
+		end
+	end
+	state to_wife begin
+		when letter begin
+			local v=find_npc_by_vnum(20002)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Aranyo")
+			end
+
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir Aranyo")
+			q.set_title("Allez voir Aranyo")
+			q.start()
+
+		end
+
+		when info or button begin
+
+			say_title("Allez voir Aranyo")
+			say("")
+			--                                                  |
+			say("Allez voir Aranyo et lui demander ce qu'elle")
+			say("pense sur les hobbies de son mari.")
+			say("")
+		end
+
+		when __TARGET__.target.click or
+			20002.chat."Je meurs de frustration." begin
+			target.delete("__TARGET__")
+			say_title("Aranyo :")
+			say("")
+			--                                                  |
+			say("Qu'est ce que cet homme et encore en train de ")
+			say("faire ? Je suis tellement frustré!")
+			say("Il ne travail pas ! Il se cache et lit.")
+			say("Il devrait avoir honte de lui-même père indigne!")
+			say("")
+			wait()
+			say_title("Aranyo :")
+			say("")
+			--                                                  |
+			say("Est-ce qu'un livre nous donnera de quoi vivre ?")
+			say("Si je le trouve, que dieu lui vienne en aide !")
+			say("Demandez aux autres dans le village,")
+			say("ils disent sûrement la même chose.")
+			say("")
+			set_state(to_neighbor)
+		end
+	end
+	state to_neighbor  begin
+		when letter begin
+			local v=find_npc_by_vnum(9003)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Général Dealer")
+			end
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir la marchande")
+			q.set_title("Allez voir la marchande")
+			q.start()
+		end
+		when info or button begin
+			say_title("Allez voir la marchande")
+			say("")
+			say("Allez voir la marchande et questionnez la ")
+			say("a propos de Mr Soon.")
+			say("")
+		end
+		when __TARGET__target.click or
+			9003.chat."Quoi de neuf propos de Soon ?"  begin
+			target.delete("__TARGET__")
+			say_title("Marchande :")
+			say("")
+			--                                                  |
+			say("Hier, il était là et a demandé un livre sur ")
+			say("le temple secret. ")
+			say("Il n'avait pas de Yang alors il la simplement")
+			say(" u. Le temple secret...")
+			say("Il doit être très important pour lui s'il ")
+			say("néglige même sa famille...")
+			say("Pourquoi est-il intéressé par ça ?")
+			wait()
+			say_title("Marchande :")
+			say("")
+			--                                                  |
+			say("Je suis désolé pour Aranyo, elle ne se s'est")
+			say("pas marié pour bosser jour et nuit. ")
+			say("Elle ne s'attendait pas a entretenir sa famille")
+			say("seule.")
+			say("Vous devriez peut-être lui parler de nouveau,")
+			say("Peut-être qu'il se rendra compte.")
+			say("")
+			set_state(back_to_soon)
+		end
+	end
+	state back_to_soon begin
+
+		when letter begin
+
+			setskin(NOWINDOW)
+			makequestbutton("Allez voir Soon")
+			q.set_title("Allez voir Soon ")
+			q.start()
+
+			local v = find_npc_by_vnum(20023)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Soon ")
+			end
+		end
+		when info or button begin
+
+			say_title("Allez voir Mr Soon")
+			say("")
+			--                                                  |
+			say("Allez voir Soon et lui poser des questions sur")
+			say("le temple secret et le livre qu'il cherchait.")
+			say("")
+		end
+
+		when __TARGET__.target.click or
+			20023.chat."C'est quoi le Temple Secret ?" begin
+			target.delete("__TARGET__")
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("Vous savez, j'ai lu tous les livres du monde !")
+			say("Mais dernièrement, j'ai entendu parler d'un ")
+			say("livre sur le temple secret.")
+			say("Ce livre contient tous les secrets du Temple")
+			say("Noir et comment devenir un saint homme.")
+			say("Je veux lire ce livre !")
+			say("Pouvez vous me le trouver ?")
+			say("Si vous faites cela, je vous jure que je ")
+			say("vais vous donner quelque chose, même si je ")
+			say("dois vendre ma maison !")
+			local s=select("Je vais le faire","Je ne peu pas désolé." )
+			if 2==s then
+				say("Annuler la quete?")
+				local a=select("Oui","Non")
+				if  2==a then
+					--                                                  |
+					say_title("Soon:")
+					say("")
+					say("Oh! Allez, ne voulez-vous pas m'aider ?")
+					say("")
+					say("Si ce n'est pas maintenant, alors plus tard.")
+					say("Je vous attends.")
+					say("")
+					return
+				end
+				say_title("Soon:")
+				say("")
+				--                                                  |
+				say("Vous pouvez vraiment pas m'aider? ")
+				say("Vous avez besoin d'un jour de congé ? ")
+				say("Ce livre est vraiment important pour moi")
+				say("Que vais-je faire maintenant? damnation !")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Mr. Soon :")
+			say("")
+			say("Merci, je vais attendre.")
+			say("")
+			set_state(find_book)
+		end
+	end
+	state find_book begin
+		when letter begin
+			if pc.count_item("30156")>=1 then
+				setskin(NOWINDOW)
+				makequestbutton("Vous avez trouvé le livre du temple secret")
+				q.set_title("Vous avez trouvé le livre du temple secret")
+				q.start()
+
+				local v=find_npc_by_vnum(20023)
+				if 0!= v then
+					target.vid("__TARGET__",v,"Allez voir Soon")
+				end
+				return
+			end
+
+			setskin(NOWINDOW)
+			makequestbutton("Battez les fanatiques ésotériques!")
+			q.set_title("Battez les fanatiques ésotériques!")
+			q.start()
+
+		end
+
+		when info or  button begin
+			if pc.count_item("30156")>=1 then
+				say_title("Vous avez tué un fanatique ésotérique !")
+				say("")
+				say("Remporter le livre du temple secret à Soon")
+				say("")
+				return
+			end
+			say_title("Battez les fanatiques ésotériques!")
+			say("")
+			--                                                  |
+			say("Soon veut le Livre du Temple.")
+			say("")
+			say("Si vous tuez les fanatiques ésotériques, vous")
+			say("pourriez trouvez le livre secret.")
+			say("")
+		end
+		when 701.kill  begin
+
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item("30156")==0 then
+				pc.give_item2(30156, 1)
+			end
+		end
+		when __TARGET__.target.click or
+			20023.chat."Le livre secret du temple" begin
+			target.delete("__TARGET__")
+			if pc.count_item("30156")>=1 then
+				say_title("Soon :")
+				say("")
+				say("Oh ! C'est lui ! Le seul ! SUPER !")
+				say("")
+				say("Voici votre récompense.")
+				say("")
+				pc.remove_item("30156",1)
+				say_reward("You received 50.000 Yang. ")
+				pc.change_money(50000)
+				say_reward("You received 800.000 Expérience Points. ")
+				pc.give_exp2(800000)
+				clear_letter()
+				set_state(__COMPLETE__)
+				return
+			else
+				say_title("Soon:")
+				say("")
+				--                                                  |
+				say("Hey...")
+				say("Vous ne l'avez pas encore? ")
+				say("Si vous prenez une quête vous devez de ")
+				say("la finir!")
+				say("Maintenant finissez la quête!")
+				say("")
+
+				local s=select("Je retourne essayer","J'abandonne")
+				if 2==s then
+					say("Voulez-vous abandonnez la quête ?")
+					say("")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Soon :")
+						say("")
+						--                                                  |
+						say("Avez-vous trouvé ce livre ? ")
+						say("J'ai entendu que les fanatiques ésotériques")
+						say("l'avez. Pourquoi ne pas essayer à nouveau ?")
+						say("")
+						return
+					end
+					say_title("Soon:")
+					say("")
+					--                                                  |
+					say("Eh bien, quelqu'un d'autre va me procurer ")
+					say("le livre.")
+					say("Vous n'avez pas besoin de le faire non plus.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+				say_title("Soon:")
+				say("")
+				say("Merci, je vais attendre.")
+				say("")
+				say("Je ne peux pas attendre, je veux")
+				say(" l'avoir dans mes mains et le lire.")
+				say("")
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

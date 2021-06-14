@@ -1,0 +1,165 @@
+quest main_quest_lv3 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 3 begin
+			set_state( gototeacher )
+		end
+		when 20354.chat."La première mission" begin
+			say_title("Garde du village:")
+			say("")
+			---                                                   l
+			say("Je sais que la première mission était simple.")
+			say("Soyez patient!")
+			say("")
+			say("Vous n'avez pas besoin de venir me voir,tant ")
+			say("que je ne vous appelle pas pour une prochaine")
+			say("mission.")
+			say("")
+			say("vous devez encore vous entrainez.")
+			say("")
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			send_letter("Des nouvelles du garde du village")
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Garde du village")
+			end
+		end
+		when button or info begin
+			say_title("Des nouvelles du garde du village")
+			say("")
+			---                                                   l
+			say("Arrêtez toute affaire courante et retournez voir")
+			say("le garde du village.")
+			say("Il a un travail pour vous.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Garde du village:")
+			---                                                   l
+			say("")
+			say("Je suis content de vous voir.")
+			say("Je suppose que vous connaissez la marchande.")
+			say("Elle a besoin d'aide. Pouvez-vous vous en chargez?")
+			say("Je suis sûr qu'il n'y a rien de grave mais je")
+			say("préfère la savoir entre de bonnes mains.")
+			say("")
+			wait()
+			set_state( gotogood )
+		end
+	end
+
+	state gotogood begin
+		when letter begin
+			local v=find_npc_by_vnum(9003)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Marchande")
+			end
+		end
+		when letter begin
+			send_letter("Aidez la marchande")
+		end
+		when button or info begin
+			say_title("Aidez la marchande")
+			say("")
+			---                                                   l
+			say("Le gardien vous a demandé d'aller voir la ")
+			say("marchande.")
+			say("Elle semble avoir besoin de votre aide.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			---                                                   l
+			target.delete("__TARGET__")
+			say_title("Marchande:")
+			say("")
+			say("Bonjour,")
+			say("Cela doit être le gardien qui vous envoie.")
+			say("J'ai une mission à vous confier. Mon père a")
+			say("oublié un livre important ce matin.")
+			say("Il en a besoin d'urgence!")
+			say("")
+			wait()
+			say_title("Marchande:")
+			say("")
+			---                                                   l
+			say_item("Technique de fabrication d'armures", 69000,"")
+			say("Pouvez-vous apporter ce livre à mon père?")
+			say("Si vous accomplissez votre mission, je vous")
+			say("récompenserai bien.")
+			say("Mon père vend des armures dans le village.")
+			say("")
+			set_state( gotodefend )
+		end
+	end
+
+	state gotodefend begin
+		when letter begin
+			local v=find_npc_by_vnum(9002)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Marchand d'armure.")
+			end
+		end
+		when letter begin
+			send_letter("Apportez le livre.")
+		end
+		when button or info begin
+			say_title("Apportez le livre.")
+			say("")
+			---                                                   l
+			say("Apportez le livre au père de la marchande.")
+			say("")
+			say("C'est le marchand d'armure.")
+			say("")
+			say_item("Technique de fabrication d'armures", 69000, "")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Marchand d'armures:")
+			say("")
+			say("Qu'est-ce qui vous occupe! Ah, C'est ma fille")
+			say("qui vous envoie! Merci. J'ai besoin de ce livre")
+			say("pour fabriquer de nouvelles armures.")
+			say("")
+			say_item("Technique de fabrication d'armures", 69000, "")
+			say("Ma fille doit être très occupée si elle vous a")
+			say("envoyé me remettre ce livre. ")
+			say("Voyons, quel récompense serait appropriée !")
+			say("")
+			wait()
+			say_title("Marchand d'armures:")
+			say("")
+			say("Je vais vous donner quelques yang.")
+			say("Ils vous permettront de vous acheter un équipement")
+			say("digne de ce nom!")
+			say("Cela devrait suffire, je pense. Avec une bonne")
+			say("armure, vous pouvez mieux vous défendre contre")
+			say("les chiens errants et les loups qui rôdent.")
+			say("")
+			wait("")
+			say_title("Reward:")
+			say("")
+			say_reward("Experience : 450" )
+			say_reward("Yang: 3.000")
+			say_reward("20 potions bleus")
+			say("")
+			pc.give_exp2( 450 )
+			pc.change_money( 3000 )
+			pc.give_item2( 27004 ,20 )
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv6","run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

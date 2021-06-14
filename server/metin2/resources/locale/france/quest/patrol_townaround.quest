@@ -1,0 +1,2142 @@
+quest patrol_townaround begin
+	state patrol1_blue_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 500, 580, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say_reward("Allez au point Nr.5")
+			say("")
+		end
+		when info begin
+			say("")
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol1_blue_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 545, 840, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol1_blue_step5)
+		end
+	end
+	state patrol1_blue_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 760, 985, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+			say("")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+			say("")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol1_blue_step4)
+		end
+	end
+	state patrol1_blue_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 720, 855, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			q.set_title("Trouver le point 2.")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+			say("")
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Nr.2 Allez au point ")
+			say("")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say_reward("Nr. 2 Vous avez atteint le point ")
+			say("")
+			setstate(patrol1_blue_step3)
+		end
+	end
+	state patrol1_blue_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 670, 720, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+			say("")
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+			say("")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol1_blue_step2)
+		end
+	end
+	state patrol1_yellow_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 720, 700, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+			say("")
+		end
+		when info begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+			say("")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol1_yellow_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 900, 930, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol1_yellow_step5)
+		end
+	end
+	state patrol1_yellow_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 875, 725, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("Vous avez atteint le point Nr. 3")
+			say("")
+			setstate(patrol1_yellow_step4)
+		end
+	end
+	state patrol1_yellow_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 890, 610, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol1_yellow_step3)
+		end
+	end
+	state patrol1_yellow_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 730, 590, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.1")
+
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol1_yellow_step2)
+
+		end
+	end
+	state patrol1_gray_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 715, 390, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5. ")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+
+		end
+		when info begin
+			say_title("Allez au point Nr.5")
+			say("")
+			say("Allez au point Nr.5")
+
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("Vous avez atteint le point Nr.5")
+
+			setstate(reward)
+		end
+	end
+	state patrol1_gray_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 765, 190, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point-spot Nr.4")
+
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol1_gray_step5)
+		end
+	end
+	state patrol1_gray_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 790, 400, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+			say("")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+			say("")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol1_gray_step4)
+		end
+	end
+	state patrol1_gray_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 890, 610, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol1_gray_step3)
+		end
+	end
+	state patrol1_gray_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 730, 590, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol1_gray_step2)
+		end
+	end
+	state patrol1_purple_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 500, 580, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+
+		end
+		when info begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol1_purple_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 490, 230, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol1_purple_step5)
+		end
+	end
+	state patrol1_purple_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 665, 130, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol1_purple_step4)
+		end
+	end
+	state patrol1_purple_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 765, 190, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol1_purple_step3)
+
+		end
+	end
+	state patrol1_purple_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 715, 390, 1, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol1_purple_step2)
+		end
+	end
+	state patrol2_blue_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 760, 640, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when info begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol2_blue_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 830, 630, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point-spot 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol2_blue_step5)
+		end
+	end
+	state patrol2_blue_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 770, 440, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol2_blue_step4)
+		end
+	end
+	state patrol2_blue_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 650, 370, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol2_blue_step3)
+		end
+	end
+	state patrol2_blue_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 640, 510, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol2_blue_step2)
+		end
+	end
+	state patrol2_yellow_step6 begin
+		when letter begin
+			target.pos("__TARGET__", 640, 765, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 6.")
+			say("")
+			q.set_title("Trouver le point 6.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 6.")
+			say("")
+			say("Allez au point Nr.6")
+		end
+		when info begin
+			say_title("Trouver le point 6.")
+			say("")
+			say("Allez au point Nr.6")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.6")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol2_yellow_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 650, 900, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when info begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol2_yellow_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 780, 930, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol2_yellow_step5)
+		end
+	end
+	state patrol2_yellow_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 880, 820, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol2_yellow_step4)
+		end
+	end
+	state patrol2_yellow_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 830, 630, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol2_yellow_step3)
+		end
+	end
+	state patrol2_yellow_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 760, 640, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol2_yellow_step2)
+		end
+	end
+	state patrol2_gray_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 485, 640, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when info begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol2_gray_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 390, 830, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol2_gray_step5)
+		end
+	end
+	state patrol2_gray_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 480, 950, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol2_gray_step4)
+		end
+	end
+	state patrol2_gray_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 650, 900, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol2_gray_step3)
+		end
+	end
+	state patrol2_gray_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 640, 765, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol2_gray_step2)
+		end
+	end
+	state patrol2_purple_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 485, 640, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when info begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol2_purple_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 650, 900, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol2_purple_step5)
+		end
+	end
+	state patrol2_purple_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 830, 630, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol2_purple_step4)
+		end
+	end
+	state patrol2_purple_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 640, 510, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol2_purple_step3)
+		end
+	end
+	state patrol2_purple_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 485, 640, 21, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol2_purple_step2)
+		end
+	end
+	state patrol3_blue_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 355, 530, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol3_blue_step3 begin
+		when letter begin
+
+			target.pos("__TARGET__", 665, 510, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol3_blue_step4)
+		end
+	end
+	state patrol3_blue_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 610, 780, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol3_blue_step3)
+		end
+	end
+	state patrol3_blue_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 480, 640, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol3_blue_step2)
+		end
+	end
+	state patrol3_yellow_step6 begin
+		when letter begin
+			target.pos("__TARGET__", 380, 690, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 6.")
+			say("")
+			q.set_title("Trouver le point 6.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 6.")
+			say("")
+			say("Allez au point Nr.6")
+		end
+		when info begin
+			say_title("Trouver le point 6.")
+			say("")
+			say("Allez au point Nr.6")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.6")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol3_yellow_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 210, 710, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when info begin
+			say("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol3_yellow_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 180, 580, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol3_yellow_step5)
+		end
+	end
+	state patrol3_yellow_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 200, 350, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol3_yellow_step4)
+		end
+	end
+	state patrol3_yellow_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 360, 450, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol3_yellow_step3)
+		end
+	end
+	state patrol3_yellow_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 355, 530, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol3_yellow_step2)
+		end
+	end
+	state patrol3_gray_step6 begin
+		when letter begin
+			target.pos("__TARGET__", 480, 640, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 6.")
+			say("")
+			q.set_title("Trouver le point 6.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say("Trouver le point 6.")
+			say("")
+			say("Allez au point Nr.6")
+		end
+		when info begin
+			say_title("Trouver le point 6.")
+			say("")
+			say("Allez au point Nr.6")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.6")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol3_gray_step5 begin
+		when letter begin
+			target.pos("__TARGET__", 610, 780, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 5.")
+			say("")
+			q.set_title("Trouver le point 5.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when info begin
+			say_title("Trouver le point 5.")
+			say("")
+			say("Allez au point Nr.5")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.5")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol3_gray_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 645, 1010, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(patrol3_gray_step5)
+		end
+	end
+	state patrol3_gray_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 450, 930, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.3")
+			say("")
+			setstate(patrol3_gray_step4)
+		end
+	end
+	state patrol3_gray_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 420, 820, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when info begin
+			say("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol3_gray_step3)
+		end
+	end
+	state patrol3_gray_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 380, 690, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when info begin
+			say("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol3_gray_step2)
+		end
+	end
+	state patrol3_purple_step4 begin
+		when letter begin
+			target.pos("__TARGET__", 445, 845, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 4.")
+			say("")
+			q.set_title("Trouver le point 4.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when info begin
+			say_title("Trouver le point 4.")
+			say("")
+			say("Allez au point Nr.4")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say("Vous avez atteint le point Nr.4")
+			say("")
+			setstate(reward)
+		end
+	end
+	state patrol3_purple_step3 begin
+		when letter begin
+			target.pos("__TARGET__", 210, 710, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 3.")
+			say("")
+			q.set_title("Trouver le point 3.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when info begin
+			say_title("Trouver le point 3.")
+			say("")
+			say("Allez au point Nr.3")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le pointNr.3 ")
+			say("")
+			setstate(patrol3_purple_step4)
+		end
+	end
+	state patrol3_purple_step2 begin
+		when letter begin
+			target.pos("__TARGET__", 360, 410, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 2.")
+			say("")
+			q.set_title("Trouver le point 2.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when info begin
+			say_title("Trouver le point 2.")
+			say("")
+			say("Allez au point Nr.2")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say_reward("Vous avez atteint le point Nr.2")
+			say("")
+			setstate(patrol3_purple_step3)
+		end
+	end
+	state patrol3_purple_step1 begin
+		when letter begin
+			target.pos("__TARGET__", 545, 645, 41, "")
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Trouver le point 1.")
+			say("")
+			q.set_title("Trouver le point 1.")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when info begin
+			say_title("Trouver le point 1.")
+			say("")
+			say("Allez au point Nr.1")
+		end
+		when __TARGET__.target.arrive begin
+			target.delete("__TARGET__")
+			say("")
+			say("Vous avez atteint le point Nr.1")
+			say("")
+			setstate(patrol3_purple_step2)
+		end
+	end
+	state start begin
+		when 20300.chat."Patrouiller" with pc.get_empire()==1 and pc.job==0 and pc.level<=5 begin
+			setstate(accept1)
+		end
+		when 20301.chat."Patrouiller" with pc.get_empire()==1 and pc.job==0 and pc.level<=5 begin
+			setstate(accept1)
+		end
+		when 20302.chat."Patrouiller" with pc.get_empire()==1 and pc.job==1 and pc.level<=5 begin
+			setstate(accept1)
+		end
+		when 20303.chat."Patrouiller" with pc.get_empire()==1 and pc.job==1 and pc.level<=5 begin
+			setstate(accept1)
+		end
+		when 20304.chat."Patrouiller" with pc.get_empire()==1 and pc.job==2 and pc.level<=5 begin
+			setstate(accept1)
+		end
+		when 20305.chat."Patrouiller" with pc.get_empire()==1 and pc.job==2 and pc.level<=5 begin
+			setstate(accept1)
+		end
+		when 20306.chat."Patrouiller" with pc.get_empire()==1 and pc.job==3 and pc.level<=5 begin
+			setstate(accept1)
+		end
+		when 20307.chat."Patrouiller" with pc.get_empire()==1 and pc.job==3 and pc.level<=5 begin
+			setstate(accept1)
+		end
+		when 20320.chat."Patrouiller" with pc.get_empire()==2 and pc.job==0 and pc.level<=5 begin
+			setstate(accept2)
+		end
+		when 20321.chat."Patrouiller" with pc.get_empire()==2 and pc.job==0 and pc.level<=5 begin
+			setstate(accept2)
+		end
+		when 20322.chat."Patrouiller" with pc.get_empire()==2 and pc.job==1 and pc.level<=5 begin
+			setstate(accept2)
+		end
+		when 20323.chat."Patrouiller" with pc.get_empire()==2 and pc.job==1 and pc.level<=5 begin
+			setstate(accept2)
+		end
+		when 20324.chat."Patrouiller" with pc.get_empire()==2 and pc.job==2 and pc.level<=5 begin
+			setstate(accept2)
+		end
+		when 20325.chat."Patrouiller" with pc.get_empire()==2 and pc.job==2 and pc.level<=5 begin
+			setstate(accept2)
+		end
+		when 20326.chat."Patrouiller" with pc.get_empire()==2 and pc.job==3 and pc.level<=5 begin
+			setstate(accept2)
+		end
+		when 20327.chat."Patrouiller" with pc.get_empire()==2 and pc.job==3 and pc.level<=5 begin
+			setstate(accept2)
+		end
+		when 20340.chat."Patrouiller" with pc.get_empire()==3 and pc.job==0 and pc.level<=5 begin
+			setstate(accept3)
+		end
+		when 20341.chat."Patrouiller" with pc.get_empire()==3 and pc.job==0 and pc.level<=5 begin
+			setstate(accept3)
+		end
+		when 20342.chat."Patrouiller" with pc.get_empire()==3 and pc.job==1 and pc.level<=5 begin
+			setstate(accept3)
+		end
+		when 20343.chat."Patrouiller" with pc.get_empire()==3 and pc.job==1 and pc.level<=5 begin
+			setstate(accept3)
+		end
+		when 20344.chat."Patrouiller" with pc.get_empire()==3 and pc.job==2 and pc.level<=5 begin
+			setstate(accept3)
+		end
+		when 20345.chat."Patrouiller" with pc.get_empire()==3 and pc.job==2 and pc.level<=5 begin
+			setstate(accept3)
+		end
+		when 20346.chat."Patrouiller" with pc.get_empire()==3 and pc.job==3 and pc.level<=5 begin
+			setstate(accept3)
+		end
+		when 20347.chat."Patrouiller" with pc.get_empire()==3 and pc.job==3 and pc.level<=5 begin
+			setstate(accept3)
+		end
+	end
+	state accept1 begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Patrouiller dans la zone Youngan")
+			say("")
+			q.set_title("Patrouiller dans la zone Youngan")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Patrouiller dans la zone Youngan")
+			say("")
+			if is_test_server() then
+				local s=select("1 Wert(1)","2 Wert(1)","3 Wert(1)","4 Wert(1)")
+				if 1==s then
+					setstate(patrol1_blue_step1)
+				elseif 2==s then
+					setstate(patrol1_yellow_step1)
+				elseif 3==s then
+					setstate(patrol1_gray_step1)
+				elseif 4==s then
+					setstate(patrol1_purple_step1)
+				end
+			else
+				local s=number(1, 4)
+				if 1>=s then -- 80.00% (1/4)
+					setstate(patrol1_blue_step1)
+				elseif 2>=s then --80,00% (1/4)
+					setstate(patrol1_yellow_step1)
+				elseif 3>=s then --80,00% (1/4)
+					setstate(patrol1_gray_step1)
+				elseif 4>=s then -- 80.00% (1/4)
+					setstate(patrol1_purple_step1)
+				end
+			end
+		end
+		when info begin
+			say_title("Patrouiller dans la zone Youngan")
+			say("")
+			if is_test_server() then
+				local s=select("1 Wert(1)","2 Wert(1)","3 Wert(1)","4 Wert(1)")
+				if 1==s then
+					setstate(patrol1_blue_step1)
+				elseif 2==s then
+					setstate(patrol1_yellow_step1)
+				elseif 3==s then
+					setstate(patrol1_gray_step1)
+				elseif 4==s then
+					setstate(patrol1_purple_step1)
+				end
+			else
+				local s=number(1, 4)
+				if 1>=s then -- 80.00% (1/4)
+					setstate(patrol1_blue_step1)
+				elseif 2>=s then --80,00% (1/4)
+					setstate(patrol1_yellow_step1)
+				elseif 3>=s then --80,00% (1/4)
+					setstate(patrol1_gray_step1)
+				elseif 4>=s then -- 80.00% (1/4)
+					setstate(patrol1_purple_step1)
+				end
+			end
+		end
+	end
+	state accept2 begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Patrouiller dans la zone Joan")
+			say("")
+			q.set_title("Patrouiller dans la zone Joan")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Patrouiller dans la zone Joan")
+			say("")
+			if is_test_server() then
+				local s=select("1 Wert(1)","2 Wert(1)","3 Wert(1)","4 Wert(1)")
+				if 1==s then
+					setstate(patrol2_blue_step1)
+				elseif 2==s then
+					setstate(patrol2_yellow_step1)
+				elseif 3==s then
+					setstate(patrol2_gray_step1)
+				elseif 4==s then
+					setstate(patrol2_purple_step1)
+				end
+			else
+				local s=number(1, 4)
+				if 1>=s then -- 80.00% (1/4)
+					setstate(patrol2_blue_step1)
+				elseif 2>=s then --80,00% (1/4)
+					setstate(patrol2_yellow_step1)
+				elseif 3>=s then --80,00% (1/4)
+					setstate(patrol2_gray_step1)
+				elseif 4>=s then -- 80.00% (1/4)
+					setstate(patrol2_purple_step1)
+				end
+			end
+		end
+		when info begin
+			say_title("Patrouiller dans la zone Joan")
+			say("")
+			if is_test_server() then
+				local s=select("1 Wert(1)","2 Wert(1)","3 Wert(1)","4 Wert(1)")
+				if 1==s then
+					setstate(patrol2_blue_step1)
+				elseif 2==s then
+					setstate(patrol2_yellow_step1)
+				elseif 3==s then
+					setstate(patrol2_gray_step1)
+				elseif 4==s then
+					setstate(patrol2_purple_step1)
+				end
+			else
+				local s=number(1, 4)
+				if 1>=s then -- 80.00% (1/4)
+					setstate(patrol2_blue_step1)
+				elseif 2>=s then --80,00% (1/4)
+					setstate(patrol2_yellow_step1)
+				elseif 3>=s then --80,00% (1/4)
+					setstate(patrol2_gray_step1)
+				elseif 4>=s then -- 80.00% (1/4)
+					setstate(patrol2_purple_step1)
+				end
+			end
+		end
+	end
+	state accept3 begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Patrouiller dans la zone Pyungmo")
+			say("")
+			q.set_title("Patrouiller dans la zone Pyungmo")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Patrouiller dans la zone Pyungmo")
+			say("")
+			if is_test_server() then
+				local s=select("1 Wert(1)","2 Wert(1)","3 Wert(1)","4 Wert(1)")
+				if 1==s then
+					setstate(patrol3_blue_step1)
+				elseif 2==s then
+					setstate(patrol3_yellow_step1)
+				elseif 3==s then
+					setstate(patrol3_gray_step1)
+				elseif 4==s then
+					setstate(patrol3_purple_step1)
+				end
+			else
+				local s=number(1, 4)
+				if 1>=s then -- 80.00% (1/4)
+					setstate(patrol3_blue_step1)
+				elseif 2>=s then --80,00% (1/4)
+					setstate(patrol3_yellow_step1)
+				elseif 3>=s then --80,00% (1/4)
+					setstate(patrol3_gray_step1)
+				elseif 4>=s then -- 80.00% (1/4)
+					setstate(patrol3_purple_step1)
+				end
+			end
+		end
+		when info begin
+			say_title("Patrouiller dans la zone Pyungmo")
+			say("")
+			if is_test_server() then
+				local s=select("1 Wert(1)","2 Wert(1)","3 Wert(1)","4 Wert(1)")
+				if 1==s then
+					setstate(patrol3_blue_step1)
+				elseif 2==s then
+					setstate(patrol3_yellow_step1)
+				elseif 3==s then
+					setstate(patrol3_gray_step1)
+				elseif 4==s then
+					setstate(patrol3_purple_step1)
+				end
+			else
+				local s=number(1, 4)
+				if 1>=s then -- 80.00% (1/4)
+					setstate(patrol3_blue_step1)
+				elseif 2>=s then --80,00% (1/4)
+					setstate(patrol3_yellow_step1)
+				elseif 3>=s then --80,00% (1/4)
+					setstate(patrol3_gray_step1)
+				elseif 4>=s then -- 80.00% (1/4)
+					setstate(patrol3_purple_step1)
+				end
+			end
+		end
+	end
+	state reward begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Fin de patrouille")
+			say("")
+			q.set_title("Fin de patrouille")
+			say("")
+			q.start()
+		end
+		when button begin
+			say_title("Fin de patrouille")
+			say("")
+			say_reward("Pour votre patrouille vous recevez")
+			say_reward("135 points d'expérience.")
+			pc.give_exp2(135)
+			setstate(__COMPLETE__)
+			q.done()
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

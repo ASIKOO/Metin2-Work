@@ -1,0 +1,307 @@
+quest subquest_1 begin
+	state start begin
+		when login or levelup with pc.level >= 6 and pc.level <= 11 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when login or enter begin
+			local v=find_npc_by_vnum(9003)
+			if 0!=v then
+				target.vid("__TARGET__", v, "Récupérez une bouteille vide.")
+			end
+		end
+
+		when __TARGET__.target.click or 9003.chat."Excusez moi..." begin
+			target.delete("__TARGET__")
+
+			say_title("Marchande :")
+			say("")
+			--                                                  |
+			say("Excusez moi, si vous n'êtes pas occupé ")
+			say("pour le moment, pourriez vous m'accorder ")
+			say("une faveur ? ")
+			say("J'ai besoin d'une bouteille vide pour mes")
+			say(" potions rouges.")
+			say("")
+			say_item_vnum(30130)
+			wait()
+			say_title("Marchande :")
+			say("")
+			say("Il faut que je reste surveiller mon magasin,")
+			say("je ne peu donc pas le faire moi même.")
+			say("Si vous le faite pour moi, je vous ")
+			say("récompenserais.")
+			local s=select("Accepter","Refuser")
+			if 2==s then
+				--                                                  |
+				say("Vous êtes certain de ne voulez pas accomplir ")
+				say("la mission ?")
+
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Marchande :")
+					say("")
+					say("Merci d'avance.")
+					say("")
+					return
+				end
+
+				say_title("Marchande :")
+				say("")
+				say("Passez une bonne journée.")
+				say("Et revenez quand vous voulez.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Marchande :")
+			say("")
+			--                                                  |
+			say("Vous trouverez cette bouteille chez Yonah.")
+			say("Merci encore.")
+			say("")
+			set_state(to_yeonnahwan)
+		end
+	end
+
+	state to_yeonnahwan begin
+		when letter begin
+			local v = find_npc_by_vnum(20005)
+			if v!= 0 then
+				target.vid("__TARGETS__", v, "Recherchez Yonah le potier.")
+			end
+			send_letter("Cherchez Yonah.")
+
+		end
+
+		when button or info begin
+			say_title("Allez voir Yonah le potier.")
+			say("")
+			--                                                  |
+			say("La marchande a besoin d'une bouteille vide")
+			say(" de Yonah le potier pour ses potions.")
+			say("")
+			say_item_vnum(30130)
+			say("")
+		end
+
+		when __TARGETS__.target.click begin
+			target.delete("__TARGETS__")
+			say_title("Yonah :")
+			say("")
+			--                                                  |
+			say("Kof Kof ! Je n'arrête pas de tousser !")
+			say("Comment puis-je travailler de cette façon ?")
+			say("Comment puis-je vous aider ?")
+			say("Ah, c'est la marchande qui vous envoie.")
+			say("Je peux vous vendre des bouteilles,")
+			say("mais pas vous en donner.")
+			say_item_vnum(30130)
+			wait()
+			say_title("Yonah:")
+			say("")
+			--                                                  |
+			say("Je suis asthmatique.")
+			say("On m'a dit que les noyaux de pêche serait")
+			say("un bon remède.")
+			say("Si vous m'en trouvez un, je vous donne la ")
+			say("bouteille.")
+			say("")
+			say_item_vnum(30020)
+			wait()
+			say_title("Yonah :")
+			say("Vous pouvez en avoir sur les sangliers ")
+			say("sauvage a l'extérieur du village.")
+			say("En effet, des que les agriculteurs plantent") 
+			say("les noyaux, les sangliers s'empressent de ")
+			say("les sortir et de les manger.")
+			say("")
+			wait()
+			set_state(hunt_for_peach)
+		end
+	end
+
+	state hunt_for_peach begin
+		when letter begin
+			send_letter("Récupérer le noyau.")
+		end
+
+		when button or info begin
+			say_title("Récupérer le noyau.")
+			say("")
+			--                                                  |
+			say("La marchande a besoin d'une bouteille vide. ")
+			say("Yonah, qui est asthmatique, vous donnera la")
+			say(" bouteille vide si vous lui trouvez un noyau ")
+			say("de pêcher.")
+			say("")
+			say_item_vnum(30020)
+			say("Je devrais en trouver si je tue des sangliers")
+			say("sauvage.")
+			say("")
+		end
+
+		when 20005.chat."Où trouver les noyaux?" with pc.count_item(30020) == 0 begin
+			say_title("Yonah:")
+			say("")
+			--                                                  |
+			say("Vous en trouverez sur les sangliers sauvage")
+			say("à l'extérieur du village.")
+			say("En effet, des que les agriculteurs plantent")
+			say("les noyaux, les sangliers s'empressent de les")
+			say("sortir et les mangent.")
+			say("Kof kof. Merci d'avance.")
+			say("")
+		end
+
+		when 108.kill begin
+			local s = number(1, 5)
+			if s == 1 then
+				pc.give_item2(30020, 1)
+				set_state(go_back_to_yonah)
+			end
+		end
+	end
+	state go_back_to_yonah begin
+		when letter begin
+			send_letter("Retournez voir Yonah.")
+			local v = find_npc_by_vnum(20005)
+
+			if v!= 0 then
+				target.vid("__TARGET__", v, "Yonah.")
+			end
+		end
+		when button or info begin
+			say_title("Retournez voir Yonah.")
+			say("")
+			--                                                  |
+			say("Vous avez le noyau retournez voir Yonah.")
+			say("Il vous donnera la bouteille vide pour")
+			say(" la marchande !")
+		end
+
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			if pc.count_item(30020) >= 1 then
+				say_title("Yonah:")
+				say("")
+				--                                                  |
+				say("Oh, Vous l'avez ?!")
+				say("")
+				say("Merci ! Je vais pouvoir calmer mon asthme ")
+				say("et retourner travailler.")
+				say("")
+				wait()
+				say_title("Yonah:")
+				say("")
+				say("Voila votre bouteille vide.")
+				say("J'espère que la marchande vous récompensera ")
+				say("bien.")
+				say_item_vnum(30130)
+				say("")
+				pc.remove_item(30020, 1)
+				pc.give_item2(30130, 1)
+				set_state(going_to_reward)
+			end
+		end
+	end
+
+	state going_to_reward begin
+		when letter begin
+			send_letter("Donnez la bouteille vide.")
+
+			local v=find_npc_by_vnum(9003)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Donnez la bouteille vide.")
+			end
+
+		end
+		when info or button begin
+			say_title("Donnez la bouteille vide.")
+			say("")
+			--                                                  |
+			say("La marchande a besoin d'une bouteille vide ")
+			say("pour ses potions. Allez lui donner.")
+			say("")
+			say_item_vnum(30130)
+			say("")
+		end
+
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			if pc.count_item(30130) > 0 then
+				say_title("General Store: ")
+				say("")
+				--                                                  |
+				say("Merci.")
+				say("")
+				say("J'espère que vous n'avez pas eu trop de soucis.")
+				say("Je vais vous récompenser pour vos efforts.")
+				say("Encore merci !")
+				say("")
+				wait()
+				say_title("Récompense :")
+				say("")
+				say_reward("Points d'expérience: 5.000" )
+				say_reward("Yang: 2.500")
+				say_reward("Item: Potion rouge(S)")
+				say("")
+				pc.remove_item(30130)
+				pc.give_exp2(5000)
+				pc.give_item2()
+				set_quest_state("levelup","run")
+				pc.change_money(2500)
+				clear_letter()
+				set_state(__COMPLETE__)
+			else
+				say_title("Marchande :")
+				say("")
+				say("Vous n'avez pas la bouteille vide ?")
+				say("")
+				say_item_vnum(30130)
+				say("")
+
+				wait()
+				say_title("Marchande :")
+				say("")
+				--                                                  |
+				say("Vous voulez traquer les sangliers a nouveau, ")
+				say("pour avoir la bouteille chez Yonah,")
+				say("ou vous voulez abandonner ?")
+				local s=select("Retourner chasser","Abandonner")
+				if s==2 then
+					say("Vous êtes certain de vouloir arrêter ?")
+					say("")
+					local a=select("Oui","Non")
+					if 2==a then
+						say_title("Marchande :")
+						say("")
+						say("Merci pour m'aider.")
+						say("")
+						return
+					end
+					say_pc_name()
+					say("")
+					say("Je suis trop faible pour les sangliers.")
+					say("Je suis désolé.")
+					say("")
+					clear_letter()
+					set_state(__GIVEUP__)
+					return
+				end
+				set_state(hunt_for_peach)
+			end
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

@@ -1,0 +1,134 @@
+quest alter_of_power begin
+	state start begin
+		when 20077.click with npc.get_guild() == pc.get_guild() and pc.is_guild_master() begin
+			---                                                   l
+			say_title("Garde Altar:")
+			say("Bonjour, je suis le garde de votre autel.")
+			say("Celui-ci est utile pour augmenter le nombre")
+			say("maximum de membres dans votre guilde.")
+			say("Je peux améliorer votre autel si besoin.")
+			say("Dans ce cas, vous pourrez accueillir un plus grand")
+			say("nombre de membres.")
+
+			if pc.getqf("build_level") == 0 then
+				pc.setqf("build_level", guild.level(pc.get_guild()))
+			end
+
+			wait()
+			---                                                   l
+			say_title("Garde Altar:")
+
+			if pc.getqf("build_level") < guild.level(pc.get_guild()) or guild.level(pc.get_guild()) >= 20 then
+				---                                                   l			
+				say("Ah, je vois que vous avez une bonne guilde.")
+				say("Voulez-vous que j'améliore votre autel ?")
+				say("Par contre, ce ne sera pas gratuit.")
+				say_reward("Prix de l'amélioration: 10 millions de yangs.")
+
+				local s = select("Oui", "Non")
+
+				if s == 1 then
+					if pc.get_gold() >= 10000000 then
+						---                                                   l
+						say_title("Garde Altar:")
+						say("D'accord, j'améliore votre autel.")
+
+						building.reconstruct(14062)
+						pc.setqf("build_level", guild.level(pc.get_guild()))
+						char_log(0, "Batiment_guilde", "Amelioration n°1 autel de pouvoir")
+						pc.change_gold(-10000000)
+					else
+						---                                                   l
+						say_title("Garde Altar:") 
+						say("Désolé, vous n'avez pas assez de yangs.")
+						say("Revenez plus tard !")
+					end
+
+				elseif s == 2 then
+					---                                                   l
+					say_title("Garde Altar:")
+					say("D'accord, revenez quand vous voudrez .")
+					say("J'améliorerai votre autel un autre jour !")
+				end
+			else
+				---                                                   l
+				say("Désolé, votre guilde n'est pas assez forte,")
+				say("revenez quand elle aura pris un ou plusieurs ")
+				say("niveaux supplémentaire.")
+			end		
+		end
+
+		when 20078.click with npc.get_guild() == pc.get_guild() and pc.is_guild_master() begin
+			---                                                   l
+			say_title("Garde Altar:")
+			say("Bonjour, je suis le garde de votre autel.")
+			say("Celui-ci est utile pour augmenter le nombre")
+			say("maximum de membres dans votre guilde.")
+			say("Je peux améliorer votre autel si besoin.")
+			say("Dans ce cas, vous pourrez accueillir un plus grand")
+			say("nombre de membres.")
+
+			if pc.getqf("build_level") == 0 then
+				pc.setqf("build_level", guild.level(pc.get_guild()))
+			end
+			wait()
+
+			---                                                   l
+			say_title("Garde Altar:")
+			if pc.getqf("build_level") < guild.level(pc.get_guild()) or guild.level(pc.get_guild()) >= 20 then
+				---                                                   l
+				say("Ah, je vois que vous avez une bonne guilde.")
+				say("Voulez-vous que j'améliore votre autel ?")
+				say("Par contre, ce ne sera pas gratuit...")
+				say_reward("Prix de l'amélioration: 15 millions de yangs.")
+
+				local s = select("Oui", "Non")
+
+				if s == 1 then
+					if pc.get_gold() >= 15000000 then
+						---                                                   l
+						say_title("Garde Altar:")
+						say("D'accord, j'améliore votre autel.")
+						building.reconstruct(14063)
+						pc.setqf("build_level", guild.level(pc.get_guild()))
+						char_log(0, "Batiment_guilde", "Amelioration n°2 autel de pouvoir")
+						pc.change_gold(-15000000)
+					else
+						---                                                   l
+						say_title("Garde Altar:")
+						say("Désolé, vous n'avez pas assez de yangs.")
+						say("Revenez plus tard !")
+					end
+
+				elseif s == 2 then
+					---                                                   l
+					say_title("Garde Altar:")
+					say("D'accord, revenez quand vous voudrez .")
+					say("J'améliorerai votre autel un autre jour !")
+				end
+			else
+				---                                                   l
+				say("Désolé, votre guilde n'est pas assez forte,")
+				say("revenez quand elle aura pris un ou plusieurs ")
+				say("niveaux supplémentaire.")
+			end		
+		end
+
+		when 20079.click with npc.get_guild() == pc.get_guild() and pc.is_guild_master() begin
+			---                                                   l
+			say_title("Garde Altar:")
+			say("Bonjour !")
+			say("Votre guilde se porte bien j'espère ?")
+			say("En tout cas, ici, tout va bien.")
+			say_reward("L'autel est au niveau maximum.")
+		end
+
+		when 20077.click or 20078.click or 20079.click with npc.get_guild() == pc.get_guild() and pc.is_guild_master() != true begin
+			---                                                   l
+			say_title("Garde Altar:")
+			say("Bonjour, je suis le garde de votre autel.")
+			say("Celui est utile pour augmenter le nombre maximum")
+			say("de membres dans votre guilde.")
+		end	
+	end
+end

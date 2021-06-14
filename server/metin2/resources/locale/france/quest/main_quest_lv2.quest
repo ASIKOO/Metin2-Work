@@ -1,0 +1,179 @@
+quest main_quest_lv2 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 2 begin
+			set_state( gototeacher )
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			send_letter("Lettre du garde du village")
+
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Trouver le garde")
+			end
+		end
+		when button or info begin
+			say_title("Une lettre du garde du village")
+			say("")
+			---                                                   l
+			say("Si vous recevez cette lettre, c'est que vous avez")
+			say("gagné un niveau. Félicitations!")
+			say("Venez donc me retrouver afin que je vous confie")
+			say("votre première mission d'entrainement.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Garde du village:")
+			say("")
+			say("Vous manquez cruellement de discipline.")
+			say("Toutefois, vous avez prouvé que vous pouviez")
+			say("vous servir d'une arme.")
+			say("Montrez moi que ce n'était pas de la chance!")
+			say("")
+			say("Quittez le village et tuez 9 chiens errants.")
+			say("Quand vous aurez terminé, revenez me voir.")
+			say("Je vous récompenserai.")
+			say("")
+			wait()
+
+			say_title("Garde du village:")
+			---                                                   l
+			say("")
+			say("Les chiens errants ne sont pas trop fort, il ne")
+			say("devrais pas être trop difficile à tuer.")
+			say("Si vous ne pouvez pas réaliser cette tâche,")
+			say("vous ne survivrez pas longtemps dans ce monde")
+			say("")
+			say("Au boulot! Plus tôt vous commencerez,")
+			say("plus tôt vous aurez fini.")
+			say("")
+			set_state( killdog )
+			pc.setqf("state", 0)
+			q.set_counter("Wild Dogs:", 0)
+		end
+	end
+	state killdog begin
+		when letter begin
+			send_letter("Premier exercice")
+		end
+		when button or info begin
+			say_title("Premier exercice:")
+			say("")
+			---                                                   l
+			say("Tuez neuf chiens errants.")
+			say_reward("Vous avez tué "..pc.getqf("state").." chiens.")
+			say("")
+		end
+		when 101.kill begin
+			local count = pc.getqf("state") + 1
+
+			if count <= 9 then
+				pc.setqf("state", count)
+				q.set_counter("Rest-amount", 9 - count)
+
+				if count == 9 then
+					say_title("Premier exercice terminé.")
+					say("")
+					say("Vous avez tué les neufs chiens errant.")
+					say("Retournez voir le garde du village")
+					say("")
+					set_state(gototeacher2)
+				end
+			end
+		end
+		when 20354.chat."Accomplissement du premier exercice" with pc.getf("main_quest_lv2","state") < 9 begin
+			say_title("Le garde du village:")
+			say("")
+			---                                                   l
+			say("Si vous avez un problème pour tuer neuf chiens")
+			say("errants, c'est que vous n'êtes pas un aventurier.")
+			say("")
+
+			if pc.is_gm() then
+				wait()
+				say_title("Affectation d'exercice:")
+				say("")
+				say("voulez-vous abandonner cette partie?")
+				local s = select("Oui", "Non")
+				if s == 1 then
+					set_state(gototeacher2)
+				end
+			end
+		end
+		when 20354.chat."Accomplissement de la mission" with pc.getf("main_quest_lv2","state") >= 9 begin
+			say_title("Le garde du village:")
+			say("")
+			---                                                   l
+			say("Ah! Vous êtes de retour.")
+			say("Vous avez mis tellement de temps, que je pensais.")
+			say("ne plus vous revoir.")
+			say("")
+			say("Quoi qu'il en soit, passons à la prochaine étape")
+			say("")
+			set_state(gototeacher2)
+		end
+	end
+	state gototeacher2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Garde du village")
+			end
+		end
+		when letter begin
+			send_letter("Mission accomplie.")
+		end
+		when button or info begin
+			say_title("Mission accomplie.")
+			say("")
+			---                                                   l
+			say_reward("Les neufs chiens errants ont été tués.")
+			say_reward("Retournez voir le garde du village.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Garde du village:")
+			say("")
+			say("Vous êtes meilleur que ce que je pensais!")
+			say("Mais tout le monde peut faire cela, haha!")
+			say("Les prochaines missions seront plus difficiles.")
+			say("Préparez-vous.")
+			say("")
+			say("Vous avez gagné quelques potions et yang.")
+			say("Je vous suggère de vous acheter quelques")
+			say("équipements qui vous aideront à survivre sur")
+			say("le terrain.")
+			say("")
+			say("Retirez-vous!! Je vous appellerais quand j'aurai")
+			say("une nouvelle mission pour vous.")
+			say("")
+			wait()
+			say_title("Reward.")
+			say("")
+			say_reward("Experience: 500" )
+			say_reward("Yang:   2000")
+			say_reward(string.format("Object: %s amount: %d", item_name(27001), 15))
+			say_item(item_name(27001),27001,"")
+			say("")
+			pc.give_exp2( 500 )
+			pc.change_money( 2000 )
+			pc.give_item2( 27001 ,15 )
+			pc.setqf("state", 0)
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv3","run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end
+

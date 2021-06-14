@@ -1,0 +1,253 @@
+quest main_quest_lv15 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter begin
+			if pc.get_level() >= 15 then
+				setstate(gotoboss)
+			end
+		end
+	end
+	state gotoboss begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Trouver le Capitaine." )
+			q.set_title("La situation actuelle" )
+			q.start()
+		end
+		when button or info begin
+			say_title("La situation actuelle")
+			say("")
+			--                                                  |
+			say("Allez voir le Capitaine pour en apprendre ")
+			say("plus sur la guerre des trois royaumes.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Capitaine:")
+			say("")
+			--                                                  |
+			say("Je pense que vous êtes prêt à en apprendre  ")
+			say("davantage sur le monde.")
+			say("Permettez-moi de commencer par notre royaume, "..locale.empire_names[pc.get_empire()]..".")
+			say("Pour gagner une guerre vous avez besoin tout ")
+			say("d'abord bien connaître votre environnement")
+			say("avant de commencer à connaître l'ennemi.")
+			wait()
+			local empire = pc.getempire()
+			if empire == 1 then
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Notre royaume a toujours été un royaume ")
+				say("de commerce. Nous avons toujours eu les routes")
+				say("commerciales et c'est pourquoi le commerce a ")
+				say("toujours été florissante dans notre royaume.")
+				say("Avec l'apparition des pierres metins,")
+				say("le commerce a diminué, les affaires sont")
+				say(" devenus de pire en pire.")
+				say("Comme nous étions que des commerçants,")
+				say("nous avions pas d'armée, jusque là nous n'en ")
+				say("avions jamais eu besoin.")
+				say("Grâce à notre richesse, nous pouvions recruter")
+				say("des mercenaires. Ils sont dignes de confiance")
+				say(" et fidèles...tant que vous pouvez les payer.")
+				wait()
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Grâce aux mercenaires notre empire a ")
+				say("retrouvé une stabilité. ")
+				say("Mais dans le but de nous préparer pour ")
+				say("les prochaines guerres, nous avons besoin de")
+				say("beaucoup plus de mercenaires et d'augmenter")
+				say("nos richesses.")
+				say("Il va nous falloir un travail acharné.")
+				wait()
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Je vais vous donner une nouvelle mission.")
+				say("Apportez cette spécialité à Yu-Hwan dans ")
+				say("le village voisin. ")
+				say("Notre royaume est un empire commerciale,")
+				say("nous vendons nos produits dans différentes")
+				say("régions. Vous rendrez un grand service")
+				say("au village si vous apportiez ceci à Yu-Hwan.")
+			elseif empire == 2 then
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Notre royaume est gouverné par le seigneur ")
+				say("de la guerre Liu Bang.")
+				say("Notre nation est basé sur notre religion.")
+				say("C'est pour cette raison que nous savions avant ")
+				say("tout le monde l'existence des ténèbres qui ")
+				say("planait au dessus de nos têtes.")
+				say("Nos chamanes nous avez préparé à la venue des ")
+				say("pierres metins.")
+				say("A ce jour, nos chamanes travaillent dur pour")
+				say("la sécurité de notre empire.")
+				say("Elles sont très sages avec leur pouvoir qui")
+				say("est la base de leur force.")
+				say("Sans elles, il ne faudrait pas longtemps avant ")
+				say("qu'un autre royaume nous envahissent.")
+				wait()
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Les habitants de notre village sont fidèles ")
+				say("et prient chaque jour le Dieu Dragon.")
+				say("Le Dieu Dragon nous protège des ténèbres.")
+				say("Nous devons continuer de nous défendre contre ")
+				say("les attaques barbares et garder l'empire sous")
+				say("notre contrôle.")
+				wait()
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Je vais vous donner une nouvelle mission.")
+				say("Délivrez cette statue du Dieu Dragon à Yu-Hwan")
+				say("dans le village voisin.")
+				say("Notre religion et notre croyance en")
+				say("Le Dieu Dragon est très importante pour notre")
+				say("royaume. Si vous livrez cette statuette à ")
+				say("Yu-Hwan vous ferrez une grande faveur au ")
+				say("villageois.")
+			elseif empire == 3 then
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Notre royaume a une longue tradition militaire.")
+				say("Nous étions la puissance militaire du royaume ")
+				say("unifié.")
+				say("Mais maintenant que nous sommes divisés depuis")
+				say("la pluie des metins,notre royaume possède")
+				say("toujours le pouvoir légitime de Liu-Qi.")
+				say("")
+				wait()
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Nous sommes toujours la puissance des trois ")
+				say("royaumes, même nous ne pouvons rien faire ")
+				say("contre les pierres metins.")
+				say("Si nous le voulions réellement, nous pourrions")
+				say("conquérir les autre royaumes.")
+				say("Vous devez vous entraîner dur pour devenir ")
+				say("un bon soldat.")
+				wait()
+				say_title("Capitaine:")
+				say("")
+				--                                                  |
+				say("Je vais vous confier une mission.")
+				say("Allez délivrer ces munitions à Yu-Hwan dans ")
+				say("le village voisin.")
+				say("Nous sommes peut-être puissant, cela n'empêche")
+				say("que nous devons vérifier à avoir assez de")
+				say(" munitions. Si vous amenez ces munitions à ")
+				say("Yu-Hwan,vous aiderez le village pour les")
+				say(" futurs confrontations.")
+			end
+			set_state(gotomusition)
+			q.done()
+		end
+	end
+
+	state gotomusition begin
+		when letter begin
+			local v=find_npc_by_vnum(20017)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Yu-Hwan.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Allez voir Yu-Hwan." )
+			q.set_title("Allez voir Yu-Hwan.")
+			q.start()
+			---send_letter("Visit Musician Yu-Hwan.")
+		end
+		when button or info begin
+			---                                                   l
+			say_title("La livraison secrète.")
+			say("")
+			say("Parlez à Yu-Hwan dans le village "..areaname[pc.get_empire()][2]..".")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Yu-Hwan:")
+			say("")
+			--                                                  |
+			say("(chante) Il était une fois une bataille")
+			say("sanglante entre le seigneur Dragon et ")
+			say("le Dieu Dragon, maintenant il y a des guerres")
+			say("entre les peuples...")
+			say("Oh, C'est encore vous! ")
+			say("Que voulez vous cette fois? ")
+			say("Le Capitaine a quelque chose d'important ")
+			say("pour moi? ")
+			say("Merci !")
+			say("Mais je ne veux pas qu'on nous voit ensemble. ")
+			say("Il est préférable que vous retourniez à "..areaname[pc.get_empire()][1].." maintenant!")
+			say("")
+			setstate(gotoboss2)
+			q.done()
+		end
+	end
+	state gotoboss2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine.")
+			end
+		end
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton( "Parler au Capitaine" )
+			q.set_title("Parler au Capitaine")
+			q.start()
+		end
+		when button or info begin
+			say_title("La situation actuelle")
+			say("")
+			say("Allez prévenir le Capitaine que vous avez")
+			say("effectué votre livraison.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			pc.give_exp2( 35000 )
+			pc.change_money( 20000 )
+			target.delete("__TARGET__")
+			say_title("Capitaine:")
+			say("")
+			say("Parfait! Vous vous améliorez.")
+			say("")
+			say_title("Reward:")
+			say("")
+			say_reward("Experience : 35.000" )
+			say_reward("Yang: 20.000")
+			say("")
+			clear_letter()
+			q.done()
+			setstate(__COMPLETE__)
+			set_quest_state("main_quest_lv16","run")
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+end

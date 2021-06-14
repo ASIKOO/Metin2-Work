@@ -1,0 +1,229 @@
+----------------------------------------------------
+-- SUB QUEST
+-- LV  33
+-- New Armor
+----------------------------------------------------
+quest subquest_31 begin
+	state start begin
+		when login or levelup or enter with pc.get_level() >=34  and pc.get_level() <= 36 begin
+			set_state( information )
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20016)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Allez voir le forgeron")
+			end
+		end
+
+
+		when __TARGET__.target.click or
+			20016.chat."La nouvelle invention" with pc.level >= 34 begin
+			target.delete("__TARGET__")
+			--                                                  |
+			say_title("Forgeron:")
+			say("")
+			say("Hé, vous avez un peu de temps?")
+			say("J'ai été très reconnaissante lorsque vous")
+			say("m'avez aidé à faire la nouvelle arme.")
+			say("Je veux votre aide à nouveau.")
+			say("Cette fois je veux faire une nouvelle armure.")
+			say("Après avoir fait une véritable bonne arme,")
+			say("il est clair que maintenant, je dois faire")
+			say("une bonne armure.")
+			say("")
+			wait()
+			say_title("Forgeron:")
+			say("")
+			say("Bien sûr, j'ai encore besoin de matériaux.")
+			say("Pouvez-vous en obtenir? ")
+			say("Bien sûr, je vais vous récompenserai,")
+			say("mais d'abord le travail, ensuite la récompense.")
+			say("Cette fois, j'ai besoin de 100 minerais de cuivre,")
+			say("100 pièces de perles et 100 ébènes.")
+			say("En regardant votre visage ... Vous savez déjà")
+			say("comment ça se passe. Alors dépêchez-vous!")
+			say("")
+			local s=select("Ok.","Abandonnez.")
+			if 2==s then
+			say_title("Forgeron:")
+			say("")
+			say("Voulez-vous abandonner cette quête?")
+			say("")
+			local a=select("Oui","Non")
+				if  2==a then
+					say_title("Forgeron:")
+					say("")
+					say("Pourquoi hésitez-vous?")
+					say("Si vous changez d'avis,")
+					say("revenez.")
+					return
+				end
+				say_title("Forgeron :")
+				say("")
+				say("Les matériaux sont pas si difficile à")
+				say("trouver.")
+				say("Comment pouvez-vous rejeter ma demande ...")
+				say("Ainsi soit-il ... Sortez d'ici!")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Forgeron:")
+			say("")
+			say("Vraiment?")
+			say("Vous voulez m'aider?")
+			say("Vous êtes un bon ami.")
+			say("Vous aurez à nouveau une récompense.")
+			set_state(to_gain_material)
+		end
+	end
+
+	state to_gain_material begin
+
+		when letter begin
+			send_letter("La nouvelle armure")
+
+			local copper =pc.count_item(50604)
+			local pearl=pc.count_item(50609)
+			local ebony=pc.count_item(50608)
+
+			if	copper>100  or  pearl>100 or  ebony>100 then
+
+				local v = find_npc_by_vnum(20016)
+
+				if v != 0 then
+				target.vid("__TARGET__", v, "Forgeron:")
+				end
+				return
+			end
+
+		end
+
+		when info or button begin
+			local copper=pc.count_item(50604)
+			local pearl=pc.count_item(50609)
+			local ebony=pc.count_item(50608)
+
+			if	copper>=100  and   pearl>=100 and  ebony>=100 then
+				say_title("Matériaux pour l'armure disponible.")
+				say("")
+				--                                                  |
+				say_reward("Vous avez tous les matériaux dont le forgeron")
+				say_reward("à besoin pour réaliser la nouvelle armure.")
+				say_reward("Portez-les au forgeron.")
+				say("")
+				return
+			end
+
+			say_title("Rechercher tous les matériaux")
+			say("")
+			--                                                  |
+			say_reward("Le forgeron vous a demandé de trouver")
+			say_reward("les matériaux.")
+			say_reward("Vous avez besoin de de 100 minerais de cuivre,")
+			say_reward("100 pièces de perles et de 100 ébènes.")
+			say_reward("Vous pouvez obtenir les matériaux avec ")
+			say_reward("une pioche et les veines sont sur toute ")
+			say_reward(" la carte.")
+			say_reward("Si vous ne trouvez pas les veines, vous")
+			say_reward("pouvez acheter ou échanger ces matériaux avec")
+			say_reward("les autres joueurs.")
+			say("")
+		end
+
+		when 20016.chat."New materials for an Armour"  begin
+			target.delete("__TARGET__")
+
+			local copper =pc.count_item(50604)
+			local pearl=pc.count_item(50609)
+			local ebony=pc.count_item(50608)
+
+
+
+			if	copper<100  or  pearl<100 or  ebony<100 then
+
+				say_title("Forgeron:")
+				say("")
+				say("Il y a des matériaux manquants.")
+				say("")
+
+				local s=select("Continuer à chercher","Abandonner")
+				if 2==s then
+				  say("Voulez-vous abandonner cette quête?")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Forgeron")
+						say("")
+						say("C'est trop dur?")
+						say("Bien sûr, ce n'est pas seulement la chance ")
+						say("mais le travail.")
+						say("Pourquoi ne pas réessayer")
+						say("plus tard?")
+						say("")
+						return
+					end
+					say_title("Forgeron:")
+					say("")
+					say("Mes plans pour la fonte de l'armure...")
+					say("Cela aurait été une idée")
+					say("d'élaboration d'une grande armure.")
+					say("Oh dommage qu'il est absent.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+				say_title("Forgeron:")
+				say("")
+				say("Soyez fort!")
+				say("Vous les aurez!")
+				say("Je vais vous traiter en conséquence.")
+				say("")
+		end
+		if copper>=100  and pearl>=100 and ebony>=100 then
+			say("Forgeron:")
+			say("")
+			--                                                  |
+			say("Joli travail!")
+			say("Vous êtes bon dans la recherche de matériaux.")
+			say("Voici un cadeau pour vous.")
+			say_reward("Vous avez reçu 300.000 points d'expérience.")
+			pc.give_exp2(300000)
+
+
+			pc.remove_item(50604,100)
+			pc.remove_item(50609,100)
+			pc.remove_item(50608,100)
+
+			say_reward("Vous avez reçu 50.000 Yang.")
+			pc.change_money(50000)
+
+				if pc.job == 0 then
+					pc.give_item2(11235, 1)
+					say_reward("Vous avez reçu armure de lion +5")
+				elseif pc.job == 1 then
+					pc.give_item2(11435, 1)
+					say_reward("Vous avez reçu costume de fourmi rouge +5")
+				elseif pc.job == 2 then
+					pc.give_item2(11635, 1)
+					say_reward("Vous avez reçu armure de fantôme +5.")
+				elseif pc.job == 3 then
+					pc.give_item2(11835, 1)
+					say_reward("Vous avez reçu robe d'amoureux +5.")
+				end
+			clear_letter()
+			set_state(__COMPLETE__)
+			end
+		end
+	end
+state __GIVEUP__ begin
+end
+state __COMPLETE__ begin
+	when enter begin
+		q.done()
+	end
+end
+end

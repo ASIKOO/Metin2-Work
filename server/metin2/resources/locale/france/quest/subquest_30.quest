@@ -1,0 +1,252 @@
+----------------------------------------------------
+-- SUB QUEST
+-- LV  33
+-- New Weapon
+----------------------------------------------------
+
+quest subquest_30 begin
+	state start begin
+		when login or levelup or enter with pc.get_level() >=33  and pc.get_level() <= 35 begin
+			set_state( information )
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v = find_npc_by_vnum(20016)
+
+			if v != 0 then
+				target.vid("__TARGET__", v, "Allez voir le Forgeron.")
+			end
+		end
+
+
+		when __TARGET__.target.click or
+			20016.chat."Élaboration d'une nouvelle arme!" with pc.level >= 33 begin
+			target.delete("__TARGET__")
+			say_title("Forgeron:")
+			say("")
+			--                                                  |
+			say("Hé toi, oui, je te parle! Hehehe!")
+			say("Vous n'êtes désormais plus un débutant! ")
+			say("Et c'est grâce aux tâches que je vous demandé!")
+			say("HAHAHA. Tous ces problèmes vous avez vécus ")
+			say("sont uniquement pour votre bien. ")
+			say("Alors maintenant je vous demande une réelle ")
+			say("faveur.")
+			wait()
+			say_title("Forgeron:")
+			say("")
+			--                                                  |
+			say("Je veux faire une nouvelle arme, ")
+			say("mais les matériaux sont difficiles a obtenir.")
+			say("Voulez-vous essayer de me faire ces matériaux?")
+			say("Je ne suis pas bon à cela. ")
+			say("Une fois que j'ai fini la nouvelle arme, ")
+			say("je vais vous en donner un.")
+			wait()
+			say_title("Forgeron :")
+			say("")
+			--                                                  |
+			say("Pour effectuer ces nouvelles armes, ")
+			say("je vais avoir besoin de 100 minerais d'or,")
+			say("100 minerais d'argent et 100 minerais d'ébène.")
+			say("Vous pourriez penser que c'est beaucoup à la ")
+			say("fois, mais quand vous piocherez vous obtiendrez")
+			say("de nombreux minerais à la fois. ")
+			say("De cette façon, vous devriez les obtenir ")
+			say("rapidement.")
+			say("Si c'est trop difficile pour vous, ")
+			say("vous pouvez toujours essayer de négocier.")
+			say("Quoi qu'il en soit, bonne chance à vous!")
+			say("")
+			local s=select("Accepter.","Refuser.")
+			if 2==s then
+				say_title("Forgeron:")
+				say("")
+				say("Vous voulez vraiment annuler la quête?")
+				say("")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Forgeron:")
+					say("")
+					say("Pas besoin de se presser!")
+					say("")
+					say("Si vous changez d'avis, revenez.")
+					say("")
+					return
+				end
+				say_title("Forgeron:")
+				say("")
+				say("Mes plans pour la nouvelle fonte d'arme ...")
+				say("C'était une idée géniale ..")
+				say("Ah ... une honte ..")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Forgeron:")
+			say("")
+			say("Oh! Vous allez le faire?")
+			say("")
+			say("Vous êtes un ami reconnaissants.")
+			say("")
+			set_state(to_gain_material)
+		end
+	end
+
+	state to_gain_material begin
+
+		when letter begin
+			send_letter("La nouvelle arme du Forgeron")
+
+			local gold=pc.count_item(50606)
+			local silver=pc.count_item(50605)
+			local ebony=pc.count_item(50608)
+
+			if	gold>=100  and silver>=100 and ebony>=100 then
+				local v = find_npc_by_vnum(20016)
+
+				if v != 0 then
+					target.vid("__TARGET__", v, "Forgeron")
+				end
+				return
+			end
+
+		end
+
+		when info or button begin
+			local gold=pc.count_item(50606)
+			local silver=pc.count_item(50605)
+			local ebony=pc.count_item(50608)
+
+			if	gold>=100  and silver>=100 and ebony>=100 then
+
+				say_title("Vous avez tous les matériaux pour l'arme!")
+				say("")
+				--                                                  |
+				say("J'ai les matériaux à partir desquels le ")
+				say("forgeron peut faire la nouvelle arme.")
+				say("Je dois lui les amener!")
+				say("")
+				return
+			end
+			say_title("Obtenez les matériaux!")
+			say("")
+			--                                                  |
+			say("Le forgeron a besoin de quelques matériaux ")
+			say("pour fabriquer une arme.")
+			say("Il vous a demandé d'obtenir 100 minerais d'or,")
+			say("100 minerais d'argent et 100 minerais d'ébène.")
+			say("Les minerais peuvent être recueillies sur des ")
+			say("veines minières avec une pioche.")
+			say("Les veines se retrouvent aléatoirement autour ")
+			say("de la carte alors regarder bien!")
+			say("Si vous trouvez l'extraction trop difficile, ")
+			say("vous pouvez toujours les acheter auprès ")
+			say("des commerçants.")
+		end
+
+		when __TARGET__.target.click or
+			20016.chat."Les matériaux pour la nouvelle arme." begin
+			target.delete("__TARGET__")
+
+			local gold = pc.count_item(50606)
+			local silver = pc.count_item(50605)
+			local ebony = pc.count_item(50608)
+
+
+			if	gold<100 or silver<100 or ebony<100 then
+
+				say_title("Forgeron:")
+				say("")
+				say("Ce n'est pas assez!!")
+				say("")
+
+				local s=select("Essayer encore","Abandonner")
+				if 2==s then
+				  say_title("Forgeron")
+				say("")
+				say("Voulez-vous vraiment abandonner?")
+				say("")
+					local a=select("Oui","Non")
+					if  2==a then
+						say_title("Forgeron")
+						say("")
+						--                                                  |
+						say("Il est difficile d'obtenir du minerais, ")
+						say("mais la fortune vient avec le travail dur.")
+						say("Que diriez-vous d'une petite pause et puis ")
+						say("d'essayer à nouveau?")
+						return
+					end
+				say_title("Forgeron:")
+				say("")
+				--                                                  |
+				say("Mes plans pour la nouvelle fonte d'arme ...")
+				say("C'était une idée révolutionnaire ...")
+				say("Une véritable honte.")
+				set_state(__GIVEUP__)
+				return
+				end
+				say_title("Forgeron:")
+				say("")
+				--                                                  |
+				say("N'abandonner pas jusqu'à ce que vous ayez tout!")
+				say("")
+				say("Bonne chance mon ami.")
+				say("")
+				return
+			end
+			if	gold>=100  and silver>=100 and ebony>=100 then
+				say_title("Forgeron:")
+				say("")
+				--                                                  |
+				say("Vous avez vraiment tous les matériaux? ")
+				say("Vous avez été rapide!")
+				say("Hahahaha! Je pense que cela va fonctionner.")
+				say("Tenez pendant un certain temps, avec ces ")
+				say("matériaux, il ne faudra pas longtemps.")
+				say("")
+				wait()
+				say_title("Forgeron:")
+				say("")
+				--                                                  |
+				say("Hmm, c'est parfait. ")
+				say("Mes connaissances m'ont souvent surprises!")
+				say("HAHAHA! Voici votre arme.")
+				say("C'est tout nouveau, alors prenez bien soin")
+				say("d'elle.")
+				pc.remove_item(50606,100)
+				pc.remove_item(50605,100)
+				pc.remove_item(50608,100)
+				say_reward("Vous avez reçu 400.000 points d'expérience")
+				pc.give_exp2(400000)
+				say_reward("Vous avez reçu 40.000 Yang.")
+				pc.change_money(40000)
+				if pc.job == 0 then
+					pc.give_item2(75,1)
+					say_reward("Vous avez reçu épée d'orchidée +5.")
+				elseif pc.job == 1 then
+					pc.give_item2(1035,1)
+					say_reward("Vous avez reçu couteau porte bonheur +5.")
+				elseif pc.job == 2 then
+					pc.give_item2(75,1)
+					say_reward("Vous avez reçu épée d'orchidée +5.")
+				elseif pc.job == 3 then
+					pc.give_item2(5035, 1)
+					say_reward("Vous avez reçu gong de jade +5.")
+				end
+				clear_letter()
+				set_state(__COMPLETE__)
+			end
+		end
+	end
+	state __GIVEUP__ begin
+	end
+	state __COMPLETE__ begin
+		when enter begin
+		end
+	end
+end

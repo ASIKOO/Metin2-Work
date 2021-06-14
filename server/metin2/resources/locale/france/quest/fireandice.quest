@@ -1,0 +1,285 @@
+quest fireandice begin
+    state start begin
+		when login or levelup or enter with pc.level >= 80 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20023)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Soon")
+			end
+			send_letter("Le Sombre Masque de bois ")
+		end
+
+		when button or info begin
+			say_title("Le Sombre Masque de bois")
+			say("")
+			--                                                  |
+			say("Soon vous cherche et requiert votre aide!")
+			say("Il dit que c'est très important et très urgent!")
+			say("Vous devriez vous dépêcher!")
+		end
+
+		when 20023.chat."Le sombre Masque de bois" or __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("Hey, finalement vous êtes venu!")
+			say("Je vous cherche depuis longtemps...")
+			say("Eh bien, stoppez vos affaires ; ")
+			say("J'ai besoin de votre aide.")
+			wait()
+			say_title("Soon:")
+			say("")
+			say("Après que vous m'a vendu le journal légendaire,")
+			say("j'ai remarqué quelque chose de très important")
+			say("J'ai besoin que vous accomplissez quelques")
+			say("tâches pour moi. ")
+			say("Une sorte de rituel.")
+			say("Tout d'abord, on doit transformer ce masque en ")
+			say("bois en cendre magique pour pourvoir lutter")
+			say("contre les fantômes de flamme!")
+			say("")
+			pc.give_item2(30183, 1)
+			set_state(kill)
+		end
+	end
+
+	state kill begin
+		when letter begin
+			send_letter("Feu et glace")
+		end
+
+		when button or info begin
+			say_title("Feu et glace")
+			say("")
+			--                                                  |
+			say("Soon vous a donné la tâche de brûler ce masque ")
+			say("en bois et de le transformer en cendres magiques")
+			say("Pour y parvenir, vous devez tuer les esprits de")
+			say("flamme.")
+		end
+
+		when 2202.kill begin
+			local n = number(1,30)
+			if n <= 1 then
+				pc.remove_item(30183,1)
+				pc.give_item2(30184, 1)
+				say_title("Feu et glace")
+				say("Le masque a complètement brûlé et transformé")
+				say("en cendres!")
+				say("Retournez voir Soon et obtenez votre prochaine ")
+				say("tâche!")
+				set_state(backtosoon)
+			end
+		end
+	end
+
+	state backtosoon begin
+		when letter begin
+			send_letter("Feu et glace")
+			local v=find_npc_by_vnum(20023)
+			if 0==v then
+			else
+				target.vid("__TARGET1__", v, "Soon")
+			end
+		end
+
+		when button or info begin
+			say_title("Feu et glace")
+			say("")
+			say("Vous avez les cendres ensorcelées!")
+			say("Retournez voir Sonn et donnez-les lui.")
+			say("")
+		end
+
+		when __TARGET1__.target.click or 20023.chat."Feu et glace" with pc.count_item(30184)>=1 begin
+			target.delete("__TARGET1__")
+			say_title("Soon:")
+			say("")
+			say("Ahh comme je l'espérais!")
+			say("Vous avez les cendres ensorcelées!")
+			say("Donnez-les moi que je les analyses.")
+			say("")
+			wait()
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("Parfait!")
+			say("Cependant, j'ai besoin de 10 morceaux de glace!")
+			say("Dirigez-vous vers la montagne de glace et !")
+			say("massacrez des Yétis")
+			say_reward("Tuez des Yétis jusqu'à obtenir 10")
+			say_reward("morceaux de glaces.")
+			pc.remove_item(30184,1)
+			set_state(kill2)
+		end
+	end
+
+	state kill2 begin
+		when letter begin
+			send_letter("Feu et glace")
+		end
+
+		when button or info begin
+			say_title("Feu et glace")
+			say("")
+			say("Après avoir donné les cendres magiques à Soon, ")
+			say("il vous a demandé de vous rendre dans la ")
+			say("montagne et de tuer des yétis pour obtenir 10 ")
+			say("morceaux de glaces.")
+			say("")
+			say_reward("Tuez des Yétis jusqu'à obtenir 10")
+			say_reward("morceaux de glaces.")
+		end
+
+		when 1106.kill begin
+			local n = number(1,25)
+			if n == 1 then
+				pc.give_item2(30146, 1)
+				if pc.count_item(30146) >= 10 then
+					say_title("Feu et glace")
+					say("")
+					say("Magnifique!")
+					say("vous avez les 10 morceaux de glace!")
+					say("Retournez voir Soon!")
+					set_state(backtosoon2)
+				end
+			end
+		end
+	end
+	state backtosoon2 begin
+		when letter begin
+			send_letter("Feu et glace")
+			local v=find_npc_by_vnum(20023)
+			if 0==v then
+			else
+				target.vid("__TARGET2__", v, "Soon")
+			end
+		end
+
+		when button or info begin
+			say_title("Feu et glace")
+			say("")
+			--                                                  |
+			say("Vous avez récupéré les 10 morceaux de glace !")
+			say("Dépchez-vous de retourner auprès de Soon.")
+			say("")
+		end
+
+		when __TARGET2__.target.click or 20023.chat."Feu et glace" with pc.count_item(30146)>9 begin
+			target.delete("__TARGET2__")
+			say_title("Soon:")
+			say("")
+			--                                                  |
+			say("Tu as les morceaux de glace ? .")
+			say("Vous êtes un guerrier très corriace!")
+			say("Permettez-moi d'enquêter sur ces morceaux de ")
+			say("glace rapidement.")
+			wait()
+			say_title("Soon:")
+			say("")
+			say("J'ai mélangé les cendres magiques avec les ")
+			say("morceaux de glace et ils se sont transformés ")
+			say("en cette substance noire étrange - il semble ")
+			say("être encore un peu comme la glace, mais il ")
+			say("est noir comme la nuit.")
+			say("La légende dit que vous avez besoin de ")
+			say("sacrifier cette glace sombre dans un ")
+			say("sanctuaire qui se trouve dans la grotte .")
+			say("C'est une tache idéale pour vous!")
+			say("")
+			say_reward("Dirigez-vous vers la grotte et mettez ")
+			say_reward("la glace dans le sanctuaire sombre!")
+			pc.remove_item(30146,10)
+			pc.give_item2(30185, 1)
+			set_state(gotoschrein)
+		end
+	end
+
+	state gotoschrein begin
+		when letter begin
+			send_letter("Feu et glace")
+			local v=find_npc_by_vnum(30123)
+			if 0==v then
+			else
+				target.vid("__TARGET3__", v, "Dark Shrine")
+			end
+		end
+
+		when button or info begin
+			say_title("Feu et glace")
+			say("")
+			--                                                  |
+			say("Vous avez presque terminé avec la mission que ")
+			say("vous a confié Soon. ")
+			say("Vous devez placer la glace sombre sur le ")
+			say("sanctuaire sombre, situé dans la grotte.")
+		end
+
+		when __TARGET3__.target.click or 30123.chat."Placer la glace noire" with pc.count_item(30185)>0 begin
+			target.delete("__TARGET3__")
+			say("")
+			say("Voulez-vous vraiment sacrifier cette glace?!")
+			setdelay(200)
+			say("...")
+			resetdelay()
+			say("Allons-y!")
+			say("")
+			pc.remove_item(30185,1)
+			set_state(backtosoon3)
+		end
+	end
+
+	state backtosoon3 begin
+		when letter begin
+			send_letter("Feu et glace")
+			local v=find_npc_by_vnum(20023)
+			if 0==v then
+			else
+				target.vid("__TARGET4__", v, "Soon")
+			end
+		end
+
+		when button or info begin
+			say_title("Feu et glace")
+			say("")
+			--                                                  |
+			say("Alors que la glace disparaît, un nuage de fumée ")
+			say("noire mince émerge du fond du sanctuaire.")
+			say("le sacrifice a été fait.")
+			say("Retournez voir Soon!")
+			say("")
+			say_reward("Head back to Soon.")
+		end
+
+		when __TARGET4__.target.click or 20023.chat."Feu et glace" begin
+			target.delete("__TARGET4__")
+			say_title("Soon:")
+			say("")
+			say("Le sanctuaire sombre?!")
+			say("Ça... c'est incroyable!")
+			say("Attendez un moment s'il vous plaît...")
+			say("Vous avez vraiment sacrifié la glace sombre ")
+			say("dans le sanctuaire!!!")
+			say("S'il vous plaît accepter ce cadeau comme une ")
+			say("preuve de mon admiration pour votre courage.")
+			say_reward("120.000.000 EXP reçu.")
+			say_reward("3.000.000 Yang reçu.")
+			pc.give_exp2(120000000)
+			pc.change_money(3000000)
+			q.done()
+			set_state(COMPLETE)
+		end
+	end
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+end

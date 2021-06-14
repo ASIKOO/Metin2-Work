@@ -1,0 +1,259 @@
+quest subquest_47  begin
+	state start begin
+		when login or levelup with pc.level >= 50  and pc.level <= 52 begin
+			set_state( information )
+		end
+	end
+
+	state information begin
+		when letter begin
+
+			local v=find_npc_by_vnum(20355)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Capitaine:")
+			end
+		end
+
+		when __TARGET__.target.click or
+			20355.chat."Déchiffrez les anagrammes" with  pc.level >= 50 begin
+			target.delete("__TARGET__")
+
+			say_title("Capitaine:")
+			say("")
+				--                                                  |
+			say("Votre attention!")
+			say("Ah, c'est vous.")
+			say("J'ai eu des informations de Yu-Hwan.")
+			say("Ils sont, comme toujours, rédigés en anagrammes.")
+			say("Il n'est pas facile à déchiffrer, mais peut-être")
+			say("que nous avons été trop vite. La dernière fois")
+			say("vous avez été rapide dans le déchiffrage des")
+			say("anagrammes. Voulez-vous encore m'aider?")
+			say("S'il vous plait ce serait gentil.")
+			say("")
+
+			local r=select("Accepter", "Refuser")
+			if 2==r then
+				say("Vous voulez abandonner la quête?")
+				local a=select("Oui" ,"Non")
+				if 2==a then
+					say_title("Capitaine:")
+					say("")
+					say("Mais.. la dernière fois vous l'avez fait.")
+				--                                                  |
+					say("Pourquoi hésitez-vous?")
+					say("Reconsidérer cela s'il vous plaît.")
+					say("")
+					return
+				end
+				say_title("Capitaine:")
+				say("")
+				say("Je sais ce que tu veux dire.")
+				--                                                  |
+				say("Vous ne voulez pas travailler avec nous,")
+				say("hum ? Bien, c'est une vraie honte.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Capitaine:")
+			say("")
+			say("Vous êtes vraiment mon sauveur.")
+			say("J'espérais que vous le feriez.")
+			say("Regardez, c'est l'anagramme.")
+			say("")
+			wait()
+			---						   l
+			say_title("Capitaine:")
+			say("")
+			say("EMIESNN")
+			say("ÇAUPRSE")
+			say("A")
+			say("L'NZOIROH")
+
+			say("")
+			say("Comprenez-vous cela?")
+			wait()
+			say_title("Capitaine:")
+			say("")
+			say("Alors, comment ça marche?")
+			say("Vous saisissez?")
+			say("")
+			local s=select("C'est ça!","Je ne sais pas.","Remontrez moi.")
+			if 2==s then
+				say("Arrêter la quête?")
+				local a=select("Oui","Non")
+				if  2==a then
+					say_title("Capitaine:")
+					say("")
+					say("Pensez-y à la maison,")
+					say("alors vous pourrez revenir.")
+					say("Le contenu doit rester secret.")
+					say("")
+					return
+				end
+				----"12345678901234567890123456789012345678901234567890"|
+				say_title("Capitaine:")
+				say("")
+				say("Oh très cher! C'est difficile?")
+				say("Qui doit déchiffrer ça?")
+				say("Vous êtes mon dernier espoir.")
+				--                                                  |
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			if 3==s then
+				say_title("Capitaine:")
+				say("")
+				say("Okay, Je le montre.")
+				say("")
+				say("EMIESNN")
+				say("ÇAUPRSE")
+				say("A")
+				say("L'NZOIROH")
+				say("")
+				wait()
+			end
+			say_title("Capitaine :")
+			say("")
+			say("Hmm")
+			say("Qu'est-ce que cela signifie ?")
+			say("")
+			local answer=input()
+
+
+			if answer=="ennemis aperçus a l'horizon" or answer=="ENNEMIS APERÇUS A L'HORIZON"  then
+				say_title("Capitaine:")
+				say("")
+				say("Oui, après vos explications je comprend.")
+				say("Vous êtes un de nos meilleurs soldats,")
+				say("au moment où le nombre d'espions dans le")
+				say("pays est en hausse, c'est pourquoi Yu-Hwan")
+				say("veux faire quelque chose.")
+				say("Nous devons nous armer!")
+				--                                                  |
+				say("Ordonner aux soldats de s'armer.")
+				say("Armez-vous aussi,")
+				say("il pourrait y avoir des attaques inattendues.")
+				say_reward("Vous avez reçu 2.300.000 points d'expérience.")
+				say("")
+				say_reward("Vous avez reçu 2.300.000 points d'expérience.")
+				pc.give_exp2(2300000)
+
+
+				clear_letter()
+				set_state(__COMPLETE__)
+				return
+			elseif answer=="" then
+					say_title("Capitaine:")
+					say("")
+					say("Pourquoi restez-vous aussi calme ?")
+					say("Ne savez-vous pas ?")
+					local a=select("Je dois penser","Je ne sais pas.")
+					if 2==a then
+						say_title("Capitaine:")
+						say("")
+						say("Oh très cher! C'est difficile?")
+						say("Qui doit déchiffrer alors?")
+						say("Vous êtes mon dernier espoir.")
+						say("")
+					--	set_state(__GIVEUP__)
+						return
+					end
+					say("Hmm, que se passe-t-il?")
+					local answer=input()
+
+					if answer=="ennemis aperçus a l'horizon" or answer=="ENNEMIS APERÇUS A L'HORIZON"  then
+						say_title("Capitaine:")
+						say("")
+						say("Oui, après vos explications je comprend.")
+						say("Vous êtes un de nos meilleurs soldats,")
+						say("au moment où le nombre d'espions dans le")
+						say("pays est en hausse, c'est pourquoi Yu-Hwan")
+						say("veux faire quelque chose.")
+						say("Nous devons nous armer!")
+						--                                                  |
+						say("Ordonner aux soldats de s'armer.")
+						say("Armez-vous aussi,")
+						say("il pourrait y avoir des attaques inattendues.")
+						say_reward("Vous avez reçu 2.300.000 points d'expérience.")
+						pc.give_exp2(2300000)
+
+
+						clear_letter()
+						set_state(__COMPLETE__)
+						return
+					else
+						say_title("Capitaine:")
+						say("")
+						say("Hm." )
+						say("Vous devriez encore essayer.")
+						say("")
+						return
+					end
+
+			else
+				say_title("Capitaine:")
+				say("")
+				say("Hm." )
+				say("Cela ne peut pas être ça.")
+				say("C'est illogique, réfléchissez encore.")
+				local a=select("Je vais réessayer","Hmm, hmm, ah je ne sais pas.")
+				if 2==a then
+					say_title("Capitaine:")
+					say("")
+					say("Oh très cher! C'est difficile?")
+					say("Qui doit le déchiffrer?")
+					say("Vous êtes mon dernier espoir.")
+					say("")
+					set_state(__GIVEUP__)
+					return
+				end
+				say("Hmm, qu'est-ce que cela?")
+				local answer=input()
+
+				if answer=="ennemis aperçus a l'horizon" or answer=="ENNEMIS APERÇUS A L'HORIZON"  then
+					say_title("Capitaine:")
+					say("")
+					say("Oui, après vos explications je comprend.")
+					say("Vous êtes un de nos meilleurs soldats,")
+					say("au moment où le nombre d'espions dans le")
+					say("pays est en hausse, c'est pourquoi Yu-Hwan")
+					say("veux faire quelque chose.")
+					say("Nous devons nous armer!")
+					--                                                  |
+					say("Ordonner aux soldats de s'armer.")
+					say("Armez-vous aussi,")
+					say("il pourrait y avoir des attaques inattendues.")
+					say_reward("Vous avez reçu 2.300.000 points d'expérience.")
+					pc.give_exp2(2300000)
+
+					say_reward("Vous avez reçu 40.000 Yang.")
+					pc.change_money(40000)
+
+					clear_letter()
+					set_state(__COMPLETE__)
+					return
+				else
+					say_title("Capitaine:")
+					say("")
+					say("Hmmm." )
+					say("Vous allez comprendre.")
+					say("")
+					return
+				end
+
+			end
+			end
+	end
+
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+	state __GIVEUP__ begin
+	end
+end

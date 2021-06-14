@@ -1,0 +1,433 @@
+quest akuma begin 
+	state start begin 
+		when login or levelup or enter with pc.get_level() >= 75 begin 
+			set_state(information)
+		end
+	end
+	
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20090) 
+			if 0==v then 
+			else 
+				target.vid("__TARGET__", v, "HeukYoung") 
+			end 
+			send_letter("Trouver Heuk-Young")  
+		end 
+	
+		when button or info begin 
+			say_title("Heuk-Young") 
+			say("") 
+			--                                                  |
+			say("Heuk-Young est à votre recherche. Vous pouvez ")
+			say("la trouver dans les alentour du village.") 
+			say("")
+		end    
+		
+		when __TARGET__.target.click or 20090.chat."Journal intime d'une légende" begin 
+			target.delete("__TARGET__") 
+			say_title("Heuk-Young:") 
+			say("")
+			--                                                  |
+			say("Recherche de la légendaire Akuma!") 
+			say("Akuma est très probablement la sourate la plus")
+			say("puissant qui ait jamais vécu!") 
+			say("Une combattante presque invincible qui ")
+			say("conteste même les empereurs !") 
+			say("Selon moi,il y a des siècles que les traces")
+			say("d'Akuma disparurent dans la grotte de l'exil")
+			say("S'il vous plaît cherchait n'importe quelles")
+			say("indices qui peuvent indiquer qu'elle a bien") 
+			say("disparu la-bas!")
+			say("")
+			set_state(findskel) 
+		end 
+	end 
+	state findskel begin 
+		when letter begin 
+			send_letter("Journal intime d'une légende")             
+		end 
+		
+		when button or info begin 
+			say_title("Journal intime d'une légende") 
+			say("")
+			--                                                  |
+			say("Heuk-Young est à la recherche des restes du")
+			say("héros légendaire Akuma. ")
+			say("Aidez-la en cherchant les traces dans la grotte") 
+			say("de l'Exil, bien que plusieurs années se sont ")
+			say("écoulées, il pourrait rester encore des traces")
+			say("de lui la-bas.")
+			say("")
+		end 
+		when 30124.chat."Journal intime d'une légende" begin
+			if pc.getqf("sura1")==0 then 
+				say_title("Journal intime d'une légende") 
+				say("")
+				--                                                  |
+				say_item("Page du journal",30181,"")
+				say("Sur ce squelette se trouve une très ancienne")
+				say("page.") 
+				say("Il y en a certainement plusieurs !") 
+				say("Toutes racontent la légende d'une Sourate ")
+				say("appelée Akuma.") 
+				say("Je me demande si c'est le Akuma dont Heuk-Young")
+				say(" parlait?")
+				pc.give_item2(30181, 1) 
+				pc.setqf("sura1", 1)
+				wait()
+				if pc.getqf("sura1") == 1 and pc.getqf("sura2") == 1 and pc.getqf("sura3") == 1 and pc.getqf("sura4") == 1 and pc.getqf("sura5") == 1 then
+					say_title("Journal intime d'une légende")
+					say("")
+					--                                                  |
+					say("Je suis sûr que je l'ai cherché partout et il ")
+					say("n'y a rien de plus sur ces squelettes.")
+					say("Cependant, certaines pages du journal sont")
+					say("toujours manquantes.")
+					say("Ce journal contient 15 pages et j'en ai que 5.")
+					say("Surement que les montres présents ont ramassés")
+					say("quelques pages!")
+					say_reward("Trouver les monstres dans le donjon")
+					say_reward("qui peuvent détenir une partie du")
+					say("journal d'Akuma.")
+					set_state(huntgolem)
+				end
+			else
+				say_title("Journal intime d'une légende")
+				say("")
+				say("Ce squelette de sura ne contient aucune")
+				say("page, je pense que je dois déjà la posséder..")
+				say("")
+				say_reward("Je ne peux rien trouver de plus ici.")
+				say("")
+			end
+		end 
+		when 30125.chat."Journal intime d'une légende" begin
+			if pc.getqf("sura2")==0 then 
+				say_title("Journal intime d'une légende") 
+				say("")
+				say_item("Page du journal",30181,"")
+				say("Sur ce squelette se trouve une très ancienne")
+				say("page.") 
+				say("Il y en a certainement plusieurs !") 
+				say("Toutes racontent la légende d'une Sourate ")
+				say("appelée Akuma.") 
+				say("Je me demande si c'est le Akuma dont Heuk-Young")
+				say(" parlait?")
+				pc.give_item2(30181, 1) 
+				pc.setqf("sura2", 1)
+				wait()
+				if pc.getqf("sura1") == 1 and pc.getqf("sura2") == 1 and pc.getqf("sura3") == 1 and pc.getqf("sura4") == 1 and pc.getqf("sura5") == 1 then
+					say_title("Journal intime d'une légende")
+					say("")
+					say("Je suis sûr que je l'ai cherché partout et il ")
+					say("n'y a rien de plus sur ces squelettes.")
+					say("Cependant, certaines pages du journal sont")
+					say("toujours manquantes.")
+					say("Ce journal contient 15 pages et j'en ai que 5.")
+					say("Surement que les montres présents ont ramassés")
+					say("quelques pages!")
+					say_reward("Trouver les monstres dans le donjon")
+					say_reward("qui peuvent détenir une partie du")
+					say("journal d'Akuma.")
+					set_state(huntgolem)
+				end
+			else
+				say("Ce squelette de sura ne contient aucune")
+				say("page, je pense que je dois déjà la posséder..")
+				say("")
+				say_reward("Je ne peux rien trouver de plus ici.")
+				say("")
+			end
+		end 
+		
+		when 30126.chat."Journal intime d'une légende" begin
+			if pc.getqf("sura3")==0 then 
+				say_title("Journal intime d'une légende") 
+				say("")
+				say_item("Page du journal",30181,"")
+				say("Sur ce squelette se trouve une très ancienne")
+				say("page.") 
+				say("Il y en a certainement plusieurs !") 
+				say("Toutes racontent la légende d'une Sourate ")
+				say("appelée Akuma.") 
+				say("Je me demande si c'est le Akuma dont Heuk-Young")
+				say(" parlait?")
+				pc.give_item2(30181, 1) 
+				pc.setqf("sura3", 1)
+				wait()
+				if pc.getqf("sura1") == 1 and pc.getqf("sura2") == 1 and pc.getqf("sura3") == 1 and pc.getqf("sura4") == 1 and pc.getqf("sura5") == 1 then
+					say_title("Journal intime d'une légende")
+					say("")
+					say("Je suis sûr que je l'ai cherché partout et il ")
+					say("n'y a rien de plus sur ces squelettes.")
+					say("Cependant, certaines pages du journal sont")
+					say("toujours manquantes.")
+					say("Ce journal contient 15 pages et j'en ai que 5.")
+					say("Surement que les montres présents ont ramassés")
+					say("quelques pages!")
+					say_reward("Trouver les monstres dans le donjon")
+					say_reward("qui peuvent détenir une partie du")
+					say("journal d'Akuma.")
+					set_state(huntgolem)
+				end
+			else
+				say_title("Journal intime d'une légende")
+				say("")
+				say("Ce squelette de sura ne contient aucune")
+				say("page, je pense que je dois déjà la posséder..")
+				say("")
+				say_reward("Je ne peux rien trouver de plus ici.")
+				say("")
+			end
+		end 
+		when 30127.chat."Journal intime d'une légende" begin
+			if pc.getqf("sura4")==0 then 
+				say_title("Journal intime d'une légende") 
+				say("")
+				say_item("Page du journal",30181,"")
+				say("Sur ce squelette se trouve une très ancienne")
+				say("page.") 
+				say("Il y en a certainement plusieurs !") 
+				say("Toutes racontent la légende d'une Sourate ")
+				say("appelée Akuma.") 
+				say("Je me demande si c'est le Akuma dont Heuk-Young")
+				say(" parlait?")
+				pc.give_item2(30181, 1) 
+				pc.setqf("sura4", 1)
+				wait()
+				if pc.getqf("sura1") == 1 and pc.getqf("sura2") == 1 and pc.getqf("sura3") == 1 and pc.getqf("sura4") == 1 and pc.getqf("sura5") == 1 then
+					say_title("Journal intime d'une légende")
+					say("")
+					say("Je suis sûr que je l'ai cherché partout et il ")
+					say("n'y a rien de plus sur ces squelettes.")
+					say("Cependant, certaines pages du journal sont")
+					say("toujours manquantes.")
+					say("Ce journal contient 15 pages et j'en ai que 5.")
+					say("Surement que les montres présents ont ramassés")
+					say("quelques pages!")
+					say_reward("Trouver les monstres dans le donjon")
+					say_reward("qui peuvent détenir une partie du")
+					say("journal d'Akuma.")
+					say("")
+					set_state(huntgolem)
+				end
+			else
+				say_title("Journal intime d'une légende")
+				say("")
+				say("Ce squelette de sura ne contient aucune")
+				say("page, je pense que je dois déjà la posséder..")
+				say("")
+				say_reward("Je ne peux rien trouver de plus ici.")
+				say("")
+			end
+		end 
+		
+		when 30128.chat."Journal intime d'une légende" begin
+			if pc.getqf("sura5")==0 then 
+				say_title("Journal intime d'une légende") 
+				say("")
+				say_item("Page du journal",30181,"")
+				say("Sur ce squelette se trouve une très ancienne")
+				say("page.") 
+				say("Il y en a certainement plusieurs !") 
+				say("Toutes racontent la légende d'une Sourate ")
+				say("appelée Akuma.") 
+				say("Je me demande si c'est le Akuma dont Heuk-Young")
+				say(" parlait?")
+				pc.give_item2(30181, 1) 
+				pc.setqf("sura5", 1)
+				wait()
+				if pc.getqf("sura1") == 1 and pc.getqf("sura2") == 1 and pc.getqf("sura3") == 1 and pc.getqf("sura4") == 1 and pc.getqf("sura5") == 1 then
+					say_title("Journal intime d'une légende")
+					say("")
+					say("Je suis sûr que je l'ai cherché partout et il ")
+					say("n'y a rien de plus sur ces squelettes.")
+					say("Cependant, certaines pages du journal sont")
+					say("toujours manquantes.")
+					say("Ce journal contient 15 pages et j'en ai que 5.")
+					say("Surement que les montres présents ont ramassés")
+					say("quelques pages!")
+					say_reward("Trouver les monstres dans le donjon")
+					say_reward("qui peuvent détenir une partie du")
+					say("journal d'Akuma.")
+					set_state(huntgolem)
+				end
+			else
+				say("Ce squelette de sura ne contient aucune")
+				say("page, je pense que je dois déjà la posséder..")
+				say("")
+				say_reward("Je ne peux rien trouver de plus ici.")
+				say("")
+			end
+		end 
+	end 
+	
+	state huntgolem begin
+		when letter begin 
+			send_letter("Journal intime d'une légende")             
+		end 
+		
+		when button or info begin 	
+			if pc.count_item(30181) >= 15 then 
+				say_title("Journal intime d'une légende") 
+				say("")
+				--                                                  |
+				say("Vous avez toutes les pages du journal d'Akuma.") 
+				say("Retournez voir Heuk-Young et donnez-les lui") 
+				say("pour compléter ses recherches.") 
+				say("")
+				set_state(backtoheuk)
+			else
+				say_title("Journal intime d'une légende")
+				say("")
+				say("Trouver les montres qui possèdent des pages")
+				say("du journal intime d'Akuma.")
+				say("")
+				say_reward("Vous avez déjà récolté "..pc.count_item(30181).." pages sur 15.")
+				say("")
+			end
+		end 
+	
+		when 1137.kill begin 
+			local n = number(1,30) 
+			if n <= 1 then 
+				pc.give_item2(30181, 1)
+				if pc.count_item(30181) >= 15 then 
+					say("Vous avez toutes les pages du journal d'Akuma.") 
+					say("Retournez voir Heuk-Young et donnez-les lui") 
+					say("pour compléter ses recherches.")
+					set_state(backtoheuk)
+				end 
+			end 
+		end  
+	end
+    
+	state backtoheuk begin 
+		when letter begin 
+			send_letter("Journal intime d'une légende") 	 
+			local v=find_npc_by_vnum(20090) 
+			if 0==v then 
+			else 
+				target.vid("__TARGET1__", v, "HeukYoung") 
+			end 
+		end 
+
+		when button or info begin 
+			say_title("Journal intime d'une légende") 
+			say("") 
+			say("Vous avez toutes les pages du journal d'Akuma.") 
+			say("Retournez voir Heuk-Young et donnez-les lui") 
+			say("pour compléter ses recherches.")
+			say("")
+		end 
+			
+		when 20090.chat."Journal intime d'une légende" with pc.count_item(30181)>=15 begin  
+			target.delete("__TARGET1__") 	
+			say_title("Heuk-Young:") 
+			say("")
+			--                                                  |
+			say("Des traces d'Akuma? Quoi? des pages du journal?") 
+			say("Désolé, mais je ne pensais pas que cela puisse") 
+			say("arriver. Merci beaucoup !") 
+			say("Vous devez être récompensé pour ces efforts!") 
+			say("") 
+			pc.remove_item(30181,15) 
+			wait() 
+			say_title("Heuk-Young:") 
+			say("") 
+			say_reward("80.000.000 EXP reçu") 
+			say_reward("3.000.000 Yang reçu") 
+			say_reward("Journal Légendaire reçu") 
+			pc.give_exp2(80000000) 
+			pc.change_money(3000000) 
+			pc.give_item2(30182) 
+			wait() 
+			say_title("Heuk-Young:") 
+			say("") 
+			say("Si vous n'avez pas besoin du journal") 
+			say("légendaire, vous pouvez le vendre à Soon.") 
+			say("Je pense qu'il peut vous faire une belle") 
+			say("offre pour celui ci") 
+			set_state(__COMPLETE__) 
+		end 
+	end 
+	state __COMPLETE__ begin 
+	
+		when 20023.chat."Journal légendaire" with pc.count_item(30182)==1 begin 
+			if pc.getqf("offer") != 1 then
+				say_title("Soon:") 
+				say("")
+				--                                                  |
+				say("Quoi?! Le journal légendaire?! Est-ce le") 
+				say("journal légendaire d'Akuma? ") 
+				say("Où l'avez vous eu???") 
+				say("...") 
+				say("Cela n'a pas d'importance...") 
+				say("Puis-je l'avoir? Je vous offrirai une belle") 
+				say("somme pour elle.") 
+				say("") 
+				local s=select("Combien?", "Je préfère le garder") 
+				if s == 1 then 
+					say("Très bien... Je peux te faire une offre de") 
+					say("5.000.000 Yang. Cela te convient?") 
+					say("")
+					local x=select("Oui", "Non, ce n'est pas assez") 
+					if x == 1 then 
+						say("Merci.") 
+						say("voici tes 5.000.000 Yang!") 
+						say("")
+						pc.change_money(5000000) 
+						pc.remove_item(30182,1) 
+					else 
+						--                                                  |
+						say("Vous êtes dur en affaire... ")
+						say("Laisse-moi réfléchir.")
+						say("Que penses-vous de 7.500.000 Yang?")
+						say("C'est ma dernière offre !")
+						say("")
+						local y=select("Je les prends", "Toujours pas assez") 
+						if y == 1 then 
+							say("Merci.") 
+							say("Voici tes 7.500.000 Yang!")
+							say("")
+							pc.change_money(7500000) 
+							pc.remove_item(30182,1) 
+						else 
+							say("Votre cupidité est allée trop loin.") 
+							say("Gardez ce journal pour vous-même!") 
+							say("")
+							say("Au revoir!")
+							say("")
+							pc.setqf("offer",1)
+						end 
+					end 
+				else 
+					say("Bien...alors gardez-le.") 
+					say("Je ne vous comprends pas.") 
+					say("Ce livre vaut des millions...")
+					say("")
+				end 
+			else
+				say_title("Soon:") 
+				say("")
+				--                                                  |
+				say("Je peux vous offrir 2.500.000 Yang pour le ") 
+				say("journal. Accepte ou pars!") 
+				say("") 
+				local s=select("Bien", "Non merci") 
+				if s == 1 then 
+					say("Merci.") 
+					say("Voici tes 2.500.000 Yang!") 
+					say("")
+					pc.change_money(2500000) 
+					pc.remove_item(30182,1) 
+				else 
+					say("Bien...Gardez-le.") 
+					say("Je ne ferrai pas de nouvelle offre.")
+					say("")
+				end 
+			end
+		end	
+	end 
+end  

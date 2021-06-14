@@ -1,0 +1,32 @@
+quest spider_dungeon_3floor_boss begin
+	state start begin
+		when 30130.chat."Entrée de la caverne du nid" begin
+			if pc.count_item(30324)>0 then
+				---                                                   l
+				say("D'accord je vous y envoie.")
+				say("Vous êtes très courageux. Bonne chance dans les")
+				say("profondeurs de cette horrible lieu.")
+				wait()
+				pc.remove_item(30324,1)
+				pc.warp(88000, 614400)		--51200+368	563200+512
+
+			elseif pc.count_item(30325) >0 then
+				---                                                   l
+				say("D'accord je vous y envoie.")
+				say("Vous êtes très courageux. Bonne chance dans les")
+				say("profondeurs de cette horrible lieu.")
+				wait()
+				pc.remove_item(30325,1)
+				pc.warp(88000, 614400)		--51200+368	563200+512
+			else
+				---                                                   l
+				say("Cette porte ne peut être ouverte qu'avec la clé ")
+				say("des araignées.")
+			end
+		end
+
+        	when 2092.kill with pc.get_map_index() == 77 begin
+			notice_all(""..pc.get_name().." a terrassé la "..mob_name(2092).." !")
+		end
+	end
+end

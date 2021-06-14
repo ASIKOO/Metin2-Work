@@ -1,0 +1,134 @@
+quest change_empire begin
+	state start begin
+		when 71054.use begin
+			---                                                   l
+			say_title("Changer d'Empire")
+			say("Grâce à cet objet vous pourrez changer votre")
+			say("empire.")
+
+			if get_time() < pc.getqf("next_use_time") then
+				---                                                   l
+				say_reward("Vous avez déjà changer d'empire récemment.")
+				say_reward("Vous devez attendre quelques temps avant de")
+				say_reward("pouvoir changer d'empire à nouveau.")
+
+				if pc.is_gm() then
+					---                                                   l
+					say("Les membres du staff peuvent remettre leurs temps")
+					say("d'attente de chaque changement d'empire à zéro.")
+					say("Voulez-vous remettre votre temps d'attente à zéro?")
+
+					local s = select("Oui", "Non")
+
+					if s == 1 then
+						---                                                   l
+						say_title("Changer d'Empire")
+						say("Votre temps d'attente a été remis à zéro")
+						pc.setqf("next_use_time", 0)
+					end
+				end
+				return
+			end
+
+			if change_empire.move_pc() == true then
+				pc.setqf("next_use_time", get_time() + 86400 * 7)
+			end
+		end
+
+		function move_pc()
+			if pc.is_engaged() then
+				---                                                   l
+				say_title("Changer d'Empire")
+				say_reward("Vous ne pouvez pas changer d'empire quand vous")
+				say_reward("êtes engagé.")
+				return false
+			end
+
+			if pc.is_married() then
+				---                                                   l
+				say_title("Changer d'Empire")
+				say_reward("Vous ne pouvez pas changer d'empire quand vous")
+				say_reward("êtes marié.")
+				return false
+			end
+
+			if pc.is_polymorphed() then
+				---                                                   l
+				say_title("Changer d'Empire")
+				say_reward("Vous ne pouvez pas changer d'empire quand vous")
+				say_reward("utilisez une orbe de polymorphie.")
+				return false
+			end
+
+			if pc.has_guild() then
+				---                                                   l
+				say_title("Changer d'Empire")
+				say_reward("Pour changer d'empire vous devez quitter la guilde")
+				say_reward("ou vous êtes membre.")
+				return false
+			end
+
+			if pc.money < 500000 then
+				---                                                   l
+				say_title("Changer d'Empire")
+				say("Vous n'avez pas assez de yangs.")
+				say_reward("Il vous faut 500 000 yangs pour pouvoir changer")
+				say_reward("d'empire.")
+				return false
+			end
+
+			---                                                   l
+			say("Quel empire voulez-vous rejoindre ?")
+
+			local s = select("Shinsoo", "Chunjo", "Jinno", "Annuler")
+
+			if 4==s then
+				return false
+			end
+
+			---                                                   l
+			say_reward("Etes-vous sur de vouloir changer d'empire? Vous")
+			say_reward("ne pourrez pas annuler ceci.")
+
+			local a = select("Oui", "Annuler")
+
+			if 2== a then
+				return false
+			end
+
+			local ret = pc.change_empire(s)
+			local oldempire = pc.get_empire()
+
+			if ret == 999 then
+				---                                                   l
+				say_title("Changer d'Empire")
+				say_reward("Veuillez vous déconnecter complètement et vous")
+				say_reward("reconnecter pour finir l'événement.")
+				pc.change_gold(-500000)
+				pc.remove_item(71054) ;
+				char_log(0, "CHANGE_EMPIRE",string.format("%d -> %d", oldempire, s))
+				return  true
+			else
+				if ret == 1 then
+					---                                                   l
+					say_title("Changer d'Empire")
+					say("Vous ne pouvez pas changer d'empire.")
+					say_reward("Vous faites déjà parti de cet empire.")
+
+				elseif ret == 2 then
+					---                                                   l
+					say_title("Changer d'Empire")
+					say("Vous ne pouvez pas changer d'empire.")
+					say("Aucune traduction, contactez l'équipe.")
+
+				elseif ret == 3 then
+					---                                                   l
+					say_title("Changer d'Empire")
+					say("Vous ne pouvez pas changer d'empire.")
+					say_reward("Vous avez un statut spécial.")
+				end
+			end
+			return false
+		end
+	end
+end

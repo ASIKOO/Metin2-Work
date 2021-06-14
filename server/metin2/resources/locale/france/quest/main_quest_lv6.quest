@@ -1,0 +1,216 @@
+quest main_quest_lv6 begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 6 begin
+			set_state( gototeacher )
+		end
+	end
+	state gototeacher begin
+		when letter begin
+			local v=find_npc_by_vnum(20354)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Garde du village")
+			end
+		end
+		when letter begin
+			send_letter("Le Garde du village")
+		end
+		when button or info begin
+			---                                                   l
+			say_title("Garde du village")
+			say("")
+			say("Le Garde du village a une quête à vous confier")
+			say("Allez voir le garde du village pour savoir ce")
+			say("qu'il en est.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Garde du village:")
+			say("")
+			say("Hey vous! Arrêtez de vous tourner les pouces!")
+			say("Vous avez besoin de plus d'entrainement.")
+			say("Dans ces temps sombres, l'entrainement est votre")
+			say("seule chance de salut pour augmenter vos chances")
+			say("de survie.")
+			wait()
+			say_title("Garde du village:")
+			say("")
+			say("Allez voir le forgeron.")
+			say("Il dit avoir besoin d'aide.")
+			say("Dépêchez-vous! C'est un homme important.")
+			say("Pourquoi êtes-vous toujours ici!")
+			say("Allez!")
+			set_state( gotosmith )
+		end
+	end
+
+	state gotosmith begin
+		when letter begin
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Forgeron")
+			end
+		end
+		when letter begin
+			send_letter("La mission du forgeron")
+		end
+		when button or info begin
+			say_title("Parler au forgeron")
+			say("Le forgeron a un service à vous demander")
+			say("Allez à sa rencontre pour le lui rendre.")
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Forgeron:")
+			say("")
+			---                                                   l
+			say("Ah vous êtes arrivé! Je commençais à attendre.")
+			say("Je ne vous dérange pas trop? J'aurai une mission")
+			say("pour vous. Elle est assez simple en elle-même.")
+			wait()
+			say_title("Forgeron:")
+			say("")
+			say("Le magasinier devait me livrer un groin...,")
+			say("mais il ne l'a pas encore fait.")
+			say("")
+			say("Allez me chercher ce groin s.v.p,j'en ai besoin")
+			say("rapidement afin que je puisse travailler.")
+			say("")
+			say_item_vnum(30003)
+			say("")
+			set_state( gotowarehousekeeper )
+		end
+	end
+	state gotowarehousekeeper begin
+		when letter begin
+			local v=find_npc_by_vnum(9005)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Magasinier.")
+			end
+		end
+		when letter begin
+			send_letter("Allez voir le magasinier.")
+		end
+		when button or info begin
+			say_title("Allez voir le magasinier.")
+			say("")
+			---                                                   l
+			say("Allez voir le magasinier et récupérez le groin")
+			say("pour le forgeron.")
+			say("")
+			say_item_vnum(30003)
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Magasinier :")
+			say("")
+			say("Bienvenu.")
+			say("")
+			say("Je suis le magasinier du village.")
+			say("Si vous avez trop de chose sur vous, vous pouvez")
+			say("les stocker dans mon magasin.")
+			say("")
+			wait()
+			say_title("Magasinier:")
+			say("")
+			say("Ah le forgeron t'envoie pour son groin.")
+			say("Désolé, je deviens vieux et ma mémoire me fait")
+			say("parfois défaut.")
+			say("Donne çà au forgeron veux-tu...")
+			say("A plus tard.")
+			say("")
+			set_state( gotosmith2 )
+		end
+	end
+	state gotosmith2 begin
+		when letter begin
+			local v=find_npc_by_vnum(20016)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Forgeron")
+			end
+		end
+		when letter begin
+			send_letter("Vous avez le groin.")
+		end
+		when button or info begin
+			say_title("Vous avez le groin.")
+			say("")
+			say("Tu as récupéré le groin.")
+			say("Rapportez le au forgeron.")
+			say("")
+			say_item_vnum(30003)
+			say("")
+		end
+		when __TARGET__.target.click begin
+			target.delete("__TARGET__")
+			say_title("Forgeron:")
+			say("")
+			---                                                   l
+			say("Bien, tu es aussi rapide que je le pensais.")
+			say("A défaut d'être un bon combattant tu es rapide.")
+			say("Je devrais avoir quelques information utiles")
+			say("pour un nouveau combattant comme toi.")
+			say("")
+			wait()
+			say_title("Forgeron:")
+			say("")
+			---                                                   l
+			say("Connaissez-vous quelque chose à propos des ")
+			say("améliorations! Bien sûr que non, vous êtes un ")
+			say("nouvel aventurier.")
+			say("Si vous me donnez une pièce de votre armure,")
+			say("je peux améliorer sa qualité.")
+			say("Cela ne vous coutera que quelques yang.")
+			say("")
+			wait()
+			---                                                   l
+			say_title("Forgeron :")
+			say("")
+			say("Pour améliorer une arme +4 ou - il ne faudra ")
+			say("que quelque yang. Si au contraire vous dépassez")
+			say("+4, il vous faudra un ou plusieurs items afin")
+			say("de l'améliorer.")
+			say("L'item  demandé varie en fonction de la pièce à ")
+			say("améliorer et de son niveau.")
+			say("Une amélioration peut aussi échouer.")
+			say("")
+			wait()
+			say_title("Forgeron :")
+			say("")
+			---                                                   l
+			say("Plus vous montez dans la qualité, plus les ")
+			say("chances d'échouer augmentent.")
+			say("Il existe plusieurs types de forgeron, certains")
+			say("sont spécialisés dans un seul type de pièce et ont")
+			say("un meilleur taux de réussite")
+			say("")
+			say("")
+			wait()
+			say_title("Reward")
+			say("")
+			say_reward("Experience: 3000")
+			say_reward("Yang: 2000")
+			say_reward("Items: "..item_name(30053))
+			say_item_vnum(30070)
+			say("")
+			pc.give_exp2(3000)
+			pc.change_money(2000)
+			pc.give_item2(30053 , 1)
+			clear_letter()
+			set_state(__COMPLETE__)
+			set_quest_state("main_quest_lv7", "run")
+		end
+	end
+	state __COMPLETE__ begin
+	end
+end

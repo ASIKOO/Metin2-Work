@@ -1,0 +1,200 @@
+quest subquest_36 begin
+	state start begin
+		when login or levelup with pc.level >= 47 and pc.level <= 49 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local v=find_npc_by_vnum(20005)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Yonah")
+			end
+		end
+
+
+		when __TARGET__.target.click or 20005.chat."L'étable a des ennuis" begin
+			target.delete("__TARGET__")
+			say_title("Yonah:")
+			say("")
+			--                                                  |
+			say("Hey, j'ai une question!")
+			say("Je sais que quelqu'un d'autre s'occupe ")
+			say("des chevaux,mais nous avons quelques soucis.")
+			say("Il y a beaucoup de chevaux, mais pas assez de ")
+			say("nourriture.")
+			say("Pouvez vous amener de la nourriture pour que ")
+			say("les chevaux puissent manger? ")
+			say("Collectez 10 foins et amenez-les au palefrenier.")
+			say("")
+			local s=select("Ok","Annuler")
+			if 2==s then
+				say("Voulez-vous annuler la mission?")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Yonah:")
+					say("")
+					--                                                  |
+					say("De nos jours beaucoup de gens veulent")
+					say("des chevaux.")
+					say("Mais il n'y a pas assez de chevaux.")
+					say("Ils n'ont pas assez de nourriture.")
+					say("Si vous changez d'avis, revenez me voir.")
+					return
+				end
+				say_title("Yonah:")
+				say("")
+				say("Argh, les chevaux restent sous-alimentés.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Yonah:")
+			say("")
+			--                                                  |
+			say("Je sais que vous êtes occupés mais vous pouvez")
+			say("pas me faire cette faveur?")
+			say("Les chevaux sont très important.")
+			set_state(for_horse)
+		end
+	end
+
+
+	state for_horse begin
+		when letter begin
+			send_letter("L'étable a des ennuis")
+			if pc.count_item(50054)>=10 then
+				local v=find_npc_by_vnum(20349)
+				if 0==v then
+				else
+					target.vid("__TARGET__", v, "Palefrenier")
+				end
+			end
+		end
+		when button or info begin
+			if pc.count_item(50054)>=10 then
+				say_title("J'ai les foins")
+				say("")
+				say("Vous aveze les 10 foins.")
+				say("Apportez-les au palefrenier.")
+				return
+			end
+
+			say_title("A la recherche de foin ...")
+			say("")
+			--                                                  |
+			say("En ces temps de sécheresse, le palefrenier a ")
+			say("du mal à trouver de la nourriture pour ses ")
+			say("bêtes. C'est pourquoi Yonah t'a demandé de lui")
+			say(" fournir une dizaine de balots de foin .")
+			say("Hâtes toi d'en trouver !")
+		end
+
+		when 20349.chat."Aidez le palefrenier" with pc.count_item(50054) ==0 or pc.count_item(50054) < 10 begin
+			say_title("Palefrenier:")
+			say("")
+			say("C'est Yonah qui t'envoie?")
+			say("J'ai beaucoup entendu parler de vous.")
+			say("Ah, tous nos chevaux sont affamés,")
+			say("Ils doivent survivre, s'il vous plaît")
+			say("aidez-moi.")
+			say("")
+			local s=select("Allons-y","Annuler")
+			if 1==s then
+				say_pc_name()
+				say("")
+				--                                                  |
+				say("Les promesses des hommes sont importants...")
+				say("Mais bon, peut-être que je peux monter un ")
+				say("cheval...")
+				say("Je vais l'aider")
+				say("")
+				return
+			else
+				say_pc_name()
+				say("")
+				say("Je suis désolé pour lui.")
+				say("Mes compétences ne sont pas assez haut.")
+				say("")
+				wait()
+				say_title("Palefrenier:")
+				say("")
+				say("J'attends et j'espère que vous pourrez le")
+				say("faire.")
+				say("Bon, ce n'est vraiment pas sympa pour vous que")
+				say("je vous donne mon travail.")
+				say("Mais - pouvez-vous essayer encore?")
+				local s=select("J'y vais","Non, je veux plus essayer")
+				if 1==s then
+					say_pc_name()
+					say("")
+					say("Je ne peux pas vous aider.")
+					say("Je n'ai pas la force.")
+					say("")
+					return
+				elseif 2==s then
+					say_pc_name()
+					say("")
+					say("Je n'ai pas assez d'énergie.")
+					say("j'aimerais pouvoir vous aider mais ")
+					say("je ne peux pas !")
+					set_state(__GIVEUP__)
+				end
+			end
+		end
+
+		when __TARGET__.target.click or 20349.chat."Donner le foin" with pc.count_item(50054)>=10 begin
+			target.delete("__TARGET__")
+			say_title("Palefrenier:")
+			say("")
+			say("Vous venez de la part de Yonah?")
+			say("Vous avez du foin?")
+			say("Oh, merci.")
+			say("Merci pour votre aide.")
+			say("")
+			say_reward("vous recevez 1.800.000 points d'expérience.")
+			pc.give_exp2(1800000)
+			pc.remove_item(50054,10)
+			set_state(OLD_MAN_DONE)
+		end
+	end
+
+	state OLD_MAN_DONE begin
+		when letter begin
+			send_letter("Retournez voir Yonah!")
+			local v=find_npc_by_vnum(20005)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "Yonah")
+			end
+		end
+		when button or info begin
+			say_title("Retournez voir Yonah")
+			say("")
+			say("Prevenez Yonah que vous avez apporté ")
+			say("les foins au palefrenier.")
+		end
+		when __TARGET__.target.click or 20005.chat."La livraison est faite!" begin
+			target.delete("__TARGET__")
+			say_title("Yonah")
+			say("")
+			say("Hey, Vous êtes de retour!")
+			say("C'était sûrement un dur travail.")
+			say("Voici un petit présent.")
+			say("")
+			say_reward("Vous recevez manuel appriv. chevaux")
+			pc.give_item2(50061) 
+			set_state(__COMPLETE__)
+			clear_letter()
+		end
+	end
+	state __COMPLETE__ begin
+		when enter begin
+			q.done()
+		end
+	end
+	state __GIVEUP__ begin
+	end
+end

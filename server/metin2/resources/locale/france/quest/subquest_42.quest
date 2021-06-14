@@ -1,0 +1,193 @@
+quest subquest_42 begin
+	state start begin
+		when login or levelup with pc.level >= 46 and pc.level <= 48 begin
+			set_state(information)
+		end
+	end
+
+	state information begin
+		when letter begin
+			local vnum=0
+
+			if pc.get_empire() == 1 then
+				vnum= 20306
+			elseif pc.get_empire() == 2 then
+				vnum= 20326
+			elseif pc.get_empire() == 3 then
+				vnum=20346
+			end
+			local v=find_npc_by_vnum(vnum)
+			if 0==v then
+			else
+				target.vid("__TARGET__", v, "For the Rest of the Dead")
+			end
+		end
+
+		when __TARGET__.target.click or 
+			20306.chat."Laissez les morts reposer en paix" or
+			20326.chat."Laissez les morts reposer en paix" or
+			20346.chat."Laissez les morts reposer en paix" begin
+			
+			target.delete("__TARGET__")
+			say_title("Maitre Dragon:")
+			say("")
+			---                                                   l
+			say("Cette guerre terrible fait de plus en plus de")
+			say("morts.")
+			say("Ils combattent sur le front, ils combattent")
+			say("pour eux-mêmes, leurs familles, leur pays.")
+			say("Mais une fois mort, beaucoup d'entre eux")
+			say("ne montent pas au Paradis et reste sur terre.")
+			wait()
+			say_title("Maitre Dragon:")
+			say("")
+			say("Il est dit que ceux qui me suis en quelque sorte")
+			say("résistants à la mort pendant de la guerre.")
+			say("Ils continuent à penser qu'ils doivent défendre")
+			say("leur pays.")
+			say("Nos chamanes ont pour but de les calmer.")
+			say("Ils ont fait une cérémonie pour les calmer.")
+			say("Ils ont besoin d'une écharpe du temple et")
+			say("d'une doctrine du temple, mais de nos jours")
+			say("il est difficile d'en trouver.")
+			say("Pouvez-vous essayez d'en avoir pour nous?")
+			wait()
+			say_title("Maitre Dragon:")
+			say("")
+			---                                                   l
+			say("J'ai entendu dire que les fiers chefs funestes")
+			say("pourraient détenir ce dont nous avons besoin.")
+			say("S'il vous plaît aidez-moi à calmer nos camarades")
+			say("qui sont morts pour notre pays.")
+			say("Je suis sûr que grâce à votre aide, ")
+			say("les jeunes guerriers morts pourront bientôt ")
+			say("être dans le ciel.")
+
+			local s=select("Je vais vous aider.","Je suis désolée, je ne peux pas.")
+			if 2==s then
+				say("Annuler la quête?")
+				local a=select("Oui","Non")
+				if 2==a then
+					say_title("Maitre Dragon:")
+					say("")
+					---                                                   l
+					say("Aidez-nous à calmer leurs âmes, qu'ils puissent")
+					say("reposer en paix.")
+					say("Je vous attends.")
+					say("")
+					return
+				end
+				say_title("Maitre Dragon:")
+				say("")
+				say("Navré d'entendre cela.")
+				say("j'entends la voix des morts qui")
+				say("souhaitent pas rester...")
+				say("Il faut les calmer.")
+				say("je vais demander à quelqu'un d'autre...")
+				say("Au revoir.")
+				say("")
+				set_state(__GIVEUP__)
+				return
+			end
+			say_title("Maitre Dragon:")
+			say("")
+			say("Vous êtes courageux.")
+			say("Je suis sur qu'ils pourront monter au ciel,")
+			say("Je t'en remercie.")
+			say("")
+			set_state(for_the_die)
+		end
+	end
+	state for_the_die begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Laissez les morts reposer en paix.")
+			q.set_title("Laissez les morts reposer en paix.")
+			q.start()
+			if pc.count_item("30147") >=1 and pc.count_item("30148") >=1 then
+				local vnum=0
+				if pc.get_empire() == 1 then
+					vnum= 20306
+				elseif pc.get_empire() == 2 then
+					vnum= 20326
+				elseif pc.get_empire() == 3 then
+					vnum= 20346
+				end
+				local v=find_npc_by_vnum(vnum)
+				if 0!= v then
+					target.vid("__TARGET__",v,"Maitre Dragon")
+				end
+			end
+		end
+		when info or  button begin
+			if pc.count_item("30147") >=1 and pc.count_item("30148") >=1 then
+				say_title("L'écharpe du temple et la doctrine ")
+				say("")
+				---                                                   l
+				say("Vous avez la doctrine du temple et l'écharpe du")
+				say("temple pour calmer les soldats morts.")
+				say("Retournez voir le Maitre Dragon.")
+				say("")
+				return
+			end
+			say_title("L'écharpe du temple et la doctrine")
+			say("")
+			---                                                   l
+			say("Nous avons besoin d'une écharpe du temple et ")
+			say("d'une doctrine du temple pour calmer les soldats")
+			say("qui sont morts pendant la guerre.")
+			say("Vous pouvez les trouver sur les fiers chefs")
+			say("funeste.")
+			say("")
+		end
+		when 734.kill or 735.kill or 736.kill  begin
+			local s = number(1, 100)
+			if s <= 5 and pc.count_item(30147)==0 then
+				pc.give_item2(30147, 1)
+			end
+
+			local a = number(1, 100)
+			if a <= 5 and pc.count_item(30148)==0 then
+				pc.give_item2(30148, 1)
+			end
+		end
+		when __TARGET__.target.click or
+			20306.chat."Voici l'écharpe et la doctrine" or
+			20326.chat."Voici l'écharpe et la doctrine" or
+			20346.chat."Voici l'écharpe et la doctrine" with pc.count_item("30147") >=1 and pc.count_item("30148") >=1 begin
+
+			target.delete("__TARGET__")
+			say_title("Maitre Dragon:")
+			say("")
+			---                                                   l
+			say("C'est génial.")
+			say("Maintenant nous pouvons calmer les soldats morts.")
+			say("Ils firent de leur mieux, maintenant ils peuvent ")
+			say("se reposer après leur mort.")
+			say("Je vais vous payer pour votre aide, ")
+			say("parce que vous avez aidé nos camarades.")
+			say("")
+			pc.remove_item("30147",1)
+			pc.remove_item("30148",1)
+			say_reward("Vous recevez 1.700.000 points d'expérience.")
+			pc.give_exp2(1700000)
+			set_quest_state("levelup","run")
+			say_reward("Vous recevez 3 diamants.")
+			pc.give_item2(50621)
+			pc.give_item2(50621)
+			pc.give_item2(50621)
+			say_reward("Vous recevez 30.000 Yang.")
+			pc.change_money(30000)
+			clear_letter()
+			set_state(COMPLETE)
+		end
+	end
+
+	state __GIVEUP__ begin
+	end
+	state COMPLETE begin
+		when enter begin
+			q.done()
+		end
+	end
+end

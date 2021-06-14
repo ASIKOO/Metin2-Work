@@ -1,0 +1,69 @@
+quest mining begin
+	state start begin
+		when 20015.chat."Utiliser le magasin" begin
+			setskin(NOWINDOW)
+			npc.open_shop()
+		end
+
+		when 20015.take with item.vnum >= 29101 and item.vnum < 29200 and item.get_socket(0) != item.get_value(2) begin
+			---                                                   l
+			say_title("Deokbae:")
+			say("Cette pioche n'as pas assez de points pour être")
+			say("améliorer.")
+		end
+
+		when 20015.take with item.vnum >= 29101 and item.vnum < 29200 and item.get_socket(0) == item.get_value(2) begin
+			---                                                   l
+			say_title("Deokbae:")
+			say("Si l'amélioration réussi, votre pioche sera")
+			say("niveau ".. item.get_level()..".")
+			wait()
+
+			if item.get_value(3) == 100 then
+				---                                                   l
+				say_title("Deokbae:")
+				say("Voulez-vous améliorer la pioche ?") 
+			else
+				---                                                   l
+				say_title("Deokbae:")
+				say("L'amélioration peut échoué, vous avez seulement")
+				say("" .. 100-item.get_value(3).. "% de chance que l'amélioration réussise.")
+			end
+
+			local s = select("Oui","Non")
+
+			if s == 1 then
+				local f = __refine_pick(item.get_cell())
+
+			if f == 2 then
+				---                                                   l
+				say_title("Deokbae:")
+				say("Une erreur à été trouvée.")
+				say("Désolé, je ne peux pas l'améliorer.")
+
+				elseif f == 1 then
+					---                                                   l
+					say_title("Deokbae:")
+					say("Félicitations! L'amélioration est un sucées.")
+				else
+					---                                                   l
+					say_title("Deokbae:")
+					say("L'amélioration à échoué.")
+				end
+			else
+				---                                                   l
+				say_title("Deokbae:")
+				say("Revenez me voir quand vous aurez changer d'avis.")
+			end
+		end
+
+		when 20047.click or 20048.click or 20049.click or 20050.click or 20051.click or 20052.click or 20053.click or
+			20054.click or 20055.click or 20056.click or 20057.click or 20058.click or 20059.click or 30301.click or
+			30302.click or 30303.click or 30304.click or 30305.click begin
+
+			if pc.is_mount() != true then
+				pc.mining()
+			end
+		end
+	end
+end

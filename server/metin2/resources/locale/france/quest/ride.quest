@@ -1,0 +1,192 @@
+quest ride begin
+	state start begin
+		function Ride( vnum, remain_time )
+			ride_info = {
+				[71114] = { 20110,	5*60,					apply.DEF_GRADE_BONUS,	75,		75,	true,	false,	false},
+				[71115] = { 20110,	item.get_socket(2)*60,	apply.DEF_GRADE_BONUS,	100,	75,	false,	false,	false	},
+				[71116] = { 20111,	5*60,					apply.DEF_GRADE_BONUS,	100,	80,	true,	false,	false	},
+				[71117] = { 20111,	item.get_socket(2)*60,	apply.DEF_GRADE_BONUS,	150,	80,	false,	false,	false	},
+				[71118] = { 20112,	5*60,					apply.DEF_GRADE_BONUS,	125,	85,	true,	false,	false	},
+				[71119] = { 20112,	item.get_socket(2)*60,	apply.DEF_GRADE_BONUS,	200,	85,	false,	false,	false	},
+				[71120] = { 20113,	5*60,					apply.ATT_GRADE_BONUS,	200,	85,	true,	false,	false	},
+				[71121] = { 20113,	item.get_socket(2)*60,	apply.ATT_GRADE_BONUS,	300,	85,	false,	false,	false	},
+				[71124] = { 20114,	item.get_socket(2)*60, apply.POINT_MALL_EXPBONUS,	30,		10,	false,	false,	false	},
+		-- new mount                                                                                        
+				[71125] = { 20115,	item.get_socket(2)*60,	apply.ATTBONUS_MONSTER,	20,		75,	false,	false,	false},
+				[71126] = { 20116,	item.get_socket(2)*60,	apply.MAX_HP,			3000,	80,	false,	false,	false},
+				[71127] = { 20117,	item.get_socket(2)*60,	apply.DEF_GRADE_BONUS,	200,	80,	false,	false,	false},
+				[71128] = { 20118,	item.get_socket(2)*60,	apply.ATT_GRADE_BONUS,	300,	80,	false,	false,	false},
+				[71131] = { 20119,	item.get_socket(2)*60,	apply.MOV_SPEED,	60,		1,	false,	false,	false},
+				[71132] = { 20119,	item.get_socket(2)*60,	apply.MOV_SPEED,	60,		1,	false,	false,	false},
+				[71133] = { 20119,	item.get_socket(2)*60,	apply.MOV_SPEED,	60,		1,	false,	false,	false},
+				[71134] = { 20119,	item.get_socket(2)*60,	apply.MOV_SPEED,	60,		1,	false,	false,	false},
+				[71161] = { 20219,	item.get_socket(2)*60,	apply.MOV_SPEED,	60,		1,	false,	false,	false},
+
+				[52001] = { 20201,	60*60*24*365, apply.ATTBONUS_MONSTER,	0,	0,	false,	true	},
+				[52002] = { 20201,	60*60*24*365, apply.MALL_EXPBONUS,		0,	0,	false,	true	},
+				[52003] = { 20201,	60*60*24*365, apply.MAX_HP,				0,	0,	false,	true	},
+				[52004] = { 20201,	60*60*24*365, apply.DEF_GRADE_BONUS,	0,	0,	false,	true	},
+				[52005] = { 20201,	60*60*24*365, apply.ATT_GRADE_BONUS,	0,	0,	false,	true	},
+				[52006] = { 20205,	60*60*24*365, apply.ATTBONUS_MONSTER,	3,	0,	false,	true	},
+				[52007] = { 20205,	60*60*24*365, apply.MALL_EXPBONUS,		3,	0,	false,	true	},
+				[52008] = { 20205,	60*60*24*365, apply.MAX_HP,				250,	0,	false,	true	},
+				[52009] = { 20205,	60*60*24*365, apply.DEF_GRADE_BONUS,	50,	0,	false,	true	},
+				[52010] = { 20205,	60*60*24*365, apply.ATT_GRADE_BONUS,	30,	0,	false,	true	},
+				[52011] = { 20209,	60*60*24*365, apply.ATTBONUS_MONSTER,	5,	0,	false,	true	},
+				[52012] = { 20209,	60*60*24*365, apply.MALL_EXPBONUS,		5,	0,	false,	true	},
+				[52013] = { 20209,	60*60*24*365, apply.MAX_HP,				500,	0,	false,	true	},
+				[52014] = { 20209,	60*60*24*365, apply.DEF_GRADE_BONUS,	150,	0,	false,	true	},
+				[52015] = { 20209,	60*60*24*365, apply.ATT_GRADE_BONUS,	100,	0,	false,	true	},
+
+				[52016] = { 20202,	60*60*24*365, apply.ATTBONUS_MONSTER,	0,	0,	false,	true	},
+				[52017] = { 20202,	60*60*24*365, apply.MALL_EXPBONUS,		0,	0,	false,	true	},
+				[52018] = { 20202,	60*60*24*365, apply.MAX_HP,				0,	0,	false,	true	},
+				[52019] = { 20202,	60*60*24*365, apply.DEF_GRADE_BONUS,	0,	0,	false,	true	},
+				[52020] = { 20202,	60*60*24*365, apply.ATT_GRADE_BONUS,	0,	0,	false,	true	},
+				[52021] = { 20206,	60*60*24*365, apply.ATTBONUS_MONSTER,	3 ,	0,	false,	true	},
+				[52022] = { 20206,	60*60*24*365, apply.MALL_EXPBONUS,		3 ,	0,	false,	true	},
+				[52023] = { 20206,	60*60*24*365, apply.MAX_HP,				250,	0,	false,	true	},
+				[52024] = { 20206,	60*60*24*365, apply.DEF_GRADE_BONUS,	50,	0,	false,	true	},
+				[52025] = { 20206,	60*60*24*365, apply.ATT_GRADE_BONUS,	30,	0,	false,	true	},
+				[52026] = { 20210,	60*60*24*365, apply.ATTBONUS_MONSTER,	5 ,	0,	false,	true	},
+				[52027] = { 20210,	60*60*24*365, apply.MALL_EXPBONUS,		5 ,	0,	false,	true	},
+				[52028] = { 20210,	60*60*24*365, apply.MAX_HP,				500,	0,	false,	true	},
+				[52029] = { 20210,	60*60*24*365, apply.DEF_GRADE_BONUS,	150,	0,	false,	true	},
+				[52030] = { 20210,	60*60*24*365, apply.ATT_GRADE_BONUS,	100,	0,	false,	true	},
+
+
+				[52031]= { 20204,	60*60*24*365, apply.ATTBONUS_MONSTER,	0,	0,	false,	true	},
+				[52032]= { 20204,	60*60*24*365, apply.MALL_EXPBONUS,		0,	0,	false,	true	},
+				[52033]= { 20204,	60*60*24*365, apply.MAX_HP,				0,	0,	false,	true	},
+				[52034]= { 20204,	60*60*24*365, apply.DEF_GRADE_BONUS,	0,	0,	false,	true	},
+				[52035]= { 20204,	60*60*24*365, apply.ATT_GRADE_BONUS,	0,	0,	false,	true	},
+				[52036]= { 20208,	60*60*24*365, apply.ATTBONUS_MONSTER,	3 ,	0,	false,	true	},
+				[52037]= { 20208,	60*60*24*365, apply.MALL_EXPBONUS,		3 ,	0,	false,	true	},
+				[52038]= { 20208,	60*60*24*365, apply.MAX_HP,				250,	0,	false,	true	},
+				[52039]= { 20208,	60*60*24*365, apply.DEF_GRADE_BONUS,	50,	0,	false,	true	},
+				[52040]= { 20208,	60*60*24*365, apply.ATT_GRADE_BONUS,	30,	0,	false,	true	},
+				[52041]= { 20212,	60*60*24*365, apply.ATTBONUS_MONSTER,	5 ,	0,	false,	true	},
+				[52042]= { 20212,	60*60*24*365, apply.MALL_EXPBONUS,		5 ,	0,	false,	true	},
+				[52043]= { 20212,	60*60*24*365, apply.MAX_HP,				500,	0,	false,	true	},
+				[52044]= { 20212,	60*60*24*365, apply.DEF_GRADE_BONUS,	150,	0,	false,	true	},
+				[52045]= { 20212,	60*60*24*365, apply.ATT_GRADE_BONUS,	100,	0,	false,	true	},
+
+
+				[52046]= { 20203,	60*60*24*365, apply.ATTBONUS_MONSTER,	0,	0,	false,	true	},
+				[52047]= { 20203,	60*60*24*365, apply.MALL_EXPBONUS,		0,	0,	false,	true	},
+				[52048]= { 20203,	60*60*24*365, apply.MAX_HP,				0,	0,	false,	true	},
+				[52049]= { 20203,	60*60*24*365, apply.DEF_GRADE_BONUS,	0,	0,	false,	true	},
+				[52050]= { 20203,	60*60*24*365, apply.ATT_GRADE_BONUS,	0,	0,	false,	true	},
+				[52051]= { 20207,	60*60*24*365, apply.ATTBONUS_MONSTER,	3 ,	0,	false,	true	},
+				[52052]= { 20207,	60*60*24*365, apply.MALL_EXPBONUS,		3 ,	0,	false,	true	},
+				[52053]= { 20207,	60*60*24*365, apply.MAX_HP,				250,	0,	false,	true	},
+				[52054]= { 20207,	60*60*24*365, apply.DEF_GRADE_BONUS,	50,	0,	false,	true	},
+				[52055]= { 20207,	60*60*24*365, apply.ATT_GRADE_BONUS,	30,	0,	false,	true	},
+				[52056]= { 20211,	60*60*24*365, apply.ATTBONUS_MONSTER,	5 ,	0,	false,	true	},
+				[52057]= { 20211,	60*60*24*365, apply.MALL_EXPBONUS,		5 ,	0,	false,	true	},
+				[52058]= { 20211,	60*60*24*365, apply.MAX_HP,				500,	0,	false,	true	},
+				[52059]= { 20211,	60*60*24*365, apply.DEF_GRADE_BONUS,	150,	0,	false,	true	},
+				[52060]= { 20211,	60*60*24*365, apply.ATT_GRADE_BONUS,	100,	0,	false,	true	},
+	
+
+				-- Àü°©¼ý¼ø·Ï 
+				[52061]= { 20213,	60*60*24*365, apply.ATTBONUS_MONSTER,	0,	0,	false,	true	},
+				[52062]= { 20213,	60*60*24*365, apply.MALL_EXPBONUS,		0,	0,	false,	true	},
+				[52063]= { 20213,	60*60*24*365, apply.MAX_HP,				0,	0,	false,	true	},
+				[52064]= { 20213,	60*60*24*365, apply.DEF_GRADE_BONUS,	0,	0,	false,	true	},
+				[52065]= { 20213,	60*60*24*365, apply.ATT_GRADE_BONUS,	0,	0,	false,	true	},
+				[52066]= { 20214,	60*60*24*365, apply.ATTBONUS_MONSTER,	3 ,	0,	false,	true	},
+				[52067]= { 20214,	60*60*24*365, apply.MALL_EXPBONUS,		3 ,	0,	false,	true	},
+				[52068]= { 20214,	60*60*24*365, apply.MAX_HP,				250,	0,	false,	true	},
+				[52069]= { 20214,	60*60*24*365, apply.DEF_GRADE_BONUS,	50,	0,	false,	true	},
+				[52070]= { 20214,	60*60*24*365, apply.ATT_GRADE_BONUS,	30,	0,	false,	true	},
+				[52071]= { 20215,	60*60*24*365, apply.ATTBONUS_MONSTER,	5 ,	0,	false,	true	},
+				[52072]= { 20215,	60*60*24*365, apply.MALL_EXPBONUS,		5 ,	0,	false,	true	},
+				[52073]= { 20215,	60*60*24*365, apply.MAX_HP,				500,	0,	false,	true	},
+				[52074]= { 20215,	60*60*24*365, apply.DEF_GRADE_BONUS,	150,	0,	false,	true	},
+				[52075]= { 20215,	60*60*24*365, apply.ATT_GRADE_BONUS,	100,	0,	false,	true	},
+	
+				-- Àü°©¾Ï¼ø·Ï
+				[52076]= { 20216,	60*60*24*365, apply.ATTBONUS_MONSTER,	0,	0,	false,	true	},
+				[52077]= { 20216,	60*60*24*365, apply.MALL_EXPBONUS,		0,	0,	false,	true	},
+				[52078]= { 20216,	60*60*24*365, apply.MAX_HP,				0,	0,	false,	true	},
+				[52079]= { 20216,	60*60*24*365, apply.DEF_GRADE_BONUS,	0,	0,	false,	true	},
+				[52080]= { 20216,	60*60*24*365, apply.ATT_GRADE_BONUS,	0,	0,	false,	true	},
+				[52081]= { 20217,	60*60*24*365, apply.ATTBONUS_MONSTER,	3 ,	0,	false,	true	},
+				[52082]= { 20217,	60*60*24*365, apply.MALL_EXPBONUS,		3 ,	0,	false,	true	},
+				[52083]= { 20217,	60*60*24*365, apply.MAX_HP,				250,	0,	false,	true	},
+				[52084]= { 20217,	60*60*24*365, apply.DEF_GRADE_BONUS,	50,	0,	false,	true	},
+				[52085]= { 20217,	60*60*24*365, apply.ATT_GRADE_BONUS,	30,	0,	false,	true	},
+				[52086]= { 20218,	60*60*24*365, apply.ATTBONUS_MONSTER,	5 ,	0,	false,	true	},
+				[52087]= { 20218,	60*60*24*365, apply.MALL_EXPBONUS,		5 ,	0,	false,	true	},
+				[52088]= { 20218,	60*60*24*365, apply.MAX_HP,				500,	0,	false,	true	},
+				[52089]= { 20218,	60*60*24*365, apply.DEF_GRADE_BONUS,	150,	0,	false,	true	},
+				[52090]= { 20218,	60*60*24*365, apply.ATT_GRADE_BONUS,	100,	0,	false,	true	},
+				
+				}
+
+			if pc.level < ride_info[vnum][5] then
+				syschat("Your level is too low to use this mount.")
+			else
+				if ride_info[vnum][2] == 0 and remain_time != 0 then
+					pc.mount( ride_info[vnum][1], remain_time*60 )
+					pc.mount_bonus( ride_info[vnum][3], ride_info[vnum][4], remain_time*60 )
+				else
+					pc.mount( ride_info[vnum][1], ride_info[vnum][2] )
+					pc.mount_bonus( ride_info[vnum][3], ride_info[vnum][4], ride_info[vnum][2] )
+				end
+
+				if true == ride_info[vnum][6] then
+					pc.remove_item(vnum, 1)
+				end	
+			end	
+		end
+
+		when login begin
+			local vnum, remain_time = pc.get_special_ride_vnum()
+
+			if 0 != vnum then
+				ride.Ride(vnum, remain_time)
+			end
+		end
+
+		when 71114.use or 71115.use or 71116.use or 71117.use or
+			71118.use or 71119.use or 71120.use or 71121.use or 71124.use or
+			71125.use or 71126.use or 71127.use or 71128.use or
+			71131.use or 71132.use or 71133.use or 71134.use or 71161.use begin
+
+			if pc.is_polymorphed() then
+				syschat("Pas de monture lorsque vous êtes en polymorphie.")
+
+			elseif false == pc.is_riding() then
+			 	if true == horse.is_summon() then
+					horse.unsummon()
+				end
+				ride.Ride(item.vnum, 0)
+			else
+				pc.unmount()
+			end
+		end
+
+		when 52001.use or 52002.use or 52003.use or 52004.use or 52005.use or 52006.use or 52007.use or 52008.use or 52009.use or 52010.use or 52011.use or 52012.use or 52013.use or 52014.use or 52015.use or
+			52016.use or 52017.use or 52018.use or 52019.use or 52020.use or 52021.use or 52022.use or 52023.use or 52024.use or 52025.use or 52026.use or 52027.use or 52028.use or 52029.use or 52030.use or
+			52031.use or 52032.use or 52033.use or 52034.use or 52035.use or 52036.use or 52037.use or 52038.use or 52039.use or 52040.use or 52041.use or 52042.use or 52043.use or 52044.use or 52045.use or
+			52046.use or 52047.use or 52048.use or 52049.use or 52050.use or 52051.use or 52052.use or 52053.use or 52054.use or 52055.use or 52056.use or 52057.use or 52058.use or 52059.use or 52060.use or
+			52061.use or 52062.use or 52063.use or 52064.use or 52065.use or 52066.use or 52067.use or 52068.use or 52069.use or 52070.use or 52071.use or 52072.use or 52073.use or 52074.use or 52075.use or 
+			52076.use or 52077.use or 52078.use or 52079.use or 52080.use or 52081.use or 52082.use or 52083.use or 52084.use or 52085.use or 52086.use or 52087.use or 52088.use or 52089.use or 52090.use begin
+
+			if pc.is_polymorphed() then
+				syschat("Pas de monture lorsque vous êtes en polymorphie.")
+
+			elseif false == pc.is_riding() then
+			 	if true == horse.is_summon() then
+					horse.unsummon()
+				end
+
+				ride.Ride(item.vnum, 0)
+			else
+				pc.unmount()
+			end
+		end
+	end
+end

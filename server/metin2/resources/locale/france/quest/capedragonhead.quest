@@ -1,0 +1,38 @@
+quest capedragonhead begin
+	state start begin
+		when 9012.chat."Le monde du Dragon de Feu" with pc.level >= 90 begin
+			---                                                   l
+			say_title("Téléporteur:")
+			say("C'est un monde agréable et très joli. Cependant,")
+			say("la mal y grandit de plus en plus, l'espace et le")
+			say("temps tombent dans le chaos. C'est pour cela que")
+			say("la téléportation coûte 1000000 de Yangs.")
+			say("Voulez-vous être téléporté là-bas ?")
+
+			local a = select("Oui", "Non")
+
+			if a == 1 then
+				if pc.gold > 1000000 then
+					---                                                   l
+					say_title("Téléporteur:")
+					say("Je vais vous téléporter.")
+					say("L'endroit est très dangereux...")
+					say("Prudence et bonne chance...")
+					wait()
+					pc.changegold(-1000000)
+					pc.warp(1104900, 1788900)
+				else
+					---                                                   l
+					say_title("Téléporteur:")
+					say("Je pourrais te téléporter gratuitement, mais")
+					say("j'ai une famille à nourrir. Et pour se faire, il")
+					say("faut que je gagne de l'argent.")
+					return
+				end
+
+			elseif a == 2 then
+				return
+			end
+		end
+	end
+end

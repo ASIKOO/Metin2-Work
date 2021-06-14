@@ -1,0 +1,238 @@
+----------------------------------------------------
+--COLLECT QUEST_lv94
+--METIN2 Collection Quest
+----------------------------------------------------
+quest collect_quest_lv94 begin
+	state start begin
+	end
+
+	state run begin
+		when login or levelup with pc.level >= 94 begin
+			set_state(information)
+		end	
+	end
+
+	state information begin
+		when letter begin
+			send_letter("La recherche de Seon-Pyeong")
+			local v = find_npc_by_vnum(20091)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Seon-Pyeong")
+			end
+		end
+
+		when button or info begin
+			say_title("La recherche de Seon-Pyeong")
+			say("")
+			say("Seon-Pyeong vous cherche, il se trouve dans")
+			say("dans la Vallée du Dragon.")
+			say("S'il vous plaît, allez voir ce qu'il se passe.")
+			say("")
+		end
+		
+		when __TARGET__.target.click or 20091.chat."La recherche de Seon-Pyeong" begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Seon-Pyeong:")
+			say("Oh.. Brave guerrier! Je vous cherche car j'ai ")
+			say("besoin de votre aide!! ")
+			say("S'il vous plaît aidez-moi! ")
+			say("J'ai entendu dire que les monstres dans la grotte")
+			say("de l'Exil avaient quelques joyaux dont j'ai ")
+			say("besoin pour la recherche d'arme!")
+			say("")
+			wait()
+			say_title("Seon-Pyeong:")
+			say("Les joyaux doivent être être parfait!")
+			say("Je les évaluerai si vous m'en apportez!")
+			say("Les joyaux dont j'ai besoin, sont des joyaux")
+			say("de sagesse et il m'en faut 10.!")
+			say("")
+			set_state(go_to_disciple)
+			pc.setqf("duration",0)  -- Time limit
+			pc.setqf("collect_count",0)--Items collected
+			pc.setqf("drink_drug",0) --quest potion 1
+		end
+	end
+
+	state go_to_disciple begin
+		when letter begin
+			send_letter("La recherche de Seon-Pyeong")
+			
+		end
+		when button or info begin
+			say_title("Joyau de sagesse")
+			---                                                   l
+			say("Collectionneur d'armes, Seon-Pyeong collecte")
+			say("des pierres précieuses pour la recherche d'arme.")
+			say("Les joyaux peuvent-être trouvé sur les ")
+			say("archer setaou et les chef setaou dans la grotte")
+			say("de l'Exil.")
+			say_item_vnum(30252) 
+			say_reward("Actuellement vous avez collecté ".." "..pc.getqf("collect_count").."joyaux")
+			say("")
+		end
+		
+		when 71035.use begin 
+			if get_time() < pc.getqf("duration") then
+				syschat("Vous ne pouvez pas l'utiliser.")
+				return
+			end
+			if pc.getqf("drink_drug")==1 then
+				syschat("L'élixir fait déjà effet.")
+				return
+			end
+			if pc.count_item(30252)==0 then
+				syschat("Vous pouvez utiliser l'élixir qu'une fois que")
+				syschat("vous avez obtenu un joyau de sagesse. ")
+				return
+			end
+			item.remove()
+			pc.setqf("drink_drug",1)
+		end
+		
+		when 70030.use begin
+			if get_time() > pc.getqf("redm_duration") then
+				pc.setqf("monocles_used", 0)
+			end
+			if get_time() > pc.getqf("duration") then
+				syschat("Vous pouvez déjà donner le joyau de sagesse. Aucun Monocle nécessaire..")
+				return
+			end
+			if pc.getqf("monocles_used") > 2 then
+				syschat("Vous avez déjà utiliser 3 monocles aujourd'hui.")
+				return
+			end
+			if pc.getqf("monocles_used") == 0 then
+				pc.setqf("redm_duration", get_time()+24*60*60)
+			end
+			item.remove()
+			pc.setqf("duration", get_time()-1)
+			local use = pc.getqf("monocles_used")+1
+			pc.setqf("monocles_used",use)
+			syschat("Vous avez utilisé un monocle rouge. ")
+			syschat("Vous pouvez donner une joyau de sagesse à Seon-Pyeong.")
+		end
+
+		when 2402.kill or
+			 2404.kill  begin
+			local s = number(1, 100)
+			if s <= 1  then
+				pc.give_item2(30252, 1)
+				send_letter("Vous avez trouvé une joyau de sagesse!")		
+			end	
+		end
+
+		
+		when 20091.chat."Donner une joyau de sagesse? " with pc.count_item(30252) >0 begin
+			if get_time() > pc.getqf("duration") then
+				if pc.count_item(30252) >0 then
+					say_title("Seon-Pyeong:")
+					---                                                   l
+					say("Je suis désolé....")
+					say("Je n'ai pas encore fini la dernière analyse.")
+					say("Hmm.....Revenez plus tard.")
+					say("")
+					pc.remove_item(30252, 1)
+					if  is_test_server()  then 
+						pc.setqf("duration",get_time()+2) 
+					else
+						pc.setqf("duration",get_time()+60*60*8) -----------------------------------6hours
+					end
+					wait()
+				
+					local pass_percent
+					if pc.getqf("drink_drug")==0 then
+						pass_percent=15
+					else		
+						pass_percent=50
+					end
+				
+					local s= number(1,100)
+					if s<= pass_percent  then
+						if pc.getqf("collect_count")< 9 then     --Less than 10 
+							local index =pc.getqf("collect_count")+1 
+							pc.setqf("collect_count",index)     
+							say_title("Seon-Pyeong:")
+							say("Oh, Oh!! Excellent! Vous avez fait un super boulot...")
+							say("Maintenant vous devez encore apporter".." "..10-pc.getqf("collect_count").. "!!")
+							say("Continuez votre bon travail!")
+							say("")
+							pc.setqf("drink_drug",0)	 --Potion reset
+							return
+						end
+						while true do
+							say_title("Seon-Pyeong:")
+							say("")
+							say("Vous avez collecté tous les joyaux!")
+							say("Maintenant, s'il vous plaît choisir une récompense !")
+							say("")
+							s2 = select("point de vie +1100","Défense +140","attaque +60")
+							if 1== s2 then
+								if pc.getf("collect_quest_lv92","block_id") == 1 then
+									say_white("Vous ne pouvez pas prendre deux fois")
+									say_white("la même récompense.")
+									wait()
+								else
+									affect.add_collect(1, 1100, 60*60*24*365*60) --hp+3000  hp is 1 
+									pc.setf("collect_quest_lv94","block_id",1)
+									break
+								end
+							elseif 2== s2 then
+								if pc.getf("collect_quest_lv92","block_id") == 2 then
+									say_white("Vous ne pouvez pas prendre deux fois")
+									say_white("la même récompense.")
+									wait()
+								else
+									affect.add_collect(apply.DEF_GRADE_BONUS, 140, 60*60*24*365*60) 
+									pc.setf("collect_quest_lv94","block_id",2)
+									break
+								end
+							else 
+								if pc.getf("collect_quest_lv92","block_id") == 3 then
+									say_white("Vous ne pouvez pas prendre deux fois")
+									say_white("la même récompense.")
+									wait()
+								else
+									affect.add_collect(apply.ATT_GRADE_BONUS,60,60*60*24*365*60)--60years
+									pc.setf("collect_quest_lv94","block_id",3)
+									break
+								end
+							end
+						end
+						pc.setqf("collect_count",0)
+						pc.setqf("drink_drug",0)	
+						pc.setqf("duration",0) 
+						clear_letter()
+						set_quest_state("collect_quest_lv96", "run")
+						set_state(__complete2__)
+						return
+					else								
+						say_title("Seon-Pyeong:")
+						say("Je suis désolé, mais il s'agit d'un faux..")
+						say("S'il vous plaît apportez moi une autre")
+						say("")
+						pc.setqf("drink_drug",0)	 --Potion reset
+						return
+					end
+				else
+					say("Chaegirab:")
+					say(""..item_name(30252).."S'il vous plaît venez quand vous aurez")
+					return
+				end
+			else
+				say_title("Seon-Pyeong:")
+				say("Je suis désolé, mais il s'agit d'un faux..")
+				say("S'il vous plaît apportez moi une autre")
+				say("")
+				return
+			end
+		end
+	end
+	state __complete begin
+	end
+	state __complete2__ begin
+	end
+end
+
+
