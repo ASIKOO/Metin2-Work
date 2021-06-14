@@ -1,0 +1,12 @@
+*.o
+*.sdf
+*.obj
+*.eix
+*.epk
+*.suo
+*.a
+/src/dump/dump_proto/Debug/*
+/src/dump/dump_proto/Release/*
+/src/dump/lzo/Debug/*
+*.core
+/src/dump/lzo/Release/*
